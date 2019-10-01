@@ -36,7 +36,40 @@ class SfnApi {
   /// Step Functions will ignore these differences and treat it as an idempotent
   /// request of the previous. In this case, `tags` will not be updated, even if
   /// they are different.
-  Future<void> createActivity(String name, {List<Tag> tags}) async {}
+  ///
+  /// [name]: The name of the activity to create. This name must be unique for
+  /// your AWS account and region for 90 days. For more information, see
+  /// [Limits Related to State Machine
+  /// Executions](https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions)
+  /// in the _AWS Step Functions Developer Guide_.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  ///
+  /// [tags]: The list of tags to add to a resource.
+  ///
+  /// An array of key-value pairs. For more information, see [Using Cost
+  /// Allocation
+  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// in the _AWS Billing and Cost Management User Guide_, and [Controlling
+  /// Access Using IAM
+  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  ///
+  /// Tags may only contain Unicode letters, digits, white space, or these
+  /// symbols: `_ . : / = + - @`.
+  Future<CreateActivityOutput> createActivity(String name,
+      {List<Tag> tags}) async {
+    return CreateActivityOutput.fromJson({});
+  }
 
   /// Creates a state machine. A state machine consists of a collection of
   /// states that can do work (`Task` states), determine to which states to
@@ -53,14 +86,53 @@ class SfnApi {
   /// differences and treat it as an idempotent request of the previous. In this
   /// case, `roleArn` and `tags` will not be updated, even if they are
   /// different.
-  Future<void> createStateMachine(
+  ///
+  /// [name]: The name of the state machine.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  ///
+  /// [definition]: The Amazon States Language definition of the state machine.
+  /// See [Amazon States
+  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  ///
+  /// [roleArn]: The Amazon Resource Name (ARN) of the IAM role to use for this
+  /// state machine.
+  ///
+  /// [tags]: Tags to be added when creating a state machine.
+  ///
+  /// An array of key-value pairs. For more information, see [Using Cost
+  /// Allocation
+  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// in the _AWS Billing and Cost Management User Guide_, and [Controlling
+  /// Access Using IAM
+  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  ///
+  /// Tags may only contain Unicode letters, digits, white space, or these
+  /// symbols: `_ . : / = + - @`.
+  Future<CreateStateMachineOutput> createStateMachine(
       {@required String name,
       @required String definition,
       @required String roleArn,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateStateMachineOutput.fromJson({});
+  }
 
   /// Deletes an activity.
-  Future<void> deleteActivity(String activityArn) async {}
+  ///
+  /// [activityArn]: The Amazon Resource Name (ARN) of the activity to delete.
+  Future<DeleteActivityOutput> deleteActivity(String activityArn) async {
+    return DeleteActivityOutput.fromJson({});
+  }
 
   /// Deletes a state machine. This is an asynchronous operation: It sets the
   /// state machine's status to `DELETING` and begins the deletion process. Each
@@ -71,7 +143,13 @@ class SfnApi {
   ///
   /// The state machine itself is deleted after all executions are completed or
   /// deleted.
-  Future<void> deleteStateMachine(String stateMachineArn) async {}
+  ///
+  /// [stateMachineArn]: The Amazon Resource Name (ARN) of the state machine to
+  /// delete.
+  Future<DeleteStateMachineOutput> deleteStateMachine(
+      String stateMachineArn) async {
+    return DeleteStateMachineOutput.fromJson({});
+  }
 
   /// Describes an activity.
   ///
@@ -79,7 +157,11 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> describeActivity(String activityArn) async {}
+  ///
+  /// [activityArn]: The Amazon Resource Name (ARN) of the activity to describe.
+  Future<DescribeActivityOutput> describeActivity(String activityArn) async {
+    return DescribeActivityOutput.fromJson({});
+  }
 
   /// Describes an execution.
   ///
@@ -87,7 +169,12 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> describeExecution(String executionArn) async {}
+  ///
+  /// [executionArn]: The Amazon Resource Name (ARN) of the execution to
+  /// describe.
+  Future<DescribeExecutionOutput> describeExecution(String executionArn) async {
+    return DescribeExecutionOutput.fromJson({});
+  }
 
   /// Describes a state machine.
   ///
@@ -95,7 +182,13 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> describeStateMachine(String stateMachineArn) async {}
+  ///
+  /// [stateMachineArn]: The Amazon Resource Name (ARN) of the state machine to
+  /// describe.
+  Future<DescribeStateMachineOutput> describeStateMachine(
+      String stateMachineArn) async {
+    return DescribeStateMachineOutput.fromJson({});
+  }
 
   /// Describes the state machine associated with a specific execution.
   ///
@@ -103,7 +196,13 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> describeStateMachineForExecution(String executionArn) async {}
+  ///
+  /// [executionArn]: The Amazon Resource Name (ARN) of the execution you want
+  /// state machine information for.
+  Future<DescribeStateMachineForExecutionOutput>
+      describeStateMachineForExecution(String executionArn) async {
+    return DescribeStateMachineForExecutionOutput.fromJson({});
+  }
 
   /// Used by workers to retrieve a task (with the specified activity ARN) which
   /// has been scheduled for execution by a running state machine. This
@@ -123,7 +222,17 @@ class SfnApi {
   /// See [Avoid Latency When Polling for Activity
   /// Tasks](https://docs.aws.amazon.com/step-functions/latest/dg/bp-activity-pollers.html)
   /// in the Step Functions Developer Guide.
-  Future<void> getActivityTask(String activityArn, {String workerName}) async {}
+  ///
+  /// [activityArn]: The Amazon Resource Name (ARN) of the activity to retrieve
+  /// tasks from (assigned when you create the task using CreateActivity.)
+  ///
+  /// [workerName]: You can provide an arbitrary name in order to identify the
+  /// worker that the task is assigned to. This name is used when it is logged
+  /// in the execution history.
+  Future<GetActivityTaskOutput> getActivityTask(String activityArn,
+      {String workerName}) async {
+    return GetActivityTaskOutput.fromJson({});
+  }
 
   /// Returns the history of the specified execution as a list of events. By
   /// default, the results are returned in ascending order of the `timeStamp` of
@@ -135,8 +244,29 @@ class SfnApi {
   /// again using the returned token to retrieve the next page. Keep all other
   /// arguments unchanged. Each pagination token expires after 24 hours. Using
   /// an expired pagination token will return an _HTTP 400 InvalidToken_ error.
-  Future<void> getExecutionHistory(String executionArn,
-      {int maxResults, bool reverseOrder, String nextToken}) async {}
+  ///
+  /// [executionArn]: The Amazon Resource Name (ARN) of the execution.
+  ///
+  /// [maxResults]: The maximum number of results that are returned per call.
+  /// You can use `nextToken` to obtain further pages of results. The default is
+  /// 100 and the maximum allowed page size is 1000. A value of 0 uses the
+  /// default.
+  ///
+  /// This is only an upper limit. The actual number of results returned per
+  /// call might be fewer than the specified maximum.
+  ///
+  /// [reverseOrder]: Lists events in descending order of their `timeStamp`.
+  ///
+  /// [nextToken]: If `nextToken` is returned, there are more results available.
+  /// The value of `nextToken` is a unique pagination token for each page. Make
+  /// the call again using the returned token to retrieve the next page. Keep
+  /// all other arguments unchanged. Each pagination token expires after 24
+  /// hours. Using an expired pagination token will return an _HTTP 400
+  /// InvalidToken_ error.
+  Future<GetExecutionHistoryOutput> getExecutionHistory(String executionArn,
+      {int maxResults, bool reverseOrder, String nextToken}) async {
+    return GetExecutionHistoryOutput.fromJson({});
+  }
 
   /// Lists the existing activities.
   ///
@@ -150,7 +280,25 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> listActivities({int maxResults, String nextToken}) async {}
+  ///
+  /// [maxResults]: The maximum number of results that are returned per call.
+  /// You can use `nextToken` to obtain further pages of results. The default is
+  /// 100 and the maximum allowed page size is 1000. A value of 0 uses the
+  /// default.
+  ///
+  /// This is only an upper limit. The actual number of results returned per
+  /// call might be fewer than the specified maximum.
+  ///
+  /// [nextToken]: If `nextToken` is returned, there are more results available.
+  /// The value of `nextToken` is a unique pagination token for each page. Make
+  /// the call again using the returned token to retrieve the next page. Keep
+  /// all other arguments unchanged. Each pagination token expires after 24
+  /// hours. Using an expired pagination token will return an _HTTP 400
+  /// InvalidToken_ error.
+  Future<ListActivitiesOutput> listActivities(
+      {int maxResults, String nextToken}) async {
+    return ListActivitiesOutput.fromJson({});
+  }
 
   /// Lists the executions of a state machine that meet the filtering criteria.
   /// Results are sorted by time, with the most recent execution first.
@@ -165,8 +313,31 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> listExecutions(String stateMachineArn,
-      {String statusFilter, int maxResults, String nextToken}) async {}
+  ///
+  /// [stateMachineArn]: The Amazon Resource Name (ARN) of the state machine
+  /// whose executions is listed.
+  ///
+  /// [statusFilter]: If specified, only list the executions whose current
+  /// execution status matches the given filter.
+  ///
+  /// [maxResults]: The maximum number of results that are returned per call.
+  /// You can use `nextToken` to obtain further pages of results. The default is
+  /// 100 and the maximum allowed page size is 1000. A value of 0 uses the
+  /// default.
+  ///
+  /// This is only an upper limit. The actual number of results returned per
+  /// call might be fewer than the specified maximum.
+  ///
+  /// [nextToken]: If `nextToken` is returned, there are more results available.
+  /// The value of `nextToken` is a unique pagination token for each page. Make
+  /// the call again using the returned token to retrieve the next page. Keep
+  /// all other arguments unchanged. Each pagination token expires after 24
+  /// hours. Using an expired pagination token will return an _HTTP 400
+  /// InvalidToken_ error.
+  Future<ListExecutionsOutput> listExecutions(String stateMachineArn,
+      {String statusFilter, int maxResults, String nextToken}) async {
+    return ListExecutionsOutput.fromJson({});
+  }
 
   /// Lists the existing state machines.
   ///
@@ -180,19 +351,55 @@ class SfnApi {
   ///
   /// This operation is eventually consistent. The results are best effort and
   /// may not reflect very recent updates and changes.
-  Future<void> listStateMachines({int maxResults, String nextToken}) async {}
+  ///
+  /// [maxResults]: The maximum number of results that are returned per call.
+  /// You can use `nextToken` to obtain further pages of results. The default is
+  /// 100 and the maximum allowed page size is 1000. A value of 0 uses the
+  /// default.
+  ///
+  /// This is only an upper limit. The actual number of results returned per
+  /// call might be fewer than the specified maximum.
+  ///
+  /// [nextToken]: If `nextToken` is returned, there are more results available.
+  /// The value of `nextToken` is a unique pagination token for each page. Make
+  /// the call again using the returned token to retrieve the next page. Keep
+  /// all other arguments unchanged. Each pagination token expires after 24
+  /// hours. Using an expired pagination token will return an _HTTP 400
+  /// InvalidToken_ error.
+  Future<ListStateMachinesOutput> listStateMachines(
+      {int maxResults, String nextToken}) async {
+    return ListStateMachinesOutput.fromJson({});
+  }
 
   /// List tags for a given resource.
   ///
   /// Tags may only contain Unicode letters, digits, white space, or these
   /// symbols: `_ . : / = + - @`.
-  Future<void> listTagsForResource(String resourceArn) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the Step Functions state
+  /// machine or activity.
+  Future<ListTagsForResourceOutput> listTagsForResource(
+      String resourceArn) async {
+    return ListTagsForResourceOutput.fromJson({});
+  }
 
   /// Used by activity workers and task states using the
   /// [callback](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token)
   /// pattern to report that the task identified by the `taskToken` failed.
-  Future<void> sendTaskFailure(String taskToken,
-      {String error, String cause}) async {}
+  ///
+  /// [taskToken]: The token that represents this task. Task tokens are
+  /// generated by Step Functions when tasks are assigned to a worker, or in the
+  /// [context
+  /// object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
+  /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
+  ///
+  /// [error]: The error code of the failure.
+  ///
+  /// [cause]: A more detailed explanation of the cause of the failure.
+  Future<SendTaskFailureOutput> sendTaskFailure(String taskToken,
+      {String error, String cause}) async {
+    return SendTaskFailureOutput.fromJson({});
+  }
 
   /// Used by activity workers and task states using the
   /// [callback](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token)
@@ -215,14 +422,32 @@ class SfnApi {
   /// Language definition, is its maximum allowed duration, regardless of the
   /// number of SendTaskHeartbeat requests received. Use `HeartbeatSeconds` to
   /// configure the timeout interval for heartbeats.
-  Future<void> sendTaskHeartbeat(String taskToken) async {}
+  ///
+  /// [taskToken]: The token that represents this task. Task tokens are
+  /// generated by Step Functions when tasks are assigned to a worker, or in the
+  /// [context
+  /// object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
+  /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
+  Future<SendTaskHeartbeatOutput> sendTaskHeartbeat(String taskToken) async {
+    return SendTaskHeartbeatOutput.fromJson({});
+  }
 
   /// Used by activity workers and task states using the
   /// [callback](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token)
   /// pattern to report that the task identified by the `taskToken` completed
   /// successfully.
-  Future<void> sendTaskSuccess(
-      {@required String taskToken, @required String output}) async {}
+  ///
+  /// [taskToken]: The token that represents this task. Task tokens are
+  /// generated by Step Functions when tasks are assigned to a worker, or in the
+  /// [context
+  /// object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
+  /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
+  ///
+  /// [output]: The JSON output of the task.
+  Future<SendTaskSuccessOutput> sendTaskSuccess(
+      {@required String taskToken, @required String output}) async {
+    return SendTaskSuccessOutput.fromJson({});
+  }
 
   /// Starts a state machine execution.
   ///
@@ -231,12 +456,53 @@ class SfnApi {
   /// return the same response as the original request. If the execution is
   /// closed or if the input is different, it will return a 400
   /// `ExecutionAlreadyExists` error. Names can be reused after 90 days.
-  Future<void> startExecution(String stateMachineArn,
-      {String name, String input}) async {}
+  ///
+  /// [stateMachineArn]: The Amazon Resource Name (ARN) of the state machine to
+  /// execute.
+  ///
+  /// [name]: The name of the execution. This name must be unique for your AWS
+  /// account, region, and state machine for 90 days. For more information, see
+  /// [Limits Related to State Machine
+  /// Executions](https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions)
+  /// in the _AWS Step Functions Developer Guide_.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  ///
+  /// [input]: The string that contains the JSON input data for the execution,
+  /// for example:
+  ///
+  ///  `"input": "{\\"first_name\\" : \\"test\\"}"`
+  ///
+  ///
+  ///
+  /// If you don't include any JSON input data, you still must include the two
+  /// braces, for example: `"input": "{}"`
+  Future<StartExecutionOutput> startExecution(String stateMachineArn,
+      {String name, String input}) async {
+    return StartExecutionOutput.fromJson({});
+  }
 
   /// Stops an execution.
-  Future<void> stopExecution(String executionArn,
-      {String error, String cause}) async {}
+  ///
+  /// [executionArn]: The Amazon Resource Name (ARN) of the execution to stop.
+  ///
+  /// [error]: The error code of the failure.
+  ///
+  /// [cause]: A more detailed explanation of the cause of the failure.
+  Future<StopExecutionOutput> stopExecution(String executionArn,
+      {String error, String cause}) async {
+    return StopExecutionOutput.fromJson({});
+  }
 
   /// Add a tag to a Step Functions resource.
   ///
@@ -249,12 +515,29 @@ class SfnApi {
   ///
   /// Tags may only contain Unicode letters, digits, white space, or these
   /// symbols: `_ . : / = + - @`.
-  Future<void> tagResource(
-      {@required String resourceArn, @required List<Tag> tags}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the Step Functions state
+  /// machine or activity.
+  ///
+  /// [tags]: The list of tags to add to a resource.
+  ///
+  /// Tags may only contain Unicode letters, digits, white space, or these
+  /// symbols: `_ . : / = + - @`.
+  Future<TagResourceOutput> tagResource(
+      {@required String resourceArn, @required List<Tag> tags}) async {
+    return TagResourceOutput.fromJson({});
+  }
 
   /// Remove a tag from a Step Functions resource
-  Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the Step Functions state
+  /// machine or activity.
+  ///
+  /// [tagKeys]: The list of tags to remove from the resource.
+  Future<UntagResourceOutput> untagResource(
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    return UntagResourceOutput.fromJson({});
+  }
 
   /// Updates an existing state machine by modifying its `definition` and/or
   /// `roleArn`. Running executions will continue to use the previous
@@ -267,118 +550,1154 @@ class SfnApi {
   /// `definition` and `roleArn`. Executions started immediately after calling
   /// `UpdateStateMachine` may use the previous state machine `definition` and
   /// `roleArn`.
-  Future<void> updateStateMachine(String stateMachineArn,
-      {String definition, String roleArn}) async {}
+  ///
+  /// [stateMachineArn]: The Amazon Resource Name (ARN) of the state machine.
+  ///
+  /// [definition]: The Amazon States Language definition of the state machine.
+  /// See [Amazon States
+  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  ///
+  /// [roleArn]: The Amazon Resource Name (ARN) of the IAM role of the state
+  /// machine.
+  Future<UpdateStateMachineOutput> updateStateMachine(String stateMachineArn,
+      {String definition, String roleArn}) async {
+    return UpdateStateMachineOutput.fromJson({});
+  }
 }
 
-class ActivityFailedEventDetails {}
+class ActivityFailedEventDetails {
+  /// The error code of the failure.
+  final String error;
 
-class ActivityListItem {}
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
 
-class ActivityScheduleFailedEventDetails {}
+  ActivityFailedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static ActivityFailedEventDetails fromJson(Map<String, dynamic> json) =>
+      ActivityFailedEventDetails();
+}
 
-class ActivityScheduledEventDetails {}
+class ActivityListItem {
+  /// The Amazon Resource Name (ARN) that identifies the activity.
+  final String activityArn;
 
-class ActivityStartedEventDetails {}
+  /// The name of the activity.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
 
-class ActivitySucceededEventDetails {}
+  /// The date the activity is created.
+  final DateTime creationDate;
 
-class ActivityTimedOutEventDetails {}
+  ActivityListItem({
+    @required this.activityArn,
+    @required this.name,
+    @required this.creationDate,
+  });
+  static ActivityListItem fromJson(Map<String, dynamic> json) =>
+      ActivityListItem();
+}
 
-class CreateActivityOutput {}
+class ActivityScheduleFailedEventDetails {
+  /// The error code of the failure.
+  final String error;
 
-class CreateStateMachineOutput {}
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
 
-class DeleteActivityOutput {}
+  ActivityScheduleFailedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static ActivityScheduleFailedEventDetails fromJson(
+          Map<String, dynamic> json) =>
+      ActivityScheduleFailedEventDetails();
+}
 
-class DeleteStateMachineOutput {}
+class ActivityScheduledEventDetails {
+  /// The Amazon Resource Name (ARN) of the scheduled activity.
+  final String resource;
 
-class DescribeActivityOutput {}
+  /// The JSON data input to the activity task.
+  final String input;
 
-class DescribeExecutionOutput {}
+  /// The maximum allowed duration of the activity task.
+  final BigInt timeoutInSeconds;
 
-class DescribeStateMachineForExecutionOutput {}
+  /// The maximum allowed duration between two heartbeats for the activity task.
+  final BigInt heartbeatInSeconds;
 
-class DescribeStateMachineOutput {}
+  ActivityScheduledEventDetails({
+    @required this.resource,
+    this.input,
+    this.timeoutInSeconds,
+    this.heartbeatInSeconds,
+  });
+  static ActivityScheduledEventDetails fromJson(Map<String, dynamic> json) =>
+      ActivityScheduledEventDetails();
+}
 
-class ExecutionAbortedEventDetails {}
+class ActivityStartedEventDetails {
+  /// The name of the worker that the task is assigned to. These names are
+  /// provided by the workers when calling GetActivityTask.
+  final String workerName;
 
-class ExecutionFailedEventDetails {}
+  ActivityStartedEventDetails({
+    this.workerName,
+  });
+  static ActivityStartedEventDetails fromJson(Map<String, dynamic> json) =>
+      ActivityStartedEventDetails();
+}
 
-class ExecutionListItem {}
+class ActivitySucceededEventDetails {
+  /// The JSON data output by the activity task.
+  final String output;
 
-class ExecutionStartedEventDetails {}
+  ActivitySucceededEventDetails({
+    this.output,
+  });
+  static ActivitySucceededEventDetails fromJson(Map<String, dynamic> json) =>
+      ActivitySucceededEventDetails();
+}
 
-class ExecutionSucceededEventDetails {}
+class ActivityTimedOutEventDetails {
+  /// The error code of the failure.
+  final String error;
 
-class ExecutionTimedOutEventDetails {}
+  /// A more detailed explanation of the cause of the timeout.
+  final String cause;
 
-class GetActivityTaskOutput {}
+  ActivityTimedOutEventDetails({
+    this.error,
+    this.cause,
+  });
+  static ActivityTimedOutEventDetails fromJson(Map<String, dynamic> json) =>
+      ActivityTimedOutEventDetails();
+}
 
-class GetExecutionHistoryOutput {}
+class CreateActivityOutput {
+  /// The Amazon Resource Name (ARN) that identifies the created activity.
+  final String activityArn;
 
-class HistoryEvent {}
+  /// The date the activity is created.
+  final DateTime creationDate;
 
-class LambdaFunctionFailedEventDetails {}
+  CreateActivityOutput({
+    @required this.activityArn,
+    @required this.creationDate,
+  });
+  static CreateActivityOutput fromJson(Map<String, dynamic> json) =>
+      CreateActivityOutput();
+}
 
-class LambdaFunctionScheduleFailedEventDetails {}
+class CreateStateMachineOutput {
+  /// The Amazon Resource Name (ARN) that identifies the created state machine.
+  final String stateMachineArn;
 
-class LambdaFunctionScheduledEventDetails {}
+  /// The date the state machine is created.
+  final DateTime creationDate;
 
-class LambdaFunctionStartFailedEventDetails {}
+  CreateStateMachineOutput({
+    @required this.stateMachineArn,
+    @required this.creationDate,
+  });
+  static CreateStateMachineOutput fromJson(Map<String, dynamic> json) =>
+      CreateStateMachineOutput();
+}
 
-class LambdaFunctionSucceededEventDetails {}
+class DeleteActivityOutput {
+  DeleteActivityOutput();
+  static DeleteActivityOutput fromJson(Map<String, dynamic> json) =>
+      DeleteActivityOutput();
+}
 
-class LambdaFunctionTimedOutEventDetails {}
+class DeleteStateMachineOutput {
+  DeleteStateMachineOutput();
+  static DeleteStateMachineOutput fromJson(Map<String, dynamic> json) =>
+      DeleteStateMachineOutput();
+}
 
-class ListActivitiesOutput {}
+class DescribeActivityOutput {
+  /// The Amazon Resource Name (ARN) that identifies the activity.
+  final String activityArn;
 
-class ListExecutionsOutput {}
+  /// The name of the activity.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
 
-class ListStateMachinesOutput {}
+  /// The date the activity is created.
+  final DateTime creationDate;
 
-class ListTagsForResourceOutput {}
+  DescribeActivityOutput({
+    @required this.activityArn,
+    @required this.name,
+    @required this.creationDate,
+  });
+  static DescribeActivityOutput fromJson(Map<String, dynamic> json) =>
+      DescribeActivityOutput();
+}
 
-class MapIterationEventDetails {}
+class DescribeExecutionOutput {
+  /// The Amazon Resource Name (ARN) that identifies the execution.
+  final String executionArn;
 
-class MapStateStartedEventDetails {}
+  /// The Amazon Resource Name (ARN) of the executed stated machine.
+  final String stateMachineArn;
 
-class SendTaskFailureOutput {}
+  /// The name of the execution.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
 
-class SendTaskHeartbeatOutput {}
+  /// The current status of the execution.
+  final String status;
 
-class SendTaskSuccessOutput {}
+  /// The date the execution is started.
+  final DateTime startDate;
 
-class StartExecutionOutput {}
+  /// If the execution has already ended, the date the execution stopped.
+  final DateTime stopDate;
 
-class StateEnteredEventDetails {}
+  /// The string that contains the JSON input data of the execution.
+  final String input;
 
-class StateExitedEventDetails {}
+  /// The JSON output data of the execution.
+  ///
+  ///
+  ///
+  /// This field is set only if the execution succeeds. If the execution fails,
+  /// this field is null.
+  final String output;
 
-class StateMachineListItem {}
+  DescribeExecutionOutput({
+    @required this.executionArn,
+    @required this.stateMachineArn,
+    this.name,
+    @required this.status,
+    @required this.startDate,
+    this.stopDate,
+    @required this.input,
+    this.output,
+  });
+  static DescribeExecutionOutput fromJson(Map<String, dynamic> json) =>
+      DescribeExecutionOutput();
+}
 
-class StopExecutionOutput {}
+class DescribeStateMachineForExecutionOutput {
+  /// The Amazon Resource Name (ARN) of the state machine associated with the
+  /// execution.
+  final String stateMachineArn;
 
-class Tag {}
+  /// The name of the state machine associated with the execution.
+  final String name;
 
-class TagResourceOutput {}
+  /// The Amazon States Language definition of the state machine. See [Amazon
+  /// States
+  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  final String definition;
 
-class TaskFailedEventDetails {}
+  /// The Amazon Resource Name (ARN) of the IAM role of the State Machine for
+  /// the execution.
+  final String roleArn;
 
-class TaskScheduledEventDetails {}
+  /// The date and time the state machine associated with an execution was
+  /// updated. For a newly created state machine, this is the creation date.
+  final DateTime updateDate;
 
-class TaskStartFailedEventDetails {}
+  DescribeStateMachineForExecutionOutput({
+    @required this.stateMachineArn,
+    @required this.name,
+    @required this.definition,
+    @required this.roleArn,
+    @required this.updateDate,
+  });
+  static DescribeStateMachineForExecutionOutput fromJson(
+          Map<String, dynamic> json) =>
+      DescribeStateMachineForExecutionOutput();
+}
 
-class TaskStartedEventDetails {}
+class DescribeStateMachineOutput {
+  /// The Amazon Resource Name (ARN) that identifies the state machine.
+  final String stateMachineArn;
 
-class TaskSubmitFailedEventDetails {}
+  /// The name of the state machine.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
 
-class TaskSubmittedEventDetails {}
+  /// The current status of the state machine.
+  final String status;
 
-class TaskSucceededEventDetails {}
+  /// The Amazon States Language definition of the state machine. See [Amazon
+  /// States
+  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  final String definition;
 
-class TaskTimedOutEventDetails {}
+  /// The Amazon Resource Name (ARN) of the IAM role used when creating this
+  /// state machine. (The IAM role maintains security by granting Step Functions
+  /// access to AWS resources.)
+  final String roleArn;
 
-class UntagResourceOutput {}
+  /// The date the state machine is created.
+  final DateTime creationDate;
 
-class UpdateStateMachineOutput {}
+  DescribeStateMachineOutput({
+    @required this.stateMachineArn,
+    @required this.name,
+    this.status,
+    @required this.definition,
+    @required this.roleArn,
+    @required this.creationDate,
+  });
+  static DescribeStateMachineOutput fromJson(Map<String, dynamic> json) =>
+      DescribeStateMachineOutput();
+}
+
+class ExecutionAbortedEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  ExecutionAbortedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static ExecutionAbortedEventDetails fromJson(Map<String, dynamic> json) =>
+      ExecutionAbortedEventDetails();
+}
+
+class ExecutionFailedEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  ExecutionFailedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static ExecutionFailedEventDetails fromJson(Map<String, dynamic> json) =>
+      ExecutionFailedEventDetails();
+}
+
+class ExecutionListItem {
+  /// The Amazon Resource Name (ARN) that identifies the execution.
+  final String executionArn;
+
+  /// The Amazon Resource Name (ARN) of the executed state machine.
+  final String stateMachineArn;
+
+  /// The name of the execution.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
+
+  /// The current status of the execution.
+  final String status;
+
+  /// The date the execution started.
+  final DateTime startDate;
+
+  /// If the execution already ended, the date the execution stopped.
+  final DateTime stopDate;
+
+  ExecutionListItem({
+    @required this.executionArn,
+    @required this.stateMachineArn,
+    @required this.name,
+    @required this.status,
+    @required this.startDate,
+    this.stopDate,
+  });
+  static ExecutionListItem fromJson(Map<String, dynamic> json) =>
+      ExecutionListItem();
+}
+
+class ExecutionStartedEventDetails {
+  /// The JSON data input to the execution.
+  final String input;
+
+  /// The Amazon Resource Name (ARN) of the IAM role used for executing AWS
+  /// Lambda tasks.
+  final String roleArn;
+
+  ExecutionStartedEventDetails({
+    this.input,
+    this.roleArn,
+  });
+  static ExecutionStartedEventDetails fromJson(Map<String, dynamic> json) =>
+      ExecutionStartedEventDetails();
+}
+
+class ExecutionSucceededEventDetails {
+  /// The JSON data output by the execution.
+  final String output;
+
+  ExecutionSucceededEventDetails({
+    this.output,
+  });
+  static ExecutionSucceededEventDetails fromJson(Map<String, dynamic> json) =>
+      ExecutionSucceededEventDetails();
+}
+
+class ExecutionTimedOutEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the timeout.
+  final String cause;
+
+  ExecutionTimedOutEventDetails({
+    this.error,
+    this.cause,
+  });
+  static ExecutionTimedOutEventDetails fromJson(Map<String, dynamic> json) =>
+      ExecutionTimedOutEventDetails();
+}
+
+class GetActivityTaskOutput {
+  /// A token that identifies the scheduled task. This token must be copied and
+  /// included in subsequent calls to SendTaskHeartbeat, SendTaskSuccess or
+  /// SendTaskFailure in order to report the progress or completion of the task.
+  final String taskToken;
+
+  /// The string that contains the JSON input data for the task.
+  final String input;
+
+  GetActivityTaskOutput({
+    this.taskToken,
+    this.input,
+  });
+  static GetActivityTaskOutput fromJson(Map<String, dynamic> json) =>
+      GetActivityTaskOutput();
+}
+
+class GetExecutionHistoryOutput {
+  /// The list of events that occurred in the execution.
+  final List<HistoryEvent> events;
+
+  /// If `nextToken` is returned, there are more results available. The value of
+  /// `nextToken` is a unique pagination token for each page. Make the call
+  /// again using the returned token to retrieve the next page. Keep all other
+  /// arguments unchanged. Each pagination token expires after 24 hours. Using
+  /// an expired pagination token will return an _HTTP 400 InvalidToken_ error.
+  final String nextToken;
+
+  GetExecutionHistoryOutput({
+    @required this.events,
+    this.nextToken,
+  });
+  static GetExecutionHistoryOutput fromJson(Map<String, dynamic> json) =>
+      GetExecutionHistoryOutput();
+}
+
+class HistoryEvent {
+  /// The date and time the event occurred.
+  final DateTime timestamp;
+
+  /// The type of the event.
+  final String type;
+
+  /// The id of the event. Events are numbered sequentially, starting at one.
+  final BigInt id;
+
+  /// The id of the previous event.
+  final BigInt previousEventId;
+
+  final ActivityFailedEventDetails activityFailedEventDetails;
+
+  /// Contains details about an activity schedule event that failed during an
+  /// execution.
+  final ActivityScheduleFailedEventDetails activityScheduleFailedEventDetails;
+
+  final ActivityScheduledEventDetails activityScheduledEventDetails;
+
+  final ActivityStartedEventDetails activityStartedEventDetails;
+
+  final ActivitySucceededEventDetails activitySucceededEventDetails;
+
+  final ActivityTimedOutEventDetails activityTimedOutEventDetails;
+
+  /// Contains details about the failure of a task.
+  final TaskFailedEventDetails taskFailedEventDetails;
+
+  /// Contains details about a task that was scheduled.
+  final TaskScheduledEventDetails taskScheduledEventDetails;
+
+  /// Contains details about a task that failed to start.
+  final TaskStartFailedEventDetails taskStartFailedEventDetails;
+
+  /// Contains details about a task that was started.
+  final TaskStartedEventDetails taskStartedEventDetails;
+
+  /// Contains details about a task that where the submit failed.
+  final TaskSubmitFailedEventDetails taskSubmitFailedEventDetails;
+
+  /// Contains details about a submitted task.
+  final TaskSubmittedEventDetails taskSubmittedEventDetails;
+
+  /// Contains details about a task that succeeded.
+  final TaskSucceededEventDetails taskSucceededEventDetails;
+
+  /// Contains details about a task that timed out.
+  final TaskTimedOutEventDetails taskTimedOutEventDetails;
+
+  final ExecutionFailedEventDetails executionFailedEventDetails;
+
+  final ExecutionStartedEventDetails executionStartedEventDetails;
+
+  final ExecutionSucceededEventDetails executionSucceededEventDetails;
+
+  final ExecutionAbortedEventDetails executionAbortedEventDetails;
+
+  final ExecutionTimedOutEventDetails executionTimedOutEventDetails;
+
+  /// Contains details about Map state that was started.
+  final MapStateStartedEventDetails mapStateStartedEventDetails;
+
+  /// Contains details about an iteration of a Map state that was started.
+  final MapIterationEventDetails mapIterationStartedEventDetails;
+
+  /// Contains details about an iteration of a Map state that succeeded.
+  final MapIterationEventDetails mapIterationSucceededEventDetails;
+
+  /// Contains details about an iteration of a Map state that failed.
+  final MapIterationEventDetails mapIterationFailedEventDetails;
+
+  /// Contains details about an iteration of a Map state that was aborted.
+  final MapIterationEventDetails mapIterationAbortedEventDetails;
+
+  final LambdaFunctionFailedEventDetails lambdaFunctionFailedEventDetails;
+
+  final LambdaFunctionScheduleFailedEventDetails
+      lambdaFunctionScheduleFailedEventDetails;
+
+  final LambdaFunctionScheduledEventDetails lambdaFunctionScheduledEventDetails;
+
+  /// Contains details about a lambda function that failed to start during an
+  /// execution.
+  final LambdaFunctionStartFailedEventDetails
+      lambdaFunctionStartFailedEventDetails;
+
+  /// Contains details about a lambda function that terminated successfully
+  /// during an execution.
+  final LambdaFunctionSucceededEventDetails lambdaFunctionSucceededEventDetails;
+
+  final LambdaFunctionTimedOutEventDetails lambdaFunctionTimedOutEventDetails;
+
+  final StateEnteredEventDetails stateEnteredEventDetails;
+
+  final StateExitedEventDetails stateExitedEventDetails;
+
+  HistoryEvent({
+    @required this.timestamp,
+    @required this.type,
+    @required this.id,
+    this.previousEventId,
+    this.activityFailedEventDetails,
+    this.activityScheduleFailedEventDetails,
+    this.activityScheduledEventDetails,
+    this.activityStartedEventDetails,
+    this.activitySucceededEventDetails,
+    this.activityTimedOutEventDetails,
+    this.taskFailedEventDetails,
+    this.taskScheduledEventDetails,
+    this.taskStartFailedEventDetails,
+    this.taskStartedEventDetails,
+    this.taskSubmitFailedEventDetails,
+    this.taskSubmittedEventDetails,
+    this.taskSucceededEventDetails,
+    this.taskTimedOutEventDetails,
+    this.executionFailedEventDetails,
+    this.executionStartedEventDetails,
+    this.executionSucceededEventDetails,
+    this.executionAbortedEventDetails,
+    this.executionTimedOutEventDetails,
+    this.mapStateStartedEventDetails,
+    this.mapIterationStartedEventDetails,
+    this.mapIterationSucceededEventDetails,
+    this.mapIterationFailedEventDetails,
+    this.mapIterationAbortedEventDetails,
+    this.lambdaFunctionFailedEventDetails,
+    this.lambdaFunctionScheduleFailedEventDetails,
+    this.lambdaFunctionScheduledEventDetails,
+    this.lambdaFunctionStartFailedEventDetails,
+    this.lambdaFunctionSucceededEventDetails,
+    this.lambdaFunctionTimedOutEventDetails,
+    this.stateEnteredEventDetails,
+    this.stateExitedEventDetails,
+  });
+  static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent();
+}
+
+class LambdaFunctionFailedEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  LambdaFunctionFailedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static LambdaFunctionFailedEventDetails fromJson(Map<String, dynamic> json) =>
+      LambdaFunctionFailedEventDetails();
+}
+
+class LambdaFunctionScheduleFailedEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  LambdaFunctionScheduleFailedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static LambdaFunctionScheduleFailedEventDetails fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionScheduleFailedEventDetails();
+}
+
+class LambdaFunctionScheduledEventDetails {
+  /// The Amazon Resource Name (ARN) of the scheduled lambda function.
+  final String resource;
+
+  /// The JSON data input to the lambda function.
+  final String input;
+
+  /// The maximum allowed duration of the lambda function.
+  final BigInt timeoutInSeconds;
+
+  LambdaFunctionScheduledEventDetails({
+    @required this.resource,
+    this.input,
+    this.timeoutInSeconds,
+  });
+  static LambdaFunctionScheduledEventDetails fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionScheduledEventDetails();
+}
+
+class LambdaFunctionStartFailedEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  LambdaFunctionStartFailedEventDetails({
+    this.error,
+    this.cause,
+  });
+  static LambdaFunctionStartFailedEventDetails fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionStartFailedEventDetails();
+}
+
+class LambdaFunctionSucceededEventDetails {
+  /// The JSON data output by the lambda function.
+  final String output;
+
+  LambdaFunctionSucceededEventDetails({
+    this.output,
+  });
+  static LambdaFunctionSucceededEventDetails fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionSucceededEventDetails();
+}
+
+class LambdaFunctionTimedOutEventDetails {
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the timeout.
+  final String cause;
+
+  LambdaFunctionTimedOutEventDetails({
+    this.error,
+    this.cause,
+  });
+  static LambdaFunctionTimedOutEventDetails fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionTimedOutEventDetails();
+}
+
+class ListActivitiesOutput {
+  /// The list of activities.
+  final List<ActivityListItem> activities;
+
+  /// If `nextToken` is returned, there are more results available. The value of
+  /// `nextToken` is a unique pagination token for each page. Make the call
+  /// again using the returned token to retrieve the next page. Keep all other
+  /// arguments unchanged. Each pagination token expires after 24 hours. Using
+  /// an expired pagination token will return an _HTTP 400 InvalidToken_ error.
+  final String nextToken;
+
+  ListActivitiesOutput({
+    @required this.activities,
+    this.nextToken,
+  });
+  static ListActivitiesOutput fromJson(Map<String, dynamic> json) =>
+      ListActivitiesOutput();
+}
+
+class ListExecutionsOutput {
+  /// The list of matching executions.
+  final List<ExecutionListItem> executions;
+
+  /// If `nextToken` is returned, there are more results available. The value of
+  /// `nextToken` is a unique pagination token for each page. Make the call
+  /// again using the returned token to retrieve the next page. Keep all other
+  /// arguments unchanged. Each pagination token expires after 24 hours. Using
+  /// an expired pagination token will return an _HTTP 400 InvalidToken_ error.
+  final String nextToken;
+
+  ListExecutionsOutput({
+    @required this.executions,
+    this.nextToken,
+  });
+  static ListExecutionsOutput fromJson(Map<String, dynamic> json) =>
+      ListExecutionsOutput();
+}
+
+class ListStateMachinesOutput {
+  final List<StateMachineListItem> stateMachines;
+
+  /// If `nextToken` is returned, there are more results available. The value of
+  /// `nextToken` is a unique pagination token for each page. Make the call
+  /// again using the returned token to retrieve the next page. Keep all other
+  /// arguments unchanged. Each pagination token expires after 24 hours. Using
+  /// an expired pagination token will return an _HTTP 400 InvalidToken_ error.
+  final String nextToken;
+
+  ListStateMachinesOutput({
+    @required this.stateMachines,
+    this.nextToken,
+  });
+  static ListStateMachinesOutput fromJson(Map<String, dynamic> json) =>
+      ListStateMachinesOutput();
+}
+
+class ListTagsForResourceOutput {
+  /// An array of tags associated with the resource.
+  final List<Tag> tags;
+
+  ListTagsForResourceOutput({
+    this.tags,
+  });
+  static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
+      ListTagsForResourceOutput();
+}
+
+class MapIterationEventDetails {
+  /// The name of the iteration’s parent Map state.
+  final String name;
+
+  /// The index of the array belonging to the Map state iteration.
+  final int index;
+
+  MapIterationEventDetails({
+    this.name,
+    this.index,
+  });
+  static MapIterationEventDetails fromJson(Map<String, dynamic> json) =>
+      MapIterationEventDetails();
+}
+
+class MapStateStartedEventDetails {
+  /// The size of the array for Map state iterations.
+  final int length;
+
+  MapStateStartedEventDetails({
+    this.length,
+  });
+  static MapStateStartedEventDetails fromJson(Map<String, dynamic> json) =>
+      MapStateStartedEventDetails();
+}
+
+class SendTaskFailureOutput {
+  SendTaskFailureOutput();
+  static SendTaskFailureOutput fromJson(Map<String, dynamic> json) =>
+      SendTaskFailureOutput();
+}
+
+class SendTaskHeartbeatOutput {
+  SendTaskHeartbeatOutput();
+  static SendTaskHeartbeatOutput fromJson(Map<String, dynamic> json) =>
+      SendTaskHeartbeatOutput();
+}
+
+class SendTaskSuccessOutput {
+  SendTaskSuccessOutput();
+  static SendTaskSuccessOutput fromJson(Map<String, dynamic> json) =>
+      SendTaskSuccessOutput();
+}
+
+class StartExecutionOutput {
+  /// The Amazon Resource Name (ARN) that identifies the execution.
+  final String executionArn;
+
+  /// The date the execution is started.
+  final DateTime startDate;
+
+  StartExecutionOutput({
+    @required this.executionArn,
+    @required this.startDate,
+  });
+  static StartExecutionOutput fromJson(Map<String, dynamic> json) =>
+      StartExecutionOutput();
+}
+
+class StateEnteredEventDetails {
+  /// The name of the state.
+  final String name;
+
+  /// The string that contains the JSON input data for the state.
+  final String input;
+
+  StateEnteredEventDetails({
+    @required this.name,
+    this.input,
+  });
+  static StateEnteredEventDetails fromJson(Map<String, dynamic> json) =>
+      StateEnteredEventDetails();
+}
+
+class StateExitedEventDetails {
+  /// The name of the state.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
+
+  /// The JSON output data of the state.
+  final String output;
+
+  StateExitedEventDetails({
+    @required this.name,
+    this.output,
+  });
+  static StateExitedEventDetails fromJson(Map<String, dynamic> json) =>
+      StateExitedEventDetails();
+}
+
+class StateMachineListItem {
+  /// The Amazon Resource Name (ARN) that identifies the state machine.
+  final String stateMachineArn;
+
+  /// The name of the state machine.
+  ///
+  /// A name must _not_ contain:
+  ///
+  /// *   white space
+  ///
+  /// *   brackets `< \> { } \[ \]`
+  ///
+  /// *   wildcard characters `? *`
+  ///
+  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  ///
+  /// *   control characters (`U+0000-001F`, `U+007F-009F`)
+  final String name;
+
+  /// The date the state machine is created.
+  final DateTime creationDate;
+
+  StateMachineListItem({
+    @required this.stateMachineArn,
+    @required this.name,
+    @required this.creationDate,
+  });
+  static StateMachineListItem fromJson(Map<String, dynamic> json) =>
+      StateMachineListItem();
+}
+
+class StopExecutionOutput {
+  /// The date the execution is stopped.
+  final DateTime stopDate;
+
+  StopExecutionOutput({
+    @required this.stopDate,
+  });
+  static StopExecutionOutput fromJson(Map<String, dynamic> json) =>
+      StopExecutionOutput();
+}
+
+class Tag {
+  /// The key of a tag.
+  final String key;
+
+  /// The value of a tag.
+  final String value;
+
+  Tag({
+    this.key,
+    this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class TagResourceOutput {
+  TagResourceOutput();
+  static TagResourceOutput fromJson(Map<String, dynamic> json) =>
+      TagResourceOutput();
+}
+
+class TaskFailedEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  TaskFailedEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    this.error,
+    this.cause,
+  });
+  static TaskFailedEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskFailedEventDetails();
+}
+
+class TaskScheduledEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The region of the scheduled task
+  final String region;
+
+  /// The JSON data passed to the resource referenced in a task state.
+  final String parameters;
+
+  /// The maximum allowed duration of the task.
+  final BigInt timeoutInSeconds;
+
+  TaskScheduledEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    @required this.region,
+    @required this.parameters,
+    this.timeoutInSeconds,
+  });
+  static TaskScheduledEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskScheduledEventDetails();
+}
+
+class TaskStartFailedEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  TaskStartFailedEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    this.error,
+    this.cause,
+  });
+  static TaskStartFailedEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskStartFailedEventDetails();
+}
+
+class TaskStartedEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  TaskStartedEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+  });
+  static TaskStartedEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskStartedEventDetails();
+}
+
+class TaskSubmitFailedEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  TaskSubmitFailedEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    this.error,
+    this.cause,
+  });
+  static TaskSubmitFailedEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskSubmitFailedEventDetails();
+}
+
+class TaskSubmittedEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The response from a resource when a task has started.
+  final String output;
+
+  TaskSubmittedEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    this.output,
+  });
+  static TaskSubmittedEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskSubmittedEventDetails();
+}
+
+class TaskSucceededEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The full JSON response from a resource when a task has succeeded. This
+  /// response becomes the output of the related task.
+  final String output;
+
+  TaskSucceededEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    this.output,
+  });
+  static TaskSucceededEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskSucceededEventDetails();
+}
+
+class TaskTimedOutEventDetails {
+  /// The action of the resource called by a task state.
+  final String resourceType;
+
+  /// The service name of the resource in a task state.
+  final String resource;
+
+  /// The error code of the failure.
+  final String error;
+
+  /// A more detailed explanation of the cause of the failure.
+  final String cause;
+
+  TaskTimedOutEventDetails({
+    @required this.resourceType,
+    @required this.resource,
+    this.error,
+    this.cause,
+  });
+  static TaskTimedOutEventDetails fromJson(Map<String, dynamic> json) =>
+      TaskTimedOutEventDetails();
+}
+
+class UntagResourceOutput {
+  UntagResourceOutput();
+  static UntagResourceOutput fromJson(Map<String, dynamic> json) =>
+      UntagResourceOutput();
+}
+
+class UpdateStateMachineOutput {
+  /// The date and time the state machine was updated.
+  final DateTime updateDate;
+
+  UpdateStateMachineOutput({
+    @required this.updateDate,
+  });
+  static UpdateStateMachineOutput fromJson(Map<String, dynamic> json) =>
+      UpdateStateMachineOutput();
+}

@@ -4,81 +4,338 @@ import 'package:meta/meta.dart';
 class PinpointSmsVoiceApi {
   /// Create a new configuration set. After you create the configuration set,
   /// you can add one or more event destinations to it.
-  Future<void> createConfigurationSet({String configurationSetName}) async {}
+  ///
+  /// [configurationSetName]: The name that you want to give the configuration
+  /// set.
+  Future<CreateConfigurationSetResponse> createConfigurationSet(
+      {String configurationSetName}) async {
+    return CreateConfigurationSetResponse.fromJson({});
+  }
 
   /// Create a new event destination in a configuration set.
-  Future<void> createConfigurationSetEventDestination(
-      String configurationSetName,
-      {EventDestinationDefinition eventDestination,
-      String eventDestinationName}) async {}
+  ///
+  /// [configurationSetName]: ConfigurationSetName
+  ///
+  /// [eventDestinationName]: A name that identifies the event destination.
+  Future<CreateConfigurationSetEventDestinationResponse>
+      createConfigurationSetEventDestination(String configurationSetName,
+          {EventDestinationDefinition eventDestination,
+          String eventDestinationName}) async {
+    return CreateConfigurationSetEventDestinationResponse.fromJson({});
+  }
 
   /// Deletes an existing configuration set.
-  Future<void> deleteConfigurationSet(String configurationSetName) async {}
+  ///
+  /// [configurationSetName]: ConfigurationSetName
+  Future<DeleteConfigurationSetResponse> deleteConfigurationSet(
+      String configurationSetName) async {
+    return DeleteConfigurationSetResponse.fromJson({});
+  }
 
   /// Deletes an event destination in a configuration set.
-  Future<void> deleteConfigurationSetEventDestination(
-      {@required String configurationSetName,
-      @required String eventDestinationName}) async {}
+  ///
+  /// [configurationSetName]: ConfigurationSetName
+  ///
+  /// [eventDestinationName]: EventDestinationName
+  Future<DeleteConfigurationSetEventDestinationResponse>
+      deleteConfigurationSetEventDestination(
+          {@required String configurationSetName,
+          @required String eventDestinationName}) async {
+    return DeleteConfigurationSetEventDestinationResponse.fromJson({});
+  }
 
   /// Obtain information about an event destination, including the types of
   /// events it reports, the Amazon Resource Name (ARN) of the destination, and
   /// the name of the event destination.
-  Future<void> getConfigurationSetEventDestinations(
-      String configurationSetName) async {}
+  ///
+  /// [configurationSetName]: ConfigurationSetName
+  Future<GetConfigurationSetEventDestinationsResponse>
+      getConfigurationSetEventDestinations(String configurationSetName) async {
+    return GetConfigurationSetEventDestinationsResponse.fromJson({});
+  }
 
   /// List all of the configuration sets associated with your Amazon Pinpoint
   /// account in the current region.
-  Future<void> listConfigurationSets(
-      {String nextToken, String pageSize}) async {}
+  ///
+  /// [nextToken]: A token returned from a previous call to the API that
+  /// indicates the position in the list of results.
+  ///
+  /// [pageSize]: Used to specify the number of items that should be returned in
+  /// the response.
+  Future<ListConfigurationSetsResponse> listConfigurationSets(
+      {String nextToken, String pageSize}) async {
+    return ListConfigurationSetsResponse.fromJson({});
+  }
 
   /// Create a new voice message and send it to a recipient's phone number.
-  Future<void> sendVoiceMessage(
+  ///
+  /// [callerId]: The phone number that appears on recipients' devices when they
+  /// receive the message.
+  ///
+  /// [configurationSetName]: The name of the configuration set that you want to
+  /// use to send the message.
+  ///
+  /// [destinationPhoneNumber]: The phone number that you want to send the voice
+  /// message to.
+  ///
+  /// [originationPhoneNumber]: The phone number that Amazon Pinpoint should use
+  /// to send the voice message. This isn't necessarily the phone number that
+  /// appears on recipients' devices when they receive the message, because you
+  /// can specify a CallerId parameter in the request.
+  Future<SendVoiceMessageResponse> sendVoiceMessage(
       {String callerId,
       String configurationSetName,
       VoiceMessageContent content,
       String destinationPhoneNumber,
-      String originationPhoneNumber}) async {}
+      String originationPhoneNumber}) async {
+    return SendVoiceMessageResponse.fromJson({});
+  }
 
   /// Update an event destination in a configuration set. An event destination
   /// is a location that you publish information about your voice calls to. For
   /// example, you can log an event to an Amazon CloudWatch destination when a
   /// call fails.
-  Future<void> updateConfigurationSetEventDestination(
-      {@required String configurationSetName,
-      EventDestinationDefinition eventDestination,
-      @required String eventDestinationName}) async {}
+  ///
+  /// [configurationSetName]: ConfigurationSetName
+  ///
+  /// [eventDestinationName]: EventDestinationName
+  Future<UpdateConfigurationSetEventDestinationResponse>
+      updateConfigurationSetEventDestination(
+          {@required String configurationSetName,
+          EventDestinationDefinition eventDestination,
+          @required String eventDestinationName}) async {
+    return UpdateConfigurationSetEventDestinationResponse.fromJson({});
+  }
 }
 
-class CallInstructionsMessageType {}
+class CallInstructionsMessageType {
+  /// The language to use when delivering the message. For a complete list of
+  /// supported languages, see the Amazon Polly Developer Guide.
+  final String text;
 
-class CloudWatchLogsDestination {}
+  CallInstructionsMessageType({
+    this.text,
+  });
+}
 
-class CreateConfigurationSetEventDestinationResponse {}
+class CloudWatchLogsDestination {
+  /// The Amazon Resource Name (ARN) of an Amazon Identity and Access Management
+  /// (IAM) role that is able to write event data to an Amazon CloudWatch
+  /// destination.
+  final String iamRoleArn;
 
-class CreateConfigurationSetResponse {}
+  /// The name of the Amazon CloudWatch Log Group that you want to record events
+  /// in.
+  final String logGroupArn;
 
-class DeleteConfigurationSetEventDestinationResponse {}
+  CloudWatchLogsDestination({
+    this.iamRoleArn,
+    this.logGroupArn,
+  });
+  static CloudWatchLogsDestination fromJson(Map<String, dynamic> json) =>
+      CloudWatchLogsDestination();
+}
 
-class DeleteConfigurationSetResponse {}
+class CreateConfigurationSetEventDestinationResponse {
+  CreateConfigurationSetEventDestinationResponse();
+  static CreateConfigurationSetEventDestinationResponse fromJson(
+          Map<String, dynamic> json) =>
+      CreateConfigurationSetEventDestinationResponse();
+}
 
-class EventDestination {}
+class CreateConfigurationSetResponse {
+  CreateConfigurationSetResponse();
+  static CreateConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
+      CreateConfigurationSetResponse();
+}
 
-class EventDestinationDefinition {}
+class DeleteConfigurationSetEventDestinationResponse {
+  DeleteConfigurationSetEventDestinationResponse();
+  static DeleteConfigurationSetEventDestinationResponse fromJson(
+          Map<String, dynamic> json) =>
+      DeleteConfigurationSetEventDestinationResponse();
+}
 
-class GetConfigurationSetEventDestinationsResponse {}
+class DeleteConfigurationSetResponse {
+  DeleteConfigurationSetResponse();
+  static DeleteConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
+      DeleteConfigurationSetResponse();
+}
 
-class KinesisFirehoseDestination {}
+class EventDestination {
+  final CloudWatchLogsDestination cloudWatchLogsDestination;
 
-class ListConfigurationSetsResponse {}
+  /// Indicates whether or not the event destination is enabled. If the event
+  /// destination is enabled, then Amazon Pinpoint sends response data to the
+  /// specified event destination.
+  final bool enabled;
 
-class PlainTextMessageType {}
+  final KinesisFirehoseDestination kinesisFirehoseDestination;
 
-class SsmlMessageType {}
+  final List<String> matchingEventTypes;
 
-class SendVoiceMessageResponse {}
+  /// A name that identifies the event destination configuration.
+  final String name;
 
-class SnsDestination {}
+  final SnsDestination snsDestination;
 
-class UpdateConfigurationSetEventDestinationResponse {}
+  EventDestination({
+    this.cloudWatchLogsDestination,
+    this.enabled,
+    this.kinesisFirehoseDestination,
+    this.matchingEventTypes,
+    this.name,
+    this.snsDestination,
+  });
+  static EventDestination fromJson(Map<String, dynamic> json) =>
+      EventDestination();
+}
 
-class VoiceMessageContent {}
+class EventDestinationDefinition {
+  final CloudWatchLogsDestination cloudWatchLogsDestination;
+
+  /// Indicates whether or not the event destination is enabled. If the event
+  /// destination is enabled, then Amazon Pinpoint sends response data to the
+  /// specified event destination.
+  final bool enabled;
+
+  final KinesisFirehoseDestination kinesisFirehoseDestination;
+
+  final List<String> matchingEventTypes;
+
+  final SnsDestination snsDestination;
+
+  EventDestinationDefinition({
+    this.cloudWatchLogsDestination,
+    this.enabled,
+    this.kinesisFirehoseDestination,
+    this.matchingEventTypes,
+    this.snsDestination,
+  });
+}
+
+class GetConfigurationSetEventDestinationsResponse {
+  final List<EventDestination> eventDestinations;
+
+  GetConfigurationSetEventDestinationsResponse({
+    this.eventDestinations,
+  });
+  static GetConfigurationSetEventDestinationsResponse fromJson(
+          Map<String, dynamic> json) =>
+      GetConfigurationSetEventDestinationsResponse();
+}
+
+class KinesisFirehoseDestination {
+  /// The Amazon Resource Name (ARN) of an IAM role that can write data to an
+  /// Amazon Kinesis Data Firehose stream.
+  final String deliveryStreamArn;
+
+  /// The Amazon Resource Name (ARN) of the Amazon Kinesis Data Firehose
+  /// destination that you want to use in the event destination.
+  final String iamRoleArn;
+
+  KinesisFirehoseDestination({
+    this.deliveryStreamArn,
+    this.iamRoleArn,
+  });
+  static KinesisFirehoseDestination fromJson(Map<String, dynamic> json) =>
+      KinesisFirehoseDestination();
+}
+
+class ListConfigurationSetsResponse {
+  /// An object that contains a list of configuration sets for your account in
+  /// the current region.
+  final List<String> configurationSets;
+
+  /// A token returned from a previous call to ListConfigurationSets to indicate
+  /// the position in the list of configuration sets.
+  final String nextToken;
+
+  ListConfigurationSetsResponse({
+    this.configurationSets,
+    this.nextToken,
+  });
+  static ListConfigurationSetsResponse fromJson(Map<String, dynamic> json) =>
+      ListConfigurationSetsResponse();
+}
+
+class PlainTextMessageType {
+  /// The language to use when delivering the message. For a complete list of
+  /// supported languages, see the Amazon Polly Developer Guide.
+  final String languageCode;
+
+  /// The plain (not SSML-formatted) text to deliver to the recipient.
+  final String text;
+
+  /// The name of the voice that you want to use to deliver the message. For a
+  /// complete list of supported voices, see the Amazon Polly Developer Guide.
+  final String voiceId;
+
+  PlainTextMessageType({
+    this.languageCode,
+    this.text,
+    this.voiceId,
+  });
+}
+
+class SsmlMessageType {
+  /// The language to use when delivering the message. For a complete list of
+  /// supported languages, see the Amazon Polly Developer Guide.
+  final String languageCode;
+
+  /// The SSML-formatted text to deliver to the recipient.
+  final String text;
+
+  /// The name of the voice that you want to use to deliver the message. For a
+  /// complete list of supported voices, see the Amazon Polly Developer Guide.
+  final String voiceId;
+
+  SsmlMessageType({
+    this.languageCode,
+    this.text,
+    this.voiceId,
+  });
+}
+
+class SendVoiceMessageResponse {
+  /// A unique identifier for the voice message.
+  final String messageId;
+
+  SendVoiceMessageResponse({
+    this.messageId,
+  });
+  static SendVoiceMessageResponse fromJson(Map<String, dynamic> json) =>
+      SendVoiceMessageResponse();
+}
+
+class SnsDestination {
+  /// The Amazon Resource Name (ARN) of the Amazon SNS topic that you want to
+  /// publish events to.
+  final String topicArn;
+
+  SnsDestination({
+    this.topicArn,
+  });
+  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination();
+}
+
+class UpdateConfigurationSetEventDestinationResponse {
+  UpdateConfigurationSetEventDestinationResponse();
+  static UpdateConfigurationSetEventDestinationResponse fromJson(
+          Map<String, dynamic> json) =>
+      UpdateConfigurationSetEventDestinationResponse();
+}
+
+class VoiceMessageContent {
+  final CallInstructionsMessageType callInstructionsMessage;
+
+  final PlainTextMessageType plainTextMessage;
+
+  final SsmlMessageType ssmlMessage;
+
+  VoiceMessageContent({
+    this.callInstructionsMessage,
+    this.plainTextMessage,
+    this.ssmlMessage,
+  });
+}

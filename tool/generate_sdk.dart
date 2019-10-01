@@ -5,7 +5,10 @@ import 'package:dart_style/dart_style.dart';
 
 import 'generator/api.dart';
 import 'generator/schema.dart';
+import 'generator/utils/case_format.dart';
+import 'generator/utils/dart_keywords.dart';
 import 'generator/utils/documentation_comment.dart';
+import 'generator/utils/split_words.dart';
 
 final destination = 'lib/apis';
 final _dartFormatter = DartFormatter();
@@ -28,7 +31,11 @@ main() {
     code.writeln("import 'package:meta/meta.dart';");
 
     var imports = <String>{
-      for (var operation in api.operations) ...operation.parameterImports
+      for (var operation in api.operations) ...operation.parameterImports,
+      for (var operation in api.operations) ...operation.returnDartType.imports,
+      for (var declaration in api.declarations)
+        for (var member in declaration.members)
+          ...member.shape.dartType.imports,
     };
     for (var import in imports) {
       code.writeln("import '$import';");
@@ -38,10 +45,22 @@ main() {
     code.writeln('class ${api.apiClassName} {');
     for (var operation in api.operations) {
       code.writeln(documentationComment(operation.operation.documentation, indent: 2));
+
+      for (var parameter in operation.parameters) {
+        if (parameter.documentation != null) {
+          code.writeln('  /// ');
+          code.writeln(documentationComment('${parameter.documentation}', argumentName: parameter.dartName, indent: 2));
+        }
+      }
       //TODO(xha): ajouter toute la documentation pour les arguments et la valeur de retour
 
       code.writeln(
-          'Future<void> ${operation.methodName}(${operation.parametersCode}) async {');
+          'Future<${operation.returnDartType}> ${operation.methodName}(${operation.parametersCode}) async {');
+
+      if (operation.output != null) {
+        Structure output = operation.output;
+        code.writeln('return ${output.className}.fromJson({});');
+      }
 
       code.writeln('}');
       code.writeln('');
@@ -50,27 +69,30 @@ main() {
 
     for (var declaration in api.declarations) {
       code.writeln('class ${declaration.className} {');
+      var properties = declaration.properties;
+      for (var property in properties) {
+        code.writeln(documentationComment(property.member.documentation, indent: 2));
+        code.writeln('final ${property.member.shape.dartType.name} ${property.dartName};');
+        code.writeln('');
+      }
+
+      code.writeln('${declaration.className}(');
+      if (properties.isNotEmpty) {
+        code.write('{');
+      }
+      for (var property in properties) {
+        code.writeln('${property.isRequired ? '@required' : ''} this.${property.dartName},');
+      }
+      if (properties.isNotEmpty) {
+        code.write('}');
+      }
+      code.writeln(');');
+      if (declaration.isOutput()) {
+        code.writeln('static ${declaration.className} fromJson(Map<String, dynamic> json) => ${declaration.className}();');
+      }
 
       code.writeln('}');
     }
-
-//    Map<String, dynamic> shapes = json['shapes'];
-//    for (var shapeName in shapes.keys) {
-//      Map<String, dynamic> shapeInfo = shapes[shapeName];
-//      var type = shapeInfo['type'];
-//      if (type == 'structure') {
-//        code.writeln('class $shapeName {');
-//        Map<String, dynamic> members = shapeInfo['members'];
-//        for (var member in members.entries) {
-//          var memberInfo = member.value;
-//          var memberShape = memberInfo['shape'];
-//
-//          code.writeln('  var ${member.key};');
-//        }
-//
-//        code.writeln('}');
-//      }
-//    }
 
     var formattedCode = _dartFormatter.format(code.toString());
     var destinationFile = p.join(destination, api.fileName + '.dart');

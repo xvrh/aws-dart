@@ -55,13 +55,55 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> countClosedWorkflowExecutions(String domain,
+  ///
+  /// [domain]: The name of the domain containing the workflow executions to
+  /// count.
+  ///
+  /// [startTimeFilter]: If specified, only workflow executions that meet the
+  /// start time criteria of the filter are counted.
+  ///
+  ///   `startTimeFilter` and `closeTimeFilter` are mutually exclusive. You must
+  /// specify one of these in a request but not both.
+  ///
+  /// [closeTimeFilter]: If specified, only workflow executions that meet the
+  /// close time criteria of the filter are counted.
+  ///
+  ///   `startTimeFilter` and `closeTimeFilter` are mutually exclusive. You must
+  /// specify one of these in a request but not both.
+  ///
+  /// [executionFilter]: If specified, only workflow executions matching the
+  /// `WorkflowId` in the filter are counted.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [typeFilter]: If specified, indicates the type of the workflow executions
+  /// to be counted.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [tagFilter]: If specified, only executions that have a tag that matches
+  /// the filter are counted.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [closeStatusFilter]: If specified, only workflow executions that match
+  /// this close status are counted. This filter has an affect only if
+  /// `executionStatus` is specified as `CLOSED`.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  Future<WorkflowExecutionCount> countClosedWorkflowExecutions(String domain,
       {ExecutionTimeFilter startTimeFilter,
       ExecutionTimeFilter closeTimeFilter,
       WorkflowExecutionFilter executionFilter,
       WorkflowTypeFilter typeFilter,
       TagFilter tagFilter,
-      CloseStatusFilter closeStatusFilter}) async {}
+      CloseStatusFilter closeStatusFilter}) async {
+    return WorkflowExecutionCount.fromJson({});
+  }
 
   /// Returns the number of open workflow executions within the given domain
   /// that meet the specified filtering criteria.
@@ -101,12 +143,37 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> countOpenWorkflowExecutions(
+  ///
+  /// [domain]: The name of the domain containing the workflow executions to
+  /// count.
+  ///
+  /// [startTimeFilter]: Specifies the start time criteria that workflow
+  /// executions must meet in order to be counted.
+  ///
+  /// [typeFilter]: Specifies the type of the workflow executions to be counted.
+  ///
+  ///   `executionFilter`, `typeFilter` and `tagFilter` are mutually exclusive.
+  /// You can specify at most one of these in a request.
+  ///
+  /// [tagFilter]: If specified, only executions that have a tag that matches
+  /// the filter are counted.
+  ///
+  ///   `executionFilter`, `typeFilter` and `tagFilter` are mutually exclusive.
+  /// You can specify at most one of these in a request.
+  ///
+  /// [executionFilter]: If specified, only workflow executions matching the
+  /// `WorkflowId` in the filter are counted.
+  ///
+  ///   `executionFilter`, `typeFilter` and `tagFilter` are mutually exclusive.
+  /// You can specify at most one of these in a request.
+  Future<WorkflowExecutionCount> countOpenWorkflowExecutions(
       {@required String domain,
       @required ExecutionTimeFilter startTimeFilter,
       WorkflowTypeFilter typeFilter,
       TagFilter tagFilter,
-      WorkflowExecutionFilter executionFilter}) async {}
+      WorkflowExecutionFilter executionFilter}) async {
+    return WorkflowExecutionCount.fromJson({});
+  }
 
   /// Returns the estimated number of activity tasks in the specified task list.
   /// The count returned is an approximation and isn't guaranteed to be exact.
@@ -136,8 +203,14 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> countPendingActivityTasks(
-      {@required String domain, @required TaskList taskList}) async {}
+  ///
+  /// [domain]: The name of the domain that contains the task list.
+  ///
+  /// [taskList]: The name of the task list.
+  Future<PendingTaskCount> countPendingActivityTasks(
+      {@required String domain, @required TaskList taskList}) async {
+    return PendingTaskCount.fromJson({});
+  }
 
   /// Returns the estimated number of decision tasks in the specified task list.
   /// The count returned is an approximation and isn't guaranteed to be exact.
@@ -167,8 +240,14 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> countPendingDecisionTasks(
-      {@required String domain, @required TaskList taskList}) async {}
+  ///
+  /// [domain]: The name of the domain that contains the task list.
+  ///
+  /// [taskList]: The name of the task list.
+  Future<PendingTaskCount> countPendingDecisionTasks(
+      {@required String domain, @required TaskList taskList}) async {
+    return PendingTaskCount.fromJson({});
+  }
 
   /// Deprecates the specified _activity type_. After an activity type has been
   /// deprecated, you cannot create new tasks of that activity type. Tasks of
@@ -207,6 +286,10 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain in which the activity type is registered.
+  ///
+  /// [activityType]: The activity type to deprecate.
   Future<void> deprecateActivityType(
       {@required String domain, @required ActivityType activityType}) async {}
 
@@ -241,6 +324,8 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [name]: The name of the domain to deprecate.
   Future<void> deprecateDomain(String name) async {}
 
   /// Deprecates the specified _workflow type_. After a workflow type has been
@@ -280,6 +365,10 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain in which the workflow type is registered.
+  ///
+  /// [workflowType]: The workflow type to deprecate.
   Future<void> deprecateWorkflowType(
       {@required String domain, @required WorkflowType workflowType}) async {}
 
@@ -316,8 +405,16 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> describeActivityType(
-      {@required String domain, @required ActivityType activityType}) async {}
+  ///
+  /// [domain]: The name of the domain in which the activity type is registered.
+  ///
+  /// [activityType]: The activity type to get information about. Activity types
+  /// are identified by the `name` and `version` that were supplied when the
+  /// activity was registered.
+  Future<ActivityTypeDetail> describeActivityType(
+      {@required String domain, @required ActivityType activityType}) async {
+    return ActivityTypeDetail.fromJson({});
+  }
 
   /// Returns information about the specified domain, including description and
   /// status.
@@ -343,7 +440,11 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> describeDomain(String name) async {}
+  ///
+  /// [name]: The name of the domain to describe.
+  Future<DomainDetail> describeDomain(String name) async {
+    return DomainDetail.fromJson({});
+  }
 
   /// Returns information about the specified workflow execution including its
   /// type and some statistics.
@@ -372,8 +473,14 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> describeWorkflowExecution(
-      {@required String domain, @required WorkflowExecution execution}) async {}
+  ///
+  /// [domain]: The name of the domain containing the workflow execution.
+  ///
+  /// [execution]: The workflow execution to describe.
+  Future<WorkflowExecutionDetail> describeWorkflowExecution(
+      {@required String domain, @required WorkflowExecution execution}) async {
+    return WorkflowExecutionDetail.fromJson({});
+  }
 
   /// Returns information about the specified _workflow type_. This includes
   /// configuration settings specified when the type was registered and other
@@ -408,8 +515,15 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> describeWorkflowType(
-      {@required String domain, @required WorkflowType workflowType}) async {}
+  ///
+  /// [domain]: The name of the domain in which this workflow type is
+  /// registered.
+  ///
+  /// [workflowType]: The workflow type to describe.
+  Future<WorkflowTypeDetail> describeWorkflowType(
+      {@required String domain, @required WorkflowType workflowType}) async {
+    return WorkflowTypeDetail.fromJson({});
+  }
 
   /// Returns the history of the specified workflow execution. The results may
   /// be split into multiple pages. To retrieve subsequent pages, make the call
@@ -439,12 +553,36 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> getWorkflowExecutionHistory(
+  ///
+  /// [domain]: The name of the domain containing the workflow execution.
+  ///
+  /// [execution]: Specifies the workflow execution for which to return the
+  /// history.
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the events in reverse order.
+  /// By default the results are returned in ascending order of the
+  /// `eventTimeStamp` of the events.
+  Future<History> getWorkflowExecutionHistory(
       {@required String domain,
       @required WorkflowExecution execution,
       String nextPageToken,
       int maximumPageSize,
-      bool reverseOrder}) async {}
+      bool reverseOrder}) async {
+    return History.fromJson({});
+  }
 
   /// Returns information about all activities registered in the specified
   /// domain that match the specified name and registration status. The result
@@ -474,13 +612,40 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> listActivityTypes(
+  ///
+  /// [domain]: The name of the domain in which the activity types have been
+  /// registered.
+  ///
+  /// [name]: If specified, only lists the activity types that have this name.
+  ///
+  /// [registrationStatus]: Specifies the registration status of the activity
+  /// types to list.
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the results in reverse order.
+  /// By default, the results are returned in ascending alphabetical order by
+  /// `name` of the activity types.
+  Future<ActivityTypeInfos> listActivityTypes(
       {@required String domain,
       String name,
       @required String registrationStatus,
       String nextPageToken,
       int maximumPageSize,
-      bool reverseOrder}) async {}
+      bool reverseOrder}) async {
+    return ActivityTypeInfos.fromJson({});
+  }
 
   /// Returns a list of closed workflow executions in the specified domain that
   /// meet the filtering criteria. The results may be split into multiple pages.
@@ -522,7 +687,68 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> listClosedWorkflowExecutions(String domain,
+  ///
+  /// [domain]: The name of the domain that contains the workflow executions to
+  /// list.
+  ///
+  /// [startTimeFilter]: If specified, the workflow executions are included in
+  /// the returned results based on whether their start times are within the
+  /// range specified by this filter. Also, if this parameter is specified, the
+  /// returned results are ordered by their start times.
+  ///
+  ///   `startTimeFilter` and `closeTimeFilter` are mutually exclusive. You must
+  /// specify one of these in a request but not both.
+  ///
+  /// [closeTimeFilter]: If specified, the workflow executions are included in
+  /// the returned results based on whether their close times are within the
+  /// range specified by this filter. Also, if this parameter is specified, the
+  /// returned results are ordered by their close times.
+  ///
+  ///   `startTimeFilter` and `closeTimeFilter` are mutually exclusive. You must
+  /// specify one of these in a request but not both.
+  ///
+  /// [executionFilter]: If specified, only workflow executions matching the
+  /// workflow ID specified in the filter are returned.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [closeStatusFilter]: If specified, only workflow executions that match
+  /// this _close status_ are listed. For example, if TERMINATED is specified,
+  /// then only TERMINATED workflow executions are listed.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [typeFilter]: If specified, only executions of the type specified in the
+  /// filter are returned.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [tagFilter]: If specified, only executions that have the matching tag are
+  /// listed.
+  ///
+  ///   `closeStatusFilter`, `executionFilter`, `typeFilter` and `tagFilter` are
+  /// mutually exclusive. You can specify at most one of these in a request.
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the results in reverse order.
+  /// By default the results are returned in descending order of the start or
+  /// the close time of the executions.
+  Future<WorkflowExecutionInfos> listClosedWorkflowExecutions(String domain,
       {ExecutionTimeFilter startTimeFilter,
       ExecutionTimeFilter closeTimeFilter,
       WorkflowExecutionFilter executionFilter,
@@ -531,7 +757,9 @@ class SwfApi {
       TagFilter tagFilter,
       String nextPageToken,
       int maximumPageSize,
-      bool reverseOrder}) async {}
+      bool reverseOrder}) async {
+    return WorkflowExecutionInfos.fromJson({});
+  }
 
   /// Returns the list of domains registered in the account. The results may be
   /// split into multiple pages. To retrieve subsequent pages, make the call
@@ -563,8 +791,30 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> listDomains(String registrationStatus,
-      {String nextPageToken, int maximumPageSize, bool reverseOrder}) async {}
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  /// [registrationStatus]: Specifies the registration status of the domains to
+  /// list.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the results in reverse order.
+  /// By default, the results are returned in ascending alphabetical order by
+  /// `name` of the domains.
+  Future<DomainInfos> listDomains(String registrationStatus,
+      {String nextPageToken, int maximumPageSize, bool reverseOrder}) async {
+    return DomainInfos.fromJson({});
+  }
 
   /// Returns a list of open workflow executions in the specified domain that
   /// meet the filtering criteria. The results may be split into multiple pages.
@@ -606,7 +856,49 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> listOpenWorkflowExecutions(
+  ///
+  /// [domain]: The name of the domain that contains the workflow executions to
+  /// list.
+  ///
+  /// [startTimeFilter]: Workflow executions are included in the returned
+  /// results based on whether their start times are within the range specified
+  /// by this filter.
+  ///
+  /// [typeFilter]: If specified, only executions of the type specified in the
+  /// filter are returned.
+  ///
+  ///   `executionFilter`, `typeFilter` and `tagFilter` are mutually exclusive.
+  /// You can specify at most one of these in a request.
+  ///
+  /// [tagFilter]: If specified, only executions that have the matching tag are
+  /// listed.
+  ///
+  ///   `executionFilter`, `typeFilter` and `tagFilter` are mutually exclusive.
+  /// You can specify at most one of these in a request.
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the results in reverse order.
+  /// By default the results are returned in descending order of the start time
+  /// of the executions.
+  ///
+  /// [executionFilter]: If specified, only workflow executions matching the
+  /// workflow ID specified in the filter are returned.
+  ///
+  ///   `executionFilter`, `typeFilter` and `tagFilter` are mutually exclusive.
+  /// You can specify at most one of these in a request.
+  Future<WorkflowExecutionInfos> listOpenWorkflowExecutions(
       {@required String domain,
       @required ExecutionTimeFilter startTimeFilter,
       WorkflowTypeFilter typeFilter,
@@ -614,10 +906,17 @@ class SwfApi {
       String nextPageToken,
       int maximumPageSize,
       bool reverseOrder,
-      WorkflowExecutionFilter executionFilter}) async {}
+      WorkflowExecutionFilter executionFilter}) async {
+    return WorkflowExecutionInfos.fromJson({});
+  }
 
   /// List tags for a given domain.
-  Future<void> listTagsForResource(String resourceArn) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the Amazon SWF domain.
+  Future<ListTagsForResourceOutput> listTagsForResource(
+      String resourceArn) async {
+    return ListTagsForResourceOutput.fromJson({});
+  }
 
   /// Returns information about workflow types in the specified domain. The
   /// results may be split into multiple pages that can be retrieved by making
@@ -644,13 +943,40 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> listWorkflowTypes(
+  ///
+  /// [domain]: The name of the domain in which the workflow types have been
+  /// registered.
+  ///
+  /// [name]: If specified, lists the workflow type with this name.
+  ///
+  /// [registrationStatus]: Specifies the registration status of the workflow
+  /// types to list.
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the results in reverse order.
+  /// By default the results are returned in ascending alphabetical order of the
+  /// `name` of the workflow types.
+  Future<WorkflowTypeInfos> listWorkflowTypes(
       {@required String domain,
       String name,
       @required String registrationStatus,
       String nextPageToken,
       int maximumPageSize,
-      bool reverseOrder}) async {}
+      bool reverseOrder}) async {
+    return WorkflowTypeInfos.fromJson({});
+  }
 
   /// Used by workers to get an ActivityTask from the specified activity
   /// `taskList`. This initiates a long poll, where the service holds the HTTP
@@ -689,10 +1015,27 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> pollForActivityTask(
+  ///
+  /// [domain]: The name of the domain that contains the task lists being
+  /// polled.
+  ///
+  /// [taskList]: Specifies the task list to poll for activity tasks.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [identity]: Identity of the worker making the request, recorded in the
+  /// `ActivityTaskStarted` event in the workflow history. This enables
+  /// diagnostic tracing when problems arise. The form of this identity is user
+  /// defined.
+  Future<ActivityTask> pollForActivityTask(
       {@required String domain,
       @required TaskList taskList,
-      String identity}) async {}
+      String identity}) async {
+    return ActivityTask.fromJson({});
+  }
 
   /// Used by deciders to get a DecisionTask from the specified decision
   /// `taskList`. A decision task may be returned for any open workflow
@@ -740,13 +1083,57 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> pollForDecisionTask(
+  ///
+  /// [domain]: The name of the domain containing the task lists to poll.
+  ///
+  /// [taskList]: Specifies the task list to poll for decision tasks.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [identity]: Identity of the decider making the request, which is recorded
+  /// in the DecisionTaskStarted event in the workflow history. This enables
+  /// diagnostic tracing when problems arise. The form of this identity is user
+  /// defined.
+  ///
+  /// [nextPageToken]: If `NextPageToken` is returned there are more results
+  /// available. The value of `NextPageToken` is a unique pagination token for
+  /// each page. Make the call again using the returned token to retrieve the
+  /// next page. Keep all other arguments unchanged. Each pagination token
+  /// expires after 60 seconds. Using an expired pagination token will return a
+  /// `400` error: "`Specified token has exceeded its maximum lifetime`".
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  ///
+  ///
+  ///
+  /// The `nextPageToken` returned by this action cannot be used with
+  /// GetWorkflowExecutionHistory to get the next page. You must call
+  /// PollForDecisionTask again (with the `nextPageToken`) to retrieve the next
+  /// page of history records. Calling PollForDecisionTask with a
+  /// `nextPageToken` doesn't return a new decision task.
+  ///
+  /// [maximumPageSize]: The maximum number of results that are returned per
+  /// call. Use `nextPageToken` to obtain further pages of results.
+  ///
+  /// This is an upper limit only; the actual number of results returned per
+  /// call may be fewer than the specified maximum.
+  ///
+  /// [reverseOrder]: When set to `true`, returns the events in reverse order.
+  /// By default the results are returned in ascending order of the
+  /// `eventTimestamp` of the events.
+  Future<DecisionTask> pollForDecisionTask(
       {@required String domain,
       @required TaskList taskList,
       String identity,
       String nextPageToken,
       int maximumPageSize,
-      bool reverseOrder}) async {}
+      bool reverseOrder}) async {
+    return DecisionTask.fromJson({});
+  }
 
   /// Used by activity workers to report to the service that the ActivityTask
   /// represented by the specified `taskToken` is still making progress. The
@@ -797,8 +1184,19 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> recordActivityTaskHeartbeat(String taskToken,
-      {String details}) async {}
+  ///
+  /// [taskToken]: The `taskToken` of the ActivityTask.
+  ///
+  ///   `taskToken` is generated by the service and should be treated as an
+  /// opaque value. If the task is passed to another process, its `taskToken`
+  /// must also be passed. This enables it to provide its progress and respond
+  /// with results.
+  ///
+  /// [details]: If specified, contains details about the progress of the task.
+  Future<ActivityTaskStatus> recordActivityTaskHeartbeat(String taskToken,
+      {String details}) async {
+    return ActivityTaskStatus.fromJson({});
+  }
 
   /// Registers a new _activity type_ along with its configuration settings in
   /// the specified domain.
@@ -837,6 +1235,80 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain in which this activity is to be
+  /// registered.
+  ///
+  /// [name]: The name of the activity type within the domain.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [version]: The version of the activity type.
+  ///
+  ///  The activity type consists of the name and version, the combination of
+  /// which must be unique within the domain.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [description]: A textual description of the activity type.
+  ///
+  /// [defaultTaskStartToCloseTimeout]: If set, specifies the default maximum
+  /// duration that a worker can take to process tasks of this activity type.
+  /// This default can be overridden when scheduling an activity task using the
+  /// `ScheduleActivityTask` Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  /// [defaultTaskHeartbeatTimeout]: If set, specifies the default maximum time
+  /// before which a worker processing a task of this type must report progress
+  /// by calling RecordActivityTaskHeartbeat. If the timeout is exceeded, the
+  /// activity task is automatically timed out. This default can be overridden
+  /// when scheduling an activity task using the `ScheduleActivityTask`
+  /// Decision. If the activity worker subsequently attempts to record a
+  /// heartbeat or returns a result, the activity worker receives an
+  /// `UnknownResource` fault. In this case, Amazon SWF no longer considers the
+  /// activity task to be valid; the activity worker should clean up the
+  /// activity task.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  /// [defaultTaskList]: If set, specifies the default task list to use for
+  /// scheduling tasks of this activity type. This default task list is used if
+  /// a task list isn't provided when a task is scheduled through the
+  /// `ScheduleActivityTask` Decision.
+  ///
+  /// [defaultTaskPriority]: The default task priority to assign to the activity
+  /// type. If not assigned, then `0` is used. Valid values are integers that
+  /// range from Java's `Integer.MIN_VALUE` (-2147483648) to `Integer.MAX_VALUE`
+  /// (2147483647). Higher numbers indicate higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _in the _Amazon SWF Developer Guide_._.
+  ///
+  /// [defaultTaskScheduleToStartTimeout]: If set, specifies the default maximum
+  /// duration that a task of this activity type can wait before being assigned
+  /// to a worker. This default can be overridden when scheduling an activity
+  /// task using the `ScheduleActivityTask` Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  /// [defaultTaskScheduleToCloseTimeout]: If set, specifies the default maximum
+  /// duration for a task of this activity type. This default can be overridden
+  /// when scheduling an activity task using the `ScheduleActivityTask`
+  /// Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
   Future<void> registerActivityType(
       {@required String domain,
       @required String name,
@@ -873,6 +1345,35 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [name]: Name of the domain to register. The name must be unique in the
+  /// region that the domain is registered in.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [description]: A text description of the domain.
+  ///
+  /// [workflowExecutionRetentionPeriodInDays]: The duration (in days) that
+  /// records and histories of workflow executions on the domain should be kept
+  /// by the service. After the retention period, the workflow execution isn't
+  /// available in the results of visibility calls.
+  ///
+  /// If you pass the value `NONE` or `0` (zero), then the workflow execution
+  /// history isn't retained. As soon as the workflow execution completes, the
+  /// execution record and its history are deleted.
+  ///
+  /// The maximum workflow execution retention period is 90 days. For more
+  /// information about Amazon SWF service limits, see: [Amazon SWF Service
+  /// Limits](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html)
+  /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [tags]: Tags to be added when registering a domain.
+  ///
+  /// Tags may only contain unicode letters, digits, whitespace, or these
+  /// symbols: `_ . : / = + - @`.
   Future<void> registerDomain(
       {@required String name,
       String description,
@@ -919,6 +1420,92 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain in which to register the workflow type.
+  ///
+  /// [name]: The name of the workflow type.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [version]: The version of the workflow type.
+  ///
+  ///  The workflow type consists of the name and version, the combination of
+  /// which must be unique within the domain. To get a list of all currently
+  /// registered workflow types, use the ListWorkflowTypes action.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [description]: Textual description of the workflow type.
+  ///
+  /// [defaultTaskStartToCloseTimeout]: If set, specifies the default maximum
+  /// duration of decision tasks for this workflow type. This default can be
+  /// overridden when starting a workflow execution using the
+  /// StartWorkflowExecution action or the `StartChildWorkflowExecution`
+  /// Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  /// [defaultExecutionStartToCloseTimeout]: If set, specifies the default
+  /// maximum duration for executions of this workflow type. You can override
+  /// this default when starting an execution through the StartWorkflowExecution
+  /// Action or `StartChildWorkflowExecution` Decision.
+  ///
+  /// The duration is specified in seconds; an integer greater than or equal to
+  /// 0. Unlike some of the other timeout parameters in Amazon SWF, you cannot
+  /// specify a value of "NONE" for `defaultExecutionStartToCloseTimeout`; there
+  /// is a one-year max limit on the time that a workflow execution can run.
+  /// Exceeding this limit always causes the workflow execution to time out.
+  ///
+  /// [defaultTaskList]: If set, specifies the default task list to use for
+  /// scheduling decision tasks for executions of this workflow type. This
+  /// default is used only if a task list isn't provided when starting the
+  /// execution through the StartWorkflowExecution Action or
+  /// `StartChildWorkflowExecution` Decision.
+  ///
+  /// [defaultTaskPriority]: The default task priority to assign to the workflow
+  /// type. If not assigned, then `0` is used. Valid values are integers that
+  /// range from Java's `Integer.MIN_VALUE` (-2147483648) to `Integer.MAX_VALUE`
+  /// (2147483647). Higher numbers indicate higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [defaultChildPolicy]: If set, specifies the default policy to use for the
+  /// child workflow executions when a workflow execution of this type is
+  /// terminated, by calling the TerminateWorkflowExecution action explicitly or
+  /// due to an expired timeout. This default can be overridden when starting a
+  /// workflow execution using the StartWorkflowExecution action or the
+  /// `StartChildWorkflowExecution` Decision.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  ///
+  /// [defaultLambdaRole]: The default IAM role attached to this workflow type.
+  ///
+  ///
+  ///
+  /// Executions of this workflow type need IAM roles to invoke Lambda
+  /// functions. If you don't specify an IAM role when you start this workflow
+  /// type, the default Lambda role is attached to the execution. For more
+  /// information, see
+  /// [https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html](https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html)
+  /// in the _Amazon SWF Developer Guide_.
   Future<void> registerWorkflowType(
       {@required String domain,
       @required String name,
@@ -964,6 +1551,13 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain containing the workflow execution to
+  /// cancel.
+  ///
+  /// [workflowId]: The workflowId of the workflow execution to cancel.
+  ///
+  /// [runId]: The runId of the workflow execution to cancel.
   Future<void> requestCancelWorkflowExecution(
       {@required String domain,
       @required String workflowId,
@@ -1008,6 +1602,15 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [taskToken]: The `taskToken` of the ActivityTask.
+  ///
+  ///   `taskToken` is generated by the service and should be treated as an
+  /// opaque value. If the task is passed to another process, its `taskToken`
+  /// must also be passed. This enables it to provide its progress and respond
+  /// with results.
+  ///
+  /// [details]:  Information about the cancellation.
   Future<void> respondActivityTaskCanceled(String taskToken,
       {String details}) async {}
 
@@ -1050,6 +1653,16 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [taskToken]: The `taskToken` of the ActivityTask.
+  ///
+  ///   `taskToken` is generated by the service and should be treated as an
+  /// opaque value. If the task is passed to another process, its `taskToken`
+  /// must also be passed. This enables it to provide its progress and respond
+  /// with results.
+  ///
+  /// [result]: The result of the activity task. It is a free form string that
+  /// is implementation specific.
   Future<void> respondActivityTaskCompleted(String taskToken,
       {String result}) async {}
 
@@ -1086,6 +1699,17 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [taskToken]: The `taskToken` of the ActivityTask.
+  ///
+  ///   `taskToken` is generated by the service and should be treated as an
+  /// opaque value. If the task is passed to another process, its `taskToken`
+  /// must also be passed. This enables it to provide its progress and respond
+  /// with results.
+  ///
+  /// [reason]: Description of the error that may assist in diagnostics.
+  ///
+  /// [details]:  Detailed information about the failure.
   Future<void> respondActivityTaskFailed(String taskToken,
       {String reason, String details}) async {}
 
@@ -1108,6 +1732,19 @@ class SwfApi {
   /// see [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [taskToken]: The `taskToken` from the DecisionTask.
+  ///
+  ///   `taskToken` is generated by the service and should be treated as an
+  /// opaque value. If the task is passed to another process, its `taskToken`
+  /// must also be passed. This enables it to provide its progress and respond
+  /// with results.
+  ///
+  /// [decisions]: The list of decisions (possibly empty) made by the decider
+  /// while processing this decision task. See the docs for the Decision
+  /// structure for details.
+  ///
+  /// [executionContext]: User defined context to add to workflow execution.
   Future<void> respondDecisionTaskCompleted(String taskToken,
       {List<Decision> decisions, String executionContext}) async {}
 
@@ -1142,6 +1779,19 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain containing the workflow execution to
+  /// signal.
+  ///
+  /// [workflowId]: The workflowId of the workflow execution to signal.
+  ///
+  /// [runId]: The runId of the workflow execution to signal.
+  ///
+  /// [signalName]: The name of the signal. This name must be meaningful to the
+  /// target workflow.
+  ///
+  /// [input]: Data to attach to the `WorkflowExecutionSignaled` event in the
+  /// target workflow execution's history.
   Future<void> signalWorkflowExecution(
       {@required String domain,
       @required String workflowId,
@@ -1195,7 +1845,128 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
-  Future<void> startWorkflowExecution(
+  ///
+  /// [domain]: The name of the domain in which the workflow execution is
+  /// created.
+  ///
+  /// [workflowId]: The user defined identifier associated with the workflow
+  /// execution. You can use this to associate a custom identifier with the
+  /// workflow execution. You may specify the same identifier if a workflow
+  /// execution is logically a _restart_ of a previous execution. You cannot
+  /// have two open workflow executions with the same `workflowId` at the same
+  /// time within the same domain.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [workflowType]: The type of the workflow to start.
+  ///
+  /// [taskList]: The task list to use for the decision tasks generated for this
+  /// workflow execution. This overrides the `defaultTaskList` specified when
+  /// registering the workflow type.
+  ///
+  ///  A task list for this workflow execution must be specified either as a
+  /// default for the workflow type or through this parameter. If neither this
+  /// parameter is set nor a default task list was specified at registration
+  /// time then a fault is returned.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
+  /// the literal string `arn`.
+  ///
+  /// [taskPriority]: The task priority to use for this workflow execution. This
+  /// overrides any default priority that was assigned when the workflow type
+  /// was registered. If not set, then the default task priority for the
+  /// workflow type is used. Valid values are integers that range from Java's
+  /// `Integer.MIN_VALUE` (-2147483648) to `Integer.MAX_VALUE` (2147483647).
+  /// Higher numbers indicate higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [input]: The input for the workflow execution. This is a free form string
+  /// which should be meaningful to the workflow you are starting. This `input`
+  /// is made available to the new workflow execution in the
+  /// `WorkflowExecutionStarted` history event.
+  ///
+  /// [executionStartToCloseTimeout]: The total duration for this workflow
+  /// execution. This overrides the defaultExecutionStartToCloseTimeout
+  /// specified when registering the workflow type.
+  ///
+  /// The duration is specified in seconds; an integer greater than or equal to
+  /// `0`. Exceeding this limit causes the workflow execution to time out.
+  /// Unlike some of the other timeout parameters in Amazon SWF, you cannot
+  /// specify a value of "NONE" for this timeout; there is a one-year max limit
+  /// on the time that a workflow execution can run.
+  ///
+  ///
+  ///
+  /// An execution start-to-close timeout must be specified either through this
+  /// parameter or as a default when the workflow type is registered. If neither
+  /// this parameter nor a default execution start-to-close timeout is
+  /// specified, a fault is returned.
+  ///
+  /// [tagList]: The list of tags to associate with the workflow execution. You
+  /// can specify a maximum of 5 tags. You can list workflow executions with a
+  /// specific tag by calling ListOpenWorkflowExecutions or
+  /// ListClosedWorkflowExecutions and specifying a TagFilter.
+  ///
+  /// [taskStartToCloseTimeout]: Specifies the maximum duration of decision
+  /// tasks for this workflow execution. This parameter overrides the
+  /// `defaultTaskStartToCloseTimout` specified when registering the workflow
+  /// type using RegisterWorkflowType.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// A task start-to-close timeout for this workflow execution must be
+  /// specified either as a default for the workflow type or through this
+  /// parameter. If neither this parameter is set nor a default task
+  /// start-to-close timeout was specified at registration time then a fault is
+  /// returned.
+  ///
+  /// [childPolicy]: If set, specifies the policy to use for the child workflow
+  /// executions of this workflow execution if it is terminated, by calling the
+  /// TerminateWorkflowExecution action explicitly or due to an expired timeout.
+  /// This policy overrides the default child policy specified when registering
+  /// the workflow type using RegisterWorkflowType.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  ///
+  ///
+  ///
+  ///
+  /// A child policy for this workflow execution must be specified either as a
+  /// default for the workflow type or through this parameter. If neither this
+  /// parameter is set nor a default child policy was specified at registration
+  /// time then a fault is returned.
+  ///
+  /// [lambdaRole]: The IAM role to attach to this workflow execution.
+  ///
+  ///
+  ///
+  /// Executions of this workflow type need IAM roles to invoke Lambda
+  /// functions. If you don't attach an IAM role, any attempt to schedule a
+  /// Lambda task fails. This results in a `ScheduleLambdaFunctionFailed`
+  /// history event. For more information, see
+  /// [https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html](https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html)
+  /// in the _Amazon SWF Developer Guide_.
+  Future<Run> startWorkflowExecution(
       {@required String domain,
       @required String workflowId,
       @required WorkflowType workflowType,
@@ -1206,13 +1977,22 @@ class SwfApi {
       List<String> tagList,
       String taskStartToCloseTimeout,
       String childPolicy,
-      String lambdaRole}) async {}
+      String lambdaRole}) async {
+    return Run.fromJson({});
+  }
 
   /// Add a tag to a Amazon SWF domain.
   ///
   ///
   ///
   /// Amazon SWF supports a maximum of 50 tags per resource.
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the Amazon SWF domain.
+  ///
+  /// [tags]: The list of tags to add to a domain.
+  ///
+  /// Tags may only contain unicode letters, digits, whitespace, or these
+  /// symbols: `_ . : / = + - @`.
   Future<void> tagResource(
       {@required String resourceArn, @required List<ResourceTag> tags}) async {}
 
@@ -1251,6 +2031,40 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The domain of the workflow execution to terminate.
+  ///
+  /// [workflowId]: The workflowId of the workflow execution to terminate.
+  ///
+  /// [runId]: The runId of the workflow execution to terminate.
+  ///
+  /// [reason]:  A descriptive reason for terminating the workflow execution.
+  ///
+  /// [details]:  Details for terminating the workflow execution.
+  ///
+  /// [childPolicy]: If set, specifies the policy to use for the child workflow
+  /// executions of the workflow execution being terminated. This policy
+  /// overrides the child policy specified for the workflow execution at
+  /// registration time or when starting the execution.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  ///
+  ///
+  ///
+  ///
+  /// A child policy for this workflow execution must be specified either as a
+  /// default for the workflow type or through this parameter. If neither this
+  /// parameter is set nor a default child policy was specified at registration
+  /// time then a fault is returned.
   Future<void> terminateWorkflowExecution(
       {@required String domain,
       @required String workflowId,
@@ -1295,6 +2109,10 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain of the deprecated activity type.
+  ///
+  /// [activityType]: The activity type to undeprecate.
   Future<void> undeprecateActivityType(
       {@required String domain, @required ActivityType activityType}) async {}
 
@@ -1326,6 +2144,8 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [name]: The name of the domain of the deprecated workflow type.
   Future<void> undeprecateDomain(String name) async {}
 
   /// Undeprecates a previously deprecated _workflow type_. After a workflow
@@ -1363,218 +2183,3668 @@ class SwfApi {
   /// [Using IAM to Manage Access to Amazon SWF
   /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
+  ///
+  /// [domain]: The name of the domain of the deprecated workflow type.
+  ///
+  /// [workflowType]: The name of the domain of the deprecated workflow type.
   Future<void> undeprecateWorkflowType(
       {@required String domain, @required WorkflowType workflowType}) async {}
 
   /// Remove a tag from a Amazon SWF domain.
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the Amazon SWF domain.
+  ///
+  /// [tagKeys]: The list of tags to remove from the Amazon SWF domain.
   Future<void> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {}
 }
 
-class ActivityTask {}
-
-class ActivityTaskCancelRequestedEventAttributes {}
-
-class ActivityTaskCanceledEventAttributes {}
-
-class ActivityTaskCompletedEventAttributes {}
-
-class ActivityTaskFailedEventAttributes {}
-
-class ActivityTaskScheduledEventAttributes {}
-
-class ActivityTaskStartedEventAttributes {}
-
-class ActivityTaskStatus {}
-
-class ActivityTaskTimedOutEventAttributes {}
-
-class ActivityType {}
-
-class ActivityTypeConfiguration {}
-
-class ActivityTypeDetail {}
-
-class ActivityTypeInfo {}
-
-class ActivityTypeInfos {}
-
-class CancelTimerDecisionAttributes {}
-
-class CancelTimerFailedEventAttributes {}
-
-class CancelWorkflowExecutionDecisionAttributes {}
-
-class CancelWorkflowExecutionFailedEventAttributes {}
-
-class ChildWorkflowExecutionCanceledEventAttributes {}
-
-class ChildWorkflowExecutionCompletedEventAttributes {}
-
-class ChildWorkflowExecutionFailedEventAttributes {}
-
-class ChildWorkflowExecutionStartedEventAttributes {}
-
-class ChildWorkflowExecutionTerminatedEventAttributes {}
-
-class ChildWorkflowExecutionTimedOutEventAttributes {}
-
-class CloseStatusFilter {}
-
-class CompleteWorkflowExecutionDecisionAttributes {}
-
-class CompleteWorkflowExecutionFailedEventAttributes {}
-
-class ContinueAsNewWorkflowExecutionDecisionAttributes {}
-
-class ContinueAsNewWorkflowExecutionFailedEventAttributes {}
-
-class Decision {}
-
-class DecisionTask {}
-
-class DecisionTaskCompletedEventAttributes {}
-
-class DecisionTaskScheduledEventAttributes {}
-
-class DecisionTaskStartedEventAttributes {}
-
-class DecisionTaskTimedOutEventAttributes {}
-
-class DomainConfiguration {}
-
-class DomainDetail {}
-
-class DomainInfo {}
-
-class DomainInfos {}
-
-class ExecutionTimeFilter {}
-
-class ExternalWorkflowExecutionCancelRequestedEventAttributes {}
-
-class ExternalWorkflowExecutionSignaledEventAttributes {}
-
-class FailWorkflowExecutionDecisionAttributes {}
-
-class FailWorkflowExecutionFailedEventAttributes {}
-
-class History {}
-
-class HistoryEvent {}
-
-class LambdaFunctionCompletedEventAttributes {}
-
-class LambdaFunctionFailedEventAttributes {}
-
-class LambdaFunctionScheduledEventAttributes {}
-
-class LambdaFunctionStartedEventAttributes {}
-
-class LambdaFunctionTimedOutEventAttributes {}
-
-class ListTagsForResourceOutput {}
-
-class MarkerRecordedEventAttributes {}
-
-class PendingTaskCount {}
-
-class RecordMarkerDecisionAttributes {}
-
-class RecordMarkerFailedEventAttributes {}
-
-class RequestCancelActivityTaskDecisionAttributes {}
-
-class RequestCancelActivityTaskFailedEventAttributes {}
-
-class RequestCancelExternalWorkflowExecutionDecisionAttributes {}
-
-class RequestCancelExternalWorkflowExecutionFailedEventAttributes {}
-
-class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes {}
-
-class ResourceTag {}
-
-class Run {}
-
-class ScheduleActivityTaskDecisionAttributes {}
-
-class ScheduleActivityTaskFailedEventAttributes {}
-
-class ScheduleLambdaFunctionDecisionAttributes {}
-
-class ScheduleLambdaFunctionFailedEventAttributes {}
-
-class SignalExternalWorkflowExecutionDecisionAttributes {}
-
-class SignalExternalWorkflowExecutionFailedEventAttributes {}
-
-class SignalExternalWorkflowExecutionInitiatedEventAttributes {}
-
-class StartChildWorkflowExecutionDecisionAttributes {}
-
-class StartChildWorkflowExecutionFailedEventAttributes {}
-
-class StartChildWorkflowExecutionInitiatedEventAttributes {}
-
-class StartLambdaFunctionFailedEventAttributes {}
-
-class StartTimerDecisionAttributes {}
-
-class StartTimerFailedEventAttributes {}
-
-class TagFilter {}
-
-class TaskList {}
-
-class TimerCanceledEventAttributes {}
-
-class TimerFiredEventAttributes {}
-
-class TimerStartedEventAttributes {}
-
-class WorkflowExecution {}
-
-class WorkflowExecutionCancelRequestedEventAttributes {}
-
-class WorkflowExecutionCanceledEventAttributes {}
-
-class WorkflowExecutionCompletedEventAttributes {}
-
-class WorkflowExecutionConfiguration {}
-
-class WorkflowExecutionContinuedAsNewEventAttributes {}
-
-class WorkflowExecutionCount {}
-
-class WorkflowExecutionDetail {}
-
-class WorkflowExecutionFailedEventAttributes {}
-
-class WorkflowExecutionFilter {}
-
-class WorkflowExecutionInfo {}
-
-class WorkflowExecutionInfos {}
-
-class WorkflowExecutionOpenCounts {}
-
-class WorkflowExecutionSignaledEventAttributes {}
-
-class WorkflowExecutionStartedEventAttributes {}
-
-class WorkflowExecutionTerminatedEventAttributes {}
-
-class WorkflowExecutionTimedOutEventAttributes {}
-
-class WorkflowType {}
-
-class WorkflowTypeConfiguration {}
-
-class WorkflowTypeDetail {}
-
-class WorkflowTypeFilter {}
-
-class WorkflowTypeInfo {}
-
-class WorkflowTypeInfos {}
+class ActivityTask {
+  /// The opaque string used as a handle on the task. This token is used by
+  /// workers to communicate progress and response information back to the
+  /// system about the task.
+  final String taskToken;
+
+  /// The unique ID of the task.
+  final String activityId;
+
+  /// The ID of the `ActivityTaskStarted` event recorded in the history.
+  final BigInt startedEventId;
+
+  /// The workflow execution that started this activity task.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of this activity task.
+  final ActivityType activityType;
+
+  /// The inputs provided when the activity task was scheduled. The form of the
+  /// input is user defined and should be meaningful to the activity
+  /// implementation.
+  final String input;
+
+  ActivityTask({
+    @required this.taskToken,
+    @required this.activityId,
+    @required this.startedEventId,
+    @required this.workflowExecution,
+    @required this.activityType,
+    this.input,
+  });
+  static ActivityTask fromJson(Map<String, dynamic> json) => ActivityTask();
+}
+
+class ActivityTaskCancelRequestedEventAttributes {
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `RequestCancelActivityTask` decision for this
+  /// cancellation request. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The unique ID of the task.
+  final String activityId;
+
+  ActivityTaskCancelRequestedEventAttributes({
+    @required this.decisionTaskCompletedEventId,
+    @required this.activityId,
+  });
+  static ActivityTaskCancelRequestedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskCancelRequestedEventAttributes();
+}
+
+class ActivityTaskCanceledEventAttributes {
+  /// Details of the cancellation.
+  final String details;
+
+  /// The ID of the `ActivityTaskScheduled` event that was recorded when this
+  /// activity task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `ActivityTaskStarted` event recorded when this activity task
+  /// was started. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  /// If set, contains the ID of the last `ActivityTaskCancelRequested` event
+  /// recorded for this activity task. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt latestCancelRequestedEventId;
+
+  ActivityTaskCanceledEventAttributes({
+    this.details,
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+    this.latestCancelRequestedEventId,
+  });
+  static ActivityTaskCanceledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskCanceledEventAttributes();
+}
+
+class ActivityTaskCompletedEventAttributes {
+  /// The results of the activity task.
+  final String result;
+
+  /// The ID of the `ActivityTaskScheduled` event that was recorded when this
+  /// activity task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `ActivityTaskStarted` event recorded when this activity task
+  /// was started. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  ActivityTaskCompletedEventAttributes({
+    this.result,
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+  });
+  static ActivityTaskCompletedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskCompletedEventAttributes();
+}
+
+class ActivityTaskFailedEventAttributes {
+  /// The reason provided for the failure.
+  final String reason;
+
+  /// The details of the failure.
+  final String details;
+
+  /// The ID of the `ActivityTaskScheduled` event that was recorded when this
+  /// activity task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `ActivityTaskStarted` event recorded when this activity task
+  /// was started. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  ActivityTaskFailedEventAttributes({
+    this.reason,
+    this.details,
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+  });
+  static ActivityTaskFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskFailedEventAttributes();
+}
+
+class ActivityTaskScheduledEventAttributes {
+  /// The type of the activity task.
+  final ActivityType activityType;
+
+  /// The unique ID of the activity task.
+  final String activityId;
+
+  /// The input provided to the activity task.
+  final String input;
+
+  /// Data attached to the event that can be used by the decider in subsequent
+  /// workflow tasks. This data isn't sent to the activity.
+  final String control;
+
+  /// The maximum amount of time the activity task can wait to be assigned to a
+  /// worker.
+  final String scheduleToStartTimeout;
+
+  /// The maximum amount of time for this activity task.
+  final String scheduleToCloseTimeout;
+
+  /// The maximum amount of time a worker may take to process the activity task.
+  final String startToCloseTimeout;
+
+  /// The task list in which the activity task has been scheduled.
+  final TaskList taskList;
+
+  ///  The priority to assign to the scheduled activity task. If set, this
+  /// overrides any default priority value that was assigned when the activity
+  /// type was registered.
+  ///
+  /// Valid values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// that resulted in the scheduling of this activity task. This information
+  /// can be useful for diagnosing problems by tracing back the chain of events
+  /// leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The maximum time before which the worker processing this task must report
+  /// progress by calling RecordActivityTaskHeartbeat. If the timeout is
+  /// exceeded, the activity task is automatically timed out. If the worker
+  /// subsequently attempts to record a heartbeat or return a result, it is
+  /// ignored.
+  final String heartbeatTimeout;
+
+  ActivityTaskScheduledEventAttributes({
+    @required this.activityType,
+    @required this.activityId,
+    this.input,
+    this.control,
+    this.scheduleToStartTimeout,
+    this.scheduleToCloseTimeout,
+    this.startToCloseTimeout,
+    @required this.taskList,
+    this.taskPriority,
+    @required this.decisionTaskCompletedEventId,
+    this.heartbeatTimeout,
+  });
+  static ActivityTaskScheduledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskScheduledEventAttributes();
+}
+
+class ActivityTaskStartedEventAttributes {
+  /// Identity of the worker that was assigned this task. This aids diagnostics
+  /// when problems arise. The form of this identity is user defined.
+  final String identity;
+
+  /// The ID of the `ActivityTaskScheduled` event that was recorded when this
+  /// activity task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  ActivityTaskStartedEventAttributes({
+    this.identity,
+    @required this.scheduledEventId,
+  });
+  static ActivityTaskStartedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskStartedEventAttributes();
+}
+
+class ActivityTaskStatus {
+  /// Set to `true` if cancellation of the task is requested.
+  final bool cancelRequested;
+
+  ActivityTaskStatus({
+    @required this.cancelRequested,
+  });
+  static ActivityTaskStatus fromJson(Map<String, dynamic> json) =>
+      ActivityTaskStatus();
+}
+
+class ActivityTaskTimedOutEventAttributes {
+  /// The type of the timeout that caused this event.
+  final String timeoutType;
+
+  /// The ID of the `ActivityTaskScheduled` event that was recorded when this
+  /// activity task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `ActivityTaskStarted` event recorded when this activity task
+  /// was started. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  /// Contains the content of the `details` parameter for the last call made by
+  /// the activity to `RecordActivityTaskHeartbeat`.
+  final String details;
+
+  ActivityTaskTimedOutEventAttributes({
+    @required this.timeoutType,
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+    this.details,
+  });
+  static ActivityTaskTimedOutEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ActivityTaskTimedOutEventAttributes();
+}
+
+class ActivityType {
+  /// The name of this activity.
+  ///
+  ///
+  ///
+  /// The combination of activity type name and version must be unique within a
+  /// domain.
+  final String name;
+
+  /// The version of this activity.
+  ///
+  ///
+  ///
+  /// The combination of activity type name and version must be unique with in a
+  /// domain.
+  final String version;
+
+  ActivityType({
+    @required this.name,
+    @required this.version,
+  });
+  static ActivityType fromJson(Map<String, dynamic> json) => ActivityType();
+}
+
+class ActivityTypeConfiguration {
+  ///  The default maximum duration for tasks of an activity type specified when
+  /// registering the activity type. You can override this default when
+  /// scheduling a task through the `ScheduleActivityTask` Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String defaultTaskStartToCloseTimeout;
+
+  ///  The default maximum time, in seconds, before which a worker processing a
+  /// task must report progress by calling RecordActivityTaskHeartbeat.
+  ///
+  /// You can specify this value only when _registering_ an activity type. The
+  /// registered default value can be overridden when you schedule a task
+  /// through the `ScheduleActivityTask` Decision. If the activity worker
+  /// subsequently attempts to record a heartbeat or returns a result, the
+  /// activity worker receives an `UnknownResource` fault. In this case, Amazon
+  /// SWF no longer considers the activity task to be valid; the activity worker
+  /// should clean up the activity task.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String defaultTaskHeartbeatTimeout;
+
+  ///  The default task list specified for this activity type at registration.
+  /// This default is used if a task list isn't provided when a task is
+  /// scheduled through the `ScheduleActivityTask` Decision. You can override
+  /// the default registered task list when scheduling a task through the
+  /// `ScheduleActivityTask` Decision.
+  final TaskList defaultTaskList;
+
+  ///  The default task priority for tasks of this activity type, specified at
+  /// registration. If not set, then `0` is used as the default priority. This
+  /// default can be overridden when scheduling an activity task.
+  ///
+  /// Valid values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String defaultTaskPriority;
+
+  ///  The default maximum duration, specified when registering the activity
+  /// type, that a task of an activity type can wait before being assigned to a
+  /// worker. You can override this default when scheduling a task through the
+  /// `ScheduleActivityTask` Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String defaultTaskScheduleToStartTimeout;
+
+  ///  The default maximum duration, specified when registering the activity
+  /// type, for tasks of this activity type. You can override this default when
+  /// scheduling a task through the `ScheduleActivityTask` Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String defaultTaskScheduleToCloseTimeout;
+
+  ActivityTypeConfiguration({
+    this.defaultTaskStartToCloseTimeout,
+    this.defaultTaskHeartbeatTimeout,
+    this.defaultTaskList,
+    this.defaultTaskPriority,
+    this.defaultTaskScheduleToStartTimeout,
+    this.defaultTaskScheduleToCloseTimeout,
+  });
+  static ActivityTypeConfiguration fromJson(Map<String, dynamic> json) =>
+      ActivityTypeConfiguration();
+}
+
+class ActivityTypeDetail {
+  /// General information about the activity type.
+  ///
+  /// The status of activity type (returned in the ActivityTypeInfo structure)
+  /// can be one of the following.
+  ///
+  /// *    `REGISTERED` – The type is registered and available. Workers
+  /// supporting this type should be running.
+  ///
+  /// *    `DEPRECATED` – The type was deprecated using DeprecateActivityType,
+  /// but is still in use. You should keep workers supporting this type running.
+  /// You cannot create new tasks of this type.
+  final ActivityTypeInfo typeInfo;
+
+  /// The configuration settings registered with the activity type.
+  final ActivityTypeConfiguration configuration;
+
+  ActivityTypeDetail({
+    @required this.typeInfo,
+    @required this.configuration,
+  });
+  static ActivityTypeDetail fromJson(Map<String, dynamic> json) =>
+      ActivityTypeDetail();
+}
+
+class ActivityTypeInfo {
+  /// The ActivityType type structure representing the activity type.
+  final ActivityType activityType;
+
+  /// The current status of the activity type.
+  final String status;
+
+  /// The description of the activity type provided in RegisterActivityType.
+  final String description;
+
+  /// The date and time this activity type was created through
+  /// RegisterActivityType.
+  final DateTime creationDate;
+
+  /// If DEPRECATED, the date and time DeprecateActivityType was called.
+  final DateTime deprecationDate;
+
+  ActivityTypeInfo({
+    @required this.activityType,
+    @required this.status,
+    this.description,
+    @required this.creationDate,
+    this.deprecationDate,
+  });
+  static ActivityTypeInfo fromJson(Map<String, dynamic> json) =>
+      ActivityTypeInfo();
+}
+
+class ActivityTypeInfos {
+  /// List of activity type information.
+  final List<ActivityTypeInfo> typeInfos;
+
+  /// If a `NextPageToken` was returned by a previous call, there are more
+  /// results available. To retrieve the next page of results, make the call
+  /// again using the returned token in `nextPageToken`. Keep all other
+  /// arguments unchanged.
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  final String nextPageToken;
+
+  ActivityTypeInfos({
+    @required this.typeInfos,
+    this.nextPageToken,
+  });
+  static ActivityTypeInfos fromJson(Map<String, dynamic> json) =>
+      ActivityTypeInfos();
+}
+
+class CancelTimerDecisionAttributes {
+  ///  The unique ID of the timer to cancel.
+  final String timerId;
+
+  CancelTimerDecisionAttributes({
+    @required this.timerId,
+  });
+}
+
+class CancelTimerFailedEventAttributes {
+  /// The timerId provided in the `CancelTimer` decision that failed.
+  final String timerId;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `CancelTimer` decision to cancel this timer.
+  /// This information can be useful for diagnosing problems by tracing back the
+  /// chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  CancelTimerFailedEventAttributes({
+    @required this.timerId,
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static CancelTimerFailedEventAttributes fromJson(Map<String, dynamic> json) =>
+      CancelTimerFailedEventAttributes();
+}
+
+class CancelWorkflowExecutionDecisionAttributes {
+  ///  Details of the cancellation.
+  final String details;
+
+  CancelWorkflowExecutionDecisionAttributes({
+    this.details,
+  });
+}
+
+class CancelWorkflowExecutionFailedEventAttributes {
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `CancelWorkflowExecution` decision for this
+  /// cancellation request. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  CancelWorkflowExecutionFailedEventAttributes({
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static CancelWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      CancelWorkflowExecutionFailedEventAttributes();
+}
+
+class ChildWorkflowExecutionCanceledEventAttributes {
+  /// The child workflow execution that was canceled.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// Details of the cancellation (if provided).
+  final String details;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this child workflow
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `ChildWorkflowExecutionStarted` event recorded when this
+  /// child workflow execution was started. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt startedEventId;
+
+  ChildWorkflowExecutionCanceledEventAttributes({
+    @required this.workflowExecution,
+    @required this.workflowType,
+    this.details,
+    @required this.initiatedEventId,
+    @required this.startedEventId,
+  });
+  static ChildWorkflowExecutionCanceledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ChildWorkflowExecutionCanceledEventAttributes();
+}
+
+class ChildWorkflowExecutionCompletedEventAttributes {
+  /// The child workflow execution that was completed.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// The result of the child workflow execution.
+  final String result;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this child workflow
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `ChildWorkflowExecutionStarted` event recorded when this
+  /// child workflow execution was started. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt startedEventId;
+
+  ChildWorkflowExecutionCompletedEventAttributes({
+    @required this.workflowExecution,
+    @required this.workflowType,
+    this.result,
+    @required this.initiatedEventId,
+    @required this.startedEventId,
+  });
+  static ChildWorkflowExecutionCompletedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ChildWorkflowExecutionCompletedEventAttributes();
+}
+
+class ChildWorkflowExecutionFailedEventAttributes {
+  /// The child workflow execution that failed.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// The reason for the failure (if provided).
+  final String reason;
+
+  /// The details of the failure (if provided).
+  final String details;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this child workflow
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `ChildWorkflowExecutionStarted` event recorded when this
+  /// child workflow execution was started. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt startedEventId;
+
+  ChildWorkflowExecutionFailedEventAttributes({
+    @required this.workflowExecution,
+    @required this.workflowType,
+    this.reason,
+    this.details,
+    @required this.initiatedEventId,
+    @required this.startedEventId,
+  });
+  static ChildWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ChildWorkflowExecutionFailedEventAttributes();
+}
+
+class ChildWorkflowExecutionStartedEventAttributes {
+  /// The child workflow execution that was started.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this child workflow
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  ChildWorkflowExecutionStartedEventAttributes({
+    @required this.workflowExecution,
+    @required this.workflowType,
+    @required this.initiatedEventId,
+  });
+  static ChildWorkflowExecutionStartedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ChildWorkflowExecutionStartedEventAttributes();
+}
+
+class ChildWorkflowExecutionTerminatedEventAttributes {
+  /// The child workflow execution that was terminated.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this child workflow
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `ChildWorkflowExecutionStarted` event recorded when this
+  /// child workflow execution was started. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt startedEventId;
+
+  ChildWorkflowExecutionTerminatedEventAttributes({
+    @required this.workflowExecution,
+    @required this.workflowType,
+    @required this.initiatedEventId,
+    @required this.startedEventId,
+  });
+  static ChildWorkflowExecutionTerminatedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ChildWorkflowExecutionTerminatedEventAttributes();
+}
+
+class ChildWorkflowExecutionTimedOutEventAttributes {
+  /// The child workflow execution that timed out.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// The type of the timeout that caused the child workflow execution to time
+  /// out.
+  final String timeoutType;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this child workflow
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `ChildWorkflowExecutionStarted` event recorded when this
+  /// child workflow execution was started. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt startedEventId;
+
+  ChildWorkflowExecutionTimedOutEventAttributes({
+    @required this.workflowExecution,
+    @required this.workflowType,
+    @required this.timeoutType,
+    @required this.initiatedEventId,
+    @required this.startedEventId,
+  });
+  static ChildWorkflowExecutionTimedOutEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ChildWorkflowExecutionTimedOutEventAttributes();
+}
+
+class CloseStatusFilter {
+  ///  The close status that must match the close status of an execution for it
+  /// to meet the criteria of this filter.
+  final String status;
+
+  CloseStatusFilter({
+    @required this.status,
+  });
+}
+
+class CompleteWorkflowExecutionDecisionAttributes {
+  /// The result of the workflow execution. The form of the result is
+  /// implementation defined.
+  final String result;
+
+  CompleteWorkflowExecutionDecisionAttributes({
+    this.result,
+  });
+}
+
+class CompleteWorkflowExecutionFailedEventAttributes {
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `CompleteWorkflowExecution` decision to complete
+  /// this execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  CompleteWorkflowExecutionFailedEventAttributes({
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static CompleteWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      CompleteWorkflowExecutionFailedEventAttributes();
+}
+
+class ContinueAsNewWorkflowExecutionDecisionAttributes {
+  /// The input provided to the new workflow execution.
+  final String input;
+
+  /// If set, specifies the total duration for this workflow execution. This
+  /// overrides the `defaultExecutionStartToCloseTimeout` specified when
+  /// registering the workflow type.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// An execution start-to-close timeout for this workflow execution must be
+  /// specified either as a default for the workflow type or through this field.
+  /// If neither this field is set nor a default execution start-to-close
+  /// timeout was specified at registration time then a fault is returned.
+  final String executionStartToCloseTimeout;
+
+  /// The task list to use for the decisions of the new (continued) workflow
+  /// execution.
+  final TaskList taskList;
+
+  ///  The task priority that, if set, specifies the priority for the decision
+  /// tasks for this workflow execution. This overrides the defaultTaskPriority
+  /// specified when registering the workflow type. Valid values are integers
+  /// that range from Java's `Integer.MIN_VALUE` (-2147483648) to
+  /// `Integer.MAX_VALUE` (2147483647). Higher numbers indicate higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  /// Specifies the maximum duration of decision tasks for the new workflow
+  /// execution. This parameter overrides the `defaultTaskStartToCloseTimout`
+  /// specified when registering the workflow type using RegisterWorkflowType.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// A task start-to-close timeout for the new workflow execution must be
+  /// specified either as a default for the workflow type or through this
+  /// parameter. If neither this parameter is set nor a default task
+  /// start-to-close timeout was specified at registration time then a fault is
+  /// returned.
+  final String taskStartToCloseTimeout;
+
+  /// If set, specifies the policy to use for the child workflow executions of
+  /// the new execution if it is terminated by calling the
+  /// TerminateWorkflowExecution action explicitly or due to an expired timeout.
+  /// This policy overrides the default child policy specified when registering
+  /// the workflow type using RegisterWorkflowType.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  ///
+  ///
+  ///
+  ///
+  /// A child policy for this workflow execution must be specified either as a
+  /// default for the workflow type or through this parameter. If neither this
+  /// parameter is set nor a default child policy was specified at registration
+  /// time then a fault is returned.
+  final String childPolicy;
+
+  /// The list of tags to associate with the new workflow execution. A maximum
+  /// of 5 tags can be specified. You can list workflow executions with a
+  /// specific tag by calling ListOpenWorkflowExecutions or
+  /// ListClosedWorkflowExecutions and specifying a TagFilter.
+  final List<String> tagList;
+
+  /// The version of the workflow to start.
+  final String workflowTypeVersion;
+
+  /// The IAM role to attach to the new (continued) execution.
+  final String lambdaRole;
+
+  ContinueAsNewWorkflowExecutionDecisionAttributes({
+    this.input,
+    this.executionStartToCloseTimeout,
+    this.taskList,
+    this.taskPriority,
+    this.taskStartToCloseTimeout,
+    this.childPolicy,
+    this.tagList,
+    this.workflowTypeVersion,
+    this.lambdaRole,
+  });
+}
+
+class ContinueAsNewWorkflowExecutionFailedEventAttributes {
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `ContinueAsNewWorkflowExecution` decision that
+  /// started this execution. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  ContinueAsNewWorkflowExecutionFailedEventAttributes({
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static ContinueAsNewWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ContinueAsNewWorkflowExecutionFailedEventAttributes();
+}
+
+class Decision {
+  /// Specifies the type of the decision.
+  final String decisionType;
+
+  /// Provides the details of the `ScheduleActivityTask` decision. It isn't set
+  /// for other decision types.
+  final ScheduleActivityTaskDecisionAttributes
+      scheduleActivityTaskDecisionAttributes;
+
+  /// Provides the details of the `RequestCancelActivityTask` decision. It isn't
+  /// set for other decision types.
+  final RequestCancelActivityTaskDecisionAttributes
+      requestCancelActivityTaskDecisionAttributes;
+
+  /// Provides the details of the `CompleteWorkflowExecution` decision. It isn't
+  /// set for other decision types.
+  final CompleteWorkflowExecutionDecisionAttributes
+      completeWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `FailWorkflowExecution` decision. It isn't set
+  /// for other decision types.
+  final FailWorkflowExecutionDecisionAttributes
+      failWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `CancelWorkflowExecution` decision. It isn't
+  /// set for other decision types.
+  final CancelWorkflowExecutionDecisionAttributes
+      cancelWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `ContinueAsNewWorkflowExecution` decision. It
+  /// isn't set for other decision types.
+  final ContinueAsNewWorkflowExecutionDecisionAttributes
+      continueAsNewWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `RecordMarker` decision. It isn't set for
+  /// other decision types.
+  final RecordMarkerDecisionAttributes recordMarkerDecisionAttributes;
+
+  /// Provides the details of the `StartTimer` decision. It isn't set for other
+  /// decision types.
+  final StartTimerDecisionAttributes startTimerDecisionAttributes;
+
+  /// Provides the details of the `CancelTimer` decision. It isn't set for other
+  /// decision types.
+  final CancelTimerDecisionAttributes cancelTimerDecisionAttributes;
+
+  /// Provides the details of the `SignalExternalWorkflowExecution` decision. It
+  /// isn't set for other decision types.
+  final SignalExternalWorkflowExecutionDecisionAttributes
+      signalExternalWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `RequestCancelExternalWorkflowExecution`
+  /// decision. It isn't set for other decision types.
+  final RequestCancelExternalWorkflowExecutionDecisionAttributes
+      requestCancelExternalWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `StartChildWorkflowExecution` decision. It
+  /// isn't set for other decision types.
+  final StartChildWorkflowExecutionDecisionAttributes
+      startChildWorkflowExecutionDecisionAttributes;
+
+  /// Provides the details of the `ScheduleLambdaFunction` decision. It isn't
+  /// set for other decision types.
+  final ScheduleLambdaFunctionDecisionAttributes
+      scheduleLambdaFunctionDecisionAttributes;
+
+  Decision({
+    @required this.decisionType,
+    this.scheduleActivityTaskDecisionAttributes,
+    this.requestCancelActivityTaskDecisionAttributes,
+    this.completeWorkflowExecutionDecisionAttributes,
+    this.failWorkflowExecutionDecisionAttributes,
+    this.cancelWorkflowExecutionDecisionAttributes,
+    this.continueAsNewWorkflowExecutionDecisionAttributes,
+    this.recordMarkerDecisionAttributes,
+    this.startTimerDecisionAttributes,
+    this.cancelTimerDecisionAttributes,
+    this.signalExternalWorkflowExecutionDecisionAttributes,
+    this.requestCancelExternalWorkflowExecutionDecisionAttributes,
+    this.startChildWorkflowExecutionDecisionAttributes,
+    this.scheduleLambdaFunctionDecisionAttributes,
+  });
+}
+
+class DecisionTask {
+  /// The opaque string used as a handle on the task. This token is used by
+  /// workers to communicate progress and response information back to the
+  /// system about the task.
+  final String taskToken;
+
+  /// The ID of the `DecisionTaskStarted` event recorded in the history.
+  final BigInt startedEventId;
+
+  /// The workflow execution for which this decision task was created.
+  final WorkflowExecution workflowExecution;
+
+  /// The type of the workflow execution for which this decision task was
+  /// created.
+  final WorkflowType workflowType;
+
+  /// A paginated list of history events of the workflow execution. The decider
+  /// uses this during the processing of the decision task.
+  final List<HistoryEvent> events;
+
+  /// If a `NextPageToken` was returned by a previous call, there are more
+  /// results available. To retrieve the next page of results, make the call
+  /// again using the returned token in `nextPageToken`. Keep all other
+  /// arguments unchanged.
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  final String nextPageToken;
+
+  /// The ID of the DecisionTaskStarted event of the previous decision task of
+  /// this workflow execution that was processed by the decider. This can be
+  /// used to determine the events in the history new since the last decision
+  /// task received by the decider.
+  final BigInt previousStartedEventId;
+
+  DecisionTask({
+    @required this.taskToken,
+    @required this.startedEventId,
+    @required this.workflowExecution,
+    @required this.workflowType,
+    @required this.events,
+    this.nextPageToken,
+    this.previousStartedEventId,
+  });
+  static DecisionTask fromJson(Map<String, dynamic> json) => DecisionTask();
+}
+
+class DecisionTaskCompletedEventAttributes {
+  /// User defined context for the workflow execution.
+  final String executionContext;
+
+  /// The ID of the `DecisionTaskScheduled` event that was recorded when this
+  /// decision task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `DecisionTaskStarted` event recorded when this decision task
+  /// was started. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  DecisionTaskCompletedEventAttributes({
+    this.executionContext,
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+  });
+  static DecisionTaskCompletedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      DecisionTaskCompletedEventAttributes();
+}
+
+class DecisionTaskScheduledEventAttributes {
+  /// The name of the task list in which the decision task was scheduled.
+  final TaskList taskList;
+
+  ///  A task priority that, if set, specifies the priority for this decision
+  /// task. Valid values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  /// The maximum duration for this decision task. The task is considered timed
+  /// out if it doesn't completed within this duration.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String startToCloseTimeout;
+
+  DecisionTaskScheduledEventAttributes({
+    @required this.taskList,
+    this.taskPriority,
+    this.startToCloseTimeout,
+  });
+  static DecisionTaskScheduledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      DecisionTaskScheduledEventAttributes();
+}
+
+class DecisionTaskStartedEventAttributes {
+  /// Identity of the decider making the request. This enables diagnostic
+  /// tracing when problems arise. The form of this identity is user defined.
+  final String identity;
+
+  /// The ID of the `DecisionTaskScheduled` event that was recorded when this
+  /// decision task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  DecisionTaskStartedEventAttributes({
+    this.identity,
+    @required this.scheduledEventId,
+  });
+  static DecisionTaskStartedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      DecisionTaskStartedEventAttributes();
+}
+
+class DecisionTaskTimedOutEventAttributes {
+  /// The type of timeout that expired before the decision task could be
+  /// completed.
+  final String timeoutType;
+
+  /// The ID of the `DecisionTaskScheduled` event that was recorded when this
+  /// decision task was scheduled. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `DecisionTaskStarted` event recorded when this decision task
+  /// was started. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  DecisionTaskTimedOutEventAttributes({
+    @required this.timeoutType,
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+  });
+  static DecisionTaskTimedOutEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      DecisionTaskTimedOutEventAttributes();
+}
+
+class DomainConfiguration {
+  /// The retention period for workflow executions in this domain.
+  final String workflowExecutionRetentionPeriodInDays;
+
+  DomainConfiguration({
+    @required this.workflowExecutionRetentionPeriodInDays,
+  });
+  static DomainConfiguration fromJson(Map<String, dynamic> json) =>
+      DomainConfiguration();
+}
+
+class DomainDetail {
+  /// The basic information about a domain, such as its name, status, and
+  /// description.
+  final DomainInfo domainInfo;
+
+  /// The domain configuration. Currently, this includes only the domain's
+  /// retention period.
+  final DomainConfiguration configuration;
+
+  DomainDetail({
+    @required this.domainInfo,
+    @required this.configuration,
+  });
+  static DomainDetail fromJson(Map<String, dynamic> json) => DomainDetail();
+}
+
+class DomainInfo {
+  /// The name of the domain. This name is unique within the account.
+  final String name;
+
+  /// The status of the domain:
+  ///
+  /// *    `REGISTERED` – The domain is properly registered and available. You
+  /// can use this domain for registering types and creating new workflow
+  /// executions.
+  ///
+  /// *    `DEPRECATED` – The domain was deprecated using DeprecateDomain, but
+  /// is still in use. You should not create new workflow executions in this
+  /// domain.
+  final String status;
+
+  /// The description of the domain provided through RegisterDomain.
+  final String description;
+
+  /// The ARN of the domain.
+  final String arn;
+
+  DomainInfo({
+    @required this.name,
+    @required this.status,
+    this.description,
+    this.arn,
+  });
+  static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo();
+}
+
+class DomainInfos {
+  /// A list of DomainInfo structures.
+  final List<DomainInfo> domainInfos;
+
+  /// If a `NextPageToken` was returned by a previous call, there are more
+  /// results available. To retrieve the next page of results, make the call
+  /// again using the returned token in `nextPageToken`. Keep all other
+  /// arguments unchanged.
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  final String nextPageToken;
+
+  DomainInfos({
+    @required this.domainInfos,
+    this.nextPageToken,
+  });
+  static DomainInfos fromJson(Map<String, dynamic> json) => DomainInfos();
+}
+
+class ExecutionTimeFilter {
+  /// Specifies the oldest start or close date and time to return.
+  final DateTime oldestDate;
+
+  /// Specifies the latest start or close date and time to return.
+  final DateTime latestDate;
+
+  ExecutionTimeFilter({
+    @required this.oldestDate,
+    this.latestDate,
+  });
+}
+
+class ExternalWorkflowExecutionCancelRequestedEventAttributes {
+  /// The external workflow execution to which the cancellation request was
+  /// delivered.
+  final WorkflowExecution workflowExecution;
+
+  /// The ID of the `RequestCancelExternalWorkflowExecutionInitiated` event
+  /// corresponding to the `RequestCancelExternalWorkflowExecution` decision to
+  /// cancel this external workflow execution. This information can be useful
+  /// for diagnosing problems by tracing back the chain of events leading up to
+  /// this event.
+  final BigInt initiatedEventId;
+
+  ExternalWorkflowExecutionCancelRequestedEventAttributes({
+    @required this.workflowExecution,
+    @required this.initiatedEventId,
+  });
+  static ExternalWorkflowExecutionCancelRequestedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ExternalWorkflowExecutionCancelRequestedEventAttributes();
+}
+
+class ExternalWorkflowExecutionSignaledEventAttributes {
+  /// The external workflow execution that the signal was delivered to.
+  final WorkflowExecution workflowExecution;
+
+  /// The ID of the `SignalExternalWorkflowExecutionInitiated` event
+  /// corresponding to the `SignalExternalWorkflowExecution` decision to request
+  /// this signal. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  ExternalWorkflowExecutionSignaledEventAttributes({
+    @required this.workflowExecution,
+    @required this.initiatedEventId,
+  });
+  static ExternalWorkflowExecutionSignaledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ExternalWorkflowExecutionSignaledEventAttributes();
+}
+
+class FailWorkflowExecutionDecisionAttributes {
+  /// A descriptive reason for the failure that may help in diagnostics.
+  final String reason;
+
+  ///  Details of the failure.
+  final String details;
+
+  FailWorkflowExecutionDecisionAttributes({
+    this.reason,
+    this.details,
+  });
+}
+
+class FailWorkflowExecutionFailedEventAttributes {
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `FailWorkflowExecution` decision to fail this
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  FailWorkflowExecutionFailedEventAttributes({
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static FailWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      FailWorkflowExecutionFailedEventAttributes();
+}
+
+class History {
+  /// The list of history events.
+  final List<HistoryEvent> events;
+
+  /// If a `NextPageToken` was returned by a previous call, there are more
+  /// results available. To retrieve the next page of results, make the call
+  /// again using the returned token in `nextPageToken`. Keep all other
+  /// arguments unchanged.
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  final String nextPageToken;
+
+  History({
+    @required this.events,
+    this.nextPageToken,
+  });
+  static History fromJson(Map<String, dynamic> json) => History();
+}
+
+class HistoryEvent {
+  /// The date and time when the event occurred.
+  final DateTime eventTimestamp;
+
+  /// The type of the history event.
+  final String eventType;
+
+  /// The system generated ID of the event. This ID uniquely identifies the
+  /// event with in the workflow execution history.
+  final BigInt eventId;
+
+  /// If the event is of type `WorkflowExecutionStarted` then this member is set
+  /// and provides detailed information about the event. It isn't set for other
+  /// event types.
+  final WorkflowExecutionStartedEventAttributes
+      workflowExecutionStartedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionCompleted` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final WorkflowExecutionCompletedEventAttributes
+      workflowExecutionCompletedEventAttributes;
+
+  /// If the event is of type `CompleteWorkflowExecutionFailed` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final CompleteWorkflowExecutionFailedEventAttributes
+      completeWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionFailed` then this member is set
+  /// and provides detailed information about the event. It isn't set for other
+  /// event types.
+  final WorkflowExecutionFailedEventAttributes
+      workflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `FailWorkflowExecutionFailed` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final FailWorkflowExecutionFailedEventAttributes
+      failWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionTimedOut` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final WorkflowExecutionTimedOutEventAttributes
+      workflowExecutionTimedOutEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionCanceled` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final WorkflowExecutionCanceledEventAttributes
+      workflowExecutionCanceledEventAttributes;
+
+  /// If the event is of type `CancelWorkflowExecutionFailed` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final CancelWorkflowExecutionFailedEventAttributes
+      cancelWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionContinuedAsNew` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final WorkflowExecutionContinuedAsNewEventAttributes
+      workflowExecutionContinuedAsNewEventAttributes;
+
+  /// If the event is of type `ContinueAsNewWorkflowExecutionFailed` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final ContinueAsNewWorkflowExecutionFailedEventAttributes
+      continueAsNewWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionTerminated` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final WorkflowExecutionTerminatedEventAttributes
+      workflowExecutionTerminatedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionCancelRequested` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final WorkflowExecutionCancelRequestedEventAttributes
+      workflowExecutionCancelRequestedEventAttributes;
+
+  /// If the event is of type `DecisionTaskScheduled` then this member is set
+  /// and provides detailed information about the event. It isn't set for other
+  /// event types.
+  final DecisionTaskScheduledEventAttributes
+      decisionTaskScheduledEventAttributes;
+
+  /// If the event is of type `DecisionTaskStarted` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final DecisionTaskStartedEventAttributes decisionTaskStartedEventAttributes;
+
+  /// If the event is of type `DecisionTaskCompleted` then this member is set
+  /// and provides detailed information about the event. It isn't set for other
+  /// event types.
+  final DecisionTaskCompletedEventAttributes
+      decisionTaskCompletedEventAttributes;
+
+  /// If the event is of type `DecisionTaskTimedOut` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final DecisionTaskTimedOutEventAttributes decisionTaskTimedOutEventAttributes;
+
+  /// If the event is of type `ActivityTaskScheduled` then this member is set
+  /// and provides detailed information about the event. It isn't set for other
+  /// event types.
+  final ActivityTaskScheduledEventAttributes
+      activityTaskScheduledEventAttributes;
+
+  /// If the event is of type `ActivityTaskStarted` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final ActivityTaskStartedEventAttributes activityTaskStartedEventAttributes;
+
+  /// If the event is of type `ActivityTaskCompleted` then this member is set
+  /// and provides detailed information about the event. It isn't set for other
+  /// event types.
+  final ActivityTaskCompletedEventAttributes
+      activityTaskCompletedEventAttributes;
+
+  /// If the event is of type `ActivityTaskFailed` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final ActivityTaskFailedEventAttributes activityTaskFailedEventAttributes;
+
+  /// If the event is of type `ActivityTaskTimedOut` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final ActivityTaskTimedOutEventAttributes activityTaskTimedOutEventAttributes;
+
+  /// If the event is of type `ActivityTaskCanceled` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final ActivityTaskCanceledEventAttributes activityTaskCanceledEventAttributes;
+
+  /// If the event is of type `ActivityTaskcancelRequested` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ActivityTaskCancelRequestedEventAttributes
+      activityTaskCancelRequestedEventAttributes;
+
+  /// If the event is of type `WorkflowExecutionSignaled` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final WorkflowExecutionSignaledEventAttributes
+      workflowExecutionSignaledEventAttributes;
+
+  /// If the event is of type `MarkerRecorded` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final MarkerRecordedEventAttributes markerRecordedEventAttributes;
+
+  /// If the event is of type `DecisionTaskFailed` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final RecordMarkerFailedEventAttributes recordMarkerFailedEventAttributes;
+
+  /// If the event is of type `TimerStarted` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final TimerStartedEventAttributes timerStartedEventAttributes;
+
+  /// If the event is of type `TimerFired` then this member is set and provides
+  /// detailed information about the event. It isn't set for other event types.
+  final TimerFiredEventAttributes timerFiredEventAttributes;
+
+  /// If the event is of type `TimerCanceled` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final TimerCanceledEventAttributes timerCanceledEventAttributes;
+
+  /// If the event is of type `StartChildWorkflowExecutionInitiated` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final StartChildWorkflowExecutionInitiatedEventAttributes
+      startChildWorkflowExecutionInitiatedEventAttributes;
+
+  /// If the event is of type `ChildWorkflowExecutionStarted` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ChildWorkflowExecutionStartedEventAttributes
+      childWorkflowExecutionStartedEventAttributes;
+
+  /// If the event is of type `ChildWorkflowExecutionCompleted` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ChildWorkflowExecutionCompletedEventAttributes
+      childWorkflowExecutionCompletedEventAttributes;
+
+  /// If the event is of type `ChildWorkflowExecutionFailed` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ChildWorkflowExecutionFailedEventAttributes
+      childWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `ChildWorkflowExecutionTimedOut` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ChildWorkflowExecutionTimedOutEventAttributes
+      childWorkflowExecutionTimedOutEventAttributes;
+
+  /// If the event is of type `ChildWorkflowExecutionCanceled` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ChildWorkflowExecutionCanceledEventAttributes
+      childWorkflowExecutionCanceledEventAttributes;
+
+  /// If the event is of type `ChildWorkflowExecutionTerminated` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final ChildWorkflowExecutionTerminatedEventAttributes
+      childWorkflowExecutionTerminatedEventAttributes;
+
+  /// If the event is of type `SignalExternalWorkflowExecutionInitiated` then
+  /// this member is set and provides detailed information about the event. It
+  /// isn't set for other event types.
+  final SignalExternalWorkflowExecutionInitiatedEventAttributes
+      signalExternalWorkflowExecutionInitiatedEventAttributes;
+
+  /// If the event is of type `ExternalWorkflowExecutionSignaled` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final ExternalWorkflowExecutionSignaledEventAttributes
+      externalWorkflowExecutionSignaledEventAttributes;
+
+  /// If the event is of type `SignalExternalWorkflowExecutionFailed` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final SignalExternalWorkflowExecutionFailedEventAttributes
+      signalExternalWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `ExternalWorkflowExecutionCancelRequested` then
+  /// this member is set and provides detailed information about the event. It
+  /// isn't set for other event types.
+  final ExternalWorkflowExecutionCancelRequestedEventAttributes
+      externalWorkflowExecutionCancelRequestedEventAttributes;
+
+  /// If the event is of type `RequestCancelExternalWorkflowExecutionInitiated`
+  /// then this member is set and provides detailed information about the event.
+  /// It isn't set for other event types.
+  final RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
+      requestCancelExternalWorkflowExecutionInitiatedEventAttributes;
+
+  /// If the event is of type `RequestCancelExternalWorkflowExecutionFailed`
+  /// then this member is set and provides detailed information about the event.
+  /// It isn't set for other event types.
+  final RequestCancelExternalWorkflowExecutionFailedEventAttributes
+      requestCancelExternalWorkflowExecutionFailedEventAttributes;
+
+  /// If the event is of type `ScheduleActivityTaskFailed` then this member is
+  /// set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final ScheduleActivityTaskFailedEventAttributes
+      scheduleActivityTaskFailedEventAttributes;
+
+  /// If the event is of type `RequestCancelActivityTaskFailed` then this member
+  /// is set and provides detailed information about the event. It isn't set for
+  /// other event types.
+  final RequestCancelActivityTaskFailedEventAttributes
+      requestCancelActivityTaskFailedEventAttributes;
+
+  /// If the event is of type `StartTimerFailed` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final StartTimerFailedEventAttributes startTimerFailedEventAttributes;
+
+  /// If the event is of type `CancelTimerFailed` then this member is set and
+  /// provides detailed information about the event. It isn't set for other
+  /// event types.
+  final CancelTimerFailedEventAttributes cancelTimerFailedEventAttributes;
+
+  /// If the event is of type `StartChildWorkflowExecutionFailed` then this
+  /// member is set and provides detailed information about the event. It isn't
+  /// set for other event types.
+  final StartChildWorkflowExecutionFailedEventAttributes
+      startChildWorkflowExecutionFailedEventAttributes;
+
+  /// Provides the details of the `LambdaFunctionScheduled` event. It isn't set
+  /// for other event types.
+  final LambdaFunctionScheduledEventAttributes
+      lambdaFunctionScheduledEventAttributes;
+
+  /// Provides the details of the `LambdaFunctionStarted` event. It isn't set
+  /// for other event types.
+  final LambdaFunctionStartedEventAttributes
+      lambdaFunctionStartedEventAttributes;
+
+  /// Provides the details of the `LambdaFunctionCompleted` event. It isn't set
+  /// for other event types.
+  final LambdaFunctionCompletedEventAttributes
+      lambdaFunctionCompletedEventAttributes;
+
+  /// Provides the details of the `LambdaFunctionFailed` event. It isn't set for
+  /// other event types.
+  final LambdaFunctionFailedEventAttributes lambdaFunctionFailedEventAttributes;
+
+  /// Provides the details of the `LambdaFunctionTimedOut` event. It isn't set
+  /// for other event types.
+  final LambdaFunctionTimedOutEventAttributes
+      lambdaFunctionTimedOutEventAttributes;
+
+  /// Provides the details of the `ScheduleLambdaFunctionFailed` event. It isn't
+  /// set for other event types.
+  final ScheduleLambdaFunctionFailedEventAttributes
+      scheduleLambdaFunctionFailedEventAttributes;
+
+  /// Provides the details of the `StartLambdaFunctionFailed` event. It isn't
+  /// set for other event types.
+  final StartLambdaFunctionFailedEventAttributes
+      startLambdaFunctionFailedEventAttributes;
+
+  HistoryEvent({
+    @required this.eventTimestamp,
+    @required this.eventType,
+    @required this.eventId,
+    this.workflowExecutionStartedEventAttributes,
+    this.workflowExecutionCompletedEventAttributes,
+    this.completeWorkflowExecutionFailedEventAttributes,
+    this.workflowExecutionFailedEventAttributes,
+    this.failWorkflowExecutionFailedEventAttributes,
+    this.workflowExecutionTimedOutEventAttributes,
+    this.workflowExecutionCanceledEventAttributes,
+    this.cancelWorkflowExecutionFailedEventAttributes,
+    this.workflowExecutionContinuedAsNewEventAttributes,
+    this.continueAsNewWorkflowExecutionFailedEventAttributes,
+    this.workflowExecutionTerminatedEventAttributes,
+    this.workflowExecutionCancelRequestedEventAttributes,
+    this.decisionTaskScheduledEventAttributes,
+    this.decisionTaskStartedEventAttributes,
+    this.decisionTaskCompletedEventAttributes,
+    this.decisionTaskTimedOutEventAttributes,
+    this.activityTaskScheduledEventAttributes,
+    this.activityTaskStartedEventAttributes,
+    this.activityTaskCompletedEventAttributes,
+    this.activityTaskFailedEventAttributes,
+    this.activityTaskTimedOutEventAttributes,
+    this.activityTaskCanceledEventAttributes,
+    this.activityTaskCancelRequestedEventAttributes,
+    this.workflowExecutionSignaledEventAttributes,
+    this.markerRecordedEventAttributes,
+    this.recordMarkerFailedEventAttributes,
+    this.timerStartedEventAttributes,
+    this.timerFiredEventAttributes,
+    this.timerCanceledEventAttributes,
+    this.startChildWorkflowExecutionInitiatedEventAttributes,
+    this.childWorkflowExecutionStartedEventAttributes,
+    this.childWorkflowExecutionCompletedEventAttributes,
+    this.childWorkflowExecutionFailedEventAttributes,
+    this.childWorkflowExecutionTimedOutEventAttributes,
+    this.childWorkflowExecutionCanceledEventAttributes,
+    this.childWorkflowExecutionTerminatedEventAttributes,
+    this.signalExternalWorkflowExecutionInitiatedEventAttributes,
+    this.externalWorkflowExecutionSignaledEventAttributes,
+    this.signalExternalWorkflowExecutionFailedEventAttributes,
+    this.externalWorkflowExecutionCancelRequestedEventAttributes,
+    this.requestCancelExternalWorkflowExecutionInitiatedEventAttributes,
+    this.requestCancelExternalWorkflowExecutionFailedEventAttributes,
+    this.scheduleActivityTaskFailedEventAttributes,
+    this.requestCancelActivityTaskFailedEventAttributes,
+    this.startTimerFailedEventAttributes,
+    this.cancelTimerFailedEventAttributes,
+    this.startChildWorkflowExecutionFailedEventAttributes,
+    this.lambdaFunctionScheduledEventAttributes,
+    this.lambdaFunctionStartedEventAttributes,
+    this.lambdaFunctionCompletedEventAttributes,
+    this.lambdaFunctionFailedEventAttributes,
+    this.lambdaFunctionTimedOutEventAttributes,
+    this.scheduleLambdaFunctionFailedEventAttributes,
+    this.startLambdaFunctionFailedEventAttributes,
+  });
+  static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent();
+}
+
+class LambdaFunctionCompletedEventAttributes {
+  /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
+  /// Lambda task was scheduled. To help diagnose issues, use this information
+  /// to trace back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `LambdaFunctionStarted` event recorded when this activity
+  /// task started. To help diagnose issues, use this information to trace back
+  /// the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  /// The results of the Lambda task.
+  final String result;
+
+  LambdaFunctionCompletedEventAttributes({
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+    this.result,
+  });
+  static LambdaFunctionCompletedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionCompletedEventAttributes();
+}
+
+class LambdaFunctionFailedEventAttributes {
+  /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
+  /// activity task was scheduled. To help diagnose issues, use this information
+  /// to trace back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `LambdaFunctionStarted` event recorded when this activity
+  /// task started. To help diagnose issues, use this information to trace back
+  /// the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  /// The reason provided for the failure.
+  final String reason;
+
+  /// The details of the failure.
+  final String details;
+
+  LambdaFunctionFailedEventAttributes({
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+    this.reason,
+    this.details,
+  });
+  static LambdaFunctionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionFailedEventAttributes();
+}
+
+class LambdaFunctionScheduledEventAttributes {
+  /// The unique ID of the Lambda task.
+  final String id;
+
+  /// The name of the Lambda function.
+  final String name;
+
+  /// Data attached to the event that the decider can use in subsequent workflow
+  /// tasks. This data isn't sent to the Lambda task.
+  final String control;
+
+  /// The input provided to the Lambda task.
+  final String input;
+
+  /// The maximum amount of time a worker can take to process the Lambda task.
+  final String startToCloseTimeout;
+
+  /// The ID of the `LambdaFunctionCompleted` event corresponding to the
+  /// decision that resulted in scheduling this activity task. To help diagnose
+  /// issues, use this information to trace back the chain of events leading up
+  /// to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  LambdaFunctionScheduledEventAttributes({
+    @required this.id,
+    @required this.name,
+    this.control,
+    this.input,
+    this.startToCloseTimeout,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static LambdaFunctionScheduledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionScheduledEventAttributes();
+}
+
+class LambdaFunctionStartedEventAttributes {
+  /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
+  /// activity task was scheduled. To help diagnose issues, use this information
+  /// to trace back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  LambdaFunctionStartedEventAttributes({
+    @required this.scheduledEventId,
+  });
+  static LambdaFunctionStartedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionStartedEventAttributes();
+}
+
+class LambdaFunctionTimedOutEventAttributes {
+  /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
+  /// activity task was scheduled. To help diagnose issues, use this information
+  /// to trace back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The ID of the `ActivityTaskStarted` event that was recorded when this
+  /// activity task started. To help diagnose issues, use this information to
+  /// trace back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  /// The type of the timeout that caused this event.
+  final String timeoutType;
+
+  LambdaFunctionTimedOutEventAttributes({
+    @required this.scheduledEventId,
+    @required this.startedEventId,
+    this.timeoutType,
+  });
+  static LambdaFunctionTimedOutEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      LambdaFunctionTimedOutEventAttributes();
+}
+
+class ListTagsForResourceOutput {
+  /// An array of tags associated with the domain.
+  final List<ResourceTag> tags;
+
+  ListTagsForResourceOutput({
+    this.tags,
+  });
+  static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
+      ListTagsForResourceOutput();
+}
+
+class MarkerRecordedEventAttributes {
+  /// The name of the marker.
+  final String markerName;
+
+  /// The details of the marker.
+  final String details;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `RecordMarker` decision that requested this
+  /// marker. This information can be useful for diagnosing problems by tracing
+  /// back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  MarkerRecordedEventAttributes({
+    @required this.markerName,
+    this.details,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static MarkerRecordedEventAttributes fromJson(Map<String, dynamic> json) =>
+      MarkerRecordedEventAttributes();
+}
+
+class PendingTaskCount {
+  /// The number of tasks in the task list.
+  final int count;
+
+  /// If set to true, indicates that the actual count was more than the maximum
+  /// supported by this API and the count returned is the truncated value.
+  final bool truncated;
+
+  PendingTaskCount({
+    @required this.count,
+    this.truncated,
+  });
+  static PendingTaskCount fromJson(Map<String, dynamic> json) =>
+      PendingTaskCount();
+}
+
+class RecordMarkerDecisionAttributes {
+  ///  The name of the marker.
+  final String markerName;
+
+  ///  The details of the marker.
+  final String details;
+
+  RecordMarkerDecisionAttributes({
+    @required this.markerName,
+    this.details,
+  });
+}
+
+class RecordMarkerFailedEventAttributes {
+  /// The marker's name.
+  final String markerName;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `RecordMarkerFailed` decision for this
+  /// cancellation request. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  RecordMarkerFailedEventAttributes({
+    @required this.markerName,
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static RecordMarkerFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      RecordMarkerFailedEventAttributes();
+}
+
+class RequestCancelActivityTaskDecisionAttributes {
+  /// The `activityId` of the activity task to be canceled.
+  final String activityId;
+
+  RequestCancelActivityTaskDecisionAttributes({
+    @required this.activityId,
+  });
+}
+
+class RequestCancelActivityTaskFailedEventAttributes {
+  /// The activityId provided in the `RequestCancelActivityTask` decision that
+  /// failed.
+  final String activityId;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `RequestCancelActivityTask` decision for this
+  /// cancellation request. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  RequestCancelActivityTaskFailedEventAttributes({
+    @required this.activityId,
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static RequestCancelActivityTaskFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      RequestCancelActivityTaskFailedEventAttributes();
+}
+
+class RequestCancelExternalWorkflowExecutionDecisionAttributes {
+  ///  The `workflowId` of the external workflow execution to cancel.
+  final String workflowId;
+
+  /// The `runId` of the external workflow execution to cancel.
+  final String runId;
+
+  /// The data attached to the event that can be used by the decider in
+  /// subsequent workflow tasks.
+  final String control;
+
+  RequestCancelExternalWorkflowExecutionDecisionAttributes({
+    @required this.workflowId,
+    this.runId,
+    this.control,
+  });
+}
+
+class RequestCancelExternalWorkflowExecutionFailedEventAttributes {
+  /// The `workflowId` of the external workflow to which the cancel request was
+  /// to be delivered.
+  final String workflowId;
+
+  /// The `runId` of the external workflow execution.
+  final String runId;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `RequestCancelExternalWorkflowExecutionInitiated` event
+  /// corresponding to the `RequestCancelExternalWorkflowExecution` decision to
+  /// cancel this external workflow execution. This information can be useful
+  /// for diagnosing problems by tracing back the chain of events leading up to
+  /// this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `RequestCancelExternalWorkflowExecution`
+  /// decision for this cancellation request. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The data attached to the event that the decider can use in subsequent
+  /// workflow tasks. This data isn't sent to the workflow execution.
+  final String control;
+
+  RequestCancelExternalWorkflowExecutionFailedEventAttributes({
+    @required this.workflowId,
+    this.runId,
+    @required this.cause,
+    @required this.initiatedEventId,
+    @required this.decisionTaskCompletedEventId,
+    this.control,
+  });
+  static RequestCancelExternalWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      RequestCancelExternalWorkflowExecutionFailedEventAttributes();
+}
+
+class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes {
+  /// The `workflowId` of the external workflow execution to be canceled.
+  final String workflowId;
+
+  /// The `runId` of the external workflow execution to be canceled.
+  final String runId;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `RequestCancelExternalWorkflowExecution`
+  /// decision for this cancellation request. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// Data attached to the event that can be used by the decider in subsequent
+  /// workflow tasks.
+  final String control;
+
+  RequestCancelExternalWorkflowExecutionInitiatedEventAttributes({
+    @required this.workflowId,
+    this.runId,
+    @required this.decisionTaskCompletedEventId,
+    this.control,
+  });
+  static RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
+      fromJson(Map<String, dynamic> json) =>
+          RequestCancelExternalWorkflowExecutionInitiatedEventAttributes();
+}
+
+class ResourceTag {
+  /// The key of a tag.
+  final String key;
+
+  /// The value of a tag.
+  final String value;
+
+  ResourceTag({
+    @required this.key,
+    this.value,
+  });
+  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
+}
+
+class Run {
+  /// The `runId` of a workflow execution. This ID is generated by the service
+  /// and can be used to uniquely identify the workflow execution within a
+  /// domain.
+  final String runId;
+
+  Run({
+    this.runId,
+  });
+  static Run fromJson(Map<String, dynamic> json) => Run();
+}
+
+class ScheduleActivityTaskDecisionAttributes {
+  ///  The type of the activity task to schedule.
+  final ActivityType activityType;
+
+  ///  The `activityId` of the activity task.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
+  /// contain the literal string `arn`.
+  final String activityId;
+
+  /// Data attached to the event that can be used by the decider in subsequent
+  /// workflow tasks. This data isn't sent to the activity.
+  final String control;
+
+  /// The input provided to the activity task.
+  final String input;
+
+  /// The maximum duration for this activity task.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// A schedule-to-close timeout for this activity task must be specified
+  /// either as a default for the activity type or through this field. If
+  /// neither this field is set nor a default schedule-to-close timeout was
+  /// specified at registration time then a fault is returned.
+  final String scheduleToCloseTimeout;
+
+  /// If set, specifies the name of the task list in which to schedule the
+  /// activity task. If not specified, the `defaultTaskList` registered with the
+  /// activity type is used.
+  ///
+  ///  A task list for this activity task must be specified either as a default
+  /// for the activity type or through this field. If neither this field is set
+  /// nor a default task list was specified at registration time then a fault is
+  /// returned.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
+  /// contain the literal string `arn`.
+  final TaskList taskList;
+
+  ///  If set, specifies the priority with which the activity task is to be
+  /// assigned to a worker. This overrides the defaultTaskPriority specified
+  /// when registering the activity type using RegisterActivityType. Valid
+  /// values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  ///  If set, specifies the maximum duration the activity task can wait to be
+  /// assigned to a worker. This overrides the default schedule-to-start timeout
+  /// specified when registering the activity type using RegisterActivityType.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// A schedule-to-start timeout for this activity task must be specified
+  /// either as a default for the activity type or through this field. If
+  /// neither this field is set nor a default schedule-to-start timeout was
+  /// specified at registration time then a fault is returned.
+  final String scheduleToStartTimeout;
+
+  /// If set, specifies the maximum duration a worker may take to process this
+  /// activity task. This overrides the default start-to-close timeout specified
+  /// when registering the activity type using RegisterActivityType.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// A start-to-close timeout for this activity task must be specified either
+  /// as a default for the activity type or through this field. If neither this
+  /// field is set nor a default start-to-close timeout was specified at
+  /// registration time then a fault is returned.
+  final String startToCloseTimeout;
+
+  /// If set, specifies the maximum time before which a worker processing a task
+  /// of this type must report progress by calling RecordActivityTaskHeartbeat.
+  /// If the timeout is exceeded, the activity task is automatically timed out.
+  /// If the worker subsequently attempts to record a heartbeat or returns a
+  /// result, it is ignored. This overrides the default heartbeat timeout
+  /// specified when registering the activity type using RegisterActivityType.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String heartbeatTimeout;
+
+  ScheduleActivityTaskDecisionAttributes({
+    @required this.activityType,
+    @required this.activityId,
+    this.control,
+    this.input,
+    this.scheduleToCloseTimeout,
+    this.taskList,
+    this.taskPriority,
+    this.scheduleToStartTimeout,
+    this.startToCloseTimeout,
+    this.heartbeatTimeout,
+  });
+}
+
+class ScheduleActivityTaskFailedEventAttributes {
+  /// The activity type provided in the `ScheduleActivityTask` decision that
+  /// failed.
+  final ActivityType activityType;
+
+  /// The activityId provided in the `ScheduleActivityTask` decision that
+  /// failed.
+  final String activityId;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// that resulted in the scheduling of this activity task. This information
+  /// can be useful for diagnosing problems by tracing back the chain of events
+  /// leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  ScheduleActivityTaskFailedEventAttributes({
+    @required this.activityType,
+    @required this.activityId,
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static ScheduleActivityTaskFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ScheduleActivityTaskFailedEventAttributes();
+}
+
+class ScheduleLambdaFunctionDecisionAttributes {
+  /// A string that identifies the Lambda function execution in the event
+  /// history.
+  final String id;
+
+  /// The name, or ARN, of the Lambda function to schedule.
+  final String name;
+
+  /// The data attached to the event that the decider can use in subsequent
+  /// workflow tasks. This data isn't sent to the Lambda task.
+  final String control;
+
+  /// The optional input data to be supplied to the Lambda function.
+  final String input;
+
+  /// The timeout value, in seconds, after which the Lambda function is
+  /// considered to be failed once it has started. This can be any integer from
+  /// 1-300 (1s-5m). If no value is supplied, than a default value of 300s is
+  /// assumed.
+  final String startToCloseTimeout;
+
+  ScheduleLambdaFunctionDecisionAttributes({
+    @required this.id,
+    @required this.name,
+    this.control,
+    this.input,
+    this.startToCloseTimeout,
+  });
+}
+
+class ScheduleLambdaFunctionFailedEventAttributes {
+  /// The ID provided in the `ScheduleLambdaFunction` decision that failed.
+  final String id;
+
+  /// The name of the Lambda function.
+  final String name;
+
+  /// The cause of the failure. To help diagnose issues, use this information to
+  /// trace back the chain of events leading up to this event.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `LambdaFunctionCompleted` event corresponding to the
+  /// decision that resulted in scheduling this Lambda task. To help diagnose
+  /// issues, use this information to trace back the chain of events leading up
+  /// to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  ScheduleLambdaFunctionFailedEventAttributes({
+    @required this.id,
+    @required this.name,
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static ScheduleLambdaFunctionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      ScheduleLambdaFunctionFailedEventAttributes();
+}
+
+class SignalExternalWorkflowExecutionDecisionAttributes {
+  ///  The `workflowId` of the workflow execution to be signaled.
+  final String workflowId;
+
+  /// The `runId` of the workflow execution to be signaled.
+  final String runId;
+
+  ///  The name of the signal.The target workflow execution uses the signal name
+  /// and input to process the signal.
+  final String signalName;
+
+  ///  The input data to be provided with the signal. The target workflow
+  /// execution uses the signal name and input data to process the signal.
+  final String input;
+
+  /// The data attached to the event that can be used by the decider in
+  /// subsequent decision tasks.
+  final String control;
+
+  SignalExternalWorkflowExecutionDecisionAttributes({
+    @required this.workflowId,
+    this.runId,
+    @required this.signalName,
+    this.input,
+    this.control,
+  });
+}
+
+class SignalExternalWorkflowExecutionFailedEventAttributes {
+  /// The `workflowId` of the external workflow execution that the signal was
+  /// being delivered to.
+  final String workflowId;
+
+  /// The `runId` of the external workflow execution that the signal was being
+  /// delivered to.
+  final String runId;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `SignalExternalWorkflowExecutionInitiated` event
+  /// corresponding to the `SignalExternalWorkflowExecution` decision to request
+  /// this signal. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `SignalExternalWorkflowExecution` decision for
+  /// this signal. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The data attached to the event that the decider can use in subsequent
+  /// workflow tasks. This data isn't sent to the workflow execution.
+  final String control;
+
+  SignalExternalWorkflowExecutionFailedEventAttributes({
+    @required this.workflowId,
+    this.runId,
+    @required this.cause,
+    @required this.initiatedEventId,
+    @required this.decisionTaskCompletedEventId,
+    this.control,
+  });
+  static SignalExternalWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      SignalExternalWorkflowExecutionFailedEventAttributes();
+}
+
+class SignalExternalWorkflowExecutionInitiatedEventAttributes {
+  /// The `workflowId` of the external workflow execution.
+  final String workflowId;
+
+  /// The `runId` of the external workflow execution to send the signal to.
+  final String runId;
+
+  /// The name of the signal.
+  final String signalName;
+
+  /// The input provided to the signal.
+  final String input;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `SignalExternalWorkflowExecution` decision for
+  /// this signal. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// Data attached to the event that can be used by the decider in subsequent
+  /// decision tasks.
+  final String control;
+
+  SignalExternalWorkflowExecutionInitiatedEventAttributes({
+    @required this.workflowId,
+    this.runId,
+    @required this.signalName,
+    this.input,
+    @required this.decisionTaskCompletedEventId,
+    this.control,
+  });
+  static SignalExternalWorkflowExecutionInitiatedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      SignalExternalWorkflowExecutionInitiatedEventAttributes();
+}
+
+class StartChildWorkflowExecutionDecisionAttributes {
+  ///  The type of the workflow execution to be started.
+  final WorkflowType workflowType;
+
+  ///  The `workflowId` of the workflow execution.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
+  /// contain the literal string `arn`.
+  final String workflowId;
+
+  /// The data attached to the event that can be used by the decider in
+  /// subsequent workflow tasks. This data isn't sent to the child workflow
+  /// execution.
+  final String control;
+
+  /// The input to be provided to the workflow execution.
+  final String input;
+
+  /// The total duration for this workflow execution. This overrides the
+  /// defaultExecutionStartToCloseTimeout specified when registering the
+  /// workflow type.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// An execution start-to-close timeout for this workflow execution must be
+  /// specified either as a default for the workflow type or through this
+  /// parameter. If neither this parameter is set nor a default execution
+  /// start-to-close timeout was specified at registration time then a fault is
+  /// returned.
+  final String executionStartToCloseTimeout;
+
+  /// The name of the task list to be used for decision tasks of the child
+  /// workflow execution.
+  ///
+  ///  A task list for this workflow execution must be specified either as a
+  /// default for the workflow type or through this parameter. If neither this
+  /// parameter is set nor a default task list was specified at registration
+  /// time then a fault is returned.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
+  /// contain the literal string `arn`.
+  final TaskList taskList;
+
+  ///  A task priority that, if set, specifies the priority for a decision task
+  /// of this workflow execution. This overrides the defaultTaskPriority
+  /// specified when registering the workflow type. Valid values are integers
+  /// that range from Java's `Integer.MIN_VALUE` (-2147483648) to
+  /// `Integer.MAX_VALUE` (2147483647). Higher numbers indicate higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  /// Specifies the maximum duration of decision tasks for this workflow
+  /// execution. This parameter overrides the `defaultTaskStartToCloseTimout`
+  /// specified when registering the workflow type using RegisterWorkflowType.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  ///
+  ///
+  ///
+  /// A task start-to-close timeout for this workflow execution must be
+  /// specified either as a default for the workflow type or through this
+  /// parameter. If neither this parameter is set nor a default task
+  /// start-to-close timeout was specified at registration time then a fault is
+  /// returned.
+  final String taskStartToCloseTimeout;
+
+  ///  If set, specifies the policy to use for the child workflow executions if
+  /// the workflow execution being started is terminated by calling the
+  /// TerminateWorkflowExecution action explicitly or due to an expired timeout.
+  /// This policy overrides the default child policy specified when registering
+  /// the workflow type using RegisterWorkflowType.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  ///
+  ///
+  ///
+  ///
+  /// A child policy for this workflow execution must be specified either as a
+  /// default for the workflow type or through this parameter. If neither this
+  /// parameter is set nor a default child policy was specified at registration
+  /// time then a fault is returned.
+  final String childPolicy;
+
+  /// The list of tags to associate with the child workflow execution. A maximum
+  /// of 5 tags can be specified. You can list workflow executions with a
+  /// specific tag by calling ListOpenWorkflowExecutions or
+  /// ListClosedWorkflowExecutions and specifying a TagFilter.
+  final List<String> tagList;
+
+  /// The IAM role attached to the child workflow execution.
+  final String lambdaRole;
+
+  StartChildWorkflowExecutionDecisionAttributes({
+    @required this.workflowType,
+    @required this.workflowId,
+    this.control,
+    this.input,
+    this.executionStartToCloseTimeout,
+    this.taskList,
+    this.taskPriority,
+    this.taskStartToCloseTimeout,
+    this.childPolicy,
+    this.tagList,
+    this.lambdaRole,
+  });
+}
+
+class StartChildWorkflowExecutionFailedEventAttributes {
+  /// The workflow type provided in the `StartChildWorkflowExecution` Decision
+  /// that failed.
+  final WorkflowType workflowType;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// When `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision fails
+  /// because it lacks sufficient permissions. For details and example IAM
+  /// policies, see  [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The `workflowId` of the child workflow execution.
+  final String workflowId;
+
+  /// When the `cause` is `WORKFLOW\_ALREADY\_RUNNING`, `initiatedEventId` is
+  /// the ID of the `StartChildWorkflowExecutionInitiated` event that
+  /// corresponds to the `StartChildWorkflowExecution` Decision to start the
+  /// workflow execution. You can use this information to diagnose problems by
+  /// tracing back the chain of events leading up to this event.
+  ///
+  /// When the `cause` isn't `WORKFLOW\_ALREADY\_RUNNING`, `initiatedEventId` is
+  /// set to `0` because the `StartChildWorkflowExecutionInitiated` event
+  /// doesn't exist.
+  final BigInt initiatedEventId;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `StartChildWorkflowExecution` Decision to
+  /// request this child workflow execution. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The data attached to the event that the decider can use in subsequent
+  /// workflow tasks. This data isn't sent to the child workflow execution.
+  final String control;
+
+  StartChildWorkflowExecutionFailedEventAttributes({
+    @required this.workflowType,
+    @required this.cause,
+    @required this.workflowId,
+    @required this.initiatedEventId,
+    @required this.decisionTaskCompletedEventId,
+    this.control,
+  });
+  static StartChildWorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      StartChildWorkflowExecutionFailedEventAttributes();
+}
+
+class StartChildWorkflowExecutionInitiatedEventAttributes {
+  /// The `workflowId` of the child workflow execution.
+  final String workflowId;
+
+  /// The type of the child workflow execution.
+  final WorkflowType workflowType;
+
+  /// Data attached to the event that can be used by the decider in subsequent
+  /// decision tasks. This data isn't sent to the activity.
+  final String control;
+
+  /// The inputs provided to the child workflow execution.
+  final String input;
+
+  /// The maximum duration for the child workflow execution. If the workflow
+  /// execution isn't closed within this duration, it is timed out and
+  /// force-terminated.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String executionStartToCloseTimeout;
+
+  /// The name of the task list used for the decision tasks of the child
+  /// workflow execution.
+  final TaskList taskList;
+
+  ///  The priority assigned for the decision tasks for this workflow execution.
+  /// Valid values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `StartChildWorkflowExecution` Decision to
+  /// request this child workflow execution. This information can be useful for
+  /// diagnosing problems by tracing back the cause of events.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The policy to use for the child workflow executions if this execution gets
+  /// terminated by explicitly calling the TerminateWorkflowExecution action or
+  /// due to an expired timeout.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String childPolicy;
+
+  /// The maximum duration allowed for the decision tasks for this workflow
+  /// execution.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String taskStartToCloseTimeout;
+
+  /// The list of tags to associated with the child workflow execution.
+  final List<String> tagList;
+
+  /// The IAM role to attach to the child workflow execution.
+  final String lambdaRole;
+
+  StartChildWorkflowExecutionInitiatedEventAttributes({
+    @required this.workflowId,
+    @required this.workflowType,
+    this.control,
+    this.input,
+    this.executionStartToCloseTimeout,
+    @required this.taskList,
+    this.taskPriority,
+    @required this.decisionTaskCompletedEventId,
+    @required this.childPolicy,
+    this.taskStartToCloseTimeout,
+    this.tagList,
+    this.lambdaRole,
+  });
+  static StartChildWorkflowExecutionInitiatedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      StartChildWorkflowExecutionInitiatedEventAttributes();
+}
+
+class StartLambdaFunctionFailedEventAttributes {
+  /// The ID of the `ActivityTaskScheduled` event that was recorded when this
+  /// activity task was scheduled. To help diagnose issues, use this information
+  /// to trace back the chain of events leading up to this event.
+  final BigInt scheduledEventId;
+
+  /// The cause of the failure. To help diagnose issues, use this information to
+  /// trace back the chain of events leading up to this event.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because the IAM role attached to the execution lacked sufficient
+  /// permissions. For details and example IAM policies, see [Lambda
+  /// Tasks](https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// A description that can help diagnose the cause of the fault.
+  final String message;
+
+  StartLambdaFunctionFailedEventAttributes({
+    this.scheduledEventId,
+    this.cause,
+    this.message,
+  });
+  static StartLambdaFunctionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      StartLambdaFunctionFailedEventAttributes();
+}
+
+class StartTimerDecisionAttributes {
+  ///  The unique ID of the timer.
+  ///
+  /// The specified string must not start or end with whitespace. It must not
+  /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
+  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
+  /// contain the literal string `arn`.
+  final String timerId;
+
+  /// The data attached to the event that can be used by the decider in
+  /// subsequent workflow tasks.
+  final String control;
+
+  ///  The duration to wait before firing the timer.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`.
+  final String startToFireTimeout;
+
+  StartTimerDecisionAttributes({
+    @required this.timerId,
+    this.control,
+    @required this.startToFireTimeout,
+  });
+}
+
+class StartTimerFailedEventAttributes {
+  /// The timerId provided in the `StartTimer` decision that failed.
+  final String timerId;
+
+  /// The cause of the failure. This information is generated by the system and
+  /// can be useful for diagnostic purposes.
+  ///
+  ///
+  ///
+  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// because it lacked sufficient permissions. For details and example IAM
+  /// policies, see [Using IAM to Manage Access to Amazon SWF
+  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String cause;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `StartTimer` decision for this activity task.
+  /// This information can be useful for diagnosing problems by tracing back the
+  /// chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  StartTimerFailedEventAttributes({
+    @required this.timerId,
+    @required this.cause,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static StartTimerFailedEventAttributes fromJson(Map<String, dynamic> json) =>
+      StartTimerFailedEventAttributes();
+}
+
+class TagFilter {
+  ///  Specifies the tag that must be associated with the execution for it to
+  /// meet the filter criteria.
+  ///
+  /// Tags may only contain unicode letters, digits, whitespace, or these
+  /// symbols: `_ . : / = + - @`.
+  final String tag;
+
+  TagFilter({
+    @required this.tag,
+  });
+}
+
+class TaskList {
+  /// The name of the task list.
+  final String name;
+
+  TaskList({
+    @required this.name,
+  });
+  static TaskList fromJson(Map<String, dynamic> json) => TaskList();
+}
+
+class TimerCanceledEventAttributes {
+  /// The unique ID of the timer that was canceled.
+  final String timerId;
+
+  /// The ID of the `TimerStarted` event that was recorded when this timer was
+  /// started. This information can be useful for diagnosing problems by tracing
+  /// back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `CancelTimer` decision to cancel this timer.
+  /// This information can be useful for diagnosing problems by tracing back the
+  /// chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  TimerCanceledEventAttributes({
+    @required this.timerId,
+    @required this.startedEventId,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static TimerCanceledEventAttributes fromJson(Map<String, dynamic> json) =>
+      TimerCanceledEventAttributes();
+}
+
+class TimerFiredEventAttributes {
+  /// The unique ID of the timer that fired.
+  final String timerId;
+
+  /// The ID of the `TimerStarted` event that was recorded when this timer was
+  /// started. This information can be useful for diagnosing problems by tracing
+  /// back the chain of events leading up to this event.
+  final BigInt startedEventId;
+
+  TimerFiredEventAttributes({
+    @required this.timerId,
+    @required this.startedEventId,
+  });
+  static TimerFiredEventAttributes fromJson(Map<String, dynamic> json) =>
+      TimerFiredEventAttributes();
+}
+
+class TimerStartedEventAttributes {
+  /// The unique ID of the timer that was started.
+  final String timerId;
+
+  /// Data attached to the event that can be used by the decider in subsequent
+  /// workflow tasks.
+  final String control;
+
+  /// The duration of time after which the timer fires.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`.
+  final String startToFireTimeout;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `StartTimer` decision for this activity task.
+  /// This information can be useful for diagnosing problems by tracing back the
+  /// chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  TimerStartedEventAttributes({
+    @required this.timerId,
+    this.control,
+    @required this.startToFireTimeout,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static TimerStartedEventAttributes fromJson(Map<String, dynamic> json) =>
+      TimerStartedEventAttributes();
+}
+
+class WorkflowExecution {
+  /// The user defined identifier associated with the workflow execution.
+  final String workflowId;
+
+  /// A system-generated unique identifier for the workflow execution.
+  final String runId;
+
+  WorkflowExecution({
+    @required this.workflowId,
+    @required this.runId,
+  });
+  static WorkflowExecution fromJson(Map<String, dynamic> json) =>
+      WorkflowExecution();
+}
+
+class WorkflowExecutionCancelRequestedEventAttributes {
+  /// The external workflow execution for which the cancellation was requested.
+  final WorkflowExecution externalWorkflowExecution;
+
+  /// The ID of the `RequestCancelExternalWorkflowExecutionInitiated` event
+  /// corresponding to the `RequestCancelExternalWorkflowExecution` decision to
+  /// cancel this workflow execution.The source event with this ID can be found
+  /// in the history of the source workflow execution. This information can be
+  /// useful for diagnosing problems by tracing back the chain of events leading
+  /// up to this event.
+  final BigInt externalInitiatedEventId;
+
+  /// If set, indicates that the request to cancel the workflow execution was
+  /// automatically generated, and specifies the cause. This happens if the
+  /// parent workflow execution times out or is terminated, and the child policy
+  /// is set to cancel child executions.
+  final String cause;
+
+  WorkflowExecutionCancelRequestedEventAttributes({
+    this.externalWorkflowExecution,
+    this.externalInitiatedEventId,
+    this.cause,
+  });
+  static WorkflowExecutionCancelRequestedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionCancelRequestedEventAttributes();
+}
+
+class WorkflowExecutionCanceledEventAttributes {
+  /// The details of the cancellation.
+  final String details;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `CancelWorkflowExecution` decision for this
+  /// cancellation request. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  WorkflowExecutionCanceledEventAttributes({
+    this.details,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static WorkflowExecutionCanceledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionCanceledEventAttributes();
+}
+
+class WorkflowExecutionCompletedEventAttributes {
+  /// The result produced by the workflow execution upon successful completion.
+  final String result;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `CompleteWorkflowExecution` decision to complete
+  /// this execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  WorkflowExecutionCompletedEventAttributes({
+    this.result,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static WorkflowExecutionCompletedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionCompletedEventAttributes();
+}
+
+class WorkflowExecutionConfiguration {
+  /// The maximum duration allowed for decision tasks for this workflow
+  /// execution.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String taskStartToCloseTimeout;
+
+  /// The total duration for this workflow execution.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String executionStartToCloseTimeout;
+
+  /// The task list used for the decision tasks generated for this workflow
+  /// execution.
+  final TaskList taskList;
+
+  /// The priority assigned to decision tasks for this workflow execution. Valid
+  /// values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String taskPriority;
+
+  /// The policy to use for the child workflow executions if this workflow
+  /// execution is terminated, by calling the TerminateWorkflowExecution action
+  /// explicitly or due to an expired timeout.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String childPolicy;
+
+  /// The IAM role attached to the child workflow execution.
+  final String lambdaRole;
+
+  WorkflowExecutionConfiguration({
+    @required this.taskStartToCloseTimeout,
+    @required this.executionStartToCloseTimeout,
+    @required this.taskList,
+    this.taskPriority,
+    @required this.childPolicy,
+    this.lambdaRole,
+  });
+  static WorkflowExecutionConfiguration fromJson(Map<String, dynamic> json) =>
+      WorkflowExecutionConfiguration();
+}
+
+class WorkflowExecutionContinuedAsNewEventAttributes {
+  /// The input provided to the new workflow execution.
+  final String input;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `ContinueAsNewWorkflowExecution` decision that
+  /// started this execution. This information can be useful for diagnosing
+  /// problems by tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  /// The `runId` of the new workflow execution.
+  final String newExecutionRunId;
+
+  /// The total duration allowed for the new workflow execution.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String executionStartToCloseTimeout;
+
+  /// The task list to use for the decisions of the new (continued) workflow
+  /// execution.
+  final TaskList taskList;
+
+  /// The priority of the task to use for the decisions of the new (continued)
+  /// workflow execution.
+  final String taskPriority;
+
+  /// The maximum duration of decision tasks for the new workflow execution.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String taskStartToCloseTimeout;
+
+  /// The policy to use for the child workflow executions of the new execution
+  /// if it is terminated by calling the TerminateWorkflowExecution action
+  /// explicitly or due to an expired timeout.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String childPolicy;
+
+  /// The list of tags associated with the new workflow execution.
+  final List<String> tagList;
+
+  /// The workflow type of this execution.
+  final WorkflowType workflowType;
+
+  /// The IAM role to attach to the new (continued) workflow execution.
+  final String lambdaRole;
+
+  WorkflowExecutionContinuedAsNewEventAttributes({
+    this.input,
+    @required this.decisionTaskCompletedEventId,
+    @required this.newExecutionRunId,
+    this.executionStartToCloseTimeout,
+    @required this.taskList,
+    this.taskPriority,
+    this.taskStartToCloseTimeout,
+    @required this.childPolicy,
+    this.tagList,
+    @required this.workflowType,
+    this.lambdaRole,
+  });
+  static WorkflowExecutionContinuedAsNewEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionContinuedAsNewEventAttributes();
+}
+
+class WorkflowExecutionCount {
+  /// The number of workflow executions.
+  final int count;
+
+  /// If set to true, indicates that the actual count was more than the maximum
+  /// supported by this API and the count returned is the truncated value.
+  final bool truncated;
+
+  WorkflowExecutionCount({
+    @required this.count,
+    this.truncated,
+  });
+  static WorkflowExecutionCount fromJson(Map<String, dynamic> json) =>
+      WorkflowExecutionCount();
+}
+
+class WorkflowExecutionDetail {
+  /// Information about the workflow execution.
+  final WorkflowExecutionInfo executionInfo;
+
+  /// The configuration settings for this workflow execution including timeout
+  /// values, tasklist etc.
+  final WorkflowExecutionConfiguration executionConfiguration;
+
+  /// The number of tasks for this workflow execution. This includes open and
+  /// closed tasks of all types.
+  final WorkflowExecutionOpenCounts openCounts;
+
+  /// The time when the last activity task was scheduled for this workflow
+  /// execution. You can use this information to determine if the workflow has
+  /// not made progress for an unusually long period of time and might require a
+  /// corrective action.
+  final DateTime latestActivityTaskTimestamp;
+
+  /// The latest executionContext provided by the decider for this workflow
+  /// execution. A decider can provide an executionContext (a free-form string)
+  /// when closing a decision task using RespondDecisionTaskCompleted.
+  final String latestExecutionContext;
+
+  WorkflowExecutionDetail({
+    @required this.executionInfo,
+    @required this.executionConfiguration,
+    @required this.openCounts,
+    this.latestActivityTaskTimestamp,
+    this.latestExecutionContext,
+  });
+  static WorkflowExecutionDetail fromJson(Map<String, dynamic> json) =>
+      WorkflowExecutionDetail();
+}
+
+class WorkflowExecutionFailedEventAttributes {
+  /// The descriptive reason provided for the failure.
+  final String reason;
+
+  /// The details of the failure.
+  final String details;
+
+  /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
+  /// task that resulted in the `FailWorkflowExecution` decision to fail this
+  /// execution. This information can be useful for diagnosing problems by
+  /// tracing back the chain of events leading up to this event.
+  final BigInt decisionTaskCompletedEventId;
+
+  WorkflowExecutionFailedEventAttributes({
+    this.reason,
+    this.details,
+    @required this.decisionTaskCompletedEventId,
+  });
+  static WorkflowExecutionFailedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionFailedEventAttributes();
+}
+
+class WorkflowExecutionFilter {
+  /// The workflowId to pass of match the criteria of this filter.
+  final String workflowId;
+
+  WorkflowExecutionFilter({
+    @required this.workflowId,
+  });
+}
+
+class WorkflowExecutionInfo {
+  /// The workflow execution this information is about.
+  final WorkflowExecution execution;
+
+  /// The type of the workflow execution.
+  final WorkflowType workflowType;
+
+  /// The time when the execution was started.
+  final DateTime startTimestamp;
+
+  /// The time when the workflow execution was closed. Set only if the execution
+  /// status is CLOSED.
+  final DateTime closeTimestamp;
+
+  /// The current status of the execution.
+  final String executionStatus;
+
+  /// If the execution status is closed then this specifies how the execution
+  /// was closed:
+  ///
+  /// *    `COMPLETED` – the execution was successfully completed.
+  ///
+  /// *    `CANCELED` – the execution was canceled.Cancellation allows the
+  /// implementation to gracefully clean up before the execution is closed.
+  ///
+  /// *    `TERMINATED` – the execution was force terminated.
+  ///
+  /// *    `FAILED` – the execution failed to complete.
+  ///
+  /// *    `TIMED_OUT` – the execution did not complete in the alloted time and
+  /// was automatically timed out.
+  ///
+  /// *    `CONTINUED\_AS\_NEW` – the execution is logically continued. This
+  /// means the current execution was completed and a new execution was started
+  /// to carry on the workflow.
+  final String closeStatus;
+
+  /// If this workflow execution is a child of another execution then contains
+  /// the workflow execution that started this execution.
+  final WorkflowExecution parent;
+
+  /// The list of tags associated with the workflow execution. Tags can be used
+  /// to identify and list workflow executions of interest through the
+  /// visibility APIs. A workflow execution can have a maximum of 5 tags.
+  final List<String> tagList;
+
+  /// Set to true if a cancellation is requested for this workflow execution.
+  final bool cancelRequested;
+
+  WorkflowExecutionInfo({
+    @required this.execution,
+    @required this.workflowType,
+    @required this.startTimestamp,
+    this.closeTimestamp,
+    @required this.executionStatus,
+    this.closeStatus,
+    this.parent,
+    this.tagList,
+    this.cancelRequested,
+  });
+  static WorkflowExecutionInfo fromJson(Map<String, dynamic> json) =>
+      WorkflowExecutionInfo();
+}
+
+class WorkflowExecutionInfos {
+  /// The list of workflow information structures.
+  final List<WorkflowExecutionInfo> executionInfos;
+
+  /// If a `NextPageToken` was returned by a previous call, there are more
+  /// results available. To retrieve the next page of results, make the call
+  /// again using the returned token in `nextPageToken`. Keep all other
+  /// arguments unchanged.
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  final String nextPageToken;
+
+  WorkflowExecutionInfos({
+    @required this.executionInfos,
+    this.nextPageToken,
+  });
+  static WorkflowExecutionInfos fromJson(Map<String, dynamic> json) =>
+      WorkflowExecutionInfos();
+}
+
+class WorkflowExecutionOpenCounts {
+  /// The count of activity tasks whose status is `OPEN`.
+  final int openActivityTasks;
+
+  /// The count of decision tasks whose status is OPEN. A workflow execution can
+  /// have at most one open decision task.
+  final int openDecisionTasks;
+
+  /// The count of timers started by this workflow execution that have not fired
+  /// yet.
+  final int openTimers;
+
+  /// The count of child workflow executions whose status is `OPEN`.
+  final int openChildWorkflowExecutions;
+
+  /// The count of Lambda tasks whose status is `OPEN`.
+  final int openLambdaFunctions;
+
+  WorkflowExecutionOpenCounts({
+    @required this.openActivityTasks,
+    @required this.openDecisionTasks,
+    @required this.openTimers,
+    @required this.openChildWorkflowExecutions,
+    this.openLambdaFunctions,
+  });
+  static WorkflowExecutionOpenCounts fromJson(Map<String, dynamic> json) =>
+      WorkflowExecutionOpenCounts();
+}
+
+class WorkflowExecutionSignaledEventAttributes {
+  /// The name of the signal received. The decider can use the signal name and
+  /// inputs to determine how to the process the signal.
+  final String signalName;
+
+  /// The inputs provided with the signal. The decider can use the signal name
+  /// and inputs to determine how to process the signal.
+  final String input;
+
+  /// The workflow execution that sent the signal. This is set only of the
+  /// signal was sent by another workflow execution.
+  final WorkflowExecution externalWorkflowExecution;
+
+  /// The ID of the `SignalExternalWorkflowExecutionInitiated` event
+  /// corresponding to the `SignalExternalWorkflow` decision to signal this
+  /// workflow execution.The source event with this ID can be found in the
+  /// history of the source workflow execution. This information can be useful
+  /// for diagnosing problems by tracing back the chain of events leading up to
+  /// this event. This field is set only if the signal was initiated by another
+  /// workflow execution.
+  final BigInt externalInitiatedEventId;
+
+  WorkflowExecutionSignaledEventAttributes({
+    @required this.signalName,
+    this.input,
+    this.externalWorkflowExecution,
+    this.externalInitiatedEventId,
+  });
+  static WorkflowExecutionSignaledEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionSignaledEventAttributes();
+}
+
+class WorkflowExecutionStartedEventAttributes {
+  /// The input provided to the workflow execution.
+  final String input;
+
+  /// The maximum duration for this workflow execution.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String executionStartToCloseTimeout;
+
+  /// The maximum duration of decision tasks for this workflow type.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String taskStartToCloseTimeout;
+
+  /// The policy to use for the child workflow executions if this workflow
+  /// execution is terminated, by calling the TerminateWorkflowExecution action
+  /// explicitly or due to an expired timeout.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String childPolicy;
+
+  /// The name of the task list for scheduling the decision tasks for this
+  /// workflow execution.
+  final TaskList taskList;
+
+  /// The priority of the decision tasks in the workflow execution.
+  final String taskPriority;
+
+  /// The workflow type of this execution.
+  final WorkflowType workflowType;
+
+  /// The list of tags associated with this workflow execution. An execution can
+  /// have up to 5 tags.
+  final List<String> tagList;
+
+  /// If this workflow execution was started due to a
+  /// `ContinueAsNewWorkflowExecution` decision, then it contains the `runId` of
+  /// the previous workflow execution that was closed and continued as this
+  /// execution.
+  final String continuedExecutionRunId;
+
+  /// The source workflow execution that started this workflow execution. The
+  /// member isn't set if the workflow execution was not started by a workflow.
+  final WorkflowExecution parentWorkflowExecution;
+
+  /// The ID of the `StartChildWorkflowExecutionInitiated` event corresponding
+  /// to the `StartChildWorkflowExecution` Decision to start this workflow
+  /// execution. The source event with this ID can be found in the history of
+  /// the source workflow execution. This information can be useful for
+  /// diagnosing problems by tracing back the chain of events leading up to this
+  /// event.
+  final BigInt parentInitiatedEventId;
+
+  /// The IAM role attached to the workflow execution.
+  final String lambdaRole;
+
+  WorkflowExecutionStartedEventAttributes({
+    this.input,
+    this.executionStartToCloseTimeout,
+    this.taskStartToCloseTimeout,
+    @required this.childPolicy,
+    @required this.taskList,
+    this.taskPriority,
+    @required this.workflowType,
+    this.tagList,
+    this.continuedExecutionRunId,
+    this.parentWorkflowExecution,
+    this.parentInitiatedEventId,
+    this.lambdaRole,
+  });
+  static WorkflowExecutionStartedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionStartedEventAttributes();
+}
+
+class WorkflowExecutionTerminatedEventAttributes {
+  /// The reason provided for the termination.
+  final String reason;
+
+  /// The details provided for the termination.
+  final String details;
+
+  /// The policy used for the child workflow executions of this workflow
+  /// execution.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String childPolicy;
+
+  /// If set, indicates that the workflow execution was automatically
+  /// terminated, and specifies the cause. This happens if the parent workflow
+  /// execution times out or is terminated and the child policy is set to
+  /// terminate child executions.
+  final String cause;
+
+  WorkflowExecutionTerminatedEventAttributes({
+    this.reason,
+    this.details,
+    @required this.childPolicy,
+    this.cause,
+  });
+  static WorkflowExecutionTerminatedEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionTerminatedEventAttributes();
+}
+
+class WorkflowExecutionTimedOutEventAttributes {
+  /// The type of timeout that caused this event.
+  final String timeoutType;
+
+  /// The policy used for the child workflow executions of this workflow
+  /// execution.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String childPolicy;
+
+  WorkflowExecutionTimedOutEventAttributes({
+    @required this.timeoutType,
+    @required this.childPolicy,
+  });
+  static WorkflowExecutionTimedOutEventAttributes fromJson(
+          Map<String, dynamic> json) =>
+      WorkflowExecutionTimedOutEventAttributes();
+}
+
+class WorkflowType {
+  ///  The name of the workflow type.
+  ///
+  ///
+  ///
+  /// The combination of workflow type name and version must be unique with in a
+  /// domain.
+  final String name;
+
+  ///  The version of the workflow type.
+  ///
+  ///
+  ///
+  /// The combination of workflow type name and version must be unique with in a
+  /// domain.
+  final String version;
+
+  WorkflowType({
+    @required this.name,
+    @required this.version,
+  });
+  static WorkflowType fromJson(Map<String, dynamic> json) => WorkflowType();
+}
+
+class WorkflowTypeConfiguration {
+  ///  The default maximum duration, specified when registering the workflow
+  /// type, that a decision task for executions of this workflow type might take
+  /// before returning completion or failure. If the task doesn'tdo close in the
+  /// specified time then the task is automatically timed out and rescheduled.
+  /// If the decider eventually reports a completion or failure, it is ignored.
+  /// This default can be overridden when starting a workflow execution using
+  /// the StartWorkflowExecution action or the `StartChildWorkflowExecution`
+  /// Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String defaultTaskStartToCloseTimeout;
+
+  ///  The default maximum duration, specified when registering the workflow
+  /// type, for executions of this workflow type. This default can be overridden
+  /// when starting a workflow execution using the StartWorkflowExecution action
+  /// or the `StartChildWorkflowExecution` Decision.
+  ///
+  /// The duration is specified in seconds, an integer greater than or equal to
+  /// `0`. You can use `NONE` to specify unlimited duration.
+  final String defaultExecutionStartToCloseTimeout;
+
+  ///  The default task list, specified when registering the workflow type, for
+  /// decisions tasks scheduled for workflow executions of this type. This
+  /// default can be overridden when starting a workflow execution using the
+  /// StartWorkflowExecution action or the `StartChildWorkflowExecution`
+  /// Decision.
+  final TaskList defaultTaskList;
+
+  ///  The default task priority, specified when registering the workflow type,
+  /// for all decision tasks of this workflow type. This default can be
+  /// overridden when starting a workflow execution using the
+  /// StartWorkflowExecution action or the `StartChildWorkflowExecution`
+  /// decision.
+  ///
+  /// Valid values are integers that range from Java's `Integer.MIN_VALUE`
+  /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
+  /// higher priority.
+  ///
+  /// For more information about setting task priority, see [Setting Task
+  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String defaultTaskPriority;
+
+  ///  The default policy to use for the child workflow executions when a
+  /// workflow execution of this type is terminated, by calling the
+  /// TerminateWorkflowExecution action explicitly or due to an expired timeout.
+  /// This default can be overridden when starting a workflow execution using
+  /// the StartWorkflowExecution action or the `StartChildWorkflowExecution`
+  /// Decision.
+  ///
+  /// The supported child policies are:
+  ///
+  /// *    `TERMINATE` – The child executions are terminated.
+  ///
+  /// *    `REQUEST_CANCEL` – A request to cancel is attempted for each child
+  /// execution by recording a `WorkflowExecutionCancelRequested` event in its
+  /// history. It is up to the decider to take appropriate actions when it
+  /// receives an execution history with this event.
+  ///
+  /// *    `ABANDON` – No action is taken. The child executions continue to run.
+  final String defaultChildPolicy;
+
+  /// The default IAM role attached to this workflow type.
+  ///
+  ///
+  ///
+  /// Executions of this workflow type need IAM roles to invoke Lambda
+  /// functions. If you don't specify an IAM role when starting this workflow
+  /// type, the default Lambda role is attached to the execution. For more
+  /// information, see
+  /// [https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html](https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html)
+  /// in the _Amazon SWF Developer Guide_.
+  final String defaultLambdaRole;
+
+  WorkflowTypeConfiguration({
+    this.defaultTaskStartToCloseTimeout,
+    this.defaultExecutionStartToCloseTimeout,
+    this.defaultTaskList,
+    this.defaultTaskPriority,
+    this.defaultChildPolicy,
+    this.defaultLambdaRole,
+  });
+  static WorkflowTypeConfiguration fromJson(Map<String, dynamic> json) =>
+      WorkflowTypeConfiguration();
+}
+
+class WorkflowTypeDetail {
+  /// General information about the workflow type.
+  ///
+  /// The status of the workflow type (returned in the WorkflowTypeInfo
+  /// structure) can be one of the following.
+  ///
+  /// *    `REGISTERED` – The type is registered and available. Workers
+  /// supporting this type should be running.
+  ///
+  /// *    `DEPRECATED` – The type was deprecated using DeprecateWorkflowType,
+  /// but is still in use. You should keep workers supporting this type running.
+  /// You cannot create new workflow executions of this type.
+  final WorkflowTypeInfo typeInfo;
+
+  /// Configuration settings of the workflow type registered through
+  /// RegisterWorkflowType
+  final WorkflowTypeConfiguration configuration;
+
+  WorkflowTypeDetail({
+    @required this.typeInfo,
+    @required this.configuration,
+  });
+  static WorkflowTypeDetail fromJson(Map<String, dynamic> json) =>
+      WorkflowTypeDetail();
+}
+
+class WorkflowTypeFilter {
+  ///  Name of the workflow type.
+  final String name;
+
+  /// Version of the workflow type.
+  final String version;
+
+  WorkflowTypeFilter({
+    @required this.name,
+    this.version,
+  });
+}
+
+class WorkflowTypeInfo {
+  /// The workflow type this information is about.
+  final WorkflowType workflowType;
+
+  /// The current status of the workflow type.
+  final String status;
+
+  /// The description of the type registered through RegisterWorkflowType.
+  final String description;
+
+  /// The date when this type was registered.
+  final DateTime creationDate;
+
+  /// If the type is in deprecated state, then it is set to the date when the
+  /// type was deprecated.
+  final DateTime deprecationDate;
+
+  WorkflowTypeInfo({
+    @required this.workflowType,
+    @required this.status,
+    this.description,
+    @required this.creationDate,
+    this.deprecationDate,
+  });
+  static WorkflowTypeInfo fromJson(Map<String, dynamic> json) =>
+      WorkflowTypeInfo();
+}
+
+class WorkflowTypeInfos {
+  /// The list of workflow type information.
+  final List<WorkflowTypeInfo> typeInfos;
+
+  /// If a `NextPageToken` was returned by a previous call, there are more
+  /// results available. To retrieve the next page of results, make the call
+  /// again using the returned token in `nextPageToken`. Keep all other
+  /// arguments unchanged.
+  ///
+  /// The configured `maximumPageSize` determines how many results can be
+  /// returned in a single call.
+  final String nextPageToken;
+
+  WorkflowTypeInfos({
+    @required this.typeInfos,
+    this.nextPageToken,
+  });
+  static WorkflowTypeInfos fromJson(Map<String, dynamic> json) =>
+      WorkflowTypeInfos();
+}

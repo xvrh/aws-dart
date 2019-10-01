@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'dart:typed_data';
 
 class KinesisVideoMediaApi {
   ///  Use this API to retrieve media content from a Kinesis video stream. In
@@ -47,10 +48,132 @@ class KinesisVideoMediaApi {
   /// For more information, see the **Errors** section at the bottom of this
   /// topic, as well as [Common
   /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
-  Future<void> getMedia(StartSelector startSelector,
-      {String streamName, String streamArn}) async {}
+  ///
+  /// [streamName]: The Kinesis video stream name from where you want to get the
+  /// media content. If you don't specify the `streamName`, you must specify the
+  /// `streamARN`.
+  ///
+  /// [streamArn]: The ARN of the stream from where you want to get the media
+  /// content. If you don't specify the `streamARN`, you must specify the
+  /// `streamName`.
+  ///
+  /// [startSelector]: Identifies the starting chunk to get from the specified
+  /// stream.
+  Future<GetMediaOutput> getMedia(StartSelector startSelector,
+      {String streamName, String streamArn}) async {
+    return GetMediaOutput.fromJson({});
+  }
 }
 
-class GetMediaOutput {}
+class GetMediaOutput {
+  /// The content type of the requested media.
+  final String contentType;
 
-class StartSelector {}
+  ///  The payload Kinesis Video Streams returns is a sequence of chunks from
+  /// the specified stream. For information about the chunks, see . The chunks
+  /// that Kinesis Video Streams returns in the `GetMedia` call also include the
+  /// following additional Matroska (MKV) tags:
+  ///
+  /// *   AWS\_KINESISVIDEO\_CONTINUATION_TOKEN (UTF-8 string) - In the event
+  /// your `GetMedia` call terminates, you can use this continuation token in
+  /// your next request to get the next chunk where the last request terminated.
+  ///
+  /// *   AWS\_KINESISVIDEO\_MILLIS\_BEHIND\_NOW (UTF-8 string) - Client
+  /// applications can use this tag value to determine how far behind the chunk
+  /// returned in the response is from the latest chunk on the stream.
+  ///
+  /// *   AWS\_KINESISVIDEO\_FRAGMENT_NUMBER - Fragment number returned in the
+  /// chunk.
+  ///
+  /// *   AWS\_KINESISVIDEO\_SERVER_TIMESTAMP - Server timestamp of the
+  /// fragment.
+  ///
+  /// *   AWS\_KINESISVIDEO\_PRODUCER_TIMESTAMP - Producer timestamp of the
+  /// fragment.
+  ///
+  ///
+  /// The following tags will be present if an error occurs:
+  ///
+  /// *   AWS\_KINESISVIDEO\_ERROR_CODE - String description of an error that
+  /// caused GetMedia to stop.
+  ///
+  /// *   AWS\_KINESISVIDEO\_ERROR_ID: Integer code of the error.
+  ///
+  ///
+  /// The error codes are as follows:
+  ///
+  /// *   3002 - Error writing to the stream
+  ///
+  /// *   4000 - Requested fragment is not found
+  ///
+  /// *   4500 - Access denied for the stream's KMS key
+  ///
+  /// *   4501 - Stream's KMS key is disabled
+  ///
+  /// *   4502 - Validation error on the stream's KMS key
+  ///
+  /// *   4503 - KMS key specified in the stream is unavailable
+  ///
+  /// *   4504 - Invalid usage of the KMS key specified in the stream
+  ///
+  /// *   4505 - Invalid state of the KMS key specified in the stream
+  ///
+  /// *   4506 - Unable to find the KMS key specified in the stream
+  ///
+  /// *   5000 - Internal error
+  final Uint8List payload;
+
+  GetMediaOutput({
+    this.contentType,
+    this.payload,
+  });
+  static GetMediaOutput fromJson(Map<String, dynamic> json) => GetMediaOutput();
+}
+
+class StartSelector {
+  /// Identifies the fragment on the Kinesis video stream where you want to
+  /// start getting the data from.
+  ///
+  /// *   NOW - Start with the latest chunk on the stream.
+  ///
+  /// *   EARLIEST - Start with earliest available chunk on the stream.
+  ///
+  /// *   FRAGMENT_NUMBER - Start with the chunk after a specific fragment. You
+  /// must also specify the `AfterFragmentNumber` parameter.
+  ///
+  /// *   PRODUCER\_TIMESTAMP or SERVER\_TIMESTAMP - Start with the chunk
+  /// containing a fragment with the specified producer or server timestamp. You
+  /// specify the timestamp by adding `StartTimestamp`.
+  ///
+  /// *    CONTINUATION_TOKEN - Read using the specified continuation token.
+  ///
+  ///
+  ///
+  ///
+  /// If you choose the NOW, EARLIEST, or CONTINUATION_TOKEN as the
+  /// `startSelectorType`, you don't provide any additional information in the
+  /// `startSelector`.
+  final String startSelectorType;
+
+  /// Specifies the fragment number from where you want the `GetMedia` API to
+  /// start returning the fragments.
+  final String afterFragmentNumber;
+
+  /// A timestamp value. This value is required if you choose the
+  /// PRODUCER\_TIMESTAMP or the SERVER\_TIMESTAMP as the `startSelectorType`.
+  /// The `GetMedia` API then starts with the chunk containing the fragment that
+  /// has the specified timestamp.
+  final DateTime startTimestamp;
+
+  /// Continuation token that Kinesis Video Streams returned in the previous
+  /// `GetMedia` response. The `GetMedia` API then starts with the chunk
+  /// identified by the continuation token.
+  final String continuationToken;
+
+  StartSelector({
+    @required this.startSelectorType,
+    this.afterFragmentNumber,
+    this.startTimestamp,
+    this.continuationToken,
+  });
+}

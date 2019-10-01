@@ -60,13 +60,79 @@ class EfsApi {
   ///
   ///  This operation requires permissions for the
   /// `elasticfilesystem:CreateFileSystem` action.
-  Future<void> createFileSystem(String creationToken,
+  ///
+  /// [creationToken]: A string of up to 64 ASCII characters. Amazon EFS uses
+  /// this to ensure idempotent creation.
+  ///
+  /// [performanceMode]: The performance mode of the file system. We recommend
+  /// `generalPurpose` performance mode for most file systems. File systems
+  /// using the `maxIO` performance mode can scale to higher levels of aggregate
+  /// throughput and operations per second with a tradeoff of slightly higher
+  /// latencies for most file operations. The performance mode can't be changed
+  /// after the file system has been created.
+  ///
+  /// [encrypted]: A Boolean value that, if true, creates an encrypted file
+  /// system. When creating an encrypted file system, you have the option of
+  /// specifying CreateFileSystemRequest$KmsKeyId for an existing AWS Key
+  /// Management Service (AWS KMS) customer master key (CMK). If you don't
+  /// specify a CMK, then the default CMK for Amazon EFS,
+  /// `/aws/elasticfilesystem`, is used to protect the encrypted file system.
+  ///
+  /// [kmsKeyId]: The ID of the AWS KMS CMK to be used to protect the encrypted
+  /// file system. This parameter is only required if you want to use a
+  /// nondefault CMK. If this parameter is not specified, the default CMK for
+  /// Amazon EFS is used. This ID can be in one of the following formats:
+  ///
+  /// *   Key ID - A unique identifier of the key, for example
+  /// `1234abcd-12ab-34cd-56ef-1234567890ab`.
+  ///
+  /// *   ARN - An Amazon Resource Name (ARN) for the key, for example
+  /// `arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`.
+  ///
+  /// *   Key alias - A previously created display name for a key, for example
+  /// `alias/projectKey1`.
+  ///
+  /// *   Key alias ARN - An ARN for a key alias, for example
+  /// `arn:aws:kms:us-west-2:444455556666:alias/projectKey1`.
+  ///
+  ///
+  /// If `KmsKeyId` is specified, the CreateFileSystemRequest$Encrypted
+  /// parameter must be set to true.
+  ///
+  /// [throughputMode]: The throughput mode for the file system to be created.
+  /// There are two throughput modes to choose from for your file system:
+  /// `bursting` and `provisioned`. If you set `ThroughputMode` to
+  /// `provisioned`, you must also set a value for
+  /// `ProvisionedThroughPutInMibps`. You can decrease your file system's
+  /// throughput in Provisioned Throughput mode or change between the throughput
+  /// modes as long as it’s been more than 24 hours since the last decrease or
+  /// throughput mode change. For more, see [Specifying Throughput with
+  /// Provisioned
+  /// Mode](https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput)
+  /// in the _Amazon EFS User Guide._
+  ///
+  /// [provisionedThroughputInMibps]: The throughput, measured in MiB/s, that
+  /// you want to provision for a file system that you're creating. Valid values
+  /// are 1-1024. Required if `ThroughputMode` is set to `provisioned`. The
+  /// upper limit for throughput is 1024 MiB/s. You can get this limit increased
+  /// by contacting AWS Support. For more information, see [Amazon EFS Limits
+  /// That You Can
+  /// Increase](https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits)
+  /// in the _Amazon EFS User Guide._
+  ///
+  /// [tags]: A value that specifies to create one or more tags associated with
+  /// the file system. Each tag is a user-defined key-value pair. Name your file
+  /// system on creation by including a `"Key":"Name","Value":"{value}"`
+  /// key-value pair.
+  Future<FileSystemDescription> createFileSystem(String creationToken,
       {String performanceMode,
       bool encrypted,
       String kmsKeyId,
       String throughputMode,
       double provisionedThroughputInMibps,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return FileSystemDescription.fromJson({});
+  }
 
   /// Creates a mount target for a file system. You can then mount the file
   /// system on EC2 instances by using the mount target.
@@ -177,11 +243,24 @@ class EfsApi {
   /// *    `ec2:DescribeNetworkInterfaces`
   ///
   /// *    `ec2:CreateNetworkInterface`
-  Future<void> createMountTarget(
+  ///
+  /// [fileSystemId]: The ID of the file system for which to create the mount
+  /// target.
+  ///
+  /// [subnetId]: The ID of the subnet to add the mount target in.
+  ///
+  /// [ipAddress]: Valid IPv4 address within the address range of the specified
+  /// subnet.
+  ///
+  /// [securityGroups]: Up to five VPC security group IDs, of the form
+  /// `sg-xxxxxxxx`. These must be for the same VPC as subnet specified.
+  Future<MountTargetDescription> createMountTarget(
       {@required String fileSystemId,
       @required String subnetId,
       String ipAddress,
-      List<String> securityGroups}) async {}
+      List<String> securityGroups}) async {
+    return MountTargetDescription.fromJson({});
+  }
 
   /// Creates or overwrites tags associated with a file system. Each tag is a
   /// key-value pair. If a tag key specified in the request already exists on
@@ -192,6 +271,12 @@ class EfsApi {
   ///
   /// This operation requires permission for the `elasticfilesystem:CreateTags`
   /// action.
+  ///
+  /// [fileSystemId]: The ID of the file system whose tags you want to modify
+  /// (String). This operation modifies the tags only, not the file system.
+  ///
+  /// [tags]: An array of `Tag` objects to add. Each `Tag` object is a key-value
+  /// pair.
   Future<void> createTags(
       {@required String fileSystemId, @required List<Tag> tags}) async {}
 
@@ -212,6 +297,8 @@ class EfsApi {
   ///
   /// This operation requires permissions for the
   /// `elasticfilesystem:DeleteFileSystem` action.
+  ///
+  /// [fileSystemId]: The ID of the file system you want to delete.
   Future<void> deleteFileSystem(String fileSystemId) async {}
 
   /// Deletes the specified mount target.
@@ -241,6 +328,8 @@ class EfsApi {
   /// action on the mount target's network interface:
   ///
   /// *    `ec2:DeleteNetworkInterface`
+  ///
+  /// [mountTargetId]: The ID of the mount target to delete (String).
   Future<void> deleteMountTarget(String mountTargetId) async {}
 
   /// Deletes the specified tags from a file system. If the `DeleteTags` request
@@ -252,6 +341,11 @@ class EfsApi {
   ///
   /// This operation requires permissions for the `elasticfilesystem:DeleteTags`
   /// action.
+  ///
+  /// [fileSystemId]: The ID of the file system whose tags you want to delete
+  /// (String).
+  ///
+  /// [tagKeys]: A list of tag keys to delete.
   Future<void> deleteTags(
       {@required String fileSystemId, @required List<String> tagKeys}) async {}
 
@@ -279,11 +373,29 @@ class EfsApi {
   ///
   ///  This operation requires permissions for the
   /// `elasticfilesystem:DescribeFileSystems` action.
-  Future<void> describeFileSystems(
+  ///
+  /// [maxItems]: (Optional) Specifies the maximum number of file systems to
+  /// return in the response (integer). Currently, this number is automatically
+  /// set to 10, and other values are ignored. The response is paginated at 10
+  /// per page if you have more than 10 file systems.
+  ///
+  /// [marker]: (Optional) Opaque pagination token returned from a previous
+  /// `DescribeFileSystems` operation (String). If present, specifies to
+  /// continue the list from where the returning call had left off.
+  ///
+  /// [creationToken]: (Optional) Restricts the list to the file system with
+  /// this creation token (String). You specify a creation token when you create
+  /// an Amazon EFS file system.
+  ///
+  /// [fileSystemId]: (Optional) ID of the file system whose description you
+  /// want to retrieve (String).
+  Future<DescribeFileSystemsResponse> describeFileSystems(
       {int maxItems,
       String marker,
       String creationToken,
-      String fileSystemId}) async {}
+      String fileSystemId}) async {
+    return DescribeFileSystemsResponse.fromJson({});
+  }
 
   /// Returns the current `LifecycleConfiguration` object for the specified
   /// Amazon EFS file system. EFS lifecycle management uses the
@@ -294,7 +406,13 @@ class EfsApi {
   ///
   /// This operation requires permissions for the
   /// `elasticfilesystem:DescribeLifecycleConfiguration` operation.
-  Future<void> describeLifecycleConfiguration(String fileSystemId) async {}
+  ///
+  /// [fileSystemId]: The ID of the file system whose `LifecycleConfiguration`
+  /// object you want to retrieve (String).
+  Future<LifecycleConfigurationDescription> describeLifecycleConfiguration(
+      String fileSystemId) async {
+    return LifecycleConfigurationDescription.fromJson({});
+  }
 
   /// Returns the security groups currently in effect for a mount target. This
   /// operation requires that the network interface of the mount target has been
@@ -307,7 +425,13 @@ class EfsApi {
   ///
   /// *    `ec2:DescribeNetworkInterfaceAttribute` action on the mount target's
   /// network interface.
-  Future<void> describeMountTargetSecurityGroups(String mountTargetId) async {}
+  ///
+  /// [mountTargetId]: The ID of the mount target whose security groups you want
+  /// to retrieve.
+  Future<DescribeMountTargetSecurityGroupsResponse>
+      describeMountTargetSecurityGroups(String mountTargetId) async {
+    return DescribeMountTargetSecurityGroupsResponse.fromJson({});
+  }
 
   /// Returns the descriptions of all the current mount targets, or a specific
   /// mount target, for a file system. When requesting all of the current mount
@@ -318,11 +442,30 @@ class EfsApi {
   /// `elasticfilesystem:DescribeMountTargets` action, on either the file system
   /// ID that you specify in `FileSystemId`, or on the file system of the mount
   /// target that you specify in `MountTargetId`.
-  Future<void> describeMountTargets(
+  ///
+  /// [maxItems]: (Optional) Maximum number of mount targets to return in the
+  /// response. Currently, this number is automatically set to 10, and other
+  /// values are ignored. The response is paginated at 10 per page if you have
+  /// more than 10 mount targets.
+  ///
+  /// [marker]: (Optional) Opaque pagination token returned from a previous
+  /// `DescribeMountTargets` operation (String). If present, it specifies to
+  /// continue the list from where the previous returning call left off.
+  ///
+  /// [fileSystemId]: (Optional) ID of the file system whose mount targets you
+  /// want to list (String). It must be included in your request if
+  /// `MountTargetId` is not included.
+  ///
+  /// [mountTargetId]: (Optional) ID of the mount target that you want to have
+  /// described (String). It must be included in your request if `FileSystemId`
+  /// is not included.
+  Future<DescribeMountTargetsResponse> describeMountTargets(
       {int maxItems,
       String marker,
       String fileSystemId,
-      String mountTargetId}) async {}
+      String mountTargetId}) async {
+    return DescribeMountTargetsResponse.fromJson({});
+  }
 
   /// Returns the tags associated with a file system. The order of tags returned
   /// in the response of one `DescribeTags` call and the order of tags returned
@@ -331,8 +474,22 @@ class EfsApi {
   ///
   ///  This operation requires permissions for the
   /// `elasticfilesystem:DescribeTags` action.
-  Future<void> describeTags(String fileSystemId,
-      {int maxItems, String marker}) async {}
+  ///
+  /// [maxItems]: (Optional) The maximum number of file system tags to return in
+  /// the response. Currently, this number is automatically set to 10, and other
+  /// values are ignored. The response is paginated at 10 per page if you have
+  /// more than 10 tags.
+  ///
+  /// [marker]: (Optional) An opaque pagination token returned from a previous
+  /// `DescribeTags` operation (String). If present, it specifies to continue
+  /// the list from where the previous call left off.
+  ///
+  /// [fileSystemId]: The ID of the file system whose tag set you want to
+  /// retrieve.
+  Future<DescribeTagsResponse> describeTags(String fileSystemId,
+      {int maxItems, String marker}) async {
+    return DescribeTagsResponse.fromJson({});
+  }
 
   /// Modifies the set of security groups in effect for a mount target.
   ///
@@ -351,6 +508,11 @@ class EfsApi {
   ///
   /// *    `ec2:ModifyNetworkInterfaceAttribute` action on the mount target's
   /// network interface.
+  ///
+  /// [mountTargetId]: The ID of the mount target whose security groups you want
+  /// to modify.
+  ///
+  /// [securityGroups]: An array of up to five VPC security group IDs.
   Future<void> modifyMountTargetSecurityGroups(String mountTargetId,
       {List<String> securityGroups}) async {}
 
@@ -384,32 +546,313 @@ class EfsApi {
   /// To apply a `LifecycleConfiguration` object to an encrypted file system,
   /// you need the same AWS Key Management Service (AWS KMS) permissions as when
   /// you created the encrypted file system.
-  Future<void> putLifecycleConfiguration(
+  ///
+  /// [fileSystemId]: The ID of the file system for which you are creating the
+  /// `LifecycleConfiguration` object (String).
+  ///
+  /// [lifecyclePolicies]: An array of `LifecyclePolicy` objects that define the
+  /// file system's `LifecycleConfiguration` object. A `LifecycleConfiguration`
+  /// object tells lifecycle management when to transition files from the
+  /// Standard storage class to the Infrequent Access storage class.
+  Future<LifecycleConfigurationDescription> putLifecycleConfiguration(
       {@required String fileSystemId,
-      @required List<LifecyclePolicy> lifecyclePolicies}) async {}
+      @required List<LifecyclePolicy> lifecyclePolicies}) async {
+    return LifecycleConfigurationDescription.fromJson({});
+  }
 
   /// Updates the throughput mode or the amount of provisioned throughput of an
   /// existing file system.
-  Future<void> updateFileSystem(String fileSystemId,
-      {String throughputMode, double provisionedThroughputInMibps}) async {}
+  ///
+  /// [fileSystemId]: The ID of the file system that you want to update.
+  ///
+  /// [throughputMode]: (Optional) The throughput mode that you want your file
+  /// system to use. If you're not updating your throughput mode, you don't need
+  /// to provide this value in your request. If you are changing the
+  /// `ThroughputMode` to `provisioned`, you must also set a value for
+  /// `ProvisionedThroughputInMibps`.
+  ///
+  /// [provisionedThroughputInMibps]: (Optional) The amount of throughput, in
+  /// MiB/s, that you want to provision for your file system. Valid values are
+  /// 1-1024. Required if `ThroughputMode` is changed to `provisioned` on
+  /// update. If you're not updating the amount of provisioned throughput for
+  /// your file system, you don't need to provide this value in your request.
+  Future<FileSystemDescription> updateFileSystem(String fileSystemId,
+      {String throughputMode, double provisionedThroughputInMibps}) async {
+    return FileSystemDescription.fromJson({});
+  }
 }
 
-class DescribeFileSystemsResponse {}
+class DescribeFileSystemsResponse {
+  /// Present if provided by caller in the request (String).
+  final String marker;
 
-class DescribeMountTargetSecurityGroupsResponse {}
+  /// An array of file system descriptions.
+  final List<FileSystemDescription> fileSystems;
 
-class DescribeMountTargetsResponse {}
+  /// Present if there are more file systems than returned in the response
+  /// (String). You can use the `NextMarker` in the subsequent request to fetch
+  /// the descriptions.
+  final String nextMarker;
 
-class DescribeTagsResponse {}
+  DescribeFileSystemsResponse({
+    this.marker,
+    this.fileSystems,
+    this.nextMarker,
+  });
+  static DescribeFileSystemsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeFileSystemsResponse();
+}
 
-class FileSystemDescription {}
+class DescribeMountTargetSecurityGroupsResponse {
+  /// An array of security groups.
+  final List<String> securityGroups;
 
-class FileSystemSize {}
+  DescribeMountTargetSecurityGroupsResponse({
+    @required this.securityGroups,
+  });
+  static DescribeMountTargetSecurityGroupsResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeMountTargetSecurityGroupsResponse();
+}
 
-class LifecycleConfigurationDescription {}
+class DescribeMountTargetsResponse {
+  /// If the request included the `Marker`, the response returns that value in
+  /// this field.
+  final String marker;
 
-class LifecyclePolicy {}
+  /// Returns the file system's mount targets as an array of
+  /// `MountTargetDescription` objects.
+  final List<MountTargetDescription> mountTargets;
 
-class MountTargetDescription {}
+  /// If a value is present, there are more mount targets to return. In a
+  /// subsequent request, you can provide `Marker` in your request with this
+  /// value to retrieve the next set of mount targets.
+  final String nextMarker;
 
-class Tag {}
+  DescribeMountTargetsResponse({
+    this.marker,
+    this.mountTargets,
+    this.nextMarker,
+  });
+  static DescribeMountTargetsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeMountTargetsResponse();
+}
+
+class DescribeTagsResponse {
+  /// If the request included a `Marker`, the response returns that value in
+  /// this field.
+  final String marker;
+
+  /// Returns tags associated with the file system as an array of `Tag` objects.
+  final List<Tag> tags;
+
+  /// If a value is present, there are more tags to return. In a subsequent
+  /// request, you can provide the value of `NextMarker` as the value of the
+  /// `Marker` parameter in your next request to retrieve the next set of tags.
+  final String nextMarker;
+
+  DescribeTagsResponse({
+    this.marker,
+    @required this.tags,
+    this.nextMarker,
+  });
+  static DescribeTagsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeTagsResponse();
+}
+
+class FileSystemDescription {
+  /// The AWS account that created the file system. If the file system was
+  /// created by an IAM user, the parent account to which the user belongs is
+  /// the owner.
+  final String ownerId;
+
+  /// The opaque string specified in the request.
+  final String creationToken;
+
+  /// The ID of the file system, assigned by Amazon EFS.
+  final String fileSystemId;
+
+  /// The time that the file system was created, in seconds (since
+  /// 1970-01-01T00:00:00Z).
+  final DateTime creationTime;
+
+  /// The lifecycle phase of the file system.
+  final String lifeCycleState;
+
+  /// You can add tags to a file system, including a `Name` tag. For more
+  /// information, see CreateFileSystem. If the file system has a `Name` tag,
+  /// Amazon EFS returns the value in this field.
+  final String name;
+
+  /// The current number of mount targets that the file system has. For more
+  /// information, see CreateMountTarget.
+  final int numberOfMountTargets;
+
+  /// The latest known metered size (in bytes) of data stored in the file
+  /// system, in its `Value` field, and the time at which that size was
+  /// determined in its `Timestamp` field. The `Timestamp` value is the integer
+  /// number of seconds since 1970-01-01T00:00:00Z. The `SizeInBytes` value
+  /// doesn't represent the size of a consistent snapshot of the file system,
+  /// but it is eventually consistent when there are no writes to the file
+  /// system. That is, `SizeInBytes` represents actual size only if the file
+  /// system is not modified for a period longer than a couple of hours.
+  /// Otherwise, the value is not the exact size that the file system was at any
+  /// point in time.
+  final FileSystemSize sizeInBytes;
+
+  /// The performance mode of the file system.
+  final String performanceMode;
+
+  /// A Boolean value that, if true, indicates that the file system is
+  /// encrypted.
+  final bool encrypted;
+
+  /// The ID of an AWS Key Management Service (AWS KMS) customer master key
+  /// (CMK) that was used to protect the encrypted file system.
+  final String kmsKeyId;
+
+  /// The throughput mode for a file system. There are two throughput modes to
+  /// choose from for your file system: `bursting` and `provisioned`. If you set
+  /// `ThroughputMode` to `provisioned`, you must also set a value for
+  /// `ProvisionedThroughPutInMibps`. You can decrease your file system's
+  /// throughput in Provisioned Throughput mode or change between the throughput
+  /// modes as long as it’s been more than 24 hours since the last decrease or
+  /// throughput mode change.
+  final String throughputMode;
+
+  /// The throughput, measured in MiB/s, that you want to provision for a file
+  /// system. Valid values are 1-1024. Required if `ThroughputMode` is set to
+  /// `provisioned`. The limit on throughput is 1024 MiB/s. You can get these
+  /// limits increased by contacting AWS Support. For more information, see
+  /// [Amazon EFS Limits That You Can
+  /// Increase](https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits)
+  /// in the _Amazon EFS User Guide._
+  final double provisionedThroughputInMibps;
+
+  /// The tags associated with the file system, presented as an array of `Tag`
+  /// objects.
+  final List<Tag> tags;
+
+  FileSystemDescription({
+    @required this.ownerId,
+    @required this.creationToken,
+    @required this.fileSystemId,
+    @required this.creationTime,
+    @required this.lifeCycleState,
+    this.name,
+    @required this.numberOfMountTargets,
+    @required this.sizeInBytes,
+    @required this.performanceMode,
+    this.encrypted,
+    this.kmsKeyId,
+    this.throughputMode,
+    this.provisionedThroughputInMibps,
+    @required this.tags,
+  });
+  static FileSystemDescription fromJson(Map<String, dynamic> json) =>
+      FileSystemDescription();
+}
+
+class FileSystemSize {
+  /// The latest known metered size (in bytes) of data stored in the file
+  /// system.
+  final BigInt value;
+
+  /// The time at which the size of data, returned in the `Value` field, was
+  /// determined. The value is the integer number of seconds since
+  /// 1970-01-01T00:00:00Z.
+  final DateTime timestamp;
+
+  /// The latest known metered size (in bytes) of data stored in the Infrequent
+  /// Access storage class.
+  final BigInt valueInIA;
+
+  /// The latest known metered size (in bytes) of data stored in the Standard
+  /// storage class.
+  final BigInt valueInStandard;
+
+  FileSystemSize({
+    @required this.value,
+    this.timestamp,
+    this.valueInIA,
+    this.valueInStandard,
+  });
+  static FileSystemSize fromJson(Map<String, dynamic> json) => FileSystemSize();
+}
+
+class LifecycleConfigurationDescription {
+  /// An array of lifecycle management policies. Currently, EFS supports a
+  /// maximum of one policy per file system.
+  final List<LifecyclePolicy> lifecyclePolicies;
+
+  LifecycleConfigurationDescription({
+    this.lifecyclePolicies,
+  });
+  static LifecycleConfigurationDescription fromJson(
+          Map<String, dynamic> json) =>
+      LifecycleConfigurationDescription();
+}
+
+class LifecyclePolicy {
+  ///  A value that describes the period of time that a file is not accessed,
+  /// after which it transitions to the IA storage class. Metadata operations
+  /// such as listing the contents of a directory don't count as file access
+  /// events.
+  final String transitionToIA;
+
+  LifecyclePolicy({
+    this.transitionToIA,
+  });
+  static LifecyclePolicy fromJson(Map<String, dynamic> json) =>
+      LifecyclePolicy();
+}
+
+class MountTargetDescription {
+  /// AWS account ID that owns the resource.
+  final String ownerId;
+
+  /// System-assigned mount target ID.
+  final String mountTargetId;
+
+  /// The ID of the file system for which the mount target is intended.
+  final String fileSystemId;
+
+  /// The ID of the mount target's subnet.
+  final String subnetId;
+
+  /// Lifecycle state of the mount target.
+  final String lifeCycleState;
+
+  /// Address at which the file system can be mounted by using the mount target.
+  final String ipAddress;
+
+  /// The ID of the network interface that Amazon EFS created when it created
+  /// the mount target.
+  final String networkInterfaceId;
+
+  MountTargetDescription({
+    this.ownerId,
+    @required this.mountTargetId,
+    @required this.fileSystemId,
+    @required this.subnetId,
+    @required this.lifeCycleState,
+    this.ipAddress,
+    this.networkInterfaceId,
+  });
+  static MountTargetDescription fromJson(Map<String, dynamic> json) =>
+      MountTargetDescription();
+}
+
+class Tag {
+  /// The tag key (String). The key can't start with `aws:`.
+  final String key;
+
+  /// The value of the tag key.
+  final String value;
+
+  Tag({
+    @required this.key,
+    @required this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}

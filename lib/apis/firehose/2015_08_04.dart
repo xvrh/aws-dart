@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'dart:typed_data';
 
 /// Amazon Kinesis Data Firehose API Reference
 ///
@@ -69,7 +70,52 @@ class FirehoseApi {
   /// Firehose Access to an Amazon S3
   /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
-  Future<void> createDeliveryStream(String deliveryStreamName,
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream. This name must be
+  /// unique per AWS account in the same AWS Region. If the delivery streams are
+  /// in different accounts or different Regions, you can have multiple delivery
+  /// streams with the same name.
+  ///
+  /// [deliveryStreamType]: The delivery stream type. This parameter can be one
+  /// of the following values:
+  ///
+  /// *    `DirectPut`: Provider applications access the delivery stream
+  /// directly.
+  ///
+  /// *    `KinesisStreamAsSource`: The delivery stream uses a Kinesis data
+  /// stream as a source.
+  ///
+  /// [kinesisStreamSourceConfiguration]: When a Kinesis data stream is used as
+  /// the source for the delivery stream, a KinesisStreamSourceConfiguration
+  /// containing the Kinesis data stream Amazon Resource Name (ARN) and the role
+  /// ARN for the source stream.
+  ///
+  /// [s3DestinationConfiguration]: \[Deprecated\] The destination in Amazon S3.
+  /// You can specify only one destination.
+  ///
+  /// [extendedS3DestinationConfiguration]: The destination in Amazon S3. You
+  /// can specify only one destination.
+  ///
+  /// [redshiftDestinationConfiguration]: The destination in Amazon Redshift.
+  /// You can specify only one destination.
+  ///
+  /// [elasticsearchDestinationConfiguration]: The destination in Amazon ES. You
+  /// can specify only one destination.
+  ///
+  /// [splunkDestinationConfiguration]: The destination in Splunk. You can
+  /// specify only one destination.
+  ///
+  /// [tags]: A set of tags to assign to the delivery stream. A tag is a
+  /// key-value pair that you can define and assign to AWS resources. Tags are
+  /// metadata. For example, you can add friendly names and descriptions or
+  /// other types of information that can help you distinguish the delivery
+  /// stream. For more information about tags, see [Using Cost Allocation
+  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// in the AWS Billing and Cost Management User Guide.
+  ///
+  /// You can specify up to 50 tags when creating a delivery stream.
+  Future<CreateDeliveryStreamOutput> createDeliveryStream(
+      String deliveryStreamName,
       {String deliveryStreamType,
       KinesisStreamSourceConfiguration kinesisStreamSourceConfiguration,
       S3DestinationConfiguration s3DestinationConfiguration,
@@ -78,7 +124,9 @@ class FirehoseApi {
       ElasticsearchDestinationConfiguration
           elasticsearchDestinationConfiguration,
       SplunkDestinationConfiguration splunkDestinationConfiguration,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateDeliveryStreamOutput.fromJson({});
+  }
 
   /// Deletes a delivery stream and its data.
   ///
@@ -93,14 +141,32 @@ class FirehoseApi {
   /// delivering the data. Therefore, as a best practice, you should first stop
   /// any applications that are sending records before deleting a delivery
   /// stream.
-  Future<void> deleteDeliveryStream(String deliveryStreamName) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream.
+  Future<DeleteDeliveryStreamOutput> deleteDeliveryStream(
+      String deliveryStreamName) async {
+    return DeleteDeliveryStreamOutput.fromJson({});
+  }
 
   /// Describes the specified delivery stream and gets the status. For example,
   /// after your delivery stream is created, call `DescribeDeliveryStream` to
   /// see whether the delivery stream is `ACTIVE` and therefore ready for data
   /// to be sent to it.
-  Future<void> describeDeliveryStream(String deliveryStreamName,
-      {int limit, String exclusiveStartDestinationId}) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream.
+  ///
+  /// [limit]: The limit on the number of destinations to return. You can have
+  /// one destination per delivery stream.
+  ///
+  /// [exclusiveStartDestinationId]: The ID of the destination to start
+  /// returning the destination information. Kinesis Data Firehose supports one
+  /// destination per delivery stream.
+  Future<DescribeDeliveryStreamOutput> describeDeliveryStream(
+      String deliveryStreamName,
+      {int limit,
+      String exclusiveStartDestinationId}) async {
+    return DescribeDeliveryStreamOutput.fromJson({});
+  }
 
   /// Lists your delivery streams in alphabetical order of their names.
   ///
@@ -112,15 +178,54 @@ class FirehoseApi {
   /// to list, you can request them by calling this operation again and setting
   /// the `ExclusiveStartDeliveryStreamName` parameter to the name of the last
   /// delivery stream returned in the last call.
-  Future<void> listDeliveryStreams(
+  ///
+  /// [limit]: The maximum number of delivery streams to list. The default value
+  /// is 10.
+  ///
+  /// [deliveryStreamType]: The delivery stream type. This can be one of the
+  /// following values:
+  ///
+  /// *    `DirectPut`: Provider applications access the delivery stream
+  /// directly.
+  ///
+  /// *    `KinesisStreamAsSource`: The delivery stream uses a Kinesis data
+  /// stream as a source.
+  ///
+  ///
+  /// This parameter is optional. If this parameter is omitted, delivery streams
+  /// of all types are returned.
+  ///
+  /// [exclusiveStartDeliveryStreamName]: The list of delivery streams returned
+  /// by this call to `ListDeliveryStreams` will start with the delivery stream
+  /// whose name comes alphabetically immediately after the name you specify in
+  /// `ExclusiveStartDeliveryStreamName`.
+  Future<ListDeliveryStreamsOutput> listDeliveryStreams(
       {int limit,
       String deliveryStreamType,
-      String exclusiveStartDeliveryStreamName}) async {}
+      String exclusiveStartDeliveryStreamName}) async {
+    return ListDeliveryStreamsOutput.fromJson({});
+  }
 
   /// Lists the tags for the specified delivery stream. This operation has a
   /// limit of five transactions per second per account.
-  Future<void> listTagsForDeliveryStream(String deliveryStreamName,
-      {String exclusiveStartTagKey, int limit}) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream whose tags you want
+  /// to list.
+  ///
+  /// [exclusiveStartTagKey]: The key to use as the starting point for the list
+  /// of tags. If you set this parameter, `ListTagsForDeliveryStream` gets all
+  /// tags that occur after `ExclusiveStartTagKey`.
+  ///
+  /// [limit]: The number of tags to return. If this number is less than the
+  /// total number of tags associated with the delivery stream, `HasMoreTags` is
+  /// set to `true` in the response. To list additional tags, set
+  /// `ExclusiveStartTagKey` to the last key in the response.
+  Future<ListTagsForDeliveryStreamOutput> listTagsForDeliveryStream(
+      String deliveryStreamName,
+      {String exclusiveStartTagKey,
+      int limit}) async {
+    return ListTagsForDeliveryStreamOutput.fromJson({});
+  }
 
   /// Writes a single data record into an Amazon Kinesis Data Firehose delivery
   /// stream. To write multiple data records into a delivery stream, use
@@ -165,8 +270,14 @@ class FirehoseApi {
   /// Don't concatenate two or more base64 strings to form the data fields of
   /// your records. Instead, concatenate the raw data, then perform base64
   /// encoding.
-  Future<void> putRecord(
-      {@required String deliveryStreamName, @required Record record}) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream.
+  ///
+  /// [record]: The record.
+  Future<PutRecordOutput> putRecord(
+      {@required String deliveryStreamName, @required Record record}) async {
+    return PutRecordOutput.fromJson({});
+  }
 
   /// Writes multiple data records into a delivery stream in a single call,
   /// which can achieve higher throughput per producer than when writing single
@@ -239,9 +350,15 @@ class FirehoseApi {
   /// Don't concatenate two or more base64 strings to form the data fields of
   /// your records. Instead, concatenate the raw data, then perform base64
   /// encoding.
-  Future<void> putRecordBatch(
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream.
+  ///
+  /// [records]: One or more records.
+  Future<PutRecordBatchOutput> putRecordBatch(
       {@required String deliveryStreamName,
-      @required List<Record> records}) async {}
+      @required List<Record> records}) async {
+    return PutRecordBatchOutput.fromJson({});
+  }
 
   /// Enables server-side encryption (SSE) for the delivery stream.
   ///
@@ -267,7 +384,13 @@ class FirehoseApi {
   /// `StartDeliveryStreamEncryption` 13 times and
   /// `StopDeliveryStreamEncryption` 12 times for the same delivery stream in a
   /// 24-hour period.
-  Future<void> startDeliveryStreamEncryption(String deliveryStreamName) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream for which you want
+  /// to enable server-side encryption (SSE).
+  Future<StartDeliveryStreamEncryptionOutput> startDeliveryStreamEncryption(
+      String deliveryStreamName) async {
+    return StartDeliveryStreamEncryptionOutput.fromJson({});
+  }
 
   /// Disables server-side encryption (SSE) for the delivery stream.
   ///
@@ -290,7 +413,13 @@ class FirehoseApi {
   /// `StartDeliveryStreamEncryption` 13 times and
   /// `StopDeliveryStreamEncryption` 12 times for the same delivery stream in a
   /// 24-hour period.
-  Future<void> stopDeliveryStreamEncryption(String deliveryStreamName) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream for which you want
+  /// to disable server-side encryption (SSE).
+  Future<StopDeliveryStreamEncryptionOutput> stopDeliveryStreamEncryption(
+      String deliveryStreamName) async {
+    return StopDeliveryStreamEncryptionOutput.fromJson({});
+  }
 
   /// Adds or updates tags for the specified delivery stream. A tag is a
   /// key-value pair that you can define and assign to AWS resources. If you
@@ -305,8 +434,15 @@ class FirehoseApi {
   /// Each delivery stream can have up to 50 tags.
   ///
   /// This operation has a limit of five transactions per second per account.
-  Future<void> tagDeliveryStream(
-      {@required String deliveryStreamName, @required List<Tag> tags}) async {}
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream to which you want to
+  /// add the tags.
+  ///
+  /// [tags]: A set of key-value pairs to use to create the tags.
+  Future<TagDeliveryStreamOutput> tagDeliveryStream(
+      {@required String deliveryStreamName, @required List<Tag> tags}) async {
+    return TagDeliveryStreamOutput.fromJson({});
+  }
 
   /// Removes tags from the specified delivery stream. Removed tags are deleted,
   /// and you can't recover them after this operation successfully completes.
@@ -314,9 +450,16 @@ class FirehoseApi {
   /// If you specify a tag that doesn't exist, the operation ignores it.
   ///
   /// This operation has a limit of five transactions per second per account.
-  Future<void> untagDeliveryStream(
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream.
+  ///
+  /// [tagKeys]: A list of tag keys. Each corresponding tag is removed from the
+  /// delivery stream.
+  Future<UntagDeliveryStreamOutput> untagDeliveryStream(
       {@required String deliveryStreamName,
-      @required List<String> tagKeys}) async {}
+      @required List<String> tagKeys}) async {
+    return UntagDeliveryStreamOutput.fromJson({});
+  }
 
   /// Updates the specified destination of the specified delivery stream.
   ///
@@ -352,7 +495,34 @@ class FirehoseApi {
   /// version ID is updated, and can be retrieved using DescribeDeliveryStream.
   /// Use the new version ID to set `CurrentDeliveryStreamVersionId` in the next
   /// call.
-  Future<void> updateDestination(
+  ///
+  /// [deliveryStreamName]: The name of the delivery stream.
+  ///
+  /// [currentDeliveryStreamVersionId]: Obtain this value from the `VersionId`
+  /// result of DeliveryStreamDescription. This value is required, and helps the
+  /// service perform conditional operations. For example, if there is an
+  /// interleaving update and this value is null, then the update destination
+  /// fails. After the update is successful, the `VersionId` value is updated.
+  /// The service then performs a merge of the old configuration with the new
+  /// configuration.
+  ///
+  /// [destinationId]: The ID of the destination.
+  ///
+  /// [s3DestinationUpdate]: \[Deprecated\] Describes an update for a
+  /// destination in Amazon S3.
+  ///
+  /// [extendedS3DestinationUpdate]: Describes an update for a destination in
+  /// Amazon S3.
+  ///
+  /// [redshiftDestinationUpdate]: Describes an update for a destination in
+  /// Amazon Redshift.
+  ///
+  /// [elasticsearchDestinationUpdate]: Describes an update for a destination in
+  /// Amazon ES.
+  ///
+  /// [splunkDestinationUpdate]: Describes an update for a destination in
+  /// Splunk.
+  Future<UpdateDestinationOutput> updateDestination(
       {@required String deliveryStreamName,
       @required String currentDeliveryStreamVersionId,
       @required String destinationId,
@@ -360,121 +530,1756 @@ class FirehoseApi {
       ExtendedS3DestinationUpdate extendedS3DestinationUpdate,
       RedshiftDestinationUpdate redshiftDestinationUpdate,
       ElasticsearchDestinationUpdate elasticsearchDestinationUpdate,
-      SplunkDestinationUpdate splunkDestinationUpdate}) async {}
+      SplunkDestinationUpdate splunkDestinationUpdate}) async {
+    return UpdateDestinationOutput.fromJson({});
+  }
 }
 
-class BufferingHints {}
+class BufferingHints {
+  /// Buffer incoming data to the specified size, in MBs, before delivering it
+  /// to the destination. The default value is 5.
+  ///
+  /// We recommend setting this parameter to a value greater than the amount of
+  /// data you typically ingest into the delivery stream in 10 seconds. For
+  /// example, if you typically ingest data at 1 MB/sec, the value should be 10
+  /// MB or higher.
+  final int sizeInmBs;
 
-class CloudWatchLoggingOptions {}
+  /// Buffer incoming data for the specified period of time, in seconds, before
+  /// delivering it to the destination. The default value is 300.
+  final int intervalInSeconds;
 
-class CopyCommand {}
+  BufferingHints({
+    this.sizeInmBs,
+    this.intervalInSeconds,
+  });
+  static BufferingHints fromJson(Map<String, dynamic> json) => BufferingHints();
+}
 
-class CreateDeliveryStreamOutput {}
+class CloudWatchLoggingOptions {
+  /// Enables or disables CloudWatch logging.
+  final bool enabled;
 
-class DataFormatConversionConfiguration {}
+  /// The CloudWatch group name for logging. This value is required if
+  /// CloudWatch logging is enabled.
+  final String logGroupName;
 
-class DeleteDeliveryStreamOutput {}
+  /// The CloudWatch log stream name for logging. This value is required if
+  /// CloudWatch logging is enabled.
+  final String logStreamName;
 
-class DeliveryStreamDescription {}
+  CloudWatchLoggingOptions({
+    this.enabled,
+    this.logGroupName,
+    this.logStreamName,
+  });
+  static CloudWatchLoggingOptions fromJson(Map<String, dynamic> json) =>
+      CloudWatchLoggingOptions();
+}
 
-class DeliveryStreamEncryptionConfiguration {}
+class CopyCommand {
+  /// The name of the target table. The table must already exist in the
+  /// database.
+  final String dataTableName;
 
-class DescribeDeliveryStreamOutput {}
+  /// A comma-separated list of column names.
+  final String dataTableColumns;
 
-class Deserializer {}
+  /// Optional parameters to use with the Amazon Redshift `COPY` command. For
+  /// more information, see the "Optional Parameters" section of [Amazon
+  /// Redshift COPY
+  /// command](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html). Some
+  /// possible examples that would apply to Kinesis Data Firehose are as
+  /// follows:
+  ///
+  ///  `delimiter '\\t' lzop;` \- fields are delimited with "\\t" (TAB
+  /// character) and compressed using lzop.
+  ///
+  ///  `delimiter '|'` \- fields are delimited with "|" (this is the default
+  /// delimiter).
+  ///
+  ///  `delimiter '|' escape` \- the delimiter should be escaped.
+  ///
+  ///  `fixedwidth
+  /// 'venueid:3,venuename:25,venuecity:12,venuestate:2,venueseats:6'` \- fields
+  /// are fixed width in the source, with each width specified after every
+  /// column in the table.
+  ///
+  ///  `JSON 's3://mybucket/jsonpaths.txt'` \- data is in JSON format, and the
+  /// path specified is the format of the data.
+  ///
+  /// For more examples, see [Amazon Redshift COPY command
+  /// examples](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html).
+  final String copyOptions;
 
-class DestinationDescription {}
+  CopyCommand({
+    @required this.dataTableName,
+    this.dataTableColumns,
+    this.copyOptions,
+  });
+  static CopyCommand fromJson(Map<String, dynamic> json) => CopyCommand();
+}
 
-class ElasticsearchBufferingHints {}
+class CreateDeliveryStreamOutput {
+  /// The ARN of the delivery stream.
+  final String deliveryStreamArn;
 
-class ElasticsearchDestinationConfiguration {}
+  CreateDeliveryStreamOutput({
+    this.deliveryStreamArn,
+  });
+  static CreateDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
+      CreateDeliveryStreamOutput();
+}
 
-class ElasticsearchDestinationDescription {}
+class DataFormatConversionConfiguration {
+  /// Specifies the AWS Glue Data Catalog table that contains the column
+  /// information.
+  final SchemaConfiguration schemaConfiguration;
 
-class ElasticsearchDestinationUpdate {}
+  /// Specifies the deserializer that you want Kinesis Data Firehose to use to
+  /// convert the format of your data from JSON.
+  final InputFormatConfiguration inputFormatConfiguration;
 
-class ElasticsearchRetryOptions {}
+  /// Specifies the serializer that you want Kinesis Data Firehose to use to
+  /// convert the format of your data to the Parquet or ORC format.
+  final OutputFormatConfiguration outputFormatConfiguration;
 
-class EncryptionConfiguration {}
+  /// Defaults to `true`. Set it to `false` if you want to disable format
+  /// conversion while preserving the configuration details.
+  final bool enabled;
 
-class ExtendedS3DestinationConfiguration {}
+  DataFormatConversionConfiguration({
+    this.schemaConfiguration,
+    this.inputFormatConfiguration,
+    this.outputFormatConfiguration,
+    this.enabled,
+  });
+  static DataFormatConversionConfiguration fromJson(
+          Map<String, dynamic> json) =>
+      DataFormatConversionConfiguration();
+}
 
-class ExtendedS3DestinationDescription {}
+class DeleteDeliveryStreamOutput {
+  DeleteDeliveryStreamOutput();
+  static DeleteDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
+      DeleteDeliveryStreamOutput();
+}
 
-class ExtendedS3DestinationUpdate {}
+class DeliveryStreamDescription {
+  /// The name of the delivery stream.
+  final String deliveryStreamName;
 
-class HiveJsonSerDe {}
+  /// The Amazon Resource Name (ARN) of the delivery stream. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String deliveryStreamArn;
 
-class InputFormatConfiguration {}
+  /// The status of the delivery stream.
+  final String deliveryStreamStatus;
 
-class KmsEncryptionConfig {}
+  /// Indicates the server-side encryption (SSE) status for the delivery stream.
+  final DeliveryStreamEncryptionConfiguration
+      deliveryStreamEncryptionConfiguration;
 
-class KinesisStreamSourceConfiguration {}
+  /// The delivery stream type. This can be one of the following values:
+  ///
+  /// *    `DirectPut`: Provider applications access the delivery stream
+  /// directly.
+  ///
+  /// *    `KinesisStreamAsSource`: The delivery stream uses a Kinesis data
+  /// stream as a source.
+  final String deliveryStreamType;
 
-class KinesisStreamSourceDescription {}
+  /// Each time the destination is updated for a delivery stream, the version ID
+  /// is changed, and the current version ID is required when updating the
+  /// destination. This is so that the service knows it is applying the changes
+  /// to the correct version of the delivery stream.
+  final String versionId;
 
-class ListDeliveryStreamsOutput {}
+  /// The date and time that the delivery stream was created.
+  final DateTime createTimestamp;
 
-class ListTagsForDeliveryStreamOutput {}
+  /// The date and time that the delivery stream was last updated.
+  final DateTime lastUpdateTimestamp;
 
-class OpenxJsonSerDe {}
+  /// If the `DeliveryStreamType` parameter is `KinesisStreamAsSource`, a
+  /// SourceDescription object describing the source Kinesis data stream.
+  final SourceDescription source;
 
-class OrcSerDe {}
+  /// The destinations.
+  final List<DestinationDescription> destinations;
 
-class OutputFormatConfiguration {}
+  /// Indicates whether there are more destinations available to list.
+  final bool hasMoreDestinations;
 
-class ParquetSerDe {}
+  DeliveryStreamDescription({
+    @required this.deliveryStreamName,
+    @required this.deliveryStreamArn,
+    @required this.deliveryStreamStatus,
+    this.deliveryStreamEncryptionConfiguration,
+    @required this.deliveryStreamType,
+    @required this.versionId,
+    this.createTimestamp,
+    this.lastUpdateTimestamp,
+    this.source,
+    @required this.destinations,
+    @required this.hasMoreDestinations,
+  });
+  static DeliveryStreamDescription fromJson(Map<String, dynamic> json) =>
+      DeliveryStreamDescription();
+}
 
-class ProcessingConfiguration {}
+class DeliveryStreamEncryptionConfiguration {
+  /// For a full description of the different values of this status, see
+  /// StartDeliveryStreamEncryption and StopDeliveryStreamEncryption.
+  final String status;
 
-class Processor {}
+  DeliveryStreamEncryptionConfiguration({
+    this.status,
+  });
+  static DeliveryStreamEncryptionConfiguration fromJson(
+          Map<String, dynamic> json) =>
+      DeliveryStreamEncryptionConfiguration();
+}
 
-class ProcessorParameter {}
+class DescribeDeliveryStreamOutput {
+  /// Information about the delivery stream.
+  final DeliveryStreamDescription deliveryStreamDescription;
 
-class PutRecordBatchOutput {}
+  DescribeDeliveryStreamOutput({
+    @required this.deliveryStreamDescription,
+  });
+  static DescribeDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
+      DescribeDeliveryStreamOutput();
+}
 
-class PutRecordBatchResponseEntry {}
+class Deserializer {
+  /// The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data,
+  /// which means converting it from the JSON format in preparation for
+  /// serializing it to the Parquet or ORC format. This is one of two
+  /// deserializers you can choose, depending on which one offers the
+  /// functionality you need. The other option is the native Hive / HCatalog
+  /// JsonSerDe.
+  final OpenxJsonSerDe openxJsonSerDe;
 
-class PutRecordOutput {}
+  /// The native Hive / HCatalog JsonSerDe. Used by Kinesis Data Firehose for
+  /// deserializing data, which means converting it from the JSON format in
+  /// preparation for serializing it to the Parquet or ORC format. This is one
+  /// of two deserializers you can choose, depending on which one offers the
+  /// functionality you need. The other option is the OpenX SerDe.
+  final HiveJsonSerDe hiveJsonSerDe;
 
-class Record {}
+  Deserializer({
+    this.openxJsonSerDe,
+    this.hiveJsonSerDe,
+  });
+  static Deserializer fromJson(Map<String, dynamic> json) => Deserializer();
+}
 
-class RedshiftDestinationConfiguration {}
+class DestinationDescription {
+  /// The ID of the destination.
+  final String destinationId;
 
-class RedshiftDestinationDescription {}
+  /// \[Deprecated\] The destination in Amazon S3.
+  final S3DestinationDescription s3DestinationDescription;
 
-class RedshiftDestinationUpdate {}
+  /// The destination in Amazon S3.
+  final ExtendedS3DestinationDescription extendedS3DestinationDescription;
 
-class RedshiftRetryOptions {}
+  /// The destination in Amazon Redshift.
+  final RedshiftDestinationDescription redshiftDestinationDescription;
 
-class S3DestinationConfiguration {}
+  /// The destination in Amazon ES.
+  final ElasticsearchDestinationDescription elasticsearchDestinationDescription;
 
-class S3DestinationDescription {}
+  /// The destination in Splunk.
+  final SplunkDestinationDescription splunkDestinationDescription;
 
-class S3DestinationUpdate {}
+  DestinationDescription({
+    @required this.destinationId,
+    this.s3DestinationDescription,
+    this.extendedS3DestinationDescription,
+    this.redshiftDestinationDescription,
+    this.elasticsearchDestinationDescription,
+    this.splunkDestinationDescription,
+  });
+  static DestinationDescription fromJson(Map<String, dynamic> json) =>
+      DestinationDescription();
+}
 
-class SchemaConfiguration {}
+class ElasticsearchBufferingHints {
+  /// Buffer incoming data for the specified period of time, in seconds, before
+  /// delivering it to the destination. The default value is 300 (5 minutes).
+  final int intervalInSeconds;
 
-class Serializer {}
+  /// Buffer incoming data to the specified size, in MBs, before delivering it
+  /// to the destination. The default value is 5.
+  ///
+  /// We recommend setting this parameter to a value greater than the amount of
+  /// data you typically ingest into the delivery stream in 10 seconds. For
+  /// example, if you typically ingest data at 1 MB/sec, the value should be 10
+  /// MB or higher.
+  final int sizeInmBs;
 
-class SourceDescription {}
+  ElasticsearchBufferingHints({
+    this.intervalInSeconds,
+    this.sizeInmBs,
+  });
+  static ElasticsearchBufferingHints fromJson(Map<String, dynamic> json) =>
+      ElasticsearchBufferingHints();
+}
 
-class SplunkDestinationConfiguration {}
+class ElasticsearchDestinationConfiguration {
+  /// The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis
+  /// Data Firehose for calling the Amazon ES Configuration API and for indexing
+  /// documents. For more information, see [Grant Kinesis Data Firehose Access
+  /// to an Amazon S3
+  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
+  /// and [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
 
-class SplunkDestinationDescription {}
+  /// The ARN of the Amazon ES domain. The IAM role must have permissions
+  /// for `DescribeElasticsearchDomain`, `DescribeElasticsearchDomains`, and
+  /// `DescribeElasticsearchDomainConfig` after assuming the role specified in
+  /// **RoleARN**. For more information, see [Amazon Resource Names (ARNs) and
+  /// AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String domainArn;
 
-class SplunkDestinationUpdate {}
+  /// The Elasticsearch index name.
+  final String indexName;
 
-class SplunkRetryOptions {}
+  /// The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
+  /// type per index. If you try to specify a new type for an existing index
+  /// that already has another type, Kinesis Data Firehose returns an error
+  /// during run time.
+  final String typeName;
 
-class StartDeliveryStreamEncryptionOutput {}
+  /// The Elasticsearch index rotation period. Index rotation appends a
+  /// timestamp to the `IndexName` to facilitate the expiration of old data. For
+  /// more information, see [Index Rotation for the Amazon ES
+  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation).
+  /// The default value is `OneDay`.
+  final String indexRotationPeriod;
 
-class StopDeliveryStreamEncryptionOutput {}
+  /// The buffering options. If no value is specified, the default values for
+  /// `ElasticsearchBufferingHints` are used.
+  final ElasticsearchBufferingHints bufferingHints;
 
-class Tag {}
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver
+  /// documents to Amazon ES. The default value is 300 (5 minutes).
+  final ElasticsearchRetryOptions retryOptions;
 
-class TagDeliveryStreamOutput {}
+  /// Defines how documents should be delivered to Amazon S3. When it is set to
+  /// `FailedDocumentsOnly`, Kinesis Data Firehose writes any documents that
+  /// could not be indexed to the configured Amazon S3 destination, with
+  /// `elasticsearch-failed/` appended to the key prefix. When set to
+  /// `AllDocuments`, Kinesis Data Firehose delivers all incoming records to
+  /// Amazon S3, and also writes failed documents with `elasticsearch-failed/`
+  /// appended to the prefix. For more information, see [Amazon S3 Backup for
+  /// the Amazon ES
+  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup).
+  /// Default value is `FailedDocumentsOnly`.
+  final String s3BackupMode;
 
-class UntagDeliveryStreamOutput {}
+  /// The configuration for the backup Amazon S3 location.
+  final S3DestinationConfiguration s3Configuration;
 
-class UpdateDestinationOutput {}
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  ElasticsearchDestinationConfiguration({
+    @required this.roleArn,
+    @required this.domainArn,
+    @required this.indexName,
+    @required this.typeName,
+    this.indexRotationPeriod,
+    this.bufferingHints,
+    this.retryOptions,
+    this.s3BackupMode,
+    @required this.s3Configuration,
+    this.processingConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class ElasticsearchDestinationDescription {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the Amazon ES domain. For more information, see [Amazon
+  /// Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String domainArn;
+
+  /// The Elasticsearch index name.
+  final String indexName;
+
+  /// The Elasticsearch type name.
+  final String typeName;
+
+  /// The Elasticsearch index rotation period
+  final String indexRotationPeriod;
+
+  /// The buffering options.
+  final ElasticsearchBufferingHints bufferingHints;
+
+  /// The Amazon ES retry options.
+  final ElasticsearchRetryOptions retryOptions;
+
+  /// The Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The Amazon S3 destination.
+  final S3DestinationDescription s3DestinationDescription;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon CloudWatch logging options.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  ElasticsearchDestinationDescription({
+    this.roleArn,
+    this.domainArn,
+    this.indexName,
+    this.typeName,
+    this.indexRotationPeriod,
+    this.bufferingHints,
+    this.retryOptions,
+    this.s3BackupMode,
+    this.s3DestinationDescription,
+    this.processingConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+  static ElasticsearchDestinationDescription fromJson(
+          Map<String, dynamic> json) =>
+      ElasticsearchDestinationDescription();
+}
+
+class ElasticsearchDestinationUpdate {
+  /// The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis
+  /// Data Firehose for calling the Amazon ES Configuration API and for indexing
+  /// documents. For more information, see [Grant Kinesis Data Firehose Access
+  /// to an Amazon S3
+  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
+  /// and [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the Amazon ES domain. The IAM role must have permissions
+  /// for `DescribeElasticsearchDomain`, `DescribeElasticsearchDomains`, and
+  /// `DescribeElasticsearchDomainConfig` after assuming the IAM role specified
+  /// in `RoleARN`. For more information, see [Amazon Resource Names (ARNs) and
+  /// AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String domainArn;
+
+  /// The Elasticsearch index name.
+  final String indexName;
+
+  /// The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
+  /// type per index. If you try to specify a new type for an existing index
+  /// that already has another type, Kinesis Data Firehose returns an error
+  /// during runtime.
+  final String typeName;
+
+  /// The Elasticsearch index rotation period. Index rotation appends a
+  /// timestamp to `IndexName` to facilitate the expiration of old data. For
+  /// more information, see [Index Rotation for the Amazon ES
+  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation).
+  /// Default value is `OneDay`.
+  final String indexRotationPeriod;
+
+  /// The buffering options. If no value is specified,
+  /// `ElasticsearchBufferingHints` object default values are used.
+  final ElasticsearchBufferingHints bufferingHints;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver
+  /// documents to Amazon ES. The default value is 300 (5 minutes).
+  final ElasticsearchRetryOptions retryOptions;
+
+  /// The Amazon S3 destination.
+  final S3DestinationUpdate s3Update;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  ElasticsearchDestinationUpdate({
+    this.roleArn,
+    this.domainArn,
+    this.indexName,
+    this.typeName,
+    this.indexRotationPeriod,
+    this.bufferingHints,
+    this.retryOptions,
+    this.s3Update,
+    this.processingConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class ElasticsearchRetryOptions {
+  /// After an initial failure to deliver to Amazon ES, the total amount of time
+  /// during which Kinesis Data Firehose retries delivery (including the first
+  /// attempt). After this time has elapsed, the failed documents are written to
+  /// Amazon S3. Default value is 300 seconds (5 minutes). A value of 0 (zero)
+  /// results in no retries.
+  final int durationInSeconds;
+
+  ElasticsearchRetryOptions({
+    this.durationInSeconds,
+  });
+  static ElasticsearchRetryOptions fromJson(Map<String, dynamic> json) =>
+      ElasticsearchRetryOptions();
+}
+
+class EncryptionConfiguration {
+  /// Specifically override existing encryption information to ensure that no
+  /// encryption is used.
+  final String noEncryptionConfig;
+
+  /// The encryption key.
+  final KmsEncryptionConfig kmsEncryptionConfig;
+
+  EncryptionConfiguration({
+    this.noEncryptionConfig,
+    this.kmsEncryptionConfig,
+  });
+  static EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
+      EncryptionConfiguration();
+}
+
+class ExtendedS3DestinationConfiguration {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String bucketArn;
+
+  /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
+  /// Amazon S3 files. You can specify an extra prefix to be added in front of
+  /// the time format prefix. If the prefix ends with a slash, it appears as a
+  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
+  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// in the _Amazon Kinesis Data Firehose Developer Guide_.
+  final String prefix;
+
+  /// A prefix that Kinesis Data Firehose evaluates and adds to failed records
+  /// before writing them to S3. This prefix appears immediately following the
+  /// bucket name.
+  final String errorOutputPrefix;
+
+  /// The buffering option.
+  final BufferingHints bufferingHints;
+
+  /// The compression format. If no value is specified, the default is
+  /// UNCOMPRESSED.
+  final String compressionFormat;
+
+  /// The encryption configuration. If no value is specified, the default is no
+  /// encryption.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The configuration for backup in Amazon S3.
+  final S3DestinationConfiguration s3BackupConfiguration;
+
+  /// The serializer, deserializer, and schema for converting data from the JSON
+  /// format to the Parquet or ORC format before writing it to Amazon S3.
+  final DataFormatConversionConfiguration dataFormatConversionConfiguration;
+
+  ExtendedS3DestinationConfiguration({
+    @required this.roleArn,
+    @required this.bucketArn,
+    this.prefix,
+    this.errorOutputPrefix,
+    this.bufferingHints,
+    this.compressionFormat,
+    this.encryptionConfiguration,
+    this.cloudWatchLoggingOptions,
+    this.processingConfiguration,
+    this.s3BackupMode,
+    this.s3BackupConfiguration,
+    this.dataFormatConversionConfiguration,
+  });
+}
+
+class ExtendedS3DestinationDescription {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String bucketArn;
+
+  /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
+  /// Amazon S3 files. You can specify an extra prefix to be added in front of
+  /// the time format prefix. If the prefix ends with a slash, it appears as a
+  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
+  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// in the _Amazon Kinesis Data Firehose Developer Guide_.
+  final String prefix;
+
+  /// A prefix that Kinesis Data Firehose evaluates and adds to failed records
+  /// before writing them to S3. This prefix appears immediately following the
+  /// bucket name.
+  final String errorOutputPrefix;
+
+  /// The buffering option.
+  final BufferingHints bufferingHints;
+
+  /// The compression format. If no value is specified, the default is
+  /// `UNCOMPRESSED`.
+  final String compressionFormat;
+
+  /// The encryption configuration. If no value is specified, the default is no
+  /// encryption.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The configuration for backup in Amazon S3.
+  final S3DestinationDescription s3BackupDescription;
+
+  /// The serializer, deserializer, and schema for converting data from the JSON
+  /// format to the Parquet or ORC format before writing it to Amazon S3.
+  final DataFormatConversionConfiguration dataFormatConversionConfiguration;
+
+  ExtendedS3DestinationDescription({
+    @required this.roleArn,
+    @required this.bucketArn,
+    this.prefix,
+    this.errorOutputPrefix,
+    @required this.bufferingHints,
+    @required this.compressionFormat,
+    @required this.encryptionConfiguration,
+    this.cloudWatchLoggingOptions,
+    this.processingConfiguration,
+    this.s3BackupMode,
+    this.s3BackupDescription,
+    this.dataFormatConversionConfiguration,
+  });
+  static ExtendedS3DestinationDescription fromJson(Map<String, dynamic> json) =>
+      ExtendedS3DestinationDescription();
+}
+
+class ExtendedS3DestinationUpdate {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String bucketArn;
+
+  /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
+  /// Amazon S3 files. You can specify an extra prefix to be added in front of
+  /// the time format prefix. If the prefix ends with a slash, it appears as a
+  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
+  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// in the _Amazon Kinesis Data Firehose Developer Guide_.
+  final String prefix;
+
+  /// A prefix that Kinesis Data Firehose evaluates and adds to failed records
+  /// before writing them to S3. This prefix appears immediately following the
+  /// bucket name.
+  final String errorOutputPrefix;
+
+  /// The buffering option.
+  final BufferingHints bufferingHints;
+
+  /// The compression format. If no value is specified, the default is
+  /// `UNCOMPRESSED`.
+  final String compressionFormat;
+
+  /// The encryption configuration. If no value is specified, the default is no
+  /// encryption.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// Enables or disables Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The Amazon S3 destination for backup.
+  final S3DestinationUpdate s3BackupUpdate;
+
+  /// The serializer, deserializer, and schema for converting data from the JSON
+  /// format to the Parquet or ORC format before writing it to Amazon S3.
+  final DataFormatConversionConfiguration dataFormatConversionConfiguration;
+
+  ExtendedS3DestinationUpdate({
+    this.roleArn,
+    this.bucketArn,
+    this.prefix,
+    this.errorOutputPrefix,
+    this.bufferingHints,
+    this.compressionFormat,
+    this.encryptionConfiguration,
+    this.cloudWatchLoggingOptions,
+    this.processingConfiguration,
+    this.s3BackupMode,
+    this.s3BackupUpdate,
+    this.dataFormatConversionConfiguration,
+  });
+}
+
+class HiveJsonSerDe {
+  /// Indicates how you want Kinesis Data Firehose to parse the date and
+  /// timestamps that may be present in your input data JSON. To specify these
+  /// format strings, follow the pattern syntax of JodaTime's DateTimeFormat
+  /// format strings. For more information, see [Class
+  /// DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+  /// You can also use the special value `millis` to parse timestamps in epoch
+  /// milliseconds. If you don't specify a format, Kinesis Data Firehose uses
+  /// `java.sql.Timestamp::valueOf` by default.
+  final List<String> timestampFormats;
+
+  HiveJsonSerDe({
+    this.timestampFormats,
+  });
+  static HiveJsonSerDe fromJson(Map<String, dynamic> json) => HiveJsonSerDe();
+}
+
+class InputFormatConfiguration {
+  /// Specifies which deserializer to use. You can choose either the Apache Hive
+  /// JSON SerDe or the OpenX JSON SerDe. If both are non-null, the server
+  /// rejects the request.
+  final Deserializer deserializer;
+
+  InputFormatConfiguration({
+    this.deserializer,
+  });
+  static InputFormatConfiguration fromJson(Map<String, dynamic> json) =>
+      InputFormatConfiguration();
+}
+
+class KmsEncryptionConfig {
+  /// The Amazon Resource Name (ARN) of the encryption key. Must belong to the
+  /// same AWS Region as the destination Amazon S3 bucket. For more information,
+  /// see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String awskmsKeyArn;
+
+  KmsEncryptionConfig({
+    @required this.awskmsKeyArn,
+  });
+  static KmsEncryptionConfig fromJson(Map<String, dynamic> json) =>
+      KmsEncryptionConfig();
+}
+
+class KinesisStreamSourceConfiguration {
+  /// The ARN of the source Kinesis data stream. For more information, see
+  /// [Amazon Kinesis Data Streams ARN
+  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  final String kinesisStreamArn;
+
+  /// The ARN of the role that provides access to the source Kinesis data
+  /// stream. For more information, see [AWS Identity and Access Management
+  /// (IAM) ARN
+  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam).
+  final String roleArn;
+
+  KinesisStreamSourceConfiguration({
+    @required this.kinesisStreamArn,
+    @required this.roleArn,
+  });
+}
+
+class KinesisStreamSourceDescription {
+  /// The Amazon Resource Name (ARN) of the source Kinesis data stream. For more
+  /// information, see [Amazon Kinesis Data Streams ARN
+  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  final String kinesisStreamArn;
+
+  /// The ARN of the role used by the source Kinesis data stream. For more
+  /// information, see [AWS Identity and Access Management (IAM) ARN
+  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam).
+  final String roleArn;
+
+  /// Kinesis Data Firehose starts retrieving records from the Kinesis data
+  /// stream starting with this timestamp.
+  final DateTime deliveryStartTimestamp;
+
+  KinesisStreamSourceDescription({
+    this.kinesisStreamArn,
+    this.roleArn,
+    this.deliveryStartTimestamp,
+  });
+  static KinesisStreamSourceDescription fromJson(Map<String, dynamic> json) =>
+      KinesisStreamSourceDescription();
+}
+
+class ListDeliveryStreamsOutput {
+  /// The names of the delivery streams.
+  final List<String> deliveryStreamNames;
+
+  /// Indicates whether there are more delivery streams available to list.
+  final bool hasMoreDeliveryStreams;
+
+  ListDeliveryStreamsOutput({
+    @required this.deliveryStreamNames,
+    @required this.hasMoreDeliveryStreams,
+  });
+  static ListDeliveryStreamsOutput fromJson(Map<String, dynamic> json) =>
+      ListDeliveryStreamsOutput();
+}
+
+class ListTagsForDeliveryStreamOutput {
+  /// A list of tags associated with `DeliveryStreamName`, starting with the
+  /// first tag after `ExclusiveStartTagKey` and up to the specified `Limit`.
+  final List<Tag> tags;
+
+  /// If this is `true` in the response, more tags are available. To list the
+  /// remaining tags, set `ExclusiveStartTagKey` to the key of the last tag
+  /// returned and call `ListTagsForDeliveryStream` again.
+  final bool hasMoreTags;
+
+  ListTagsForDeliveryStreamOutput({
+    @required this.tags,
+    @required this.hasMoreTags,
+  });
+  static ListTagsForDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
+      ListTagsForDeliveryStreamOutput();
+}
+
+class OpenxJsonSerDe {
+  /// When set to `true`, specifies that the names of the keys include dots and
+  /// that you want Kinesis Data Firehose to replace them with underscores. This
+  /// is useful because Apache Hive does not allow dots in column names. For
+  /// example, if the JSON contains a key whose name is "a.b", you can define
+  /// the column name to be "a_b" when using this option.
+  ///
+  /// The default is `false`.
+  final bool convertDotsInJsonKeysToUnderscores;
+
+  /// When set to `true`, which is the default, Kinesis Data Firehose converts
+  /// JSON keys to lowercase before deserializing them.
+  final bool caseInsensitive;
+
+  /// Maps column names to JSON keys that aren't identical to the column names.
+  /// This is useful when the JSON contains keys that are Hive keywords. For
+  /// example, `timestamp` is a Hive keyword. If you have a JSON key named
+  /// `timestamp`, set this parameter to `{"ts": "timestamp"}` to map this key
+  /// to a column named `ts`.
+  final Map<String, String> columnToJsonKeyMappings;
+
+  OpenxJsonSerDe({
+    this.convertDotsInJsonKeysToUnderscores,
+    this.caseInsensitive,
+    this.columnToJsonKeyMappings,
+  });
+  static OpenxJsonSerDe fromJson(Map<String, dynamic> json) => OpenxJsonSerDe();
+}
+
+class OrcSerDe {
+  /// The number of bytes in each stripe. The default is 64 MiB and the minimum
+  /// is 8 MiB.
+  final int stripeSizeBytes;
+
+  /// The Hadoop Distributed File System (HDFS) block size. This is useful if
+  /// you intend to copy the data from Amazon S3 to HDFS before querying. The
+  /// default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses
+  /// this value for padding calculations.
+  final int blockSizeBytes;
+
+  /// The number of rows between index entries. The default is 10,000 and the
+  /// minimum is 1,000.
+  final int rowIndexStride;
+
+  /// Set this to `true` to indicate that you want stripes to be padded to the
+  /// HDFS block boundaries. This is useful if you intend to copy the data from
+  /// Amazon S3 to HDFS before querying. The default is `false`.
+  final bool enablePadding;
+
+  /// A number between 0 and 1 that defines the tolerance for block padding as a
+  /// decimal fraction of stripe size. The default value is 0.05, which means 5
+  /// percent of stripe size.
+  ///
+  /// For the default values of 64 MiB ORC stripes and 256 MiB HDFS blocks, the
+  /// default block padding tolerance of 5 percent reserves a maximum of 3.2 MiB
+  /// for padding within the 256 MiB block. In such a case, if the available
+  /// size within the block is more than 3.2 MiB, a new, smaller stripe is
+  /// inserted to fit within that space. This ensures that no stripe crosses
+  /// block boundaries and causes remote reads within a node-local task.
+  ///
+  /// Kinesis Data Firehose ignores this parameter when OrcSerDe$EnablePadding
+  /// is `false`.
+  final double paddingTolerance;
+
+  /// The compression code to use over data blocks. The default is `SNAPPY`.
+  final String compression;
+
+  /// The column names for which you want Kinesis Data Firehose to create bloom
+  /// filters. The default is `null`.
+  final List<String> bloomFilterColumns;
+
+  /// The Bloom filter false positive probability (FPP). The lower the FPP, the
+  /// bigger the Bloom filter. The default value is 0.05, the minimum is 0, and
+  /// the maximum is 1.
+  final double bloomFilterFalsePositiveProbability;
+
+  /// Represents the fraction of the total number of non-null rows. To turn off
+  /// dictionary encoding, set this fraction to a number that is less than the
+  /// number of distinct keys in a dictionary. To always use dictionary
+  /// encoding, set this threshold to 1.
+  final double dictionaryKeyThreshold;
+
+  /// The version of the file to write. The possible values are `V0_11` and
+  /// `V0_12`. The default is `V0_12`.
+  final String formatVersion;
+
+  OrcSerDe({
+    this.stripeSizeBytes,
+    this.blockSizeBytes,
+    this.rowIndexStride,
+    this.enablePadding,
+    this.paddingTolerance,
+    this.compression,
+    this.bloomFilterColumns,
+    this.bloomFilterFalsePositiveProbability,
+    this.dictionaryKeyThreshold,
+    this.formatVersion,
+  });
+  static OrcSerDe fromJson(Map<String, dynamic> json) => OrcSerDe();
+}
+
+class OutputFormatConfiguration {
+  /// Specifies which serializer to use. You can choose either the ORC SerDe or
+  /// the Parquet SerDe. If both are non-null, the server rejects the request.
+  final Serializer serializer;
+
+  OutputFormatConfiguration({
+    this.serializer,
+  });
+  static OutputFormatConfiguration fromJson(Map<String, dynamic> json) =>
+      OutputFormatConfiguration();
+}
+
+class ParquetSerDe {
+  /// The Hadoop Distributed File System (HDFS) block size. This is useful if
+  /// you intend to copy the data from Amazon S3 to HDFS before querying. The
+  /// default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses
+  /// this value for padding calculations.
+  final int blockSizeBytes;
+
+  /// The Parquet page size. Column chunks are divided into pages. A page is
+  /// conceptually an indivisible unit (in terms of compression and encoding).
+  /// The minimum value is 64 KiB and the default is 1 MiB.
+  final int pageSizeBytes;
+
+  /// The compression code to use over data blocks. The possible values are
+  /// `UNCOMPRESSED`, `SNAPPY`, and `GZIP`, with the default being `SNAPPY`. Use
+  /// `SNAPPY` for higher decompression speed. Use `GZIP` if the compression
+  /// ration is more important than speed.
+  final String compression;
+
+  /// Indicates whether to enable dictionary compression.
+  final bool enableDictionaryCompression;
+
+  /// The maximum amount of padding to apply. This is useful if you intend to
+  /// copy the data from Amazon S3 to HDFS before querying. The default is 0.
+  final int maxPaddingBytes;
+
+  /// Indicates the version of row format to output. The possible values are
+  /// `V1` and `V2`. The default is `V1`.
+  final String writerVersion;
+
+  ParquetSerDe({
+    this.blockSizeBytes,
+    this.pageSizeBytes,
+    this.compression,
+    this.enableDictionaryCompression,
+    this.maxPaddingBytes,
+    this.writerVersion,
+  });
+  static ParquetSerDe fromJson(Map<String, dynamic> json) => ParquetSerDe();
+}
+
+class ProcessingConfiguration {
+  /// Enables or disables data processing.
+  final bool enabled;
+
+  /// The data processors.
+  final List<Processor> processors;
+
+  ProcessingConfiguration({
+    this.enabled,
+    this.processors,
+  });
+  static ProcessingConfiguration fromJson(Map<String, dynamic> json) =>
+      ProcessingConfiguration();
+}
+
+class Processor {
+  /// The type of processor.
+  final String type;
+
+  /// The processor parameters.
+  final List<ProcessorParameter> parameters;
+
+  Processor({
+    @required this.type,
+    this.parameters,
+  });
+  static Processor fromJson(Map<String, dynamic> json) => Processor();
+}
+
+class ProcessorParameter {
+  /// The name of the parameter.
+  final String parameterName;
+
+  /// The parameter value.
+  final String parameterValue;
+
+  ProcessorParameter({
+    @required this.parameterName,
+    @required this.parameterValue,
+  });
+  static ProcessorParameter fromJson(Map<String, dynamic> json) =>
+      ProcessorParameter();
+}
+
+class PutRecordBatchOutput {
+  /// The number of records that might have failed processing. This number might
+  /// be greater than 0 even if the PutRecordBatch call succeeds. Check
+  /// `FailedPutCount` to determine whether there are records that you need to
+  /// resend.
+  final int failedPutCount;
+
+  /// Indicates whether server-side encryption (SSE) was enabled during this
+  /// operation.
+  final bool encrypted;
+
+  /// The results array. For each record, the index of the response element is
+  /// the same as the index used in the request array.
+  final List<PutRecordBatchResponseEntry> requestResponses;
+
+  PutRecordBatchOutput({
+    @required this.failedPutCount,
+    this.encrypted,
+    @required this.requestResponses,
+  });
+  static PutRecordBatchOutput fromJson(Map<String, dynamic> json) =>
+      PutRecordBatchOutput();
+}
+
+class PutRecordBatchResponseEntry {
+  /// The ID of the record.
+  final String recordId;
+
+  /// The error code for an individual record result.
+  final String errorCode;
+
+  /// The error message for an individual record result.
+  final String errorMessage;
+
+  PutRecordBatchResponseEntry({
+    this.recordId,
+    this.errorCode,
+    this.errorMessage,
+  });
+  static PutRecordBatchResponseEntry fromJson(Map<String, dynamic> json) =>
+      PutRecordBatchResponseEntry();
+}
+
+class PutRecordOutput {
+  /// The ID of the record.
+  final String recordId;
+
+  /// Indicates whether server-side encryption (SSE) was enabled during this
+  /// operation.
+  final bool encrypted;
+
+  PutRecordOutput({
+    @required this.recordId,
+    this.encrypted,
+  });
+  static PutRecordOutput fromJson(Map<String, dynamic> json) =>
+      PutRecordOutput();
+}
+
+class Record {
+  /// The data blob, which is base64-encoded when the blob is serialized. The
+  /// maximum size of the data blob, before base64-encoding, is 1,000 KiB.
+  final Uint8List data;
+
+  Record({
+    @required this.data,
+  });
+}
+
+class RedshiftDestinationConfiguration {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The database connection string.
+  final String clusterJdbcurl;
+
+  /// The `COPY` command.
+  final CopyCommand copyCommand;
+
+  /// The name of the user.
+  final String username;
+
+  /// The user password.
+  final String password;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver
+  /// documents to Amazon Redshift. Default value is 3600 (60 minutes).
+  final RedshiftRetryOptions retryOptions;
+
+  /// The configuration for the intermediate Amazon S3 location from which
+  /// Amazon Redshift obtains data. Restrictions are described in the topic for
+  /// CreateDeliveryStream.
+  ///
+  /// The compression formats `SNAPPY` or `ZIP` cannot be specified in
+  /// `RedshiftDestinationConfiguration.S3Configuration` because the Amazon
+  /// Redshift `COPY` operation that reads from the S3 bucket doesn't support
+  /// these compression formats.
+  final S3DestinationConfiguration s3Configuration;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The configuration for backup in Amazon S3.
+  final S3DestinationConfiguration s3BackupConfiguration;
+
+  /// The CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  RedshiftDestinationConfiguration({
+    @required this.roleArn,
+    @required this.clusterJdbcurl,
+    @required this.copyCommand,
+    @required this.username,
+    @required this.password,
+    this.retryOptions,
+    @required this.s3Configuration,
+    this.processingConfiguration,
+    this.s3BackupMode,
+    this.s3BackupConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class RedshiftDestinationDescription {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The database connection string.
+  final String clusterJdbcurl;
+
+  /// The `COPY` command.
+  final CopyCommand copyCommand;
+
+  /// The name of the user.
+  final String username;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver
+  /// documents to Amazon Redshift. Default value is 3600 (60 minutes).
+  final RedshiftRetryOptions retryOptions;
+
+  /// The Amazon S3 destination.
+  final S3DestinationDescription s3DestinationDescription;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The configuration for backup in Amazon S3.
+  final S3DestinationDescription s3BackupDescription;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  RedshiftDestinationDescription({
+    @required this.roleArn,
+    @required this.clusterJdbcurl,
+    @required this.copyCommand,
+    @required this.username,
+    this.retryOptions,
+    @required this.s3DestinationDescription,
+    this.processingConfiguration,
+    this.s3BackupMode,
+    this.s3BackupDescription,
+    this.cloudWatchLoggingOptions,
+  });
+  static RedshiftDestinationDescription fromJson(Map<String, dynamic> json) =>
+      RedshiftDestinationDescription();
+}
+
+class RedshiftDestinationUpdate {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The database connection string.
+  final String clusterJdbcurl;
+
+  /// The `COPY` command.
+  final CopyCommand copyCommand;
+
+  /// The name of the user.
+  final String username;
+
+  /// The user password.
+  final String password;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver
+  /// documents to Amazon Redshift. Default value is 3600 (60 minutes).
+  final RedshiftRetryOptions retryOptions;
+
+  /// The Amazon S3 destination.
+  ///
+  /// The compression formats `SNAPPY` or `ZIP` cannot be specified in
+  /// `RedshiftDestinationUpdate.S3Update` because the Amazon Redshift `COPY`
+  /// operation that reads from the S3 bucket doesn't support these compression
+  /// formats.
+  final S3DestinationUpdate s3Update;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon S3 backup mode.
+  final String s3BackupMode;
+
+  /// The Amazon S3 destination for backup.
+  final S3DestinationUpdate s3BackupUpdate;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  RedshiftDestinationUpdate({
+    this.roleArn,
+    this.clusterJdbcurl,
+    this.copyCommand,
+    this.username,
+    this.password,
+    this.retryOptions,
+    this.s3Update,
+    this.processingConfiguration,
+    this.s3BackupMode,
+    this.s3BackupUpdate,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class RedshiftRetryOptions {
+  /// The length of time during which Kinesis Data Firehose retries delivery
+  /// after a failure, starting from the initial request and including the first
+  /// attempt. The default value is 3600 seconds (60 minutes). Kinesis Data
+  /// Firehose does not retry if the value of `DurationInSeconds` is 0 (zero) or
+  /// if the first delivery attempt takes longer than the current value.
+  final int durationInSeconds;
+
+  RedshiftRetryOptions({
+    this.durationInSeconds,
+  });
+  static RedshiftRetryOptions fromJson(Map<String, dynamic> json) =>
+      RedshiftRetryOptions();
+}
+
+class S3DestinationConfiguration {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String bucketArn;
+
+  /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
+  /// Amazon S3 files. You can specify an extra prefix to be added in front of
+  /// the time format prefix. If the prefix ends with a slash, it appears as a
+  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
+  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// in the _Amazon Kinesis Data Firehose Developer Guide_.
+  final String prefix;
+
+  /// A prefix that Kinesis Data Firehose evaluates and adds to failed records
+  /// before writing them to S3. This prefix appears immediately following the
+  /// bucket name.
+  final String errorOutputPrefix;
+
+  /// The buffering option. If no value is specified, `BufferingHints` object
+  /// default values are used.
+  final BufferingHints bufferingHints;
+
+  /// The compression format. If no value is specified, the default is
+  /// `UNCOMPRESSED`.
+  ///
+  /// The compression formats `SNAPPY` or `ZIP` cannot be specified for Amazon
+  /// Redshift destinations because they are not supported by the Amazon
+  /// Redshift `COPY` operation that reads from the S3 bucket.
+  final String compressionFormat;
+
+  /// The encryption configuration. If no value is specified, the default is no
+  /// encryption.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  /// The CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  S3DestinationConfiguration({
+    @required this.roleArn,
+    @required this.bucketArn,
+    this.prefix,
+    this.errorOutputPrefix,
+    this.bufferingHints,
+    this.compressionFormat,
+    this.encryptionConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class S3DestinationDescription {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String bucketArn;
+
+  /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
+  /// Amazon S3 files. You can specify an extra prefix to be added in front of
+  /// the time format prefix. If the prefix ends with a slash, it appears as a
+  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
+  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// in the _Amazon Kinesis Data Firehose Developer Guide_.
+  final String prefix;
+
+  /// A prefix that Kinesis Data Firehose evaluates and adds to failed records
+  /// before writing them to S3. This prefix appears immediately following the
+  /// bucket name.
+  final String errorOutputPrefix;
+
+  /// The buffering option. If no value is specified, `BufferingHints` object
+  /// default values are used.
+  final BufferingHints bufferingHints;
+
+  /// The compression format. If no value is specified, the default is
+  /// `UNCOMPRESSED`.
+  final String compressionFormat;
+
+  /// The encryption configuration. If no value is specified, the default is no
+  /// encryption.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  S3DestinationDescription({
+    @required this.roleArn,
+    @required this.bucketArn,
+    this.prefix,
+    this.errorOutputPrefix,
+    @required this.bufferingHints,
+    @required this.compressionFormat,
+    @required this.encryptionConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+  static S3DestinationDescription fromJson(Map<String, dynamic> json) =>
+      S3DestinationDescription();
+}
+
+class S3DestinationUpdate {
+  /// The Amazon Resource Name (ARN) of the AWS credentials. For more
+  /// information, see [Amazon Resource Names (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String roleArn;
+
+  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  final String bucketArn;
+
+  /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
+  /// Amazon S3 files. You can specify an extra prefix to be added in front of
+  /// the time format prefix. If the prefix ends with a slash, it appears as a
+  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
+  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// in the _Amazon Kinesis Data Firehose Developer Guide_.
+  final String prefix;
+
+  /// A prefix that Kinesis Data Firehose evaluates and adds to failed records
+  /// before writing them to S3. This prefix appears immediately following the
+  /// bucket name.
+  final String errorOutputPrefix;
+
+  /// The buffering option. If no value is specified, `BufferingHints` object
+  /// default values are used.
+  final BufferingHints bufferingHints;
+
+  /// The compression format. If no value is specified, the default is
+  /// `UNCOMPRESSED`.
+  ///
+  /// The compression formats `SNAPPY` or `ZIP` cannot be specified for Amazon
+  /// Redshift destinations because they are not supported by the Amazon
+  /// Redshift `COPY` operation that reads from the S3 bucket.
+  final String compressionFormat;
+
+  /// The encryption configuration. If no value is specified, the default is no
+  /// encryption.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  /// The CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  S3DestinationUpdate({
+    this.roleArn,
+    this.bucketArn,
+    this.prefix,
+    this.errorOutputPrefix,
+    this.bufferingHints,
+    this.compressionFormat,
+    this.encryptionConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class SchemaConfiguration {
+  /// The role that Kinesis Data Firehose can use to access AWS Glue. This role
+  /// must be in the same account you use for Kinesis Data Firehose.
+  /// Cross-account roles aren't allowed.
+  final String roleArn;
+
+  /// The ID of the AWS Glue Data Catalog. If you don't supply this, the AWS
+  /// account ID is used by default.
+  final String catalogId;
+
+  /// Specifies the name of the AWS Glue database that contains the schema for
+  /// the output data.
+  final String databaseName;
+
+  /// Specifies the AWS Glue table that contains the column information that
+  /// constitutes your data schema.
+  final String tableName;
+
+  /// If you don't specify an AWS Region, the default is the current Region.
+  final String region;
+
+  /// Specifies the table version for the output data schema. If you don't
+  /// specify this version ID, or if you set it to `LATEST`, Kinesis Data
+  /// Firehose uses the most recent version. This means that any updates to the
+  /// table are automatically picked up.
+  final String versionId;
+
+  SchemaConfiguration({
+    this.roleArn,
+    this.catalogId,
+    this.databaseName,
+    this.tableName,
+    this.region,
+    this.versionId,
+  });
+  static SchemaConfiguration fromJson(Map<String, dynamic> json) =>
+      SchemaConfiguration();
+}
+
+class Serializer {
+  /// A serializer to use for converting data to the Parquet format before
+  /// storing it in Amazon S3. For more information, see [Apache
+  /// Parquet](https://parquet.apache.org/documentation/latest/).
+  final ParquetSerDe parquetSerDe;
+
+  /// A serializer to use for converting data to the ORC format before storing
+  /// it in Amazon S3. For more information, see [Apache
+  /// ORC](https://orc.apache.org/docs/).
+  final OrcSerDe orcSerDe;
+
+  Serializer({
+    this.parquetSerDe,
+    this.orcSerDe,
+  });
+  static Serializer fromJson(Map<String, dynamic> json) => Serializer();
+}
+
+class SourceDescription {
+  /// The KinesisStreamSourceDescription value for the source Kinesis data
+  /// stream.
+  final KinesisStreamSourceDescription kinesisStreamSourceDescription;
+
+  SourceDescription({
+    this.kinesisStreamSourceDescription,
+  });
+  static SourceDescription fromJson(Map<String, dynamic> json) =>
+      SourceDescription();
+}
+
+class SplunkDestinationConfiguration {
+  /// The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
+  /// sends your data.
+  final String hecEndpoint;
+
+  /// This type can be either "Raw" or "Event."
+  final String hecEndpointType;
+
+  /// This is a GUID that you obtain from your Splunk cluster when you create a
+  /// new HEC endpoint.
+  final String hecToken;
+
+  /// The amount of time that Kinesis Data Firehose waits to receive an
+  /// acknowledgment from Splunk after it sends it data. At the end of the
+  /// timeout period, Kinesis Data Firehose either tries to send the data again
+  /// or considers it an error, based on your retry settings.
+  final int hecAcknowledgmentTimeoutInSeconds;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver data
+  /// to Splunk, or if it doesn't receive an acknowledgment of receipt from
+  /// Splunk.
+  final SplunkRetryOptions retryOptions;
+
+  /// Defines how documents should be delivered to Amazon S3. When set to
+  /// `FailedDocumentsOnly`, Kinesis Data Firehose writes any data that could
+  /// not be indexed to the configured Amazon S3 destination. When set to
+  /// `AllDocuments`, Kinesis Data Firehose delivers all incoming records to
+  /// Amazon S3, and also writes failed documents to Amazon S3. Default value is
+  /// `FailedDocumentsOnly`.
+  final String s3BackupMode;
+
+  /// The configuration for the backup Amazon S3 location.
+  final S3DestinationConfiguration s3Configuration;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  SplunkDestinationConfiguration({
+    @required this.hecEndpoint,
+    @required this.hecEndpointType,
+    @required this.hecToken,
+    this.hecAcknowledgmentTimeoutInSeconds,
+    this.retryOptions,
+    this.s3BackupMode,
+    @required this.s3Configuration,
+    this.processingConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class SplunkDestinationDescription {
+  /// The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
+  /// sends your data.
+  final String hecEndpoint;
+
+  /// This type can be either "Raw" or "Event."
+  final String hecEndpointType;
+
+  /// A GUID you obtain from your Splunk cluster when you create a new HEC
+  /// endpoint.
+  final String hecToken;
+
+  /// The amount of time that Kinesis Data Firehose waits to receive an
+  /// acknowledgment from Splunk after it sends it data. At the end of the
+  /// timeout period, Kinesis Data Firehose either tries to send the data again
+  /// or considers it an error, based on your retry settings.
+  final int hecAcknowledgmentTimeoutInSeconds;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver data
+  /// to Splunk or if it doesn't receive an acknowledgment of receipt from
+  /// Splunk.
+  final SplunkRetryOptions retryOptions;
+
+  /// Defines how documents should be delivered to Amazon S3. When set to
+  /// `FailedDocumentsOnly`, Kinesis Data Firehose writes any data that could
+  /// not be indexed to the configured Amazon S3 destination. When set to
+  /// `AllDocuments`, Kinesis Data Firehose delivers all incoming records to
+  /// Amazon S3, and also writes failed documents to Amazon S3. Default value is
+  /// `FailedDocumentsOnly`.
+  final String s3BackupMode;
+
+  /// The Amazon S3 destination.>
+  final S3DestinationDescription s3DestinationDescription;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  SplunkDestinationDescription({
+    this.hecEndpoint,
+    this.hecEndpointType,
+    this.hecToken,
+    this.hecAcknowledgmentTimeoutInSeconds,
+    this.retryOptions,
+    this.s3BackupMode,
+    this.s3DestinationDescription,
+    this.processingConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+  static SplunkDestinationDescription fromJson(Map<String, dynamic> json) =>
+      SplunkDestinationDescription();
+}
+
+class SplunkDestinationUpdate {
+  /// The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
+  /// sends your data.
+  final String hecEndpoint;
+
+  /// This type can be either "Raw" or "Event."
+  final String hecEndpointType;
+
+  /// A GUID that you obtain from your Splunk cluster when you create a new HEC
+  /// endpoint.
+  final String hecToken;
+
+  /// The amount of time that Kinesis Data Firehose waits to receive an
+  /// acknowledgment from Splunk after it sends data. At the end of the timeout
+  /// period, Kinesis Data Firehose either tries to send the data again or
+  /// considers it an error, based on your retry settings.
+  final int hecAcknowledgmentTimeoutInSeconds;
+
+  /// The retry behavior in case Kinesis Data Firehose is unable to deliver data
+  /// to Splunk or if it doesn't receive an acknowledgment of receipt from
+  /// Splunk.
+  final SplunkRetryOptions retryOptions;
+
+  /// Defines how documents should be delivered to Amazon S3. When set to
+  /// `FailedDocumentsOnly`, Kinesis Data Firehose writes any data that could
+  /// not be indexed to the configured Amazon S3 destination. When set to
+  /// `AllDocuments`, Kinesis Data Firehose delivers all incoming records to
+  /// Amazon S3, and also writes failed documents to Amazon S3. Default value is
+  /// `FailedDocumentsOnly`.
+  final String s3BackupMode;
+
+  /// Your update to the configuration of the backup Amazon S3 location.
+  final S3DestinationUpdate s3Update;
+
+  /// The data processing configuration.
+  final ProcessingConfiguration processingConfiguration;
+
+  /// The Amazon CloudWatch logging options for your delivery stream.
+  final CloudWatchLoggingOptions cloudWatchLoggingOptions;
+
+  SplunkDestinationUpdate({
+    this.hecEndpoint,
+    this.hecEndpointType,
+    this.hecToken,
+    this.hecAcknowledgmentTimeoutInSeconds,
+    this.retryOptions,
+    this.s3BackupMode,
+    this.s3Update,
+    this.processingConfiguration,
+    this.cloudWatchLoggingOptions,
+  });
+}
+
+class SplunkRetryOptions {
+  /// The total amount of time that Kinesis Data Firehose spends on retries.
+  /// This duration starts after the initial attempt to send data to Splunk
+  /// fails. It doesn't include the periods during which Kinesis Data Firehose
+  /// waits for acknowledgment from Splunk after each attempt.
+  final int durationInSeconds;
+
+  SplunkRetryOptions({
+    this.durationInSeconds,
+  });
+  static SplunkRetryOptions fromJson(Map<String, dynamic> json) =>
+      SplunkRetryOptions();
+}
+
+class StartDeliveryStreamEncryptionOutput {
+  StartDeliveryStreamEncryptionOutput();
+  static StartDeliveryStreamEncryptionOutput fromJson(
+          Map<String, dynamic> json) =>
+      StartDeliveryStreamEncryptionOutput();
+}
+
+class StopDeliveryStreamEncryptionOutput {
+  StopDeliveryStreamEncryptionOutput();
+  static StopDeliveryStreamEncryptionOutput fromJson(
+          Map<String, dynamic> json) =>
+      StopDeliveryStreamEncryptionOutput();
+}
+
+class Tag {
+  /// A unique identifier for the tag. Maximum length: 128 characters. Valid
+  /// characters: Unicode letters, digits, white space, _ . / = + - % @
+  final String key;
+
+  /// An optional string, which you can use to describe or define the tag.
+  /// Maximum length: 256 characters. Valid characters: Unicode letters, digits,
+  /// white space, _ . / = + - % @
+  final String value;
+
+  Tag({
+    @required this.key,
+    this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class TagDeliveryStreamOutput {
+  TagDeliveryStreamOutput();
+  static TagDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
+      TagDeliveryStreamOutput();
+}
+
+class UntagDeliveryStreamOutput {
+  UntagDeliveryStreamOutput();
+  static UntagDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
+      UntagDeliveryStreamOutput();
+}
+
+class UpdateDestinationOutput {
+  UpdateDestinationOutput();
+  static UpdateDestinationOutput fromJson(Map<String, dynamic> json) =>
+      UpdateDestinationOutput();
+}

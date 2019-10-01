@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'schema.dart' as s;
 import 'utils/case_format.dart';
 import 'utils/dart_keywords.dart';
@@ -78,6 +76,14 @@ class Operation {
 
   String get methodName => dartStyleVariable(splitWords(operation.name));
 
+  DartType get returnDartType {
+    if (output != null) {
+      return output.dartType;
+    } else {
+      return DartType.core('void');
+    }
+  }
+
   List<Parameter> get parameters {
     var input = this.input;
     var parameters = <Parameter>[];
@@ -85,11 +91,11 @@ class Operation {
     if (input != null) {
       Structure structure = input;
 
-      for (var member in structure.members.entries) {
+      for (var member in structure.members) {
         bool isRequired =
             structure.shape.required?.contains(member.key) ?? false;
 
-        parameters.add(Parameter(member.value.dartType, member.key,
+        parameters.add(Parameter(member, member.key,
             isRequired: isRequired, isComplexType: member is Structure));
       }
     }
@@ -127,20 +133,26 @@ class Operation {
 }
 
 class Parameter {
-  final DartType type;
+  final Member member;
   final String name;
   final bool isRequired;
   final bool isComplexType;
 
-  Parameter(this.type, this.name,
+  Parameter(this.member, this.name,
       {@required this.isRequired, @required this.isComplexType});
+
+  Shape get shape => member.shape;
+
+  String get documentation => member.documentation;
+
+  DartType get type => shape.dartType;
 
   String get dartName {
     return preventKeywords(dartStyleVariable(splitWords(name)));
   }
 
   String declarationCode({@required bool isNamed}) =>
-      '${isNamed && isRequired ? '@required' : ''} ${type.type} $dartName';
+      '${isNamed && isRequired ? '@required' : ''} ${type.name} $dartName';
 
   toString() => declarationCode(isNamed: false);
 }
@@ -233,14 +245,14 @@ abstract class Shape {
 }
 
 class DartType {
-  final String type;
+  final String name;
   final Set<String> imports;
 
-  const DartType.core(this.type) : imports = const {};
+  const DartType.core(this.name) : imports = const {};
 
-  const DartType(this.type, this.imports);
+  const DartType(this.name, this.imports);
 
-  toString() => type;
+  toString() => name;
 }
 
 abstract class Primitive extends Shape {
@@ -301,7 +313,7 @@ class ShapeList extends Shape {
   ShapeList(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => DartType(
-      'List<${_itemType.dartType.type}>', {..._itemType.dartType.imports});
+      'List<${_itemType.dartType.name}>', {..._itemType.dartType.imports});
 
   @override
   void init(Api api) {
@@ -331,7 +343,7 @@ class ShapeMap extends Shape {
 }
 
 class Structure extends Shape {
-  final members = <String, Shape>{};
+  final members = <Member>[];
 
   Structure(String name, s.Shape shape) : super._(name, shape);
 
@@ -343,11 +355,32 @@ class Structure extends Shape {
   void init(Api api) {
     super.init(api);
     for (var member in shape.members.entries) {
-      members[member.key] = api.findShape(member.value.shape);
+      members.add(Member(member.key, api.findShape(member.value.shape), member.value.documentation));
     }
   }
 
-  get children => members.values.toList();
+  get children => members.map((m) => m.shape).toList();
+
+  List<Property> get properties =>
+      members.map((m) => Property(m,
+          isRequired: shape.required?.contains(m.key) ?? false)).toList();
 }
 
+class Member {
+  final String key;
+  final Shape shape;
+  final String documentation;
 
+  Member(this.key, this.shape, this.documentation);
+}
+
+class Property {
+  final Member member;
+  final bool isRequired;
+
+  Property(this.member, {@required this.isRequired});
+
+  String get dartName {
+    return preventKeywords(dartStyleVariable(splitWords(member.key)));
+  }
+}

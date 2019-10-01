@@ -44,6 +44,11 @@ class SimpleDBApi {
   ///
   /// *   1 MB request size
   /// *   25 item limit per BatchDeleteAttributes operation
+  ///
+  /// [domainName]: The name of the domain in which the attributes are being
+  /// deleted.
+  ///
+  /// [items]: A list of items on which to perform the operation.
   Future<void> batchDeleteAttributes(
       {@required String domainName,
       @required List<DeletableItem> items}) async {}
@@ -96,6 +101,11 @@ class SimpleDBApi {
   /// *   1 billion attributes per domain
   /// *   10 GB of total user data storage per domain
   /// *   25 item limit per `BatchPutAttributes` operation
+  ///
+  /// [domainName]: The name of the domain in which the attributes are being
+  /// stored.
+  ///
+  /// [items]: A list of items on which to perform the operation.
   Future<void> batchPutAttributes(
       {@required String domainName,
       @required List<ReplaceableItem> items}) async {}
@@ -112,6 +122,10 @@ class SimpleDBApi {
   ///
   ///  If the client requires additional domains, go to
   /// [http://aws.amazon.com/contact-us/simpledb-limit-request/](http://aws.amazon.com/contact-us/simpledb-limit-request/).
+  ///
+  /// [domainName]: The name of the domain to create. The name can range between
+  /// 3 and 255 characters and can contain the following characters: a-z, A-Z,
+  /// 0-9, '_', '-', and '.'.
   Future<void> createDomain(String domainName) async {}
 
   ///  Deletes one or more attributes associated with an item. If all attributes
@@ -127,6 +141,20 @@ class SimpleDBApi {
   /// eventual consistency update model, performing a GetAttributes or Select
   /// operation (read) immediately after a `DeleteAttributes` or PutAttributes
   /// operation (write) might not return updated item data.
+  ///
+  /// [domainName]: The name of the domain in which to perform the operation.
+  ///
+  /// [itemName]: The name of the item. Similar to rows on a spreadsheet, items
+  /// represent individual objects that contain one or more value-attribute
+  /// pairs.
+  ///
+  /// [attributes]: A list of Attributes. Similar to columns on a spreadsheet,
+  /// attributes represent categories of data that can be assigned to items.
+  ///
+  /// [expected]: The update condition which, if specified, determines whether
+  /// the specified attributes will be deleted or not. The update condition must
+  /// be satisfied in order for this request to be processed and the attributes
+  /// to be deleted.
   Future<void> deleteAttributes(
       {@required String domainName,
       @required String itemName,
@@ -140,12 +168,18 @@ class SimpleDBApi {
   ///   Running `DeleteDomain` on a domain that does not exist or running the
   /// function multiple times using the same domain name will not result in an
   /// error response.
+  ///
+  /// [domainName]: The name of the domain to delete.
   Future<void> deleteDomain(String domainName) async {}
 
   ///  Returns information about the domain, including when the domain was
   /// created, the number of items and attributes in the domain, and the size of
   /// the attribute names and values.
-  Future<void> domainMetadata(String domainName) async {}
+  ///
+  /// [domainName]: The name of the domain for which to display the metadata of.
+  Future<DomainMetadataResult> domainMetadata(String domainName) async {
+    return DomainMetadataResult.fromJson({});
+  }
 
   ///  Returns all of the attributes associated with the specified item.
   /// Optionally, the attributes returned can be limited to one or more
@@ -157,11 +191,25 @@ class SimpleDBApi {
   ///
   ///   If GetAttributes is called without being passed any attribute names, all
   /// the attributes for the item are returned.
-  Future<void> getAttributes(
+  ///
+  /// [domainName]: The name of the domain in which to perform the operation.
+  ///
+  /// [itemName]: The name of the item.
+  ///
+  /// [attributeNames]: The names of the attributes.
+  ///
+  /// [consistentRead]: Determines whether or not strong consistency should be
+  /// enforced when data is read from SimpleDB. If `true`, any data previously
+  /// written to SimpleDB will be returned. Otherwise, results will be
+  /// consistent eventually, and the client may not see data that was written
+  /// immediately before your read.
+  Future<GetAttributesResult> getAttributes(
       {@required String domainName,
       @required String itemName,
       List<String> attributeNames,
-      bool consistentRead}) async {}
+      bool consistentRead}) async {
+    return GetAttributesResult.fromJson({});
+  }
 
   ///  The `ListDomains` operation lists all domains associated with the Access
   /// Key ID. It returns domain names up to the limit set by
@@ -170,7 +218,16 @@ class SimpleDBApi {
   /// `ListDomains` successive times with the `NextToken` provided by the
   /// operation returns up to `MaxNumberOfDomains` more domain names with each
   /// successive operation call.
-  Future<void> listDomains({int maxNumberOfDomains, String nextToken}) async {}
+  ///
+  /// [maxNumberOfDomains]: The maximum number of domain names you want
+  /// returned. The range is 1 to 100. The default setting is 100.
+  ///
+  /// [nextToken]: A string informing Amazon SimpleDB where to start the next
+  /// list of domain names.
+  Future<ListDomainsResult> listDomains(
+      {int maxNumberOfDomains, String nextToken}) async {
+    return ListDomainsResult.fromJson({});
+  }
 
   ///  The PutAttributes operation creates or replaces attributes in an item.
   /// The client may specify new attributes using a combination of the
@@ -209,6 +266,17 @@ class SimpleDBApi {
   /// *   256 total attribute name-value pairs per item
   /// *   One billion attributes per domain
   /// *   10 GB of total user data storage per domain
+  ///
+  /// [domainName]: The name of the domain in which to perform the operation.
+  ///
+  /// [itemName]: The name of the item.
+  ///
+  /// [attributes]: The list of attributes.
+  ///
+  /// [expected]: The update condition which, if specified, determines whether
+  /// the specified attributes will be updated or not. The update condition must
+  /// be satisfied in order for this request to be processed and the attributes
+  /// to be updated.
   Future<void> putAttributes(
       {@required String domainName,
       @required String itemName,
@@ -228,28 +296,211 @@ class SimpleDBApi {
   ///
   ///  For information on how to construct select expressions, see Using Select
   /// to Create Amazon SimpleDB Queries in the Developer Guide.
-  Future<void> select(String selectExpression,
-      {String nextToken, bool consistentRead}) async {}
+  ///
+  /// [selectExpression]: The expression used to query the domain.
+  ///
+  /// [nextToken]: A string informing Amazon SimpleDB where to start the next
+  /// list of `ItemNames`.
+  ///
+  /// [consistentRead]: Determines whether or not strong consistency should be
+  /// enforced when data is read from SimpleDB. If `true`, any data previously
+  /// written to SimpleDB will be returned. Otherwise, results will be
+  /// consistent eventually, and the client may not see data that was written
+  /// immediately before your read.
+  Future<SelectResult> select(String selectExpression,
+      {String nextToken, bool consistentRead}) async {
+    return SelectResult.fromJson({});
+  }
 }
 
-class Attribute {}
+class Attribute {
+  /// The name of the attribute.
+  final String name;
 
-class DeletableAttribute {}
+  final String alternateNameEncoding;
 
-class DeletableItem {}
+  /// The value of the attribute.
+  final String value;
 
-class DomainMetadataResult {}
+  final String alternateValueEncoding;
 
-class GetAttributesResult {}
+  Attribute({
+    @required this.name,
+    this.alternateNameEncoding,
+    @required this.value,
+    this.alternateValueEncoding,
+  });
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+}
 
-class Item {}
+class DeletableAttribute {
+  /// The name of the attribute.
+  final String name;
 
-class ListDomainsResult {}
+  /// The value of the attribute.
+  final String value;
 
-class ReplaceableAttribute {}
+  DeletableAttribute({
+    @required this.name,
+    this.value,
+  });
+}
 
-class ReplaceableItem {}
+class DeletableItem {
+  final String name;
 
-class SelectResult {}
+  final List<DeletableAttribute> attributes;
 
-class UpdateCondition {}
+  DeletableItem({
+    @required this.name,
+    this.attributes,
+  });
+}
+
+class DomainMetadataResult {
+  /// The number of all items in the domain.
+  final int itemCount;
+
+  /// The total size of all item names in the domain, in bytes.
+  final BigInt itemNamesSizeBytes;
+
+  /// The number of unique attribute names in the domain.
+  final int attributeNameCount;
+
+  /// The total size of all unique attribute names in the domain, in bytes.
+  final BigInt attributeNamesSizeBytes;
+
+  /// The number of all attribute name/value pairs in the domain.
+  final int attributeValueCount;
+
+  /// The total size of all attribute values in the domain, in bytes.
+  final BigInt attributeValuesSizeBytes;
+
+  /// The data and time when metadata was calculated, in Epoch (UNIX) seconds.
+  final int timestamp;
+
+  DomainMetadataResult({
+    this.itemCount,
+    this.itemNamesSizeBytes,
+    this.attributeNameCount,
+    this.attributeNamesSizeBytes,
+    this.attributeValueCount,
+    this.attributeValuesSizeBytes,
+    this.timestamp,
+  });
+  static DomainMetadataResult fromJson(Map<String, dynamic> json) =>
+      DomainMetadataResult();
+}
+
+class GetAttributesResult {
+  /// The list of attributes returned by the operation.
+  final List<Attribute> attributes;
+
+  GetAttributesResult({
+    this.attributes,
+  });
+  static GetAttributesResult fromJson(Map<String, dynamic> json) =>
+      GetAttributesResult();
+}
+
+class Item {
+  /// The name of the item.
+  final String name;
+
+  final String alternateNameEncoding;
+
+  /// A list of attributes.
+  final List<Attribute> attributes;
+
+  Item({
+    @required this.name,
+    this.alternateNameEncoding,
+    @required this.attributes,
+  });
+  static Item fromJson(Map<String, dynamic> json) => Item();
+}
+
+class ListDomainsResult {
+  /// A list of domain names that match the expression.
+  final List<String> domainNames;
+
+  /// An opaque token indicating that there are more domains than the specified
+  /// `MaxNumberOfDomains` still available.
+  final String nextToken;
+
+  ListDomainsResult({
+    this.domainNames,
+    this.nextToken,
+  });
+  static ListDomainsResult fromJson(Map<String, dynamic> json) =>
+      ListDomainsResult();
+}
+
+class ReplaceableAttribute {
+  /// The name of the replaceable attribute.
+  final String name;
+
+  /// The value of the replaceable attribute.
+  final String value;
+
+  /// A flag specifying whether or not to replace the attribute/value pair or to
+  /// add a new attribute/value pair. The default setting is `false`.
+  final bool replace;
+
+  ReplaceableAttribute({
+    @required this.name,
+    @required this.value,
+    this.replace,
+  });
+}
+
+class ReplaceableItem {
+  /// The name of the replaceable item.
+  final String name;
+
+  /// The list of attributes for a replaceable item.
+  final List<ReplaceableAttribute> attributes;
+
+  ReplaceableItem({
+    @required this.name,
+    @required this.attributes,
+  });
+}
+
+class SelectResult {
+  /// A list of items that match the select expression.
+  final List<Item> items;
+
+  /// An opaque token indicating that more items than `MaxNumberOfItems` were
+  /// matched, the response size exceeded 1 megabyte, or the execution time
+  /// exceeded 5 seconds.
+  final String nextToken;
+
+  SelectResult({
+    this.items,
+    this.nextToken,
+  });
+  static SelectResult fromJson(Map<String, dynamic> json) => SelectResult();
+}
+
+class UpdateCondition {
+  /// The name of the attribute involved in the condition.
+  final String name;
+
+  /// The value of an attribute. This value can only be specified when the
+  /// `Exists` parameter is equal to `true`.
+  final String value;
+
+  /// A value specifying whether or not the specified attribute must exist with
+  /// the specified value in order for the update condition to be satisfied.
+  /// Specify `true` if the attribute must exist for the update condition to be
+  /// satisfied. Specify `false` if the attribute should not exist in order for
+  /// the update condition to be satisfied.
+  final bool exists;
+
+  UpdateCondition({
+    this.name,
+    this.value,
+    this.exists,
+  });
+}

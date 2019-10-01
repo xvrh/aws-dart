@@ -62,11 +62,96 @@ class ApplicationAutoScalingApi {
   ///
   /// To create a scaling policy or update an existing one, see
   /// PutScalingPolicy.
-  Future<void> deleteScalingPolicy(
+  ///
+  /// [policyName]: The name of the scaling policy.
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scalable
+  /// target. This string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  Future<DeleteScalingPolicyResponse> deleteScalingPolicy(
       {@required String policyName,
       @required String serviceNamespace,
       @required String resourceId,
-      @required String scalableDimension}) async {}
+      @required String scalableDimension}) async {
+    return DeleteScalingPolicyResponse.fromJson({});
+  }
 
   /// Deletes the specified scheduled action for an Application Auto Scaling
   /// scalable target.
@@ -74,11 +159,96 @@ class ApplicationAutoScalingApi {
   /// For more information, see [Delete a Scheduled
   /// Action](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html#delete-scheduled-action)
   /// in the _Application Auto Scaling User Guide_.
-  Future<void> deleteScheduledAction(
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [scheduledActionName]: The name of the scheduled action.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scheduled
+  /// action. This string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  Future<DeleteScheduledActionResponse> deleteScheduledAction(
       {@required String serviceNamespace,
       @required String scheduledActionName,
       @required String resourceId,
-      @required String scalableDimension}) async {}
+      @required String scalableDimension}) async {
+    return DeleteScheduledActionResponse.fromJson({});
+  }
 
   /// Deregisters an Application Auto Scaling scalable target.
   ///
@@ -87,10 +257,94 @@ class ApplicationAutoScalingApi {
   ///
   /// To create a scalable target or update an existing one, see
   /// RegisterScalableTarget.
-  Future<void> deregisterScalableTarget(
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scalable
+  /// target. This string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension associated with the scalable
+  /// target. This string consists of the service namespace, resource type, and
+  /// scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  Future<DeregisterScalableTargetResponse> deregisterScalableTarget(
       {@required String serviceNamespace,
       @required String resourceId,
-      @required String scalableDimension}) async {}
+      @required String scalableDimension}) async {
+    return DeregisterScalableTargetResponse.fromJson({});
+  }
 
   /// Gets information about the scalable targets in the specified namespace.
   ///
@@ -99,11 +353,109 @@ class ApplicationAutoScalingApi {
   /// To create a scalable target or update an existing one, see
   /// RegisterScalableTarget. If you are no longer using a scalable target, you
   /// can deregister it using DeregisterScalableTarget.
-  Future<void> describeScalableTargets(String serviceNamespace,
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceIds]: The identifier of the resource associated with the scalable
+  /// target. This string consists of the resource type and unique identifier.
+  /// If you specify a scalable dimension, you must also specify a resource ID.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension associated with the scalable
+  /// target. This string consists of the service namespace, resource type, and
+  /// scaling property. If you specify a scalable dimension, you must also
+  /// specify a resource ID.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [maxResults]: The maximum number of scalable targets. This value can be
+  /// between 1 and 50. The default value is 50.
+  ///
+  /// If this parameter is used, the operation returns up to `MaxResults`
+  /// results at a time, along with a `NextToken` value. To get the next set of
+  /// results, include the `NextToken` value in a subsequent call. If this
+  /// parameter is not used, the operation returns up to 50 results and a
+  /// `NextToken` value, if applicable.
+  ///
+  /// [nextToken]: The token for the next set of results.
+  Future<DescribeScalableTargetsResponse> describeScalableTargets(
+      String serviceNamespace,
       {List<String> resourceIds,
       String scalableDimension,
       int maxResults,
-      String nextToken}) async {}
+      String nextToken}) async {
+    return DescribeScalableTargetsResponse.fromJson({});
+  }
 
   /// Provides descriptive information about the scaling activities in the
   /// specified namespace from the previous six weeks.
@@ -114,11 +466,108 @@ class ApplicationAutoScalingApi {
   /// with scaling policies. To view the scaling policies for a service
   /// namespace, see DescribeScalingPolicies. To create a scaling policy or
   /// update an existing one, see PutScalingPolicy.
-  Future<void> describeScalingActivities(String serviceNamespace,
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scaling
+  /// activity. This string consists of the resource type and unique identifier.
+  /// If you specify a scalable dimension, you must also specify a resource ID.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property. If you specify a
+  /// scalable dimension, you must also specify a resource ID.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [maxResults]: The maximum number of scalable targets. This value can be
+  /// between 1 and 50. The default value is 50.
+  ///
+  /// If this parameter is used, the operation returns up to `MaxResults`
+  /// results at a time, along with a `NextToken` value. To get the next set of
+  /// results, include the `NextToken` value in a subsequent call. If this
+  /// parameter is not used, the operation returns up to 50 results and a
+  /// `NextToken` value, if applicable.
+  ///
+  /// [nextToken]: The token for the next set of results.
+  Future<DescribeScalingActivitiesResponse> describeScalingActivities(
+      String serviceNamespace,
       {String resourceId,
       String scalableDimension,
       int maxResults,
-      String nextToken}) async {}
+      String nextToken}) async {
+    return DescribeScalingActivitiesResponse.fromJson({});
+  }
 
   /// Describes the Application Auto Scaling scaling policies for the specified
   /// service namespace.
@@ -129,12 +578,111 @@ class ApplicationAutoScalingApi {
   /// To create a scaling policy or update an existing one, see
   /// PutScalingPolicy. If you are no longer using a scaling policy, you can
   /// delete it using DeleteScalingPolicy.
-  Future<void> describeScalingPolicies(String serviceNamespace,
+  ///
+  /// [policyNames]: The names of the scaling policies to describe.
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scaling
+  /// policy. This string consists of the resource type and unique identifier.
+  /// If you specify a scalable dimension, you must also specify a resource ID.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property. If you specify a
+  /// scalable dimension, you must also specify a resource ID.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [maxResults]: The maximum number of scalable targets. This value can be
+  /// between 1 and 50. The default value is 50.
+  ///
+  /// If this parameter is used, the operation returns up to `MaxResults`
+  /// results at a time, along with a `NextToken` value. To get the next set of
+  /// results, include the `NextToken` value in a subsequent call. If this
+  /// parameter is not used, the operation returns up to 50 results and a
+  /// `NextToken` value, if applicable.
+  ///
+  /// [nextToken]: The token for the next set of results.
+  Future<DescribeScalingPoliciesResponse> describeScalingPolicies(
+      String serviceNamespace,
       {List<String> policyNames,
       String resourceId,
       String scalableDimension,
       int maxResults,
-      String nextToken}) async {}
+      String nextToken}) async {
+    return DescribeScalingPoliciesResponse.fromJson({});
+  }
 
   /// Describes the Application Auto Scaling scheduled actions for the specified
   /// service namespace.
@@ -145,12 +693,111 @@ class ApplicationAutoScalingApi {
   /// To create a scheduled action or update an existing one, see
   /// PutScheduledAction. If you are no longer using a scheduled action, you can
   /// delete it using DeleteScheduledAction.
-  Future<void> describeScheduledActions(String serviceNamespace,
+  ///
+  /// [scheduledActionNames]: The names of the scheduled actions to describe.
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scheduled
+  /// action. This string consists of the resource type and unique identifier.
+  /// If you specify a scalable dimension, you must also specify a resource ID.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property. If you specify a
+  /// scalable dimension, you must also specify a resource ID.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [maxResults]: The maximum number of scheduled action results. This value
+  /// can be between 1 and 50. The default value is 50.
+  ///
+  /// If this parameter is used, the operation returns up to `MaxResults`
+  /// results at a time, along with a `NextToken` value. To get the next set of
+  /// results, include the `NextToken` value in a subsequent call. If this
+  /// parameter is not used, the operation returns up to 50 results and a
+  /// `NextToken` value, if applicable.
+  ///
+  /// [nextToken]: The token for the next set of results.
+  Future<DescribeScheduledActionsResponse> describeScheduledActions(
+      String serviceNamespace,
       {List<String> scheduledActionNames,
       String resourceId,
       String scalableDimension,
       int maxResults,
-      String nextToken}) async {}
+      String nextToken}) async {
+    return DescribeScheduledActionsResponse.fromJson({});
+  }
 
   /// Creates or updates a policy for an Application Auto Scaling scalable
   /// target.
@@ -183,7 +830,116 @@ class ApplicationAutoScalingApi {
   /// Learn more about how to work with scaling policies in the [Application
   /// Auto Scaling User
   /// Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
-  Future<void> putScalingPolicy(
+  ///
+  /// [policyName]: The name of the scaling policy.
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scaling
+  /// policy. This string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [policyType]: The policy type. This parameter is required if you are
+  /// creating a scaling policy.
+  ///
+  /// The following policy types are supported:
+  ///
+  ///  `TargetTrackingScaling`—Not supported for Amazon EMR or AppStream
+  ///
+  ///  `StepScaling`—Not supported for Amazon DynamoDB
+  ///
+  /// For more information, see [Step Scaling Policies for Application Auto
+  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html)
+  /// and [Target Tracking Scaling Policies for Application Auto
+  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html)
+  /// in the _Application Auto Scaling User Guide_.
+  ///
+  /// [stepScalingPolicyConfiguration]: A step scaling policy.
+  ///
+  /// This parameter is required if you are creating a policy and the policy
+  /// type is `StepScaling`.
+  ///
+  /// [targetTrackingScalingPolicyConfiguration]: A target tracking scaling
+  /// policy. Includes support for predefined or customized metrics.
+  ///
+  /// This parameter is required if you are creating a policy and the policy
+  /// type is `TargetTrackingScaling`.
+  Future<PutScalingPolicyResponse> putScalingPolicy(
       {@required String policyName,
       @required String serviceNamespace,
       @required String resourceId,
@@ -191,7 +947,9 @@ class ApplicationAutoScalingApi {
       String policyType,
       StepScalingPolicyConfiguration stepScalingPolicyConfiguration,
       TargetTrackingScalingPolicyConfiguration
-          targetTrackingScalingPolicyConfiguration}) async {}
+          targetTrackingScalingPolicyConfiguration}) async {
+    return PutScalingPolicyResponse.fromJson({});
+  }
 
   /// Creates or updates a scheduled action for an Application Auto Scaling
   /// scalable target.
@@ -214,7 +972,120 @@ class ApplicationAutoScalingApi {
   /// Learn more about how to work with scheduled actions in the [Application
   /// Auto Scaling User
   /// Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
-  Future<void> putScheduledAction(
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [schedule]: The schedule for this action. The following formats are
+  /// supported:
+  ///
+  /// *   At expressions - "`at(_yyyy_-_mm_-_dd_T_hh_:_mm_:_ss_)`"
+  ///
+  /// *   Rate expressions - "`rate(_value_ _unit_)`"
+  ///
+  /// *   Cron expressions - "`cron(_fields_)`"
+  ///
+  ///
+  /// At expressions are useful for one-time schedules. Specify the time, in
+  /// UTC.
+  ///
+  /// For rate expressions, _value_ is a positive integer and _unit_ is `minute`
+  /// | `minutes` | `hour` | `hours` | `day` | `days`.
+  ///
+  /// For more information about cron expressions, see [Cron
+  /// Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
+  /// in the _Amazon CloudWatch Events User Guide_.
+  ///
+  /// [scheduledActionName]: The name of the scheduled action.
+  ///
+  /// [resourceId]: The identifier of the resource associated with the scheduled
+  /// action. This string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension. This string consists of the
+  /// service namespace, resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [startTime]: The date and time for the scheduled action to start.
+  ///
+  /// [endTime]: The date and time for the scheduled action to end.
+  ///
+  /// [scalableTargetAction]: The new minimum and maximum capacity. You can set
+  /// both values or just one. During the scheduled time, if the current
+  /// capacity is below the minimum capacity, Application Auto Scaling scales
+  /// out to the minimum capacity. If the current capacity is above the maximum
+  /// capacity, Application Auto Scaling scales in to the maximum capacity.
+  Future<PutScheduledActionResponse> putScheduledAction(
       {@required String serviceNamespace,
       String schedule,
       @required String scheduledActionName,
@@ -222,7 +1093,9 @@ class ApplicationAutoScalingApi {
       @required String scalableDimension,
       DateTime startTime,
       DateTime endTime,
-      ScalableTargetAction scalableTargetAction}) async {}
+      ScalableTargetAction scalableTargetAction}) async {
+    return PutScheduledActionResponse.fromJson({});
+  }
 
   /// Registers or updates a scalable target. A scalable target is a resource
   /// that Application Auto Scaling can scale out and scale in. Scalable targets
@@ -245,58 +1118,1024 @@ class ApplicationAutoScalingApi {
   ///
   /// If you no longer need a scalable target, you can deregister it by using
   /// DeregisterScalableTarget.
-  Future<void> registerScalableTarget(
+  ///
+  /// [serviceNamespace]: The namespace of the AWS service that provides the
+  /// resource or `custom-resource` for a resource provided by your own
+  /// application or service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  ///
+  /// [resourceId]: The identifier of the resource that is associated with the
+  /// scalable target. This string consists of the resource type and unique
+  /// identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  ///
+  /// [scalableDimension]: The scalable dimension associated with the scalable
+  /// target. This string consists of the service namespace, resource type, and
+  /// scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  ///
+  /// [minCapacity]: The minimum value to scale to in response to a scale-in
+  /// event. `MinCapacity` is required to register a scalable target.
+  ///
+  /// [maxCapacity]: The maximum value to scale to in response to a scale-out
+  /// event. `MaxCapacity` is required to register a scalable target.
+  ///
+  /// [roleArn]: Application Auto Scaling creates a service-linked role that
+  /// grants it permissions to modify the scalable target on your behalf. For
+  /// more information, see [Service-Linked Roles for Application Auto
+  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html).
+  ///
+  /// For resources that are not supported using a service-linked role, this
+  /// parameter is required, and it must specify the ARN of an IAM role that
+  /// allows Application Auto Scaling to modify the scalable target on your
+  /// behalf.
+  ///
+  /// [suspendedState]: An embedded object that contains attributes and
+  /// attribute values that are used to suspend and resume automatic scaling.
+  /// Setting the value of an attribute to `true` suspends the specified scaling
+  /// activities. Setting it to `false` (default) resumes the specified scaling
+  /// activities.
+  ///
+  ///  **Suspension Outcomes**
+  ///
+  /// *   For `DynamicScalingInSuspended`, while a suspension is in effect, all
+  /// scale-in activities that are triggered by a scaling policy are suspended.
+  ///
+  /// *   For `DynamicScalingOutSuspended`, while a suspension is in effect, all
+  /// scale-out activities that are triggered by a scaling policy are suspended.
+  ///
+  /// *   For `ScheduledScalingSuspended`, while a suspension is in effect, all
+  /// scaling activities that involve scheduled actions are suspended.
+  ///
+  ///
+  /// For more information, see [Suspend and Resume Application Auto
+  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html)
+  /// in the _Application Auto Scaling User Guide_.
+  Future<RegisterScalableTargetResponse> registerScalableTarget(
       {@required String serviceNamespace,
       @required String resourceId,
       @required String scalableDimension,
       int minCapacity,
       int maxCapacity,
       String roleArn,
-      SuspendedState suspendedState}) async {}
+      SuspendedState suspendedState}) async {
+    return RegisterScalableTargetResponse.fromJson({});
+  }
 }
 
-class Alarm {}
+class Alarm {
+  /// The name of the alarm.
+  final String alarmName;
 
-class CustomizedMetricSpecification {}
+  /// The Amazon Resource Name (ARN) of the alarm.
+  final String alarmArn;
 
-class DeleteScalingPolicyResponse {}
+  Alarm({
+    @required this.alarmName,
+    @required this.alarmArn,
+  });
+  static Alarm fromJson(Map<String, dynamic> json) => Alarm();
+}
 
-class DeleteScheduledActionResponse {}
+class CustomizedMetricSpecification {
+  /// The name of the metric.
+  final String metricName;
 
-class DeregisterScalableTargetResponse {}
+  /// The namespace of the metric.
+  final String namespace;
 
-class DescribeScalableTargetsResponse {}
+  /// The dimensions of the metric.
+  ///
+  /// Conditional: If you published your metric with dimensions, you must
+  /// specify the same dimensions in your scaling policy.
+  final List<MetricDimension> dimensions;
 
-class DescribeScalingActivitiesResponse {}
+  /// The statistic of the metric.
+  final String statistic;
 
-class DescribeScalingPoliciesResponse {}
+  /// The unit of the metric.
+  final String unit;
 
-class DescribeScheduledActionsResponse {}
+  CustomizedMetricSpecification({
+    @required this.metricName,
+    @required this.namespace,
+    this.dimensions,
+    @required this.statistic,
+    this.unit,
+  });
+  static CustomizedMetricSpecification fromJson(Map<String, dynamic> json) =>
+      CustomizedMetricSpecification();
+}
 
-class MetricDimension {}
+class DeleteScalingPolicyResponse {
+  DeleteScalingPolicyResponse();
+  static DeleteScalingPolicyResponse fromJson(Map<String, dynamic> json) =>
+      DeleteScalingPolicyResponse();
+}
 
-class PredefinedMetricSpecification {}
+class DeleteScheduledActionResponse {
+  DeleteScheduledActionResponse();
+  static DeleteScheduledActionResponse fromJson(Map<String, dynamic> json) =>
+      DeleteScheduledActionResponse();
+}
 
-class PutScalingPolicyResponse {}
+class DeregisterScalableTargetResponse {
+  DeregisterScalableTargetResponse();
+  static DeregisterScalableTargetResponse fromJson(Map<String, dynamic> json) =>
+      DeregisterScalableTargetResponse();
+}
 
-class PutScheduledActionResponse {}
+class DescribeScalableTargetsResponse {
+  /// The scalable targets that match the request parameters.
+  final List<ScalableTarget> scalableTargets;
 
-class RegisterScalableTargetResponse {}
+  /// The token required to get the next set of results. This value is `null` if
+  /// there are no more results to return.
+  final String nextToken;
 
-class ScalableTarget {}
+  DescribeScalableTargetsResponse({
+    this.scalableTargets,
+    this.nextToken,
+  });
+  static DescribeScalableTargetsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeScalableTargetsResponse();
+}
 
-class ScalableTargetAction {}
+class DescribeScalingActivitiesResponse {
+  /// A list of scaling activity objects.
+  final List<ScalingActivity> scalingActivities;
 
-class ScalingActivity {}
+  /// The token required to get the next set of results. This value is `null` if
+  /// there are no more results to return.
+  final String nextToken;
 
-class ScalingPolicy {}
+  DescribeScalingActivitiesResponse({
+    this.scalingActivities,
+    this.nextToken,
+  });
+  static DescribeScalingActivitiesResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeScalingActivitiesResponse();
+}
 
-class ScheduledAction {}
+class DescribeScalingPoliciesResponse {
+  /// Information about the scaling policies.
+  final List<ScalingPolicy> scalingPolicies;
 
-class StepAdjustment {}
+  /// The token required to get the next set of results. This value is `null` if
+  /// there are no more results to return.
+  final String nextToken;
 
-class StepScalingPolicyConfiguration {}
+  DescribeScalingPoliciesResponse({
+    this.scalingPolicies,
+    this.nextToken,
+  });
+  static DescribeScalingPoliciesResponse fromJson(Map<String, dynamic> json) =>
+      DescribeScalingPoliciesResponse();
+}
 
-class SuspendedState {}
+class DescribeScheduledActionsResponse {
+  /// Information about the scheduled actions.
+  final List<ScheduledAction> scheduledActions;
 
-class TargetTrackingScalingPolicyConfiguration {}
+  /// The token required to get the next set of results. This value is `null` if
+  /// there are no more results to return.
+  final String nextToken;
+
+  DescribeScheduledActionsResponse({
+    this.scheduledActions,
+    this.nextToken,
+  });
+  static DescribeScheduledActionsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeScheduledActionsResponse();
+}
+
+class MetricDimension {
+  /// The name of the dimension.
+  final String name;
+
+  /// The value of the dimension.
+  final String value;
+
+  MetricDimension({
+    @required this.name,
+    @required this.value,
+  });
+  static MetricDimension fromJson(Map<String, dynamic> json) =>
+      MetricDimension();
+}
+
+class PredefinedMetricSpecification {
+  /// The metric type. The `ALBRequestCountPerTarget` metric type applies only
+  /// to Spot Fleet requests and ECS services.
+  final String predefinedMetricType;
+
+  /// Identifies the resource associated with the metric type. You can't specify
+  /// a resource label unless the metric type is `ALBRequestCountPerTarget` and
+  /// there is a target group attached to the Spot Fleet request or ECS service.
+  ///
+  /// The format is
+  /// app/<load-balancer-name>/<load-balancer-id>/targetgroup/<target-group-name>/<target-group-id>,
+  /// where:
+  ///
+  /// *   app/<load-balancer-name>/<load-balancer-id> is the final portion of
+  /// the load balancer ARN
+  ///
+  /// *   targetgroup/<target-group-name>/<target-group-id> is the final portion
+  /// of the target group ARN.
+  final String resourceLabel;
+
+  PredefinedMetricSpecification({
+    @required this.predefinedMetricType,
+    this.resourceLabel,
+  });
+  static PredefinedMetricSpecification fromJson(Map<String, dynamic> json) =>
+      PredefinedMetricSpecification();
+}
+
+class PutScalingPolicyResponse {
+  /// The Amazon Resource Name (ARN) of the resulting scaling policy.
+  final String policyArn;
+
+  /// The CloudWatch alarms created for the target tracking scaling policy.
+  final List<Alarm> alarms;
+
+  PutScalingPolicyResponse({
+    @required this.policyArn,
+    this.alarms,
+  });
+  static PutScalingPolicyResponse fromJson(Map<String, dynamic> json) =>
+      PutScalingPolicyResponse();
+}
+
+class PutScheduledActionResponse {
+  PutScheduledActionResponse();
+  static PutScheduledActionResponse fromJson(Map<String, dynamic> json) =>
+      PutScheduledActionResponse();
+}
+
+class RegisterScalableTargetResponse {
+  RegisterScalableTargetResponse();
+  static RegisterScalableTargetResponse fromJson(Map<String, dynamic> json) =>
+      RegisterScalableTargetResponse();
+}
+
+class ScalableTarget {
+  /// The namespace of the AWS service that provides the resource or
+  /// `custom-resource` for a resource provided by your own application or
+  /// service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  final String serviceNamespace;
+
+  /// The identifier of the resource associated with the scalable target. This
+  /// string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  final String resourceId;
+
+  /// The scalable dimension associated with the scalable target. This string
+  /// consists of the service namespace, resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  final String scalableDimension;
+
+  /// The minimum value to scale to in response to a scale-in event.
+  final int minCapacity;
+
+  /// The maximum value to scale to in response to a scale-out event.
+  final int maxCapacity;
+
+  /// The ARN of an IAM role that allows Application Auto Scaling to modify the
+  /// scalable target on your behalf.
+  final String roleArn;
+
+  /// The Unix timestamp for when the scalable target was created.
+  final DateTime creationTime;
+
+  final SuspendedState suspendedState;
+
+  ScalableTarget({
+    @required this.serviceNamespace,
+    @required this.resourceId,
+    @required this.scalableDimension,
+    @required this.minCapacity,
+    @required this.maxCapacity,
+    @required this.roleArn,
+    @required this.creationTime,
+    this.suspendedState,
+  });
+  static ScalableTarget fromJson(Map<String, dynamic> json) => ScalableTarget();
+}
+
+class ScalableTargetAction {
+  /// The minimum capacity.
+  final int minCapacity;
+
+  /// The maximum capacity.
+  final int maxCapacity;
+
+  ScalableTargetAction({
+    this.minCapacity,
+    this.maxCapacity,
+  });
+  static ScalableTargetAction fromJson(Map<String, dynamic> json) =>
+      ScalableTargetAction();
+}
+
+class ScalingActivity {
+  /// The unique identifier of the scaling activity.
+  final String activityId;
+
+  /// The namespace of the AWS service that provides the resource or
+  /// `custom-resource` for a resource provided by your own application or
+  /// service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  final String serviceNamespace;
+
+  /// The identifier of the resource associated with the scaling activity. This
+  /// string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  final String resourceId;
+
+  /// The scalable dimension. This string consists of the service namespace,
+  /// resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  final String scalableDimension;
+
+  /// A simple description of what action the scaling activity intends to
+  /// accomplish.
+  final String description;
+
+  /// A simple description of what caused the scaling activity to happen.
+  final String cause;
+
+  /// The Unix timestamp for when the scaling activity began.
+  final DateTime startTime;
+
+  /// The Unix timestamp for when the scaling activity ended.
+  final DateTime endTime;
+
+  /// Indicates the status of the scaling activity.
+  final String statusCode;
+
+  /// A simple message about the current status of the scaling activity.
+  final String statusMessage;
+
+  /// The details about the scaling activity.
+  final String details;
+
+  ScalingActivity({
+    @required this.activityId,
+    @required this.serviceNamespace,
+    @required this.resourceId,
+    @required this.scalableDimension,
+    @required this.description,
+    @required this.cause,
+    @required this.startTime,
+    this.endTime,
+    @required this.statusCode,
+    this.statusMessage,
+    this.details,
+  });
+  static ScalingActivity fromJson(Map<String, dynamic> json) =>
+      ScalingActivity();
+}
+
+class ScalingPolicy {
+  /// The Amazon Resource Name (ARN) of the scaling policy.
+  final String policyArn;
+
+  /// The name of the scaling policy.
+  final String policyName;
+
+  /// The namespace of the AWS service that provides the resource or
+  /// `custom-resource` for a resource provided by your own application or
+  /// service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  final String serviceNamespace;
+
+  /// The identifier of the resource associated with the scaling policy. This
+  /// string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  final String resourceId;
+
+  /// The scalable dimension. This string consists of the service namespace,
+  /// resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  final String scalableDimension;
+
+  /// The scaling policy type.
+  final String policyType;
+
+  /// A step scaling policy.
+  final StepScalingPolicyConfiguration stepScalingPolicyConfiguration;
+
+  /// A target tracking scaling policy.
+  final TargetTrackingScalingPolicyConfiguration
+      targetTrackingScalingPolicyConfiguration;
+
+  /// The CloudWatch alarms associated with the scaling policy.
+  final List<Alarm> alarms;
+
+  /// The Unix timestamp for when the scaling policy was created.
+  final DateTime creationTime;
+
+  ScalingPolicy({
+    @required this.policyArn,
+    @required this.policyName,
+    @required this.serviceNamespace,
+    @required this.resourceId,
+    @required this.scalableDimension,
+    @required this.policyType,
+    this.stepScalingPolicyConfiguration,
+    this.targetTrackingScalingPolicyConfiguration,
+    this.alarms,
+    @required this.creationTime,
+  });
+  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
+}
+
+class ScheduledAction {
+  /// The name of the scheduled action.
+  final String scheduledActionName;
+
+  /// The Amazon Resource Name (ARN) of the scheduled action.
+  final String scheduledActionArn;
+
+  /// The namespace of the AWS service that provides the resource or
+  /// `custom-resource` for a resource provided by your own application or
+  /// service. For more information, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _Amazon Web Services General Reference_.
+  final String serviceNamespace;
+
+  /// The schedule for this action. The following formats are supported:
+  ///
+  /// *   At expressions - "`at(_yyyy_-_mm_-_dd_T_hh_:_mm_:_ss_)`"
+  ///
+  /// *   Rate expressions - "`rate(_value_ _unit_)`"
+  ///
+  /// *   Cron expressions - "`cron(_fields_)`"
+  ///
+  ///
+  /// At expressions are useful for one-time schedules. Specify the time, in
+  /// UTC.
+  ///
+  /// For rate expressions, _value_ is a positive integer and _unit_ is `minute`
+  /// | `minutes` | `hour` | `hours` | `day` | `days`.
+  ///
+  /// For more information about cron expressions, see [Cron
+  /// Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
+  /// in the _Amazon CloudWatch Events User Guide_.
+  final String schedule;
+
+  /// The identifier of the resource associated with the scaling policy. This
+  /// string consists of the resource type and unique identifier.
+  ///
+  /// *   ECS service - The resource type is `service` and the unique identifier
+  /// is the cluster name and service name. Example:
+  /// `service/default/sample-webapp`.
+  ///
+  /// *   Spot Fleet request - The resource type is `spot-fleet-request` and the
+  /// unique identifier is the Spot Fleet request ID. Example:
+  /// `spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE`.
+  ///
+  /// *   EMR cluster - The resource type is `instancegroup` and the unique
+  /// identifier is the cluster ID and instance group ID. Example:
+  /// `instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0`.
+  ///
+  /// *   AppStream 2.0 fleet - The resource type is `fleet` and the unique
+  /// identifier is the fleet name. Example: `fleet/sample-fleet`.
+  ///
+  /// *   DynamoDB table - The resource type is `table` and the unique
+  /// identifier is the resource ID. Example: `table/my-table`.
+  ///
+  /// *   DynamoDB global secondary index - The resource type is `index` and the
+  /// unique identifier is the resource ID. Example:
+  /// `table/my-table/index/my-table-index`.
+  ///
+  /// *   Aurora DB cluster - The resource type is `cluster` and the unique
+  /// identifier is the cluster name. Example: `cluster:my-db-cluster`.
+  ///
+  /// *   Amazon SageMaker endpoint variants - The resource type is `variant`
+  /// and the unique identifier is the resource ID. Example:
+  /// `endpoint/my-end-point/variant/KMeansClustering`.
+  ///
+  /// *   Custom resources are not supported with a resource type. This
+  /// parameter must specify the `OutputValue` from the CloudFormation template
+  /// stack used to access the resources. The unique identifier is defined by
+  /// the service provider. More information is available in our [GitHub
+  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  final String resourceId;
+
+  /// The scalable dimension. This string consists of the service namespace,
+  /// resource type, and scaling property.
+  ///
+  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// service.
+  ///
+  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// Spot Fleet request.
+  ///
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// of an EMR Instance Group.
+  ///
+  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// AppStream 2.0 fleet.
+  ///
+  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB table.
+  ///
+  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// for a DynamoDB global secondary index.
+  ///
+  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+  /// Aurora PostgreSQL-compatible edition.
+  ///
+  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// instances for an Amazon SageMaker model endpoint variant.
+  ///
+  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// a custom resource provided by your own application or service.
+  final String scalableDimension;
+
+  /// The date and time that the action is scheduled to begin.
+  final DateTime startTime;
+
+  /// The date and time that the action is scheduled to end.
+  final DateTime endTime;
+
+  /// The new minimum and maximum capacity. You can set both values or just one.
+  /// During the scheduled time, if the current capacity is below the minimum
+  /// capacity, Application Auto Scaling scales out to the minimum capacity. If
+  /// the current capacity is above the maximum capacity, Application Auto
+  /// Scaling scales in to the maximum capacity.
+  final ScalableTargetAction scalableTargetAction;
+
+  /// The date and time that the scheduled action was created.
+  final DateTime creationTime;
+
+  ScheduledAction({
+    @required this.scheduledActionName,
+    @required this.scheduledActionArn,
+    @required this.serviceNamespace,
+    @required this.schedule,
+    @required this.resourceId,
+    this.scalableDimension,
+    this.startTime,
+    this.endTime,
+    this.scalableTargetAction,
+    @required this.creationTime,
+  });
+  static ScheduledAction fromJson(Map<String, dynamic> json) =>
+      ScheduledAction();
+}
+
+class StepAdjustment {
+  /// The lower bound for the difference between the alarm threshold and the
+  /// CloudWatch metric. If the metric value is above the breach threshold, the
+  /// lower bound is inclusive (the metric must be greater than or equal to the
+  /// threshold plus the lower bound). Otherwise, it is exclusive (the metric
+  /// must be greater than the threshold plus the lower bound). A null value
+  /// indicates negative infinity.
+  final double metricIntervalLowerBound;
+
+  /// The upper bound for the difference between the alarm threshold and the
+  /// CloudWatch metric. If the metric value is above the breach threshold, the
+  /// upper bound is exclusive (the metric must be less than the threshold plus
+  /// the upper bound). Otherwise, it is inclusive (the metric must be less than
+  /// or equal to the threshold plus the upper bound). A null value indicates
+  /// positive infinity.
+  ///
+  /// The upper bound must be greater than the lower bound.
+  final double metricIntervalUpperBound;
+
+  /// The amount by which to scale, based on the specified adjustment type. A
+  /// positive value adds to the current scalable dimension while a negative
+  /// number removes from the current scalable dimension.
+  final int scalingAdjustment;
+
+  StepAdjustment({
+    this.metricIntervalLowerBound,
+    this.metricIntervalUpperBound,
+    @required this.scalingAdjustment,
+  });
+  static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment();
+}
+
+class StepScalingPolicyConfiguration {
+  /// Specifies whether the `ScalingAdjustment` value in a StepAdjustment is an
+  /// absolute number or a percentage of the current capacity.
+  final String adjustmentType;
+
+  /// A set of adjustments that enable you to scale based on the size of the
+  /// alarm breach.
+  final List<StepAdjustment> stepAdjustments;
+
+  /// The minimum number to adjust your scalable dimension as a result of a
+  /// scaling activity. If the adjustment type is `PercentChangeInCapacity`, the
+  /// scaling policy changes the scalable dimension of the scalable target by
+  /// this amount.
+  ///
+  /// For example, suppose that you create a step scaling policy to scale out an
+  /// Amazon ECS service by 25 percent and you specify a
+  /// `MinAdjustmentMagnitude` of 2. If the service has 4 tasks and the scaling
+  /// policy is performed, 25 percent of 4 is 1. However, because you specified
+  /// a `MinAdjustmentMagnitude` of 2, Application Auto Scaling scales out the
+  /// service by 2 tasks.
+  final int minAdjustmentMagnitude;
+
+  /// The amount of time, in seconds, after a scaling activity completes where
+  /// previous trigger-related scaling activities can influence future scaling
+  /// events.
+  ///
+  /// For scale-out policies, while the cooldown period is in effect, the
+  /// capacity that has been added by the previous scale-out event that
+  /// initiated the cooldown is calculated as part of the desired capacity for
+  /// the next scale out. The intention is to continuously (but not excessively)
+  /// scale out. For example, an alarm triggers a step scaling policy to scale
+  /// out an Amazon ECS service by 2 tasks, the scaling activity completes
+  /// successfully, and a cooldown period of 5 minutes starts. During the
+  /// cooldown period, if the alarm triggers the same policy again but at a more
+  /// aggressive step adjustment to scale out the service by 3 tasks, the 2
+  /// tasks that were added in the previous scale-out event are considered part
+  /// of that capacity and only 1 additional task is added to the desired count.
+  ///
+  /// For scale-in policies, the cooldown period is used to block subsequent
+  /// scale-in requests until it has expired. The intention is to scale in
+  /// conservatively to protect your application's availability. However, if
+  /// another alarm triggers a scale-out policy during the cooldown period after
+  /// a scale-in, Application Auto Scaling scales out your scalable target
+  /// immediately.
+  final int cooldown;
+
+  /// The aggregation type for the CloudWatch metrics. Valid values are
+  /// `Minimum`, `Maximum`, and `Average`. If the aggregation type is null, the
+  /// value is treated as `Average`.
+  final String metricAggregationType;
+
+  StepScalingPolicyConfiguration({
+    this.adjustmentType,
+    this.stepAdjustments,
+    this.minAdjustmentMagnitude,
+    this.cooldown,
+    this.metricAggregationType,
+  });
+  static StepScalingPolicyConfiguration fromJson(Map<String, dynamic> json) =>
+      StepScalingPolicyConfiguration();
+}
+
+class SuspendedState {
+  /// Whether scale in by a target tracking scaling policy or a step scaling
+  /// policy is suspended. Set the value to `true` if you don't want Application
+  /// Auto Scaling to remove capacity when a scaling policy is triggered. The
+  /// default is `false`.
+  final bool dynamicScalingInSuspended;
+
+  /// Whether scale out by a target tracking scaling policy or a step scaling
+  /// policy is suspended. Set the value to `true` if you don't want Application
+  /// Auto Scaling to add capacity when a scaling policy is triggered. The
+  /// default is `false`.
+  final bool dynamicScalingOutSuspended;
+
+  /// Whether scheduled scaling is suspended. Set the value to `true` if you
+  /// don't want Application Auto Scaling to add or remove capacity by
+  /// initiating scheduled actions. The default is `false`.
+  final bool scheduledScalingSuspended;
+
+  SuspendedState({
+    this.dynamicScalingInSuspended,
+    this.dynamicScalingOutSuspended,
+    this.scheduledScalingSuspended,
+  });
+  static SuspendedState fromJson(Map<String, dynamic> json) => SuspendedState();
+}
+
+class TargetTrackingScalingPolicyConfiguration {
+  /// The target value for the metric. The range is 8.515920e-109 to
+  /// 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2).
+  final double targetValue;
+
+  /// A predefined metric. You can specify either a predefined metric or a
+  /// customized metric.
+  final PredefinedMetricSpecification predefinedMetricSpecification;
+
+  /// A customized metric. You can specify either a predefined metric or a
+  /// customized metric.
+  final CustomizedMetricSpecification customizedMetricSpecification;
+
+  /// The amount of time, in seconds, after a scale-out activity completes
+  /// before another scale-out activity can start.
+  ///
+  /// While the cooldown period is in effect, the capacity that has been added
+  /// by the previous scale-out event that initiated the cooldown is calculated
+  /// as part of the desired capacity for the next scale out. The intention is
+  /// to continuously (but not excessively) scale out.
+  final int scaleOutCooldown;
+
+  /// The amount of time, in seconds, after a scale-in activity completes before
+  /// another scale in activity can start.
+  ///
+  /// The cooldown period is used to block subsequent scale-in requests until it
+  /// has expired. The intention is to scale in conservatively to protect your
+  /// application's availability. However, if another alarm triggers a scale-out
+  /// policy during the cooldown period after a scale-in, Application Auto
+  /// Scaling scales out your scalable target immediately.
+  final int scaleInCooldown;
+
+  /// Indicates whether scale in by the target tracking scaling policy is
+  /// disabled. If the value is `true`, scale in is disabled and the target
+  /// tracking scaling policy won't remove capacity from the scalable resource.
+  /// Otherwise, scale in is enabled and the target tracking scaling policy can
+  /// remove capacity from the scalable resource. The default value is `false`.
+  final bool disableScaleIn;
+
+  TargetTrackingScalingPolicyConfiguration({
+    @required this.targetValue,
+    this.predefinedMetricSpecification,
+    this.customizedMetricSpecification,
+    this.scaleOutCooldown,
+    this.scaleInCooldown,
+    this.disableScaleIn,
+  });
+  static TargetTrackingScalingPolicyConfiguration fromJson(
+          Map<String, dynamic> json) =>
+      TargetTrackingScalingPolicyConfiguration();
+}

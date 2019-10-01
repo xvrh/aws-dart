@@ -10,8 +10,18 @@ class MTurkApi {
   ///
   ///  A successful request for the `AcceptQualificationRequest` operation
   /// returns with no errors and an empty body.
-  Future<void> acceptQualificationRequest(String qualificationRequestId,
-      {int integerValue}) async {}
+  ///
+  /// [qualificationRequestId]: The ID of the Qualification request, as returned
+  /// by the `GetQualificationRequests` operation.
+  ///
+  /// [integerValue]:  The value of the Qualification. You can omit this value
+  /// if you are using the presence or absence of the Qualification as the basis
+  /// for a HIT requirement.
+  Future<AcceptQualificationRequestResponse> acceptQualificationRequest(
+      String qualificationRequestId,
+      {int integerValue}) async {
+    return AcceptQualificationRequestResponse.fromJson({});
+  }
 
   ///  The `ApproveAssignment` operation approves the results of a completed
   /// assignment.
@@ -36,8 +46,19 @@ class MTurkApi {
   /// This only works on rejected assignments that were submitted within the
   /// previous 30 days and only if the assignment's related HIT has not been
   /// deleted.
-  Future<void> approveAssignment(String assignmentId,
-      {String requesterFeedback, bool overrideRejection}) async {}
+  ///
+  /// [assignmentId]:  The ID of the assignment. The assignment must correspond
+  /// to a HIT created by the Requester.
+  ///
+  /// [requesterFeedback]:  A message for the Worker, which the Worker can see
+  /// in the Status section of the web site.
+  ///
+  /// [overrideRejection]:  A flag indicating that an assignment should be
+  /// approved even if it was previously rejected. Defaults to `False`.
+  Future<ApproveAssignmentResponse> approveAssignment(String assignmentId,
+      {String requesterFeedback, bool overrideRejection}) async {
+    return ApproveAssignmentResponse.fromJson({});
+  }
 
   ///  The `AssociateQualificationWithWorker` operation gives a Worker a
   /// Qualification. `AssociateQualificationWithWorker` does not require that
@@ -54,11 +75,27 @@ class MTurkApi {
   /// score. To resolve a pending Qualification request without affecting the
   /// Qualification the Worker already has, reject the request with the
   /// `RejectQualificationRequest` operation.
-  Future<void> associateQualificationWithWorker(
-      {@required String qualificationTypeId,
-      @required String workerId,
-      int integerValue,
-      bool sendNotification}) async {}
+  ///
+  /// [qualificationTypeId]: The ID of the Qualification type to use for the
+  /// assigned Qualification.
+  ///
+  /// [workerId]:  The ID of the Worker to whom the Qualification is being
+  /// assigned. Worker IDs are included with submitted HIT assignments and
+  /// Qualification requests.
+  ///
+  /// [integerValue]: The value of the Qualification to assign.
+  ///
+  /// [sendNotification]:  Specifies whether to send a notification email
+  /// message to the Worker saying that the qualification was assigned to the
+  /// Worker. Note: this is true by default.
+  Future<AssociateQualificationWithWorkerResponse>
+      associateQualificationWithWorker(
+          {@required String qualificationTypeId,
+          @required String workerId,
+          int integerValue,
+          bool sendNotification}) async {
+    return AssociateQualificationWithWorkerResponse.fromJson({});
+  }
 
   ///  The `CreateAdditionalAssignmentsForHIT` operation increases the maximum
   /// number of assignments of an existing HIT.
@@ -77,10 +114,26 @@ class MTurkApi {
   /// *   HITs that were created before July 22, 2015 cannot be extended.
   /// Attempting to extend HITs that were created before July 22, 2015 will
   /// result in an `AWS.MechanicalTurk.HITTooOldForExtension` exception.
-  Future<void> createAdditionalAssignmentsForHit(
-      {@required String hitId,
-      @required int numberOfAdditionalAssignments,
-      String uniqueRequestToken}) async {}
+  ///
+  /// [hitId]: The ID of the HIT to extend.
+  ///
+  /// [numberOfAdditionalAssignments]: The number of additional assignments to
+  /// request for this HIT.
+  ///
+  /// [uniqueRequestToken]:  A unique identifier for this request, which allows
+  /// you to retry the call on error without extending the HIT multiple times.
+  /// This is useful in cases such as network timeouts where it is unclear
+  /// whether or not the call succeeded on the server. If the extend HIT already
+  /// exists in the system from a previous call using the same
+  /// `UniqueRequestToken`, subsequent calls will return an error with a message
+  /// containing the request ID.
+  Future<CreateAdditionalAssignmentsForHitResponse>
+      createAdditionalAssignmentsForHit(
+          {@required String hitId,
+          @required int numberOfAdditionalAssignments,
+          String uniqueRequestToken}) async {
+    return CreateAdditionalAssignmentsForHitResponse.fromJson({});
+  }
 
   /// The `CreateHIT` operation creates a new Human Intelligence Task (HIT). The
   /// new HIT is made available for Workers to find and accept on the Amazon
@@ -106,7 +159,105 @@ class MTurkApi {
   ///   If a HIT is created with 10 or more maximum assignments, there is an
   /// additional fee. For more information, see [Amazon Mechanical Turk
   /// Pricing](https://requester.mturk.com/pricing).
-  Future<void> createHit(
+  ///
+  /// [maxAssignments]:  The number of times the HIT can be accepted and
+  /// completed before the HIT becomes unavailable.
+  ///
+  /// [autoApprovalDelayInSeconds]:  The number of seconds after an assignment
+  /// for the HIT has been submitted, after which the assignment is considered
+  /// Approved automatically unless the Requester explicitly rejects it.
+  ///
+  /// [lifetimeInSeconds]:  An amount of time, in seconds, after which the HIT
+  /// is no longer available for users to accept. After the lifetime of the HIT
+  /// elapses, the HIT no longer appears in HIT searches, even if not all of the
+  /// assignments for the HIT have been accepted.
+  ///
+  /// [assignmentDurationInSeconds]:  The amount of time, in seconds, that a
+  /// Worker has to complete the HIT after accepting it. If a Worker does not
+  /// complete the assignment within the specified duration, the assignment is
+  /// considered abandoned. If the HIT is still active (that is, its lifetime
+  /// has not elapsed), the assignment becomes available for other users to find
+  /// and accept.
+  ///
+  /// [reward]:  The amount of money the Requester will pay a Worker for
+  /// successfully completing the HIT.
+  ///
+  /// [title]:  The title of the HIT. A title should be short and descriptive
+  /// about the kind of task the HIT contains. On the Amazon Mechanical Turk web
+  /// site, the HIT title appears in search results, and everywhere the HIT is
+  /// mentioned.
+  ///
+  /// [keywords]:  One or more words or phrases that describe the HIT, separated
+  /// by commas. These words are used in searches to find HITs.
+  ///
+  /// [description]:  A general description of the HIT. A description includes
+  /// detailed information about the kind of task the HIT contains. On the
+  /// Amazon Mechanical Turk web site, the HIT description appears in the
+  /// expanded view of search results, and in the HIT and assignment screens. A
+  /// good description gives the user enough information to evaluate the HIT
+  /// before accepting it.
+  ///
+  /// [question]:  The data the person completing the HIT uses to produce the
+  /// results.
+  ///
+  ///  Constraints: Must be a QuestionForm data structure, an ExternalQuestion
+  /// data structure, or an HTMLQuestion data structure. The XML question data
+  /// must not be larger than 64 kilobytes (65,535 bytes) in size, including
+  /// whitespace.
+  ///
+  /// Either a Question parameter or a HITLayoutId parameter must be provided.
+  ///
+  /// [requesterAnnotation]:  An arbitrary data field. The RequesterAnnotation
+  /// parameter lets your application attach arbitrary data to the HIT for
+  /// tracking purposes. For example, this parameter could be an identifier
+  /// internal to the Requester's application that corresponds with the HIT.
+  ///
+  ///  The RequesterAnnotation parameter for a HIT is only visible to the
+  /// Requester who created the HIT. It is not shown to the Worker, or any other
+  /// Requester.
+  ///
+  ///  The RequesterAnnotation parameter may be different for each HIT you
+  /// submit. It does not affect how your HITs are grouped.
+  ///
+  /// [qualificationRequirements]:  Conditions that a Worker's Qualifications
+  /// must meet in order to accept the HIT. A HIT can have between zero and ten
+  /// Qualification requirements. All requirements must be met in order for a
+  /// Worker to accept the HIT. Additionally, other actions can be restricted
+  /// using the `ActionsGuarded` field on each `QualificationRequirement`
+  /// structure.
+  ///
+  /// [uniqueRequestToken]:  A unique identifier for this request which allows
+  /// you to retry the call on error without creating duplicate HITs. This is
+  /// useful in cases such as network timeouts where it is unclear whether or
+  /// not the call succeeded on the server. If the HIT already exists in the
+  /// system from a previous call using the same UniqueRequestToken, subsequent
+  /// calls will return a AWS.MechanicalTurk.HitAlreadyExists error with a
+  /// message containing the HITId.
+  ///
+  ///   Note: It is your responsibility to ensure uniqueness of the token. The
+  /// unique token expires after 24 hours. Subsequent calls using the same
+  /// UniqueRequestToken made after the 24 hour limit could create duplicate
+  /// HITs.
+  ///
+  /// [assignmentReviewPolicy]:  The Assignment-level Review Policy applies to
+  /// the assignments under the HIT. You can specify for Mechanical Turk to take
+  /// various actions based on the policy.
+  ///
+  /// [hitReviewPolicy]:  The HIT-level Review Policy applies to the HIT. You
+  /// can specify for Mechanical Turk to take various actions based on the
+  /// policy.
+  ///
+  /// [hitLayoutId]:  The HITLayoutId allows you to use a pre-existing HIT
+  /// design with placeholder values and create an additional HIT by providing
+  /// those values as HITLayoutParameters.
+  ///
+  ///  Constraints: Either a Question parameter or a HITLayoutId parameter must
+  /// be provided.
+  ///
+  /// [hitLayoutParameters]:  If the HITLayoutId is provided, any placeholder
+  /// values must be filled in with values using the HITLayoutParameter
+  /// structure. For more information, see HITLayout.
+  Future<CreateHitResponse> createHit(
       {int maxAssignments,
       BigInt autoApprovalDelayInSeconds,
       @required BigInt lifetimeInSeconds,
@@ -122,20 +273,60 @@ class MTurkApi {
       ReviewPolicy assignmentReviewPolicy,
       ReviewPolicy hitReviewPolicy,
       String hitLayoutId,
-      List<HitLayoutParameter> hitLayoutParameters}) async {}
+      List<HitLayoutParameter> hitLayoutParameters}) async {
+    return CreateHitResponse.fromJson({});
+  }
 
   ///  The `CreateHITType` operation creates a new HIT type. This operation
   /// allows you to define a standard set of HIT properties to use when creating
   /// HITs. If you register a HIT type with values that match an existing HIT
   /// type, the HIT type ID of the existing type will be returned.
-  Future<void> createHitType(
+  ///
+  /// [autoApprovalDelayInSeconds]:  The number of seconds after an assignment
+  /// for the HIT has been submitted, after which the assignment is considered
+  /// Approved automatically unless the Requester explicitly rejects it.
+  ///
+  /// [assignmentDurationInSeconds]:  The amount of time, in seconds, that a
+  /// Worker has to complete the HIT after accepting it. If a Worker does not
+  /// complete the assignment within the specified duration, the assignment is
+  /// considered abandoned. If the HIT is still active (that is, its lifetime
+  /// has not elapsed), the assignment becomes available for other users to find
+  /// and accept.
+  ///
+  /// [reward]:  The amount of money the Requester will pay a Worker for
+  /// successfully completing the HIT.
+  ///
+  /// [title]:  The title of the HIT. A title should be short and descriptive
+  /// about the kind of task the HIT contains. On the Amazon Mechanical Turk web
+  /// site, the HIT title appears in search results, and everywhere the HIT is
+  /// mentioned.
+  ///
+  /// [keywords]:  One or more words or phrases that describe the HIT, separated
+  /// by commas. These words are used in searches to find HITs.
+  ///
+  /// [description]:  A general description of the HIT. A description includes
+  /// detailed information about the kind of task the HIT contains. On the
+  /// Amazon Mechanical Turk web site, the HIT description appears in the
+  /// expanded view of search results, and in the HIT and assignment screens. A
+  /// good description gives the user enough information to evaluate the HIT
+  /// before accepting it.
+  ///
+  /// [qualificationRequirements]:  Conditions that a Worker's Qualifications
+  /// must meet in order to accept the HIT. A HIT can have between zero and ten
+  /// Qualification requirements. All requirements must be met in order for a
+  /// Worker to accept the HIT. Additionally, other actions can be restricted
+  /// using the `ActionsGuarded` field on each `QualificationRequirement`
+  /// structure.
+  Future<CreateHitTypeResponse> createHitType(
       {BigInt autoApprovalDelayInSeconds,
       @required BigInt assignmentDurationInSeconds,
       @required String reward,
       @required String title,
       String keywords,
       @required String description,
-      List<QualificationRequirement> qualificationRequirements}) async {}
+      List<QualificationRequirement> qualificationRequirements}) async {
+    return CreateHitTypeResponse.fromJson({});
+  }
 
   ///  The `CreateHITWithHITType` operation creates a new Human Intelligence
   /// Task (HIT) using an existing HITTypeID generated by the `CreateHITType`
@@ -153,7 +344,71 @@ class MTurkApi {
   ///   If a HIT is created with 10 or more maximum assignments, there is an
   /// additional fee. For more information, see [Amazon Mechanical Turk
   /// Pricing](https://requester.mturk.com/pricing).
-  Future<void> createHitWithHitType(
+  ///
+  /// [hitTypeId]: The HIT type ID you want to create this HIT with.
+  ///
+  /// [maxAssignments]:  The number of times the HIT can be accepted and
+  /// completed before the HIT becomes unavailable.
+  ///
+  /// [lifetimeInSeconds]:  An amount of time, in seconds, after which the HIT
+  /// is no longer available for users to accept. After the lifetime of the HIT
+  /// elapses, the HIT no longer appears in HIT searches, even if not all of the
+  /// assignments for the HIT have been accepted.
+  ///
+  /// [question]:  The data the person completing the HIT uses to produce the
+  /// results.
+  ///
+  ///  Constraints: Must be a QuestionForm data structure, an ExternalQuestion
+  /// data structure, or an HTMLQuestion data structure. The XML question data
+  /// must not be larger than 64 kilobytes (65,535 bytes) in size, including
+  /// whitespace.
+  ///
+  /// Either a Question parameter or a HITLayoutId parameter must be provided.
+  ///
+  /// [requesterAnnotation]:  An arbitrary data field. The RequesterAnnotation
+  /// parameter lets your application attach arbitrary data to the HIT for
+  /// tracking purposes. For example, this parameter could be an identifier
+  /// internal to the Requester's application that corresponds with the HIT.
+  ///
+  ///  The RequesterAnnotation parameter for a HIT is only visible to the
+  /// Requester who created the HIT. It is not shown to the Worker, or any other
+  /// Requester.
+  ///
+  ///  The RequesterAnnotation parameter may be different for each HIT you
+  /// submit. It does not affect how your HITs are grouped.
+  ///
+  /// [uniqueRequestToken]:  A unique identifier for this request which allows
+  /// you to retry the call on error without creating duplicate HITs. This is
+  /// useful in cases such as network timeouts where it is unclear whether or
+  /// not the call succeeded on the server. If the HIT already exists in the
+  /// system from a previous call using the same UniqueRequestToken, subsequent
+  /// calls will return a AWS.MechanicalTurk.HitAlreadyExists error with a
+  /// message containing the HITId.
+  ///
+  ///   Note: It is your responsibility to ensure uniqueness of the token. The
+  /// unique token expires after 24 hours. Subsequent calls using the same
+  /// UniqueRequestToken made after the 24 hour limit could create duplicate
+  /// HITs.
+  ///
+  /// [assignmentReviewPolicy]:  The Assignment-level Review Policy applies to
+  /// the assignments under the HIT. You can specify for Mechanical Turk to take
+  /// various actions based on the policy.
+  ///
+  /// [hitReviewPolicy]:  The HIT-level Review Policy applies to the HIT. You
+  /// can specify for Mechanical Turk to take various actions based on the
+  /// policy.
+  ///
+  /// [hitLayoutId]:  The HITLayoutId allows you to use a pre-existing HIT
+  /// design with placeholder values and create an additional HIT by providing
+  /// those values as HITLayoutParameters.
+  ///
+  ///  Constraints: Either a Question parameter or a HITLayoutId parameter must
+  /// be provided.
+  ///
+  /// [hitLayoutParameters]:  If the HITLayoutId is provided, any placeholder
+  /// values must be filled in with values using the HITLayoutParameter
+  /// structure. For more information, see HITLayout.
+  Future<CreateHitWithHitTypeResponse> createHitWithHitType(
       {@required String hitTypeId,
       int maxAssignments,
       @required BigInt lifetimeInSeconds,
@@ -163,11 +418,75 @@ class MTurkApi {
       ReviewPolicy assignmentReviewPolicy,
       ReviewPolicy hitReviewPolicy,
       String hitLayoutId,
-      List<HitLayoutParameter> hitLayoutParameters}) async {}
+      List<HitLayoutParameter> hitLayoutParameters}) async {
+    return CreateHitWithHitTypeResponse.fromJson({});
+  }
 
   ///  The `CreateQualificationType` operation creates a new Qualification type,
   /// which is represented by a `QualificationType` data structure.
-  Future<void> createQualificationType(
+  ///
+  /// [name]:  The name you give to the Qualification type. The type name is
+  /// used to represent the Qualification to Workers, and to find the type using
+  /// a Qualification type search. It must be unique across all of your
+  /// Qualification types.
+  ///
+  /// [keywords]: One or more words or phrases that describe the Qualification
+  /// type, separated by commas. The keywords of a type make the type easier to
+  /// find during a search.
+  ///
+  /// [description]: A long description for the Qualification type. On the
+  /// Amazon Mechanical Turk website, the long description is displayed when a
+  /// Worker examines a Qualification type.
+  ///
+  /// [qualificationTypeStatus]: The initial status of the Qualification type.
+  ///
+  /// Constraints: Valid values are: Active | Inactive
+  ///
+  /// [retryDelayInSeconds]: The number of seconds that a Worker must wait after
+  /// requesting a Qualification of the Qualification type before the worker can
+  /// retry the Qualification request.
+  ///
+  /// Constraints: None. If not specified, retries are disabled and Workers can
+  /// request a Qualification of this type only once, even if the Worker has not
+  /// been granted the Qualification. It is not possible to disable retries for
+  /// a Qualification type after it has been created with retries enabled. If
+  /// you want to disable retries, you must delete existing retry-enabled
+  /// Qualification type and then create a new Qualification type with retries
+  /// disabled.
+  ///
+  /// [test]:  The questions for the Qualification test a Worker must answer
+  /// correctly to obtain a Qualification of this type. If this parameter is
+  /// specified, `TestDurationInSeconds` must also be specified.
+  ///
+  /// Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
+  /// data structure. This parameter cannot be specified if AutoGranted is true.
+  ///
+  /// Constraints: None. If not specified, the Worker may request the
+  /// Qualification without answering any questions.
+  ///
+  /// [answerKey]: The answers to the Qualification test specified in the Test
+  /// parameter, in the form of an AnswerKey data structure.
+  ///
+  /// Constraints: Must not be longer than 65535 bytes.
+  ///
+  /// Constraints: None. If not specified, you must process Qualification
+  /// requests manually.
+  ///
+  /// [testDurationInSeconds]: The number of seconds the Worker has to complete
+  /// the Qualification test, starting from the time the Worker requests the
+  /// Qualification.
+  ///
+  /// [autoGranted]: Specifies whether requests for the Qualification type are
+  /// granted immediately, without prompting the Worker with a Qualification
+  /// test.
+  ///
+  /// Constraints: If the Test parameter is specified, this parameter cannot be
+  /// true.
+  ///
+  /// [autoGrantedValue]: The Qualification value to use for automatically
+  /// granted Qualifications. This parameter is used only if the AutoGranted
+  /// parameter is true.
+  Future<CreateQualificationTypeResponse> createQualificationType(
       {@required String name,
       String keywords,
       @required String description,
@@ -177,13 +496,23 @@ class MTurkApi {
       String answerKey,
       BigInt testDurationInSeconds,
       bool autoGranted,
-      int autoGrantedValue}) async {}
+      int autoGrantedValue}) async {
+    return CreateQualificationTypeResponse.fromJson({});
+  }
 
   /// The `CreateWorkerBlock` operation allows you to prevent a Worker from
   /// working on your HITs. For example, you can block a Worker who is producing
   /// poor quality work. You can block up to 100,000 Workers.
-  Future<void> createWorkerBlock(
-      {@required String workerId, @required String reason}) async {}
+  ///
+  /// [workerId]: The ID of the Worker to block.
+  ///
+  /// [reason]: A message explaining the reason for blocking the Worker. This
+  /// parameter enables you to keep track of your Workers. The Worker does not
+  /// see this message.
+  Future<CreateWorkerBlockResponse> createWorkerBlock(
+      {@required String workerId, @required String reason}) async {
+    return CreateWorkerBlockResponse.fromJson({});
+  }
 
   ///  The `DeleteHIT` operation is used to delete HIT that is no longer needed.
   /// Only the Requester who created the HIT can delete it.
@@ -205,7 +534,11 @@ class MTurkApi {
   ///
   /// *    Disposing HITs can improve the performance of operations such as
   /// ListReviewableHITs and ListHITs.
-  Future<void> deleteHit(String hitId) async {}
+  ///
+  /// [hitId]: The ID of the HIT to be deleted.
+  Future<DeleteHitResponse> deleteHit(String hitId) async {
+    return DeleteHitResponse.fromJson({});
+  }
 
   ///  The `DeleteQualificationType` deletes a Qualification type and deletes
   /// any HIT types that are associated with the Qualification type.
@@ -222,7 +555,12 @@ class MTurkApi {
   /// Qualification type to be deleted before completing. It may take up to 48
   /// hours before DeleteQualificationType completes and the unique name of the
   /// Qualification type is available for reuse with CreateQualificationType.
-  Future<void> deleteQualificationType(String qualificationTypeId) async {}
+  ///
+  /// [qualificationTypeId]: The ID of the QualificationType to dispose.
+  Future<DeleteQualificationTypeResponse> deleteQualificationType(
+      String qualificationTypeId) async {
+    return DeleteQualificationTypeResponse.fromJson({});
+  }
 
   /// The `DeleteWorkerBlock` operation allows you to reinstate a blocked Worker
   /// to work on your HITs. This operation reverses the effects of the
@@ -230,25 +568,51 @@ class MTurkApi {
   /// If the Worker ID is missing or invalid, this operation fails and returns
   /// the message “WorkerId is invalid.” If the specified Worker is not blocked,
   /// this operation returns successfully.
-  Future<void> deleteWorkerBlock(String workerId, {String reason}) async {}
+  ///
+  /// [workerId]: The ID of the Worker to unblock.
+  ///
+  /// [reason]: A message that explains the reason for unblocking the Worker.
+  /// The Worker does not see this message.
+  Future<DeleteWorkerBlockResponse> deleteWorkerBlock(String workerId,
+      {String reason}) async {
+    return DeleteWorkerBlockResponse.fromJson({});
+  }
 
   ///  The `DisassociateQualificationFromWorker` revokes a previously granted
   /// Qualification from a user.
   ///
   ///  You can provide a text message explaining why the Qualification was
   /// revoked. The user who had the Qualification can see this message.
-  Future<void> disassociateQualificationFromWorker(
-      {@required String workerId,
-      @required String qualificationTypeId,
-      String reason}) async {}
+  ///
+  /// [workerId]: The ID of the Worker who possesses the Qualification to be
+  /// revoked.
+  ///
+  /// [qualificationTypeId]: The ID of the Qualification type of the
+  /// Qualification to be revoked.
+  ///
+  /// [reason]: A text message that explains why the Qualification was revoked.
+  /// The user who had the Qualification sees this message.
+  Future<DisassociateQualificationFromWorkerResponse>
+      disassociateQualificationFromWorker(
+          {@required String workerId,
+          @required String qualificationTypeId,
+          String reason}) async {
+    return DisassociateQualificationFromWorkerResponse.fromJson({});
+  }
 
   /// The `GetAccountBalance` operation retrieves the amount of money in your
   /// Amazon Mechanical Turk account.
-  Future<void> getAccountBalance() async {}
+  Future<GetAccountBalanceResponse> getAccountBalance() async {
+    return GetAccountBalanceResponse.fromJson({});
+  }
 
   ///  The `GetAssignment` operation retrieves the details of the specified
   /// Assignment.
-  Future<void> getAssignment(String assignmentId) async {}
+  ///
+  /// [assignmentId]: The ID of the Assignment to be retrieved.
+  Future<GetAssignmentResponse> getAssignment(String assignmentId) async {
+    return GetAssignmentResponse.fromJson({});
+  }
 
   ///  The `GetFileUploadURL` operation generates and returns a temporary URL.
   /// You use the temporary URL to retrieve a file uploaded by a Worker as an
@@ -261,12 +625,24 @@ class MTurkApi {
   /// `FileUploadAnswer` element to be used for the QuestionForm data structure.
   /// Instead, we recommend that Requesters who want to create HITs asking
   /// Workers to upload files to use Amazon S3.
-  Future<void> getFileUploadUrl(
+  ///
+  /// [assignmentId]: The ID of the assignment that contains the question with a
+  /// FileUploadAnswer.
+  ///
+  /// [questionIdentifier]: The identifier of the question with a
+  /// FileUploadAnswer, as specified in the QuestionForm of the HIT.
+  Future<GetFileUploadUrlResponse> getFileUploadUrl(
       {@required String assignmentId,
-      @required String questionIdentifier}) async {}
+      @required String questionIdentifier}) async {
+    return GetFileUploadUrlResponse.fromJson({});
+  }
 
   ///  The `GetHIT` operation retrieves the details of the specified HIT.
-  Future<void> getHit(String hitId) async {}
+  ///
+  /// [hitId]: The ID of the HIT to be retrieved.
+  Future<GetHitResponse> getHit(String hitId) async {
+    return GetHitResponse.fromJson({});
+  }
 
   ///  The `GetQualificationScore` operation returns the value of a Worker's
   /// Qualification for a given Qualification type.
@@ -277,13 +653,23 @@ class MTurkApi {
   ///
   /// Only the owner of a Qualification type can query the value of a Worker's
   /// Qualification of that type.
-  Future<void> getQualificationScore(
-      {@required String qualificationTypeId,
-      @required String workerId}) async {}
+  ///
+  /// [qualificationTypeId]: The ID of the QualificationType.
+  ///
+  /// [workerId]: The ID of the Worker whose Qualification is being updated.
+  Future<GetQualificationScoreResponse> getQualificationScore(
+      {@required String qualificationTypeId, @required String workerId}) async {
+    return GetQualificationScoreResponse.fromJson({});
+  }
 
   ///  The `GetQualificationType`operation retrieves information about a
   /// Qualification type using its ID.
-  Future<void> getQualificationType(String qualificationTypeId) async {}
+  ///
+  /// [qualificationTypeId]: The ID of the QualificationType.
+  Future<GetQualificationTypeResponse> getQualificationType(
+      String qualificationTypeId) async {
+    return GetQualificationTypeResponse.fromJson({});
+  }
 
   ///  The `ListAssignmentsForHIT` operation retrieves completed assignments for
   /// a HIT. You can use this operation to retrieve the results for a HIT.
@@ -306,45 +692,109 @@ class MTurkApi {
   ///  Results are sorted and divided into numbered pages and the operation
   /// returns a single page of results. You can use the parameters of the
   /// operation to control sorting and pagination.
-  Future<void> listAssignmentsForHit(String hitId,
+  ///
+  /// [hitId]: The ID of the HIT.
+  ///
+  /// [nextToken]: Pagination token
+  ///
+  /// [assignmentStatuses]: The status of the assignments to return: Submitted |
+  /// Approved | Rejected
+  Future<ListAssignmentsForHitResponse> listAssignmentsForHit(String hitId,
       {String nextToken,
       int maxResults,
-      List<String> assignmentStatuses}) async {}
+      List<String> assignmentStatuses}) async {
+    return ListAssignmentsForHitResponse.fromJson({});
+  }
 
   ///  The `ListBonusPayments` operation retrieves the amounts of bonuses you
   /// have paid to Workers for a given HIT or assignment.
-  Future<void> listBonusPayments(
+  ///
+  /// [hitId]: The ID of the HIT associated with the bonus payments to retrieve.
+  /// If not specified, all bonus payments for all assignments for the given HIT
+  /// are returned. Either the HITId parameter or the AssignmentId parameter
+  /// must be specified
+  ///
+  /// [assignmentId]: The ID of the assignment associated with the bonus
+  /// payments to retrieve. If specified, only bonus payments for the given
+  /// assignment are returned. Either the HITId parameter or the AssignmentId
+  /// parameter must be specified
+  ///
+  /// [nextToken]: Pagination token
+  Future<ListBonusPaymentsResponse> listBonusPayments(
       {String hitId,
       String assignmentId,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListBonusPaymentsResponse.fromJson({});
+  }
 
   ///  The `ListHITs` operation returns all of a Requester's HITs. The operation
   /// returns HITs of any status, except for HITs that have been deleted of with
   /// the DeleteHIT operation or that have been auto-deleted.
-  Future<void> listHITs({String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: Pagination token
+  Future<ListHITsResponse> listHITs({String nextToken, int maxResults}) async {
+    return ListHITsResponse.fromJson({});
+  }
 
   ///  The `ListHITsForQualificationType` operation returns the HITs that use
   /// the given Qualification type for a Qualification requirement. The
   /// operation returns HITs of any status, except for HITs that have been
   /// deleted with the `DeleteHIT` operation or that have been auto-deleted.
-  Future<void> listHITsForQualificationType(String qualificationTypeId,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [qualificationTypeId]:  The ID of the Qualification type to use when
+  /// querying HITs.
+  ///
+  /// [nextToken]: Pagination Token
+  ///
+  /// [maxResults]:  Limit the number of results returned.
+  Future<ListHITsForQualificationTypeResponse> listHITsForQualificationType(
+      String qualificationTypeId,
+      {String nextToken,
+      int maxResults}) async {
+    return ListHITsForQualificationTypeResponse.fromJson({});
+  }
 
   ///  The `ListQualificationRequests` operation retrieves requests for
   /// Qualifications of a particular Qualification type. The owner of the
   /// Qualification type calls this operation to poll for pending requests, and
   /// accepts them using the AcceptQualification operation.
-  Future<void> listQualificationRequests(
-      {String qualificationTypeId, String nextToken, int maxResults}) async {}
+  ///
+  /// [qualificationTypeId]: The ID of the QualificationType.
+  ///
+  /// [maxResults]:  The maximum number of results to return in a single call.
+  Future<ListQualificationRequestsResponse> listQualificationRequests(
+      {String qualificationTypeId, String nextToken, int maxResults}) async {
+    return ListQualificationRequestsResponse.fromJson({});
+  }
 
   ///  The `ListQualificationTypes` operation returns a list of Qualification
   /// types, filtered by an optional search term.
-  Future<void> listQualificationTypes(bool mustBeRequestable,
+  ///
+  /// [query]:  A text query against all of the searchable attributes of
+  /// Qualification types.
+  ///
+  /// [mustBeRequestable]: Specifies that only Qualification types that a user
+  /// can request through the Amazon Mechanical Turk web site, such as by taking
+  /// a Qualification test, are returned as results of the search. Some
+  /// Qualification types, such as those assigned automatically by the system,
+  /// cannot be requested directly by users. If false, all Qualification types,
+  /// including those managed by the system, are considered. Valid values are
+  /// True | False.
+  ///
+  /// [mustBeOwnedByCaller]:  Specifies that only Qualification types that the
+  /// Requester created are returned. If false, the operation returns all
+  /// Qualification types.
+  ///
+  /// [maxResults]:  The maximum number of results to return in a single call.
+  Future<ListQualificationTypesResponse> listQualificationTypes(
+      bool mustBeRequestable,
       {String query,
       bool mustBeOwnedByCaller,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListQualificationTypesResponse.fromJson({});
+  }
 
   ///  The `ListReviewPolicyResultsForHIT` operation retrieves the computed
   /// results and the actions taken in the course of executing your Review
@@ -352,40 +802,101 @@ class MTurkApi {
   /// Policies when you call CreateHIT, see Review Policies. The
   /// ListReviewPolicyResultsForHIT operation can return results for both
   /// Assignment-level and HIT-level review results.
-  Future<void> listReviewPolicyResultsForHit(String hitId,
+  ///
+  /// [hitId]: The unique identifier of the HIT to retrieve review results for.
+  ///
+  /// [policyLevels]:  The Policy Level(s) to retrieve review results for - HIT
+  /// or Assignment. If omitted, the default behavior is to retrieve all data
+  /// for both policy levels. For a list of all the described policies, see
+  /// Review Policies.
+  ///
+  /// [retrieveActions]:  Specify if the operation should retrieve a list of the
+  /// actions taken executing the Review Policies and their outcomes.
+  ///
+  /// [retrieveResults]:  Specify if the operation should retrieve a list of the
+  /// results computed by the Review Policies.
+  ///
+  /// [nextToken]: Pagination token
+  ///
+  /// [maxResults]: Limit the number of results returned.
+  Future<ListReviewPolicyResultsForHitResponse> listReviewPolicyResultsForHit(
+      String hitId,
       {List<String> policyLevels,
       bool retrieveActions,
       bool retrieveResults,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListReviewPolicyResultsForHitResponse.fromJson({});
+  }
 
   ///  The `ListReviewableHITs` operation retrieves the HITs with Status equal
   /// to Reviewable or Status equal to Reviewing that belong to the Requester
   /// calling the operation.
-  Future<void> listReviewableHITs(
+  ///
+  /// [hitTypeId]:  The ID of the HIT type of the HITs to consider for the
+  /// query. If not specified, all HITs for the Reviewer are considered
+  ///
+  /// [status]:  Can be either `Reviewable` or `Reviewing`. Reviewable is the
+  /// default value.
+  ///
+  /// [nextToken]: Pagination Token
+  ///
+  /// [maxResults]:  Limit the number of results returned.
+  Future<ListReviewableHITsResponse> listReviewableHITs(
       {String hitTypeId,
       String status,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListReviewableHITsResponse.fromJson({});
+  }
 
   /// The `ListWorkersBlocks` operation retrieves a list of Workers who are
   /// blocked from working on your HITs.
-  Future<void> listWorkerBlocks({String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: Pagination token
+  Future<ListWorkerBlocksResponse> listWorkerBlocks(
+      {String nextToken, int maxResults}) async {
+    return ListWorkerBlocksResponse.fromJson({});
+  }
 
   ///  The `ListWorkersWithQualificationType` operation returns all of the
   /// Workers that have been associated with a given Qualification type.
-  Future<void> listWorkersWithQualificationType(String qualificationTypeId,
-      {String status, String nextToken, int maxResults}) async {}
+  ///
+  /// [qualificationTypeId]: The ID of the Qualification type of the
+  /// Qualifications to return.
+  ///
+  /// [status]:  The status of the Qualifications to return. Can be `Granted |
+  /// Revoked`.
+  ///
+  /// [nextToken]: Pagination Token
+  ///
+  /// [maxResults]:  Limit the number of results returned.
+  Future<ListWorkersWithQualificationTypeResponse>
+      listWorkersWithQualificationType(String qualificationTypeId,
+          {String status, String nextToken, int maxResults}) async {
+    return ListWorkersWithQualificationTypeResponse.fromJson({});
+  }
 
   ///  The `NotifyWorkers` operation sends an email to one or more Workers that
   /// you specify with the Worker ID. You can specify up to 100 Worker IDs to
   /// send the same message with a single call to the NotifyWorkers operation.
   /// The NotifyWorkers operation will send a notification email to a Worker
   /// only if you have previously approved or rejected work from the Worker.
-  Future<void> notifyWorkers(
+  ///
+  /// [subject]: The subject line of the email message to send. Can include up
+  /// to 200 characters.
+  ///
+  /// [messageText]: The text of the email message to send. Can include up to
+  /// 4,096 characters
+  ///
+  /// [workerIds]: A list of Worker IDs you wish to notify. You can notify upto
+  /// 100 Workers at a time.
+  Future<NotifyWorkersResponse> notifyWorkers(
       {@required String subject,
       @required String messageText,
-      @required List<String> workerIds}) async {}
+      @required List<String> workerIds}) async {
+    return NotifyWorkersResponse.fromJson({});
+  }
 
   ///  The `RejectAssignment` operation rejects the results of a completed
   /// assignment.
@@ -398,17 +909,34 @@ class MTurkApi {
   ///
   ///  Only the Requester who created the HIT can reject an assignment for the
   /// HIT.
-  Future<void> rejectAssignment(
+  ///
+  /// [assignmentId]:  The ID of the assignment. The assignment must correspond
+  /// to a HIT created by the Requester.
+  ///
+  /// [requesterFeedback]:  A message for the Worker, which the Worker can see
+  /// in the Status section of the web site.
+  Future<RejectAssignmentResponse> rejectAssignment(
       {@required String assignmentId,
-      @required String requesterFeedback}) async {}
+      @required String requesterFeedback}) async {
+    return RejectAssignmentResponse.fromJson({});
+  }
 
   ///  The `RejectQualificationRequest` operation rejects a user's request for a
   /// Qualification.
   ///
   ///  You can provide a text message explaining why the request was rejected.
   /// The Worker who made the request can see this message.
-  Future<void> rejectQualificationRequest(String qualificationRequestId,
-      {String reason}) async {}
+  ///
+  /// [qualificationRequestId]:  The ID of the Qualification request, as
+  /// returned by the `ListQualificationRequests` operation.
+  ///
+  /// [reason]: A text message explaining why the request was rejected, to be
+  /// shown to the Worker who made the request.
+  Future<RejectQualificationRequestResponse> rejectQualificationRequest(
+      String qualificationRequestId,
+      {String reason}) async {
+    return RejectQualificationRequestResponse.fromJson({});
+  }
 
   ///  The `SendBonus` operation issues a payment of money from your account to
   /// a Worker. This payment happens separately from the reward you pay to the
@@ -419,12 +947,32 @@ class MTurkApi {
   /// Amazon Mechanical Turk collects a fee for bonus payments, similar to the
   /// HIT listing fee. This operation fails if your account does not have enough
   /// funds to pay for both the bonus and the fees.
-  Future<void> sendBonus(
+  ///
+  /// [workerId]: The ID of the Worker being paid the bonus.
+  ///
+  /// [bonusAmount]:  The Bonus amount is a US Dollar amount specified using a
+  /// string (for example, "5" represents $5.00 USD and "101.42" represents
+  /// $101.42 USD). Do not include currency symbols or currency codes.
+  ///
+  /// [assignmentId]: The ID of the assignment for which this bonus is paid.
+  ///
+  /// [reason]: A message that explains the reason for the bonus payment. The
+  /// Worker receiving the bonus can see this message.
+  ///
+  /// [uniqueRequestToken]: A unique identifier for this request, which allows
+  /// you to retry the call on error without granting multiple bonuses. This is
+  /// useful in cases such as network timeouts where it is unclear whether or
+  /// not the call succeeded on the server. If the bonus already exists in the
+  /// system from a previous call using the same UniqueRequestToken, subsequent
+  /// calls will return an error with a message containing the request ID.
+  Future<SendBonusResponse> sendBonus(
       {@required String workerId,
       @required String bonusAmount,
       @required String assignmentId,
       @required String reason,
-      String uniqueRequestToken}) async {}
+      String uniqueRequestToken}) async {
+    return SendBonusResponse.fromJson({});
+  }
 
   ///  The `SendTestEventNotification` operation causes Amazon Mechanical Turk
   /// to send a notification message as if a HIT event occurred, according to
@@ -432,27 +980,64 @@ class MTurkApi {
   /// notifications without setting up notifications for a real HIT type and
   /// trying to trigger them using the website. When you call this operation,
   /// the service attempts to send the test notification immediately.
-  Future<void> sendTestEventNotification(
+  ///
+  /// [notification]:  The notification specification to test. This value is
+  /// identical to the value you would provide to the UpdateNotificationSettings
+  /// operation when you establish the notification specification for a HIT
+  /// type.
+  ///
+  /// [testEventType]:  The event to simulate to test the notification
+  /// specification. This event is included in the test message even if the
+  /// notification specification does not include the event type. The
+  /// notification specification does not filter out the test event.
+  Future<SendTestEventNotificationResponse> sendTestEventNotification(
       {@required NotificationSpecification notification,
-      @required String testEventType}) async {}
+      @required String testEventType}) async {
+    return SendTestEventNotificationResponse.fromJson({});
+  }
 
   ///  The `UpdateExpirationForHIT` operation allows you update the expiration
   /// time of a HIT. If you update it to a time in the past, the HIT will be
   /// immediately expired.
-  Future<void> updateExpirationForHit(
-      {@required String hitId, @required DateTime expireAt}) async {}
+  ///
+  /// [hitId]:  The HIT to update.
+  ///
+  /// [expireAt]:  The date and time at which you want the HIT to expire
+  Future<UpdateExpirationForHitResponse> updateExpirationForHit(
+      {@required String hitId, @required DateTime expireAt}) async {
+    return UpdateExpirationForHitResponse.fromJson({});
+  }
 
   ///  The `UpdateHITReviewStatus` operation updates the status of a HIT. If the
   /// status is Reviewable, this operation can update the status to Reviewing,
   /// or it can revert a Reviewing HIT back to the Reviewable status.
-  Future<void> updateHitReviewStatus(String hitId, {bool revert}) async {}
+  ///
+  /// [hitId]:  The ID of the HIT to update.
+  ///
+  /// [revert]:  Specifies how to update the HIT status. Default is `False`.
+  ///
+  /// *    Setting this to false will only transition a HIT from `Reviewable` to
+  /// `Reviewing`
+  ///
+  /// *    Setting this to true will only transition a HIT from `Reviewing` to
+  /// `Reviewable`
+  Future<UpdateHitReviewStatusResponse> updateHitReviewStatus(String hitId,
+      {bool revert}) async {
+    return UpdateHitReviewStatusResponse.fromJson({});
+  }
 
   ///  The `UpdateHITTypeOfHIT` operation allows you to change the HITType
   /// properties of a HIT. This operation disassociates the HIT from its old
   /// HITType properties and associates it with the new HITType properties. The
   /// HIT takes on the properties of the new HITType in place of the old ones.
-  Future<void> updateHitTypeOfHit(
-      {@required String hitId, @required String hitTypeId}) async {}
+  ///
+  /// [hitId]: The HIT to update.
+  ///
+  /// [hitTypeId]: The ID of the new HIT type.
+  Future<UpdateHitTypeOfHitResponse> updateHitTypeOfHit(
+      {@required String hitId, @required String hitTypeId}) async {
+    return UpdateHitTypeOfHitResponse.fromJson({});
+  }
 
   ///  The `UpdateNotificationSettings` operation creates, updates, disables or
   /// re-enables notifications for a HIT type. If you call the
@@ -465,8 +1050,22 @@ class MTurkApi {
   /// Active status of a HIT type's notifications, the HIT type must already
   /// have a notification specification, or one must be provided in the same
   /// call to `UpdateNotificationSettings`.
-  Future<void> updateNotificationSettings(String hitTypeId,
-      {NotificationSpecification notification, bool active}) async {}
+  ///
+  /// [hitTypeId]:  The ID of the HIT type whose notification specification is
+  /// being updated.
+  ///
+  /// [notification]:  The notification specification for the HIT type.
+  ///
+  /// [active]:  Specifies whether notifications are sent for HITs of this HIT
+  /// type, according to the notification specification. You must specify either
+  /// the Notification parameter or the Active parameter for the call to
+  /// UpdateNotificationSettings to succeed.
+  Future<UpdateNotificationSettingsResponse> updateNotificationSettings(
+      String hitTypeId,
+      {NotificationSpecification notification,
+      bool active}) async {
+    return UpdateNotificationSettingsResponse.fromJson({});
+  }
 
   ///  The `UpdateQualificationType` operation modifies the attributes of an
   /// existing Qualification type, which is represented by a QualificationType
@@ -503,7 +1102,52 @@ class MTurkApi {
   ///
   ///  You can also update the AutoGranted and AutoGrantedValue attributes of
   /// the Qualification type.
-  Future<void> updateQualificationType(String qualificationTypeId,
+  ///
+  /// [qualificationTypeId]: The ID of the Qualification type to update.
+  ///
+  /// [description]: The new description of the Qualification type.
+  ///
+  /// [qualificationTypeStatus]: The new status of the Qualification type -
+  /// Active | Inactive
+  ///
+  /// [test]: The questions for the Qualification test a Worker must answer
+  /// correctly to obtain a Qualification of this type. If this parameter is
+  /// specified, `TestDurationInSeconds` must also be specified.
+  ///
+  /// Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
+  /// data structure. This parameter cannot be specified if AutoGranted is true.
+  ///
+  /// Constraints: None. If not specified, the Worker may request the
+  /// Qualification without answering any questions.
+  ///
+  /// [answerKey]: The answers to the Qualification test specified in the Test
+  /// parameter, in the form of an AnswerKey data structure.
+  ///
+  /// [testDurationInSeconds]: The number of seconds the Worker has to complete
+  /// the Qualification test, starting from the time the Worker requests the
+  /// Qualification.
+  ///
+  /// [retryDelayInSeconds]: The amount of time, in seconds, that Workers must
+  /// wait after requesting a Qualification of the specified Qualification type
+  /// before they can retry the Qualification request. It is not possible to
+  /// disable retries for a Qualification type after it has been created with
+  /// retries enabled. If you want to disable retries, you must dispose of the
+  /// existing retry-enabled Qualification type using DisposeQualificationType
+  /// and then create a new Qualification type with retries disabled using
+  /// CreateQualificationType.
+  ///
+  /// [autoGranted]: Specifies whether requests for the Qualification type are
+  /// granted immediately, without prompting the Worker with a Qualification
+  /// test.
+  ///
+  /// Constraints: If the Test parameter is specified, this parameter cannot be
+  /// true.
+  ///
+  /// [autoGrantedValue]: The Qualification value to use for automatically
+  /// granted Qualifications. This parameter is used only if the AutoGranted
+  /// parameter is true.
+  Future<UpdateQualificationTypeResponse> updateQualificationType(
+      String qualificationTypeId,
       {String description,
       String qualificationTypeStatus,
       String test,
@@ -511,119 +1155,1164 @@ class MTurkApi {
       BigInt testDurationInSeconds,
       BigInt retryDelayInSeconds,
       bool autoGranted,
-      int autoGrantedValue}) async {}
+      int autoGrantedValue}) async {
+    return UpdateQualificationTypeResponse.fromJson({});
+  }
 }
 
-class AcceptQualificationRequestResponse {}
+class AcceptQualificationRequestResponse {
+  AcceptQualificationRequestResponse();
+  static AcceptQualificationRequestResponse fromJson(
+          Map<String, dynamic> json) =>
+      AcceptQualificationRequestResponse();
+}
 
-class ApproveAssignmentResponse {}
+class ApproveAssignmentResponse {
+  ApproveAssignmentResponse();
+  static ApproveAssignmentResponse fromJson(Map<String, dynamic> json) =>
+      ApproveAssignmentResponse();
+}
 
-class Assignment {}
+class Assignment {
+  ///  A unique identifier for the assignment.
+  final String assignmentId;
 
-class AssociateQualificationWithWorkerResponse {}
+  ///  The ID of the Worker who accepted the HIT.
+  final String workerId;
 
-class BonusPayment {}
+  ///  The ID of the HIT.
+  final String hitId;
 
-class CreateAdditionalAssignmentsForHitResponse {}
+  ///  The status of the assignment.
+  final String assignmentStatus;
 
-class CreateHitResponse {}
+  ///  If results have been submitted, AutoApprovalTime is the date and time the
+  /// results of the assignment results are considered Approved automatically if
+  /// they have not already been explicitly approved or rejected by the
+  /// Requester. This value is derived from the auto-approval delay specified by
+  /// the Requester in the HIT. This value is omitted from the assignment if the
+  /// Worker has not yet submitted results.
+  final DateTime autoApprovalTime;
 
-class CreateHitTypeResponse {}
+  ///  The date and time the Worker accepted the assignment.
+  final DateTime acceptTime;
 
-class CreateHitWithHitTypeResponse {}
+  ///  If the Worker has submitted results, SubmitTime is the date and time the
+  /// assignment was submitted. This value is omitted from the assignment if the
+  /// Worker has not yet submitted results.
+  final DateTime submitTime;
 
-class CreateQualificationTypeResponse {}
+  ///  If the Worker has submitted results and the Requester has approved the
+  /// results, ApprovalTime is the date and time the Requester approved the
+  /// results. This value is omitted from the assignment if the Requester has
+  /// not yet approved the results.
+  final DateTime approvalTime;
 
-class CreateWorkerBlockResponse {}
+  ///  If the Worker has submitted results and the Requester has rejected the
+  /// results, RejectionTime is the date and time the Requester rejected the
+  /// results.
+  final DateTime rejectionTime;
 
-class DeleteHitResponse {}
+  ///  The date and time of the deadline for the assignment. This value is
+  /// derived from the deadline specification for the HIT and the date and time
+  /// the Worker accepted the HIT.
+  final DateTime deadline;
 
-class DeleteQualificationTypeResponse {}
+  ///  The Worker's answers submitted for the HIT contained in a
+  /// QuestionFormAnswers document, if the Worker provides an answer. If the
+  /// Worker does not provide any answers, Answer may contain a
+  /// QuestionFormAnswers document, or Answer may be empty.
+  final String answer;
 
-class DeleteWorkerBlockResponse {}
+  ///  The feedback string included with the call to the ApproveAssignment
+  /// operation or the RejectAssignment operation, if the Requester approved or
+  /// rejected the assignment and specified feedback.
+  final String requesterFeedback;
 
-class DisassociateQualificationFromWorkerResponse {}
+  Assignment({
+    this.assignmentId,
+    this.workerId,
+    this.hitId,
+    this.assignmentStatus,
+    this.autoApprovalTime,
+    this.acceptTime,
+    this.submitTime,
+    this.approvalTime,
+    this.rejectionTime,
+    this.deadline,
+    this.answer,
+    this.requesterFeedback,
+  });
+  static Assignment fromJson(Map<String, dynamic> json) => Assignment();
+}
 
-class GetAccountBalanceResponse {}
+class AssociateQualificationWithWorkerResponse {
+  AssociateQualificationWithWorkerResponse();
+  static AssociateQualificationWithWorkerResponse fromJson(
+          Map<String, dynamic> json) =>
+      AssociateQualificationWithWorkerResponse();
+}
 
-class GetAssignmentResponse {}
+class BonusPayment {
+  /// The ID of the Worker to whom the bonus was paid.
+  final String workerId;
 
-class GetFileUploadUrlResponse {}
+  final String bonusAmount;
 
-class GetHitResponse {}
+  /// The ID of the assignment associated with this bonus payment.
+  final String assignmentId;
 
-class GetQualificationScoreResponse {}
+  /// The Reason text given when the bonus was granted, if any.
+  final String reason;
 
-class GetQualificationTypeResponse {}
+  /// The date and time of when the bonus was granted.
+  final DateTime grantTime;
 
-class Hit {}
+  BonusPayment({
+    this.workerId,
+    this.bonusAmount,
+    this.assignmentId,
+    this.reason,
+    this.grantTime,
+  });
+  static BonusPayment fromJson(Map<String, dynamic> json) => BonusPayment();
+}
 
-class HitLayoutParameter {}
+class CreateAdditionalAssignmentsForHitResponse {
+  CreateAdditionalAssignmentsForHitResponse();
+  static CreateAdditionalAssignmentsForHitResponse fromJson(
+          Map<String, dynamic> json) =>
+      CreateAdditionalAssignmentsForHitResponse();
+}
 
-class ListAssignmentsForHitResponse {}
+class CreateHitResponse {
+  ///  Contains the newly created HIT data. For a description of the HIT data
+  /// structure as it appears in responses, see the HIT Data Structure
+  /// documentation.
+  final Hit hit;
 
-class ListBonusPaymentsResponse {}
+  CreateHitResponse({
+    this.hit,
+  });
+  static CreateHitResponse fromJson(Map<String, dynamic> json) =>
+      CreateHitResponse();
+}
 
-class ListHITsForQualificationTypeResponse {}
+class CreateHitTypeResponse {
+  ///  The ID of the newly registered HIT type.
+  final String hitTypeId;
 
-class ListHITsResponse {}
+  CreateHitTypeResponse({
+    this.hitTypeId,
+  });
+  static CreateHitTypeResponse fromJson(Map<String, dynamic> json) =>
+      CreateHitTypeResponse();
+}
 
-class ListQualificationRequestsResponse {}
+class CreateHitWithHitTypeResponse {
+  ///  Contains the newly created HIT data. For a description of the HIT data
+  /// structure as it appears in responses, see the HIT Data Structure
+  /// documentation.
+  final Hit hit;
 
-class ListQualificationTypesResponse {}
+  CreateHitWithHitTypeResponse({
+    this.hit,
+  });
+  static CreateHitWithHitTypeResponse fromJson(Map<String, dynamic> json) =>
+      CreateHitWithHitTypeResponse();
+}
 
-class ListReviewPolicyResultsForHitResponse {}
+class CreateQualificationTypeResponse {
+  /// The created Qualification type, returned as a QualificationType data
+  /// structure.
+  final QualificationType qualificationType;
 
-class ListReviewableHITsResponse {}
+  CreateQualificationTypeResponse({
+    this.qualificationType,
+  });
+  static CreateQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
+      CreateQualificationTypeResponse();
+}
 
-class ListWorkerBlocksResponse {}
+class CreateWorkerBlockResponse {
+  CreateWorkerBlockResponse();
+  static CreateWorkerBlockResponse fromJson(Map<String, dynamic> json) =>
+      CreateWorkerBlockResponse();
+}
 
-class ListWorkersWithQualificationTypeResponse {}
+class DeleteHitResponse {
+  DeleteHitResponse();
+  static DeleteHitResponse fromJson(Map<String, dynamic> json) =>
+      DeleteHitResponse();
+}
 
-class Locale {}
+class DeleteQualificationTypeResponse {
+  DeleteQualificationTypeResponse();
+  static DeleteQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
+      DeleteQualificationTypeResponse();
+}
 
-class NotificationSpecification {}
+class DeleteWorkerBlockResponse {
+  DeleteWorkerBlockResponse();
+  static DeleteWorkerBlockResponse fromJson(Map<String, dynamic> json) =>
+      DeleteWorkerBlockResponse();
+}
 
-class NotifyWorkersFailureStatus {}
+class DisassociateQualificationFromWorkerResponse {
+  DisassociateQualificationFromWorkerResponse();
+  static DisassociateQualificationFromWorkerResponse fromJson(
+          Map<String, dynamic> json) =>
+      DisassociateQualificationFromWorkerResponse();
+}
 
-class NotifyWorkersResponse {}
+class GetAccountBalanceResponse {
+  final String availableBalance;
 
-class ParameterMapEntry {}
+  final String onHoldBalance;
 
-class PolicyParameter {}
+  GetAccountBalanceResponse({
+    this.availableBalance,
+    this.onHoldBalance,
+  });
+  static GetAccountBalanceResponse fromJson(Map<String, dynamic> json) =>
+      GetAccountBalanceResponse();
+}
 
-class Qualification {}
+class GetAssignmentResponse {
+  ///  The assignment. The response includes one Assignment element.
+  final Assignment assignment;
 
-class QualificationRequest {}
+  ///  The HIT associated with this assignment. The response includes one HIT
+  /// element.
+  final Hit hit;
 
-class QualificationRequirement {}
+  GetAssignmentResponse({
+    this.assignment,
+    this.hit,
+  });
+  static GetAssignmentResponse fromJson(Map<String, dynamic> json) =>
+      GetAssignmentResponse();
+}
 
-class QualificationType {}
+class GetFileUploadUrlResponse {
+  ///  A temporary URL for the file that the Worker uploaded for the answer.
+  final String fileUploadUrl;
 
-class RejectAssignmentResponse {}
+  GetFileUploadUrlResponse({
+    this.fileUploadUrl,
+  });
+  static GetFileUploadUrlResponse fromJson(Map<String, dynamic> json) =>
+      GetFileUploadUrlResponse();
+}
 
-class RejectQualificationRequestResponse {}
+class GetHitResponse {
+  ///  Contains the requested HIT data.
+  final Hit hit;
 
-class ReviewActionDetail {}
+  GetHitResponse({
+    this.hit,
+  });
+  static GetHitResponse fromJson(Map<String, dynamic> json) => GetHitResponse();
+}
 
-class ReviewPolicy {}
+class GetQualificationScoreResponse {
+  ///  The Qualification data structure of the Qualification assigned to a user,
+  /// including the Qualification type and the value (score).
+  final Qualification qualification;
 
-class ReviewReport {}
+  GetQualificationScoreResponse({
+    this.qualification,
+  });
+  static GetQualificationScoreResponse fromJson(Map<String, dynamic> json) =>
+      GetQualificationScoreResponse();
+}
 
-class ReviewResultDetail {}
+class GetQualificationTypeResponse {
+  ///  The returned Qualification Type
+  final QualificationType qualificationType;
 
-class SendBonusResponse {}
+  GetQualificationTypeResponse({
+    this.qualificationType,
+  });
+  static GetQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
+      GetQualificationTypeResponse();
+}
 
-class SendTestEventNotificationResponse {}
+class Hit {
+  ///  A unique identifier for the HIT.
+  final String hitId;
 
-class UpdateExpirationForHitResponse {}
+  /// The ID of the HIT type of this HIT
+  final String hitTypeId;
 
-class UpdateHitReviewStatusResponse {}
+  ///  The ID of the HIT Group of this HIT.
+  final String hitGroupId;
 
-class UpdateHitTypeOfHitResponse {}
+  ///  The ID of the HIT Layout of this HIT.
+  final String hitLayoutId;
 
-class UpdateNotificationSettingsResponse {}
+  ///  The date and time the HIT was created.
+  final DateTime creationTime;
 
-class UpdateQualificationTypeResponse {}
+  ///  The title of the HIT.
+  final String title;
 
-class WorkerBlock {}
+  ///  A general description of the HIT.
+  final String description;
+
+  ///  The data the Worker completing the HIT uses produce the results. This is
+  /// either either a QuestionForm, HTMLQuestion or an ExternalQuestion data
+  /// structure.
+  final String question;
+
+  ///  One or more words or phrases that describe the HIT, separated by commas.
+  /// Search terms similar to the keywords of a HIT are more likely to have the
+  /// HIT in the search results.
+  final String keywords;
+
+  /// The status of the HIT and its assignments. Valid Values are Assignable |
+  /// Unassignable | Reviewable | Reviewing | Disposed.
+  final String hitStatus;
+
+  /// The number of times the HIT can be accepted and completed before the HIT
+  /// becomes unavailable.
+  final int maxAssignments;
+
+  final String reward;
+
+  /// The amount of time, in seconds, after the Worker submits an assignment for
+  /// the HIT that the results are automatically approved by Amazon Mechanical
+  /// Turk. This is the amount of time the Requester has to reject an assignment
+  /// submitted by a Worker before the assignment is auto-approved and the
+  /// Worker is paid.
+  final BigInt autoApprovalDelayInSeconds;
+
+  /// The date and time the HIT expires.
+  final DateTime expiration;
+
+  ///  The length of time, in seconds, that a Worker has to complete the HIT
+  /// after accepting it.
+  final BigInt assignmentDurationInSeconds;
+
+  ///  An arbitrary data field the Requester who created the HIT can use. This
+  /// field is visible only to the creator of the HIT.
+  final String requesterAnnotation;
+
+  ///  Conditions that a Worker's Qualifications must meet in order to accept
+  /// the HIT. A HIT can have between zero and ten Qualification requirements.
+  /// All requirements must be met in order for a Worker to accept the HIT.
+  /// Additionally, other actions can be restricted using the `ActionsGuarded`
+  /// field on each `QualificationRequirement` structure.
+  final List<QualificationRequirement> qualificationRequirements;
+
+  ///  Indicates the review status of the HIT. Valid Values are NotReviewed |
+  /// MarkedForReview | ReviewedAppropriate | ReviewedInappropriate.
+  final String hitReviewStatus;
+
+  ///  The number of assignments for this HIT that are being previewed or have
+  /// been accepted by Workers, but have not yet been submitted, returned, or
+  /// abandoned.
+  final int numberOfAssignmentsPending;
+
+  ///  The number of assignments for this HIT that are available for Workers to
+  /// accept.
+  final int numberOfAssignmentsAvailable;
+
+  ///  The number of assignments for this HIT that have been approved or
+  /// rejected.
+  final int numberOfAssignmentsCompleted;
+
+  Hit({
+    this.hitId,
+    this.hitTypeId,
+    this.hitGroupId,
+    this.hitLayoutId,
+    this.creationTime,
+    this.title,
+    this.description,
+    this.question,
+    this.keywords,
+    this.hitStatus,
+    this.maxAssignments,
+    this.reward,
+    this.autoApprovalDelayInSeconds,
+    this.expiration,
+    this.assignmentDurationInSeconds,
+    this.requesterAnnotation,
+    this.qualificationRequirements,
+    this.hitReviewStatus,
+    this.numberOfAssignmentsPending,
+    this.numberOfAssignmentsAvailable,
+    this.numberOfAssignmentsCompleted,
+  });
+  static Hit fromJson(Map<String, dynamic> json) => Hit();
+}
+
+class HitLayoutParameter {
+  ///  The name of the parameter in the HITLayout.
+  final String name;
+
+  /// The value substituted for the parameter referenced in the HITLayout.
+  final String value;
+
+  HitLayoutParameter({
+    @required this.name,
+    @required this.value,
+  });
+}
+
+class ListAssignmentsForHitResponse {
+  final String nextToken;
+
+  ///  The number of assignments on the page in the filtered results list,
+  /// equivalent to the number of assignments returned by this call.
+  final int numResults;
+
+  ///  The collection of Assignment data structures returned by this call.
+  final List<Assignment> assignments;
+
+  ListAssignmentsForHitResponse({
+    this.nextToken,
+    this.numResults,
+    this.assignments,
+  });
+  static ListAssignmentsForHitResponse fromJson(Map<String, dynamic> json) =>
+      ListAssignmentsForHitResponse();
+}
+
+class ListBonusPaymentsResponse {
+  /// The number of bonus payments on this page in the filtered results list,
+  /// equivalent to the number of bonus payments being returned by this call.
+  final int numResults;
+
+  final String nextToken;
+
+  /// A successful request to the ListBonusPayments operation returns a list of
+  /// BonusPayment objects.
+  final List<BonusPayment> bonusPayments;
+
+  ListBonusPaymentsResponse({
+    this.numResults,
+    this.nextToken,
+    this.bonusPayments,
+  });
+  static ListBonusPaymentsResponse fromJson(Map<String, dynamic> json) =>
+      ListBonusPaymentsResponse();
+}
+
+class ListHITsForQualificationTypeResponse {
+  final String nextToken;
+
+  ///  The number of HITs on this page in the filtered results list, equivalent
+  /// to the number of HITs being returned by this call.
+  final int numResults;
+
+  ///  The list of HIT elements returned by the query.
+  final List<Hit> hiTs;
+
+  ListHITsForQualificationTypeResponse({
+    this.nextToken,
+    this.numResults,
+    this.hiTs,
+  });
+  static ListHITsForQualificationTypeResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListHITsForQualificationTypeResponse();
+}
+
+class ListHITsResponse {
+  final String nextToken;
+
+  /// The number of HITs on this page in the filtered results list, equivalent
+  /// to the number of HITs being returned by this call.
+  final int numResults;
+
+  ///  The list of HIT elements returned by the query.
+  final List<Hit> hiTs;
+
+  ListHITsResponse({
+    this.nextToken,
+    this.numResults,
+    this.hiTs,
+  });
+  static ListHITsResponse fromJson(Map<String, dynamic> json) =>
+      ListHITsResponse();
+}
+
+class ListQualificationRequestsResponse {
+  /// The number of Qualification requests on this page in the filtered results
+  /// list, equivalent to the number of Qualification requests being returned by
+  /// this call.
+  final int numResults;
+
+  final String nextToken;
+
+  /// The Qualification request. The response includes one QualificationRequest
+  /// element for each Qualification request returned by the query.
+  final List<QualificationRequest> qualificationRequests;
+
+  ListQualificationRequestsResponse({
+    this.numResults,
+    this.nextToken,
+    this.qualificationRequests,
+  });
+  static ListQualificationRequestsResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListQualificationRequestsResponse();
+}
+
+class ListQualificationTypesResponse {
+  ///  The number of Qualification types on this page in the filtered results
+  /// list, equivalent to the number of types this operation returns.
+  final int numResults;
+
+  final String nextToken;
+
+  ///  The list of QualificationType elements returned by the query.
+  final List<QualificationType> qualificationTypes;
+
+  ListQualificationTypesResponse({
+    this.numResults,
+    this.nextToken,
+    this.qualificationTypes,
+  });
+  static ListQualificationTypesResponse fromJson(Map<String, dynamic> json) =>
+      ListQualificationTypesResponse();
+}
+
+class ListReviewPolicyResultsForHitResponse {
+  /// The HITId of the HIT for which results have been returned.
+  final String hitId;
+
+  ///  The name of the Assignment-level Review Policy. This contains only the
+  /// PolicyName element.
+  final ReviewPolicy assignmentReviewPolicy;
+
+  /// The name of the HIT-level Review Policy. This contains only the PolicyName
+  /// element.
+  final ReviewPolicy hitReviewPolicy;
+
+  ///  Contains both ReviewResult and ReviewAction elements for an Assignment.
+  final ReviewReport assignmentReviewReport;
+
+  /// Contains both ReviewResult and ReviewAction elements for a particular HIT.
+  final ReviewReport hitReviewReport;
+
+  final String nextToken;
+
+  ListReviewPolicyResultsForHitResponse({
+    this.hitId,
+    this.assignmentReviewPolicy,
+    this.hitReviewPolicy,
+    this.assignmentReviewReport,
+    this.hitReviewReport,
+    this.nextToken,
+  });
+  static ListReviewPolicyResultsForHitResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListReviewPolicyResultsForHitResponse();
+}
+
+class ListReviewableHITsResponse {
+  final String nextToken;
+
+  ///  The number of HITs on this page in the filtered results list, equivalent
+  /// to the number of HITs being returned by this call.
+  final int numResults;
+
+  ///  The list of HIT elements returned by the query.
+  final List<Hit> hiTs;
+
+  ListReviewableHITsResponse({
+    this.nextToken,
+    this.numResults,
+    this.hiTs,
+  });
+  static ListReviewableHITsResponse fromJson(Map<String, dynamic> json) =>
+      ListReviewableHITsResponse();
+}
+
+class ListWorkerBlocksResponse {
+  final String nextToken;
+
+  ///  The number of assignments on the page in the filtered results list,
+  /// equivalent to the number of assignments returned by this call.
+  final int numResults;
+
+  ///  The list of WorkerBlocks, containing the collection of Worker IDs and
+  /// reasons for blocking.
+  final List<WorkerBlock> workerBlocks;
+
+  ListWorkerBlocksResponse({
+    this.nextToken,
+    this.numResults,
+    this.workerBlocks,
+  });
+  static ListWorkerBlocksResponse fromJson(Map<String, dynamic> json) =>
+      ListWorkerBlocksResponse();
+}
+
+class ListWorkersWithQualificationTypeResponse {
+  final String nextToken;
+
+  ///  The number of Qualifications on this page in the filtered results list,
+  /// equivalent to the number of Qualifications being returned by this call.
+  final int numResults;
+
+  ///  The list of Qualification elements returned by this call.
+  final List<Qualification> qualifications;
+
+  ListWorkersWithQualificationTypeResponse({
+    this.nextToken,
+    this.numResults,
+    this.qualifications,
+  });
+  static ListWorkersWithQualificationTypeResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListWorkersWithQualificationTypeResponse();
+}
+
+class Locale {
+  ///  The country of the locale. Must be a valid ISO 3166 country code. For
+  /// example, the code US refers to the United States of America.
+  final String country;
+
+  /// The state or subdivision of the locale. A valid ISO 3166-2 subdivision
+  /// code. For example, the code WA refers to the state of Washington.
+  final String subdivision;
+
+  Locale({
+    @required this.country,
+    this.subdivision,
+  });
+  static Locale fromJson(Map<String, dynamic> json) => Locale();
+}
+
+class NotificationSpecification {
+  ///  The target for notification messages. The Destination’s format is
+  /// determined by the specified Transport:
+  ///
+  /// *   When Transport is Email, the Destination is your email address.
+  ///
+  /// *   When Transport is SQS, the Destination is your queue URL.
+  ///
+  /// *   When Transport is SNS, the Destination is the ARN of your topic.
+  final String destination;
+
+  ///  The method Amazon Mechanical Turk uses to send the notification. Valid
+  /// Values: Email | SQS | SNS.
+  final String transport;
+
+  /// The version of the Notification API to use. Valid value is 2006-05-05.
+  final String version;
+
+  ///  The list of events that should cause notifications to be sent. Valid
+  /// Values: AssignmentAccepted | AssignmentAbandoned | AssignmentReturned |
+  /// AssignmentSubmitted | AssignmentRejected | AssignmentApproved | HITCreated
+  /// | HITExtended | HITDisposed | HITReviewable | HITExpired | Ping. The Ping
+  /// event is only valid for the SendTestEventNotification operation.
+  final List<String> eventTypes;
+
+  NotificationSpecification({
+    @required this.destination,
+    @required this.transport,
+    @required this.version,
+    @required this.eventTypes,
+  });
+}
+
+class NotifyWorkersFailureStatus {
+  ///  Encoded value for the failure type.
+  final String notifyWorkersFailureCode;
+
+  ///  A message detailing the reason the Worker could not be notified.
+  final String notifyWorkersFailureMessage;
+
+  ///  The ID of the Worker.
+  final String workerId;
+
+  NotifyWorkersFailureStatus({
+    this.notifyWorkersFailureCode,
+    this.notifyWorkersFailureMessage,
+    this.workerId,
+  });
+  static NotifyWorkersFailureStatus fromJson(Map<String, dynamic> json) =>
+      NotifyWorkersFailureStatus();
+}
+
+class NotifyWorkersResponse {
+  ///  When MTurk sends notifications to the list of Workers, it returns back
+  /// any failures it encounters in this list of NotifyWorkersFailureStatus
+  /// objects.
+  final List<NotifyWorkersFailureStatus> notifyWorkersFailureStatuses;
+
+  NotifyWorkersResponse({
+    this.notifyWorkersFailureStatuses,
+  });
+  static NotifyWorkersResponse fromJson(Map<String, dynamic> json) =>
+      NotifyWorkersResponse();
+}
+
+class ParameterMapEntry {
+  ///  The QuestionID from the HIT that is used to identify which question
+  /// requires Mechanical Turk to score as part of the
+  /// ScoreMyKnownAnswers/2011-09-01 Review Policy.
+  final String key;
+
+  ///  The list of answers to the question specified in the MapEntry Key
+  /// element. The Worker must match all values in order for the answer to be
+  /// scored correctly.
+  final List<String> values;
+
+  ParameterMapEntry({
+    this.key,
+    this.values,
+  });
+  static ParameterMapEntry fromJson(Map<String, dynamic> json) =>
+      ParameterMapEntry();
+}
+
+class PolicyParameter {
+  ///  Name of the parameter from the list of Review Polices.
+  final String key;
+
+  ///  The list of values of the Parameter
+  final List<String> values;
+
+  ///  List of ParameterMapEntry objects.
+  final List<ParameterMapEntry> mapEntries;
+
+  PolicyParameter({
+    this.key,
+    this.values,
+    this.mapEntries,
+  });
+  static PolicyParameter fromJson(Map<String, dynamic> json) =>
+      PolicyParameter();
+}
+
+class Qualification {
+  ///  The ID of the Qualification type for the Qualification.
+  final String qualificationTypeId;
+
+  ///  The ID of the Worker who possesses the Qualification.
+  final String workerId;
+
+  ///  The date and time the Qualification was granted to the Worker. If the
+  /// Worker's Qualification was revoked, and then re-granted based on a new
+  /// Qualification request, GrantTime is the date and time of the last call to
+  /// the AcceptQualificationRequest operation.
+  final DateTime grantTime;
+
+  ///  The value (score) of the Qualification, if the Qualification has an
+  /// integer value.
+  final int integerValue;
+
+  final Locale localeValue;
+
+  ///  The status of the Qualification. Valid values are Granted | Revoked.
+  final String status;
+
+  Qualification({
+    this.qualificationTypeId,
+    this.workerId,
+    this.grantTime,
+    this.integerValue,
+    this.localeValue,
+    this.status,
+  });
+  static Qualification fromJson(Map<String, dynamic> json) => Qualification();
+}
+
+class QualificationRequest {
+  /// The ID of the Qualification request, a unique identifier generated when
+  /// the request was submitted.
+  final String qualificationRequestId;
+
+  ///  The ID of the Qualification type the Worker is requesting, as returned by
+  /// the CreateQualificationType operation.
+  final String qualificationTypeId;
+
+  ///  The ID of the Worker requesting the Qualification.
+  final String workerId;
+
+  ///  The contents of the Qualification test that was presented to the Worker,
+  /// if the type has a test and the Worker has submitted answers. This value is
+  /// identical to the QuestionForm associated with the Qualification type at
+  /// the time the Worker requests the Qualification.
+  final String test;
+
+  ///  The Worker's answers for the Qualification type's test contained in a
+  /// QuestionFormAnswers document, if the type has a test and the Worker has
+  /// submitted answers. If the Worker does not provide any answers, Answer may
+  /// be empty.
+  final String answer;
+
+  /// The date and time the Qualification request had a status of Submitted.
+  /// This is either the time the Worker submitted answers for a Qualification
+  /// test, or the time the Worker requested the Qualification if the
+  /// Qualification type does not have a test.
+  final DateTime submitTime;
+
+  QualificationRequest({
+    this.qualificationRequestId,
+    this.qualificationTypeId,
+    this.workerId,
+    this.test,
+    this.answer,
+    this.submitTime,
+  });
+  static QualificationRequest fromJson(Map<String, dynamic> json) =>
+      QualificationRequest();
+}
+
+class QualificationRequirement {
+  ///  The ID of the Qualification type for the requirement.
+  final String qualificationTypeId;
+
+  /// The kind of comparison to make against a Qualification's value. You can
+  /// compare a Qualification's value to an IntegerValue to see if it is
+  /// LessThan, LessThanOrEqualTo, GreaterThan, GreaterThanOrEqualTo, EqualTo,
+  /// or NotEqualTo the IntegerValue. You can compare it to a LocaleValue to see
+  /// if it is EqualTo, or NotEqualTo the LocaleValue. You can check to see if
+  /// the value is In or NotIn a set of IntegerValue or LocaleValue values.
+  /// Lastly, a Qualification requirement can also test if a Qualification
+  /// Exists or DoesNotExist in the user's profile, regardless of its value.
+  final String comparator;
+
+  ///  The integer value to compare against the Qualification's value.
+  /// IntegerValue must not be present if Comparator is Exists or DoesNotExist.
+  /// IntegerValue can only be used if the Qualification type has an integer
+  /// value; it cannot be used with the Worker_Locale QualificationType ID. When
+  /// performing a set comparison by using the In or the NotIn comparator, you
+  /// can use up to 15 IntegerValue elements in a QualificationRequirement data
+  /// structure.
+  final List<int> integerValues;
+
+  ///  The locale value to compare against the Qualification's value. The local
+  /// value must be a valid ISO 3166 country code or supports ISO 3166-2
+  /// subdivisions. LocaleValue can only be used with a Worker_Locale
+  /// QualificationType ID. LocaleValue can only be used with the EqualTo,
+  /// NotEqualTo, In, and NotIn comparators. You must only use a single
+  /// LocaleValue element when using the EqualTo or NotEqualTo comparators. When
+  /// performing a set comparison by using the In or the NotIn comparator, you
+  /// can use up to 30 LocaleValue elements in a QualificationRequirement data
+  /// structure.
+  final List<Locale> localeValues;
+
+  ///  DEPRECATED: Use the `ActionsGuarded` field instead. If RequiredToPreview
+  /// is true, the question data for the HIT will not be shown when a Worker
+  /// whose Qualifications do not meet this requirement tries to preview the
+  /// HIT. That is, a Worker's Qualifications must meet all of the requirements
+  /// for which RequiredToPreview is true in order to preview the HIT. If a
+  /// Worker meets all of the requirements where RequiredToPreview is true (or
+  /// if there are no such requirements), but does not meet all of the
+  /// requirements for the HIT, the Worker will be allowed to preview the HIT's
+  /// question data, but will not be allowed to accept and complete the HIT. The
+  /// default is false. This should not be used in combination with the
+  /// `ActionsGuarded` field.
+  final bool requiredToPreview;
+
+  ///  Setting this attribute prevents Workers whose Qualifications do not meet
+  /// this QualificationRequirement from taking the specified action. Valid
+  /// arguments include "Accept" (Worker cannot accept the HIT, but can preview
+  /// the HIT and see it in their search results), "PreviewAndAccept" (Worker
+  /// cannot accept or preview the HIT, but can see the HIT in their search
+  /// results), and "DiscoverPreviewAndAccept" (Worker cannot accept, preview,
+  /// or see the HIT in their search results). It's possible for you to create a
+  /// HIT with multiple QualificationRequirements (which can have different
+  /// values for the ActionGuarded attribute). In this case, the Worker is only
+  /// permitted to perform an action when they have met all
+  /// QualificationRequirements guarding the action. The actions in the order of
+  /// least restrictive to most restrictive are Discover, Preview and Accept.
+  /// For example, if a Worker meets all QualificationRequirements that are set
+  /// to DiscoverPreviewAndAccept, but do not meet all requirements that are set
+  /// with PreviewAndAccept, then the Worker will be able to Discover, i.e. see
+  /// the HIT in their search result, but will not be able to Preview or Accept
+  /// the HIT. ActionsGuarded should not be used in combination with the
+  /// `RequiredToPreview` field.
+  final String actionsGuarded;
+
+  QualificationRequirement({
+    @required this.qualificationTypeId,
+    @required this.comparator,
+    this.integerValues,
+    this.localeValues,
+    this.requiredToPreview,
+    this.actionsGuarded,
+  });
+  static QualificationRequirement fromJson(Map<String, dynamic> json) =>
+      QualificationRequirement();
+}
+
+class QualificationType {
+  ///  A unique identifier for the Qualification type. A Qualification type is
+  /// given a Qualification type ID when you call the CreateQualificationType
+  /// operation.
+  final String qualificationTypeId;
+
+  ///  The date and time the Qualification type was created.
+  final DateTime creationTime;
+
+  ///  The name of the Qualification type. The type name is used to identify the
+  /// type, and to find the type using a Qualification type search.
+  final String name;
+
+  ///  A long description for the Qualification type.
+  final String description;
+
+  ///  One or more words or phrases that describe theQualification type,
+  /// separated by commas. The Keywords make the type easier to find using a
+  /// search.
+  final String keywords;
+
+  ///  The status of the Qualification type. A Qualification type's status
+  /// determines if users can apply to receive a Qualification of this type, and
+  /// if HITs can be created with requirements based on this type. Valid values
+  /// are Active | Inactive.
+  final String qualificationTypeStatus;
+
+  ///  The questions for a Qualification test associated with this Qualification
+  /// type that a user can take to obtain a Qualification of this type. This
+  /// parameter must be specified if AnswerKey is present. A Qualification type
+  /// cannot have both a specified Test parameter and an AutoGranted value of
+  /// true.
+  final String test;
+
+  ///  The amount of time, in seconds, given to a Worker to complete the
+  /// Qualification test, beginning from the time the Worker requests the
+  /// Qualification.
+  final BigInt testDurationInSeconds;
+
+  /// The answers to the Qualification test specified in the Test parameter.
+  final String answerKey;
+
+  ///  The amount of time, in seconds, Workers must wait after taking the
+  /// Qualification test before they can take it again. Workers can take a
+  /// Qualification test multiple times if they were not granted the
+  /// Qualification from a previous attempt, or if the test offers a gradient
+  /// score and they want a better score. If not specified, retries are disabled
+  /// and Workers can request a Qualification only once.
+  final BigInt retryDelayInSeconds;
+
+  ///  Specifies whether the Qualification type is one that a user can request
+  /// through the Amazon Mechanical Turk web site, such as by taking a
+  /// Qualification test. This value is False for Qualifications assigned
+  /// automatically by the system. Valid values are True | False.
+  final bool isRequestable;
+
+  /// Specifies that requests for the Qualification type are granted
+  /// immediately, without prompting the Worker with a Qualification test. Valid
+  /// values are True | False.
+  final bool autoGranted;
+
+  ///  The Qualification integer value to use for automatically granted
+  /// Qualifications, if AutoGranted is true. This is 1 by default.
+  final int autoGrantedValue;
+
+  QualificationType({
+    this.qualificationTypeId,
+    this.creationTime,
+    this.name,
+    this.description,
+    this.keywords,
+    this.qualificationTypeStatus,
+    this.test,
+    this.testDurationInSeconds,
+    this.answerKey,
+    this.retryDelayInSeconds,
+    this.isRequestable,
+    this.autoGranted,
+    this.autoGrantedValue,
+  });
+  static QualificationType fromJson(Map<String, dynamic> json) =>
+      QualificationType();
+}
+
+class RejectAssignmentResponse {
+  RejectAssignmentResponse();
+  static RejectAssignmentResponse fromJson(Map<String, dynamic> json) =>
+      RejectAssignmentResponse();
+}
+
+class RejectQualificationRequestResponse {
+  RejectQualificationRequestResponse();
+  static RejectQualificationRequestResponse fromJson(
+          Map<String, dynamic> json) =>
+      RejectQualificationRequestResponse();
+}
+
+class ReviewActionDetail {
+  /// The unique identifier for the action.
+  final String actionId;
+
+  ///  The nature of the action itself. The Review Policy is responsible for
+  /// examining the HIT and Assignments, emitting results, and deciding which
+  /// other actions will be necessary.
+  final String actionName;
+
+  ///  The specific HITId or AssignmentID targeted by the action.
+  final String targetId;
+
+  ///  The type of object in TargetId.
+  final String targetType;
+
+  ///  The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or
+  /// CANCELLED.
+  final String status;
+
+  ///  The date when the action was completed.
+  final DateTime completeTime;
+
+  ///  A description of the outcome of the review.
+  final String result;
+
+  ///  Present only when the Results have a FAILED Status.
+  final String errorCode;
+
+  ReviewActionDetail({
+    this.actionId,
+    this.actionName,
+    this.targetId,
+    this.targetType,
+    this.status,
+    this.completeTime,
+    this.result,
+    this.errorCode,
+  });
+  static ReviewActionDetail fromJson(Map<String, dynamic> json) =>
+      ReviewActionDetail();
+}
+
+class ReviewPolicy {
+  ///  Name of a Review Policy: SimplePlurality/2011-09-01 or
+  /// ScoreMyKnownAnswers/2011-09-01
+  final String policyName;
+
+  /// Name of the parameter from the Review policy.
+  final List<PolicyParameter> parameters;
+
+  ReviewPolicy({
+    @required this.policyName,
+    this.parameters,
+  });
+  static ReviewPolicy fromJson(Map<String, dynamic> json) => ReviewPolicy();
+}
+
+class ReviewReport {
+  ///  A list of ReviewResults objects for each action specified in the Review
+  /// Policy.
+  final List<ReviewResultDetail> reviewResults;
+
+  ///  A list of ReviewAction objects for each action specified in the Review
+  /// Policy.
+  final List<ReviewActionDetail> reviewActions;
+
+  ReviewReport({
+    this.reviewResults,
+    this.reviewActions,
+  });
+  static ReviewReport fromJson(Map<String, dynamic> json) => ReviewReport();
+}
+
+class ReviewResultDetail {
+  ///  A unique identifier of the Review action result.
+  final String actionId;
+
+  /// The HITID or AssignmentId about which this result was taken. Note that
+  /// HIT-level Review Policies will often emit results about both the HIT
+  /// itself and its Assignments, while Assignment-level review policies
+  /// generally only emit results about the Assignment itself.
+  final String subjectId;
+
+  ///  The type of the object from the SubjectId field.
+  final String subjectType;
+
+  ///  Specifies the QuestionId the result is describing. Depending on whether
+  /// the TargetType is a HIT or Assignment this results could specify multiple
+  /// values. If TargetType is HIT and QuestionId is absent, then the result
+  /// describes results of the HIT, including the HIT agreement score. If
+  /// ObjectType is Assignment and QuestionId is absent, then the result
+  /// describes the Worker's performance on the HIT.
+  final String questionId;
+
+  ///  Key identifies the particular piece of reviewed information.
+  final String key;
+
+  ///  The values of Key provided by the review policies you have selected.
+  final String value;
+
+  ReviewResultDetail({
+    this.actionId,
+    this.subjectId,
+    this.subjectType,
+    this.questionId,
+    this.key,
+    this.value,
+  });
+  static ReviewResultDetail fromJson(Map<String, dynamic> json) =>
+      ReviewResultDetail();
+}
+
+class SendBonusResponse {
+  SendBonusResponse();
+  static SendBonusResponse fromJson(Map<String, dynamic> json) =>
+      SendBonusResponse();
+}
+
+class SendTestEventNotificationResponse {
+  SendTestEventNotificationResponse();
+  static SendTestEventNotificationResponse fromJson(
+          Map<String, dynamic> json) =>
+      SendTestEventNotificationResponse();
+}
+
+class UpdateExpirationForHitResponse {
+  UpdateExpirationForHitResponse();
+  static UpdateExpirationForHitResponse fromJson(Map<String, dynamic> json) =>
+      UpdateExpirationForHitResponse();
+}
+
+class UpdateHitReviewStatusResponse {
+  UpdateHitReviewStatusResponse();
+  static UpdateHitReviewStatusResponse fromJson(Map<String, dynamic> json) =>
+      UpdateHitReviewStatusResponse();
+}
+
+class UpdateHitTypeOfHitResponse {
+  UpdateHitTypeOfHitResponse();
+  static UpdateHitTypeOfHitResponse fromJson(Map<String, dynamic> json) =>
+      UpdateHitTypeOfHitResponse();
+}
+
+class UpdateNotificationSettingsResponse {
+  UpdateNotificationSettingsResponse();
+  static UpdateNotificationSettingsResponse fromJson(
+          Map<String, dynamic> json) =>
+      UpdateNotificationSettingsResponse();
+}
+
+class UpdateQualificationTypeResponse {
+  ///  Contains a QualificationType data structure.
+  final QualificationType qualificationType;
+
+  UpdateQualificationTypeResponse({
+    this.qualificationType,
+  });
+  static UpdateQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
+      UpdateQualificationTypeResponse();
+}
+
+class WorkerBlock {
+  ///  The ID of the Worker who accepted the HIT.
+  final String workerId;
+
+  ///  A message explaining the reason the Worker was blocked.
+  final String reason;
+
+  WorkerBlock({
+    this.workerId,
+    this.reason,
+  });
+  static WorkerBlock fromJson(Map<String, dynamic> json) => WorkerBlock();
+}

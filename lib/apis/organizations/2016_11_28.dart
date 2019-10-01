@@ -155,7 +155,16 @@ class OrganizationsApi {
   ///
   /// After you accept a handshake, it continues to appear in the results of
   /// relevant APIs for only 30 days. After that, it's deleted.
-  Future<void> acceptHandshake(String handshakeId) async {}
+  ///
+  /// [handshakeId]: The unique identifier (ID) of the handshake that you want
+  /// to accept.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  Future<AcceptHandshakeResponse> acceptHandshake(String handshakeId) async {
+    return AcceptHandshakeResponse.fromJson({});
+  }
 
   /// Attaches a policy to a root, an organizational unit (OU), or an individual
   /// account. How the policy affects accounts depends on the type of policy:
@@ -202,6 +211,31 @@ class OrganizationsApi {
   ///
   ///
   /// This operation can be called only from the organization's master account.
+  ///
+  /// [policyId]: The unique identifier (ID) of the policy that you want to
+  /// attach to the target. You can get the ID for the policy by calling the
+  /// ListPolicies operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
+  ///
+  /// [targetId]: The unique identifier (ID) of the root, OU, or account that
+  /// you want to attach the policy to. You can get the ID by calling the
+  /// ListRoots, ListOrganizationalUnitsForParent, or ListAccounts operations.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Account** \- A string that consists of exactly 12 digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
   Future<void> attachPolicy(
       {@required String policyId, @required String targetId}) async {}
 
@@ -215,7 +249,17 @@ class OrganizationsApi {
   ///
   /// After you cancel a handshake, it continues to appear in the results of
   /// relevant APIs for only 30 days. After that, it's deleted.
-  Future<void> cancelHandshake(String handshakeId) async {}
+  ///
+  /// [handshakeId]: The unique identifier (ID) of the handshake that you want
+  /// to cancel. You can get the ID from the ListHandshakesForOrganization
+  /// operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  Future<CancelHandshakeResponse> cancelHandshake(String handshakeId) async {
+    return CancelHandshakeResponse.fromJson({});
+  }
 
   /// Creates an AWS account that is automatically a member of the organization
   /// whose credentials made the request. This is an asynchronous request that
@@ -292,11 +336,57 @@ class OrganizationsApi {
   /// billing information. For information about how to disable this switch for
   /// an account, see [Granting Access to Your Billing Information and
   /// Tools](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html).
-  Future<void> createAccount(
+  ///
+  /// [email]: The email address of the owner to assign to the new member
+  /// account. This email address must not already be associated with another
+  /// AWS account. You must use a valid email address to complete account
+  /// creation. You can't access the root user of the account or remove an
+  /// account that was created with an invalid email address.
+  ///
+  /// [accountName]: The friendly name of the member account.
+  ///
+  /// [roleName]: (Optional)
+  ///
+  /// The name of an IAM role that AWS Organizations automatically preconfigures
+  /// in the new member account. This role trusts the master account, allowing
+  /// users in the master account to assume the role, as permitted by the master
+  /// account administrator. The role has administrator permissions in the new
+  /// member account.
+  ///
+  /// If you don't specify this parameter, the role name defaults to
+  /// `OrganizationAccountAccessRole`.
+  ///
+  /// For more information about how to use this role to access the member
+  /// account, see [Accessing and Administering the Member Accounts in Your
+  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role)
+  /// in the _AWS Organizations User Guide_, and steps 2 and 3 in [Tutorial:
+  /// Delegate Access Across AWS Accounts Using IAM
+  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
+  /// in the _IAM User Guide._
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of characters that can consist of
+  /// uppercase letters, lowercase letters, digits with no spaces, and any of
+  /// the following characters: =,.@-
+  ///
+  /// [iamUserAccessToBilling]: If set to `ALLOW`, the new account enables IAM
+  /// users to access account billing information _if_ they have the required
+  /// permissions. If set to `DENY`, only the root user of the new account can
+  /// access account billing information. For more information, see [Activating
+  /// Access to the Billing and Cost Management
+  /// Console](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
+  /// in the _AWS Billing and Cost Management User Guide_.
+  ///
+  /// If you don't specify this parameter, the value defaults to `ALLOW`, and
+  /// IAM users and roles with the required permissions can access billing
+  /// information for the new account.
+  Future<CreateAccountResponse> createAccount(
       {@required String email,
       @required String accountName,
       String roleName,
-      String iamUserAccessToBilling}) async {}
+      String iamUserAccessToBilling}) async {
+    return CreateAccountResponse.fromJson({});
+  }
 
   /// This action is available if all of the following are true:
   ///
@@ -415,11 +505,61 @@ class OrganizationsApi {
   /// billing information. For information about how to disable this switch for
   /// an account, see [Granting Access to Your Billing Information and
   /// Tools](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html).
-  Future<void> createGovCloudAccount(
+  ///
+  /// [email]: The email address of the owner to assign to the new member
+  /// account in the commercial Region. This email address must not already be
+  /// associated with another AWS account. You must use a valid email address to
+  /// complete account creation. You can't access the root user of the account
+  /// or remove an account that was created with an invalid email address. Like
+  /// all request parameters for `CreateGovCloudAccount`, the request for the
+  /// email address for the AWS GovCloud (US) account originates from the
+  /// commercial Region, not from the AWS GovCloud (US) Region.
+  ///
+  /// [accountName]: The friendly name of the member account.
+  ///
+  /// [roleName]: (Optional)
+  ///
+  /// The name of an IAM role that AWS Organizations automatically preconfigures
+  /// in the new member accounts in both the AWS GovCloud (US) Region and in the
+  /// commercial Region. This role trusts the master account, allowing users in
+  /// the master account to assume the role, as permitted by the master account
+  /// administrator. The role has administrator permissions in the new member
+  /// account.
+  ///
+  /// If you don't specify this parameter, the role name defaults to
+  /// `OrganizationAccountAccessRole`.
+  ///
+  /// For more information about how to use this role to access the member
+  /// account, see [Accessing and Administering the Member Accounts in Your
+  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role)
+  /// in the _AWS Organizations User Guide_ and steps 2 and 3 in [Tutorial:
+  /// Delegate Access Across AWS Accounts Using IAM
+  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
+  /// in the _IAM User Guide._
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of characters that can consist of
+  /// uppercase letters, lowercase letters, digits with no spaces, and any of
+  /// the following characters: =,.@-
+  ///
+  /// [iamUserAccessToBilling]: If set to `ALLOW`, the new linked account in the
+  /// commercial Region enables IAM users to access account billing information
+  /// _if_ they have the required permissions. If set to `DENY`, only the root
+  /// user of the new account can access account billing information. For more
+  /// information, see [Activating Access to the Billing and Cost Management
+  /// Console](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
+  /// in the _AWS Billing and Cost Management User Guide._
+  ///
+  /// If you don't specify this parameter, the value defaults to `ALLOW`, and
+  /// IAM users and roles with the required permissions can access billing
+  /// information for the new account.
+  Future<CreateGovCloudAccountResponse> createGovCloudAccount(
       {@required String email,
       @required String accountName,
       String roleName,
-      String iamUserAccessToBilling}) async {}
+      String iamUserAccessToBilling}) async {
+    return CreateGovCloudAccountResponse.fromJson({});
+  }
 
   /// Creates an AWS organization. The account whose user is calling the
   /// `CreateOrganization` operation automatically becomes the [master
@@ -437,7 +577,28 @@ class OrganizationsApi {
   /// by setting the `FeatureSet` parameter to `CONSOLIDATED_BILLING"`, no
   /// policy types are enabled by default, and you can't use organization
   /// policies.
-  Future<void> createOrganization({String featureSet}) async {}
+  ///
+  /// [featureSet]: Specifies the feature set supported by the new organization.
+  /// Each feature set supports different levels of functionality.
+  ///
+  /// *    `CONSOLIDATED_BILLING`: All member accounts have their bills
+  /// consolidated to and paid by the master account. For more information, see
+  /// [Consolidated
+  /// billing](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-cb-only)
+  /// in the _AWS Organizations User Guide._
+  ///
+  ///      The consolidated billing feature subset isn't available for
+  /// organizations in the AWS GovCloud (US) Region.
+  ///
+  /// *    `ALL`: In addition to all the features supported by the consolidated
+  /// billing feature set, the master account can also apply any policy type to
+  /// any member account in the organization. For more information, see [All
+  /// features](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-all)
+  /// in the _AWS Organizations User Guide._
+  Future<CreateOrganizationResponse> createOrganization(
+      {String featureSet}) async {
+    return CreateOrganizationResponse.fromJson({});
+  }
 
   /// Creates an organizational unit (OU) within a root or parent OU. An OU is a
   /// container for accounts that enables you to organize your accounts to apply
@@ -450,8 +611,26 @@ class OrganizationsApi {
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> createOrganizationalUnit(
-      {@required String parentId, @required String name}) async {}
+  ///
+  /// [parentId]: The unique identifier (ID) of the parent root or OU that you
+  /// want to create the new OU in.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
+  ///
+  /// [name]: The friendly name to assign to the new OU.
+  Future<CreateOrganizationalUnitResponse> createOrganizationalUnit(
+      {@required String parentId, @required String name}) async {
+    return CreateOrganizationalUnitResponse.fromJson({});
+  }
 
   /// Creates a policy of a specified type that you can attach to a root, an
   /// organizational unit (OU), or an individual AWS account.
@@ -461,11 +640,38 @@ class OrganizationsApi {
   /// Policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html).
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> createPolicy(
+  ///
+  /// [content]: The policy content to add to the new policy. For example, if
+  /// you create a [service control
+  /// policy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html)
+  /// (SCP), this string must be JSON text that specifies the permissions that
+  /// admins in attached accounts can delegate to their users, groups, and
+  /// roles. For more information about the SCP syntax, see [Service Control
+  /// Policy
+  /// Syntax](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html)
+  /// in the _AWS Organizations User Guide._
+  ///
+  /// [description]: An optional description to assign to the policy.
+  ///
+  /// [name]: The friendly name to assign to the policy.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  ///
+  /// [type]: The type of policy to create.
+  ///
+  ///
+  ///
+  /// In the current release, the only type of policy that you can create is a
+  /// service control policy (SCP).
+  Future<CreatePolicyResponse> createPolicy(
       {@required String content,
       @required String description,
       @required String name,
-      @required String type}) async {}
+      @required String type}) async {
+    return CreatePolicyResponse.fromJson({});
+  }
 
   /// Declines a handshake request. This sets the handshake state to `DECLINED`
   /// and effectively deactivates the request.
@@ -477,7 +683,17 @@ class OrganizationsApi {
   ///
   /// After you decline a handshake, it continues to appear in the results of
   /// relevant APIs for only 30 days. After that, it's deleted.
-  Future<void> declineHandshake(String handshakeId) async {}
+  ///
+  /// [handshakeId]: The unique identifier (ID) of the handshake that you want
+  /// to decline. You can get the ID from the ListHandshakesForAccount
+  /// operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  Future<DeclineHandshakeResponse> declineHandshake(String handshakeId) async {
+    return DeclineHandshakeResponse.fromJson({});
+  }
 
   /// Deletes the organization. You can delete an organization only by using
   /// credentials from the master account. The organization must be empty of
@@ -489,6 +705,15 @@ class OrganizationsApi {
   /// delete.
   ///
   /// This operation can be called only from the organization's master account.
+  ///
+  /// [organizationalUnitId]: The unique identifier (ID) of the organizational
+  /// unit that you want to delete. You can get the ID from the
+  /// ListOrganizationalUnitsForParent operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an organizational
+  /// unit ID string requires "ou-" followed by from 4 to 32 lower-case letters
+  /// or digits (the ID of the root that contains the OU) followed by a second
+  /// "-" dash and from 8 to 32 additional lower-case letters or digits.
   Future<void> deleteOrganizationalUnit(String organizationalUnitId) async {}
 
   /// Deletes the specified policy from your organization. Before you perform
@@ -496,20 +721,47 @@ class OrganizationsApi {
   /// units (OUs), roots, and accounts.
   ///
   /// This operation can be called only from the organization's master account.
+  ///
+  /// [policyId]: The unique identifier (ID) of the policy that you want to
+  /// delete. You can get the ID from the ListPolicies or ListPoliciesForTarget
+  /// operations.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
   Future<void> deletePolicy(String policyId) async {}
 
   /// Retrieves AWS Organizations-related information about the specified
   /// account.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> describeAccount(String accountId) async {}
+  ///
+  /// [accountId]: The unique identifier (ID) of the AWS account that you want
+  /// information about. You can get the ID from the ListAccounts or
+  /// ListAccountsForParent operations.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
+  /// string requires exactly 12 digits.
+  Future<DescribeAccountResponse> describeAccount(String accountId) async {
+    return DescribeAccountResponse.fromJson({});
+  }
 
   /// Retrieves the current status of an asynchronous request to create an
   /// account.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> describeCreateAccountStatus(
-      String createAccountRequestId) async {}
+  ///
+  /// [createAccountRequestId]: Specifies the `operationId` that uniquely
+  /// identifies the request. You can get the ID from the response to an earlier
+  /// CreateAccount request, or from the ListCreateAccountStatus operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a create account
+  /// request ID string requires "car-" followed by from 8 to 32 lower-case
+  /// letters or digits.
+  Future<DescribeCreateAccountStatusResponse> describeCreateAccountStatus(
+      String createAccountRequestId) async {
+    return DescribeCreateAccountStatusResponse.fromJson({});
+  }
 
   /// Retrieves information about a previously requested handshake. The
   /// handshake ID comes from the response to the original
@@ -520,7 +772,19 @@ class OrganizationsApi {
   /// no longer accessible.
   ///
   /// This operation can be called from any account in the organization.
-  Future<void> describeHandshake(String handshakeId) async {}
+  ///
+  /// [handshakeId]: The unique identifier (ID) of the handshake that you want
+  /// information about. You can get the ID from the original call to
+  /// InviteAccountToOrganization, or from a call to ListHandshakesForAccount or
+  /// ListHandshakesForOrganization.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  Future<DescribeHandshakeResponse> describeHandshake(
+      String handshakeId) async {
+    return DescribeHandshakeResponse.fromJson({});
+  }
 
   /// Retrieves information about the organization that the user's account
   /// belongs to.
@@ -532,17 +796,41 @@ class OrganizationsApi {
   /// Even if a policy type is shown as available in the organization, you can
   /// disable it separately at the root level with DisablePolicyType. Use
   /// ListRoots to see the status of policy types for a specified root.
-  Future<void> describeOrganization() async {}
+  Future<DescribeOrganizationResponse> describeOrganization() async {
+    return DescribeOrganizationResponse.fromJson({});
+  }
 
   /// Retrieves information about an organizational unit (OU).
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> describeOrganizationalUnit(String organizationalUnitId) async {}
+  ///
+  /// [organizationalUnitId]: The unique identifier (ID) of the organizational
+  /// unit that you want details about. You can get the ID from the
+  /// ListOrganizationalUnitsForParent operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an organizational
+  /// unit ID string requires "ou-" followed by from 4 to 32 lower-case letters
+  /// or digits (the ID of the root that contains the OU) followed by a second
+  /// "-" dash and from 8 to 32 additional lower-case letters or digits.
+  Future<DescribeOrganizationalUnitResponse> describeOrganizationalUnit(
+      String organizationalUnitId) async {
+    return DescribeOrganizationalUnitResponse.fromJson({});
+  }
 
   /// Retrieves information about a policy.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> describePolicy(String policyId) async {}
+  ///
+  /// [policyId]: The unique identifier (ID) of the policy that you want details
+  /// about. You can get the ID from the ListPolicies or ListPoliciesForTarget
+  /// operations.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
+  Future<DescribePolicyResponse> describePolicy(String policyId) async {
+    return DescribePolicyResponse.fromJson({});
+  }
 
   /// Detaches a policy from a target root, organizational unit (OU), or
   /// account. If the policy being detached is a service control policy (SCP),
@@ -563,6 +851,31 @@ class OrganizationsApi {
   /// .
   ///
   /// This operation can be called only from the organization's master account.
+  ///
+  /// [policyId]: The unique identifier (ID) of the policy you want to detach.
+  /// You can get the ID from the ListPolicies or ListPoliciesForTarget
+  /// operations.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
+  ///
+  /// [targetId]: The unique identifier (ID) of the root, OU, or account that
+  /// you want to detach the policy from. You can get the ID from the ListRoots,
+  /// ListOrganizationalUnitsForParent, or ListAccounts operations.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Account** \- A string that consists of exactly 12 digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
   Future<void> detachPolicy(
       {@required String policyId, @required String targetId}) async {}
 
@@ -597,6 +910,11 @@ class OrganizationsApi {
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account.
+  ///
+  /// [servicePrincipal]: The service principal name of the AWS service for
+  /// which you want to disable integration with your organization. This is
+  /// typically in the form of a URL, such as
+  /// `_service-abbreviation_.amazonaws.com`.
   Future<void> disableAwsServiceAccess(String servicePrincipal) async {}
 
   /// Disables an organizational control policy type in a root. A policy of a
@@ -618,8 +936,18 @@ class OrganizationsApi {
   ///
   ///  To view the status of available policy types in the organization, use
   /// DescribeOrganization.
-  Future<void> disablePolicyType(
-      {@required String rootId, @required String policyType}) async {}
+  ///
+  /// [rootId]: The unique identifier (ID) of the root in which you want to
+  /// disable a policy type. You can get the ID from the ListRoots operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a root ID string
+  /// requires "r-" followed by from 4 to 32 lower-case letters or digits.
+  ///
+  /// [policyType]: The policy type that you want to disable in this root.
+  Future<DisablePolicyTypeResponse> disablePolicyType(
+      {@required String rootId, @required String policyType}) async {
+    return DisablePolicyTypeResponse.fromJson({});
+  }
 
   /// Enables the integration of an AWS service (the service that is specified
   /// by `ServicePrincipal`) with AWS Organizations. When you enable
@@ -644,6 +972,11 @@ class OrganizationsApi {
   /// This operation can be called only from the organization's master account
   /// and only if the organization has [enabled all
   /// features](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html).
+  ///
+  /// [servicePrincipal]: The service principal name of the AWS service for
+  /// which you want to enable integration with your organization. This is
+  /// typically in the form of a URL, such as
+  /// `_service-abbreviation_.amazonaws.com`.
   Future<void> enableAwsServiceAccess(String servicePrincipal) async {}
 
   /// Enables all features in an organization. This enables the use of
@@ -679,7 +1012,9 @@ class OrganizationsApi {
   /// this.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> enableAllFeatures() async {}
+  Future<EnableAllFeaturesResponse> enableAllFeatures() async {
+    return EnableAllFeaturesResponse.fromJson({});
+  }
 
   /// Enables a policy type in a root. After you enable a policy type in a root,
   /// you can attach policies of that type to the root, any organizational unit
@@ -695,8 +1030,18 @@ class OrganizationsApi {
   /// You can enable a policy type in a root only if that policy type is
   /// available in the organization. To view the status of available policy
   /// types in the organization, use DescribeOrganization.
-  Future<void> enablePolicyType(
-      {@required String rootId, @required String policyType}) async {}
+  ///
+  /// [rootId]: The unique identifier (ID) of the root in which you want to
+  /// enable a policy type. You can get the ID from the ListRoots operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a root ID string
+  /// requires "r-" followed by from 4 to 32 lower-case letters or digits.
+  ///
+  /// [policyType]: The policy type that you want to enable.
+  Future<EnablePolicyTypeResponse> enablePolicyType(
+      {@required String rootId, @required String policyType}) async {
+    return EnablePolicyTypeResponse.fromJson({});
+  }
 
   /// Sends an invitation to another account to join your organization as a
   /// member account. AWS Organizations sends email on your behalf to the email
@@ -718,8 +1063,31 @@ class OrganizationsApi {
   /// Support](https://console.aws.amazon.com/support/home#/).
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> inviteAccountToOrganization(HandshakeParty target,
-      {String notes}) async {}
+  ///
+  /// [target]: The identifier (ID) of the AWS account that you want to invite
+  /// to join your organization. This is a JSON object that contains the
+  /// following elements:
+  ///
+  ///  `{ "Type": "ACCOUNT", "Id": "< _**account id number**_ >" }`
+  ///
+  /// If you use the AWS CLI, you can submit this as a single string, similar to
+  /// the following example:
+  ///
+  ///  `--target Id=123456789012,Type=ACCOUNT`
+  ///
+  /// If you specify `"Type": "ACCOUNT"`, you must provide the AWS account ID
+  /// number as the `Id`. If you specify `"Type": "EMAIL"`, you must specify the
+  /// email address that is associated with the account.
+  ///
+  ///  `--target Id=diego@example.com,Type=EMAIL`
+  ///
+  /// [notes]: Additional information that you want to include in the generated
+  /// email to the recipient account owner.
+  Future<InviteAccountToOrganizationResponse> inviteAccountToOrganization(
+      HandshakeParty target,
+      {String notes}) async {
+    return InviteAccountToOrganizationResponse.fromJson({});
+  }
 
   /// Removes a member account from its parent organization. This version of the
   /// operation is performed by the account that wants to leave. To remove a
@@ -770,8 +1138,27 @@ class OrganizationsApi {
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listAwsServiceAccessForOrganization(
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListAwsServiceAccessForOrganizationResponse>
+      listAwsServiceAccessForOrganization(
+          {String nextToken, int maxResults}) async {
+    return ListAwsServiceAccessForOrganizationResponse.fromJson({});
+  }
 
   /// Lists all the accounts in the organization. To request only the accounts
   /// in a specified root or organizational unit (OU), use the
@@ -784,7 +1171,26 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listAccounts({String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListAccountsResponse> listAccounts(
+      {String nextToken, int maxResults}) async {
+    return ListAccountsResponse.fromJson({});
+  }
 
   /// Lists the accounts in an organization that are contained by the specified
   /// target root or organizational unit (OU). If you specify the root, you get
@@ -800,8 +1206,29 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listAccountsForParent(String parentId,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [parentId]: The unique identifier (ID) for the parent root or organization
+  /// unit (OU) whose accounts you want to list.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListAccountsForParentResponse> listAccountsForParent(String parentId,
+      {String nextToken, int maxResults}) async {
+    return ListAccountsForParentResponse.fromJson({});
+  }
 
   /// Lists all of the organizational units (OUs) or accounts that are contained
   /// in the specified parent OU or root. This operation, along with ListParents
@@ -814,11 +1241,45 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listChildren(
+  ///
+  /// [parentId]: The unique identifier (ID) for the parent root or OU whose
+  /// children you want to list.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
+  ///
+  /// [childType]: Filters the output to include only the specified child type.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListChildrenResponse> listChildren(
       {@required String parentId,
       @required String childType,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListChildrenResponse.fromJson({});
+  }
 
   /// Lists the account creation requests that match the specified status that
   /// is currently being tracked for the organization.
@@ -830,8 +1291,30 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listCreateAccountStatus(
-      {List<String> states, String nextToken, int maxResults}) async {}
+  ///
+  /// [states]: A list of one or more states that you want included in the
+  /// response. If this parameter isn't present, all requests are included in
+  /// the response.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListCreateAccountStatusResponse> listCreateAccountStatus(
+      {List<String> states, String nextToken, int maxResults}) async {
+    return ListCreateAccountStatusResponse.fromJson({});
+  }
 
   /// Lists the current handshakes that are associated with the account of the
   /// requesting user.
@@ -847,8 +1330,34 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called from any account in the organization.
-  Future<void> listHandshakesForAccount(
-      {HandshakeFilter filter, String nextToken, int maxResults}) async {}
+  ///
+  /// [filter]: Filters the handshakes that you want included in the response.
+  /// The default is all types. Use the `ActionType` element to limit the output
+  /// to only a specified type, such as `INVITE`, `ENABLE\_ALL\_FEATURES`, or
+  /// `APPROVE\_ALL\_FEATURES`. Alternatively, for the `ENABLE\_ALL\_FEATURES`
+  /// handshake that generates a separate child handshake for each member
+  /// account, you can specify `ParentHandshakeId` to see only the handshakes
+  /// that were generated by that parent request.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListHandshakesForAccountResponse> listHandshakesForAccount(
+      {HandshakeFilter filter, String nextToken, int maxResults}) async {
+    return ListHandshakesForAccountResponse.fromJson({});
+  }
 
   /// Lists the handshakes that are associated with the organization that the
   /// requesting user is part of. The `ListHandshakesForOrganization` operation
@@ -866,8 +1375,34 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listHandshakesForOrganization(
-      {HandshakeFilter filter, String nextToken, int maxResults}) async {}
+  ///
+  /// [filter]: A filter of the handshakes that you want included in the
+  /// response. The default is all types. Use the `ActionType` element to limit
+  /// the output to only a specified type, such as `INVITE`,
+  /// `ENABLE-ALL-FEATURES`, or `APPROVE-ALL-FEATURES`. Alternatively, for the
+  /// `ENABLE-ALL-FEATURES` handshake that generates a separate child handshake
+  /// for each member account, you can specify the `ParentHandshakeId` to see
+  /// only the handshakes that were generated by that parent request.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListHandshakesForOrganizationResponse> listHandshakesForOrganization(
+      {HandshakeFilter filter, String nextToken, int maxResults}) async {
+    return ListHandshakesForOrganizationResponse.fromJson({});
+  }
 
   /// Lists the organizational units (OUs) in a parent organizational unit or
   /// root.
@@ -879,8 +1414,41 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listOrganizationalUnitsForParent(String parentId,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [parentId]: The unique identifier (ID) of the root or OU whose child OUs
+  /// you want to list.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListOrganizationalUnitsForParentResponse>
+      listOrganizationalUnitsForParent(String parentId,
+          {String nextToken, int maxResults}) async {
+    return ListOrganizationalUnitsForParentResponse.fromJson({});
+  }
 
   /// Lists the root or organizational units (OUs) that serve as the immediate
   /// parent of the specified child OU or account. This operation, along with
@@ -898,8 +1466,39 @@ class OrganizationsApi {
   ///
   ///
   /// In the current release, a child can have only a single parent.
-  Future<void> listParents(String childId,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [childId]: The unique identifier (ID) of the OU or account whose parent
+  /// containers you want to list. Don't specify a root.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a child ID string
+  /// requires one of the following:
+  ///
+  /// *    **Account** \- A string that consists of exactly 12 digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that contains the OU) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListParentsResponse> listParents(String childId,
+      {String nextToken, int maxResults}) async {
+    return ListParentsResponse.fromJson({});
+  }
 
   /// Retrieves the list of all policies in an organization of a specified type.
   ///
@@ -910,8 +1509,29 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listPolicies(String filter,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [filter]: Specifies the type of policy that you want to include in the
+  /// response.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListPoliciesResponse> listPolicies(String filter,
+      {String nextToken, int maxResults}) async {
+    return ListPoliciesResponse.fromJson({});
+  }
 
   /// Lists the policies that are directly attached to the specified target
   /// root, organizational unit (OU), or account. You must specify the policy
@@ -924,11 +1544,48 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listPoliciesForTarget(
+  ///
+  /// [targetId]: The unique identifier (ID) of the root, organizational unit,
+  /// or account whose policies you want to list.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Account** \- A string that consists of exactly 12 digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
+  ///
+  /// [filter]: The type of policy that you want to include in the returned
+  /// list.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListPoliciesForTargetResponse> listPoliciesForTarget(
       {@required String targetId,
       @required String filter,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListPoliciesForTargetResponse.fromJson({});
+  }
 
   /// Lists the roots that are defined in the current organization.
   ///
@@ -948,13 +1605,41 @@ class OrganizationsApi {
   /// Individual policy types can then be enabled and disabled in a root. To see
   /// the availability of a policy type in an organization, use
   /// DescribeOrganization.
-  Future<void> listRoots({String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListRootsResponse> listRoots(
+      {String nextToken, int maxResults}) async {
+    return ListRootsResponse.fromJson({});
+  }
 
   /// Lists tags for the specified resource.
   ///
   /// Currently, you can list tags on an account in AWS Organizations.
-  Future<void> listTagsForResource(String resourceId,
-      {String nextToken}) async {}
+  ///
+  /// [resourceId]: The ID of the resource that you want to retrieve tags for.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  Future<ListTagsForResourceResponse> listTagsForResource(String resourceId,
+      {String nextToken}) async {
+    return ListTagsForResourceResponse.fromJson({});
+  }
 
   /// Lists all the roots, organizational units (OUs), and accounts that the
   /// specified policy is attached to.
@@ -966,13 +1651,72 @@ class OrganizationsApi {
   /// more results to display.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> listTargetsForPolicy(String policyId,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [policyId]: The unique identifier (ID) of the policy whose attachments you
+  /// want to know.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
+  ///
+  /// [nextToken]: Use this parameter if you receive a `NextToken` response in a
+  /// previous request that indicates that there is more output available. Set
+  /// it to the value of the previous call's `NextToken` response to indicate
+  /// where the output should continue from.
+  ///
+  /// [maxResults]: (Optional) Use this to limit the number of results you want
+  /// included per page in the response. If you do not include this parameter,
+  /// it defaults to a value that is specific to the operation. If additional
+  /// items exist beyond the maximum you specify, the `NextToken` response
+  /// element is present and has a value (is not null). Include that value as
+  /// the `NextToken` request parameter in the next call to the operation to get
+  /// the next part of the results. Note that Organizations might return fewer
+  /// results than the maximum even when there are more results available. You
+  /// should check `NextToken` after every operation to ensure that you receive
+  /// all of the results.
+  Future<ListTargetsForPolicyResponse> listTargetsForPolicy(String policyId,
+      {String nextToken, int maxResults}) async {
+    return ListTargetsForPolicyResponse.fromJson({});
+  }
 
   /// Moves an account from its current source parent root or organizational
   /// unit (OU) to the specified destination parent root or OU.
   ///
   /// This operation can be called only from the organization's master account.
+  ///
+  /// [accountId]: The unique identifier (ID) of the account that you want to
+  /// move.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
+  /// string requires exactly 12 digits.
+  ///
+  /// [sourceParentId]: The unique identifier (ID) of the root or organizational
+  /// unit that you want to move the account from.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
+  ///
+  /// [destinationParentId]: The unique identifier (ID) of the root or
+  /// organizational unit that you want to move the account to.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
+  /// string requires one of the following:
+  ///
+  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
+  /// that the OU is in) followed by a second "-" dash and from 8 to 32
+  /// additional lower-case letters or digits.
   Future<void> moveAccount(
       {@required String accountId,
       @required String sourceParentId,
@@ -1006,17 +1750,33 @@ class OrganizationsApi {
   /// required account information has not yet been
   /// provided](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
   /// in the _AWS Organizations User Guide._
+  ///
+  /// [accountId]: The unique identifier (ID) of the member account that you
+  /// want to remove from the organization.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
+  /// string requires exactly 12 digits.
   Future<void> removeAccountFromOrganization(String accountId) async {}
 
   /// Adds one or more tags to the specified resource.
   ///
   /// Currently, you can tag and untag accounts in AWS Organizations.
+  ///
+  /// [resourceId]: The ID of the resource to add a tag to.
+  ///
+  /// [tags]: The tag to add to the specified resource. Specifying the tag key
+  /// is required. You can set the value of a tag to an empty string, but you
+  /// can't set the value of a tag to null.
   Future<void> tagResource(
       {@required String resourceId, @required List<Tag> tags}) async {}
 
   /// Removes a tag from the specified resource.
   ///
   /// Currently, you can tag and untag accounts in AWS Organizations.
+  ///
+  /// [resourceId]: The ID of the resource to remove the tag from.
+  ///
+  /// [tagKeys]: The tag to remove from the specified resource.
   Future<void> untagResource(
       {@required String resourceId, @required List<String> tagKeys}) async {}
 
@@ -1025,116 +1785,1205 @@ class OrganizationsApi {
   /// policies of the OU remain attached.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> updateOrganizationalUnit(String organizationalUnitId,
-      {String name}) async {}
+  ///
+  /// [organizationalUnitId]: The unique identifier (ID) of the OU that you want
+  /// to rename. You can get the ID from the ListOrganizationalUnitsForParent
+  /// operation.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an organizational
+  /// unit ID string requires "ou-" followed by from 4 to 32 lower-case letters
+  /// or digits (the ID of the root that contains the OU) followed by a second
+  /// "-" dash and from 8 to 32 additional lower-case letters or digits.
+  ///
+  /// [name]: The new name that you want to assign to the OU.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  Future<UpdateOrganizationalUnitResponse> updateOrganizationalUnit(
+      String organizationalUnitId,
+      {String name}) async {
+    return UpdateOrganizationalUnitResponse.fromJson({});
+  }
 
   /// Updates an existing policy with a new name, description, or content. If
   /// you don't supply any parameter, that value remains unchanged. You can't
   /// change a policy's type.
   ///
   /// This operation can be called only from the organization's master account.
-  Future<void> updatePolicy(String policyId,
-      {String name, String description, String content}) async {}
+  ///
+  /// [policyId]: The unique identifier (ID) of the policy that you want to
+  /// update.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
+  ///
+  /// [name]: If provided, the new name for the policy.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  ///
+  /// [description]: If provided, the new description for the policy.
+  ///
+  /// [content]: If provided, the new content for the policy. The text must be
+  /// correctly formatted JSON that complies with the syntax for the policy's
+  /// type. For more information, see [Service Control Policy
+  /// Syntax](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html)
+  /// in the _AWS Organizations User Guide._
+  Future<UpdatePolicyResponse> updatePolicy(String policyId,
+      {String name, String description, String content}) async {
+    return UpdatePolicyResponse.fromJson({});
+  }
 }
 
-class AcceptHandshakeResponse {}
+class AcceptHandshakeResponse {
+  /// A structure that contains details about the accepted handshake.
+  final Handshake handshake;
 
-class Account {}
+  AcceptHandshakeResponse({
+    this.handshake,
+  });
+  static AcceptHandshakeResponse fromJson(Map<String, dynamic> json) =>
+      AcceptHandshakeResponse();
+}
 
-class CancelHandshakeResponse {}
+class Account {
+  /// The unique identifier (ID) of the account.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
+  /// string requires exactly 12 digits.
+  final String id;
 
-class Child {}
+  /// The Amazon Resource Name (ARN) of the account.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
 
-class CreateAccountResponse {}
+  /// The email address associated with the AWS account.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for this parameter is
+  /// a string of characters that represents a standard Internet email address.
+  final String email;
 
-class CreateAccountStatus {}
+  /// The friendly name of the account.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  final String name;
 
-class CreateGovCloudAccountResponse {}
+  /// The status of the account in the organization.
+  final String status;
 
-class CreateOrganizationResponse {}
+  /// The method by which the account joined the organization.
+  final String joinedMethod;
 
-class CreateOrganizationalUnitResponse {}
+  /// The date the account became a part of the organization.
+  final DateTime joinedTimestamp;
 
-class CreatePolicyResponse {}
+  Account({
+    this.id,
+    this.arn,
+    this.email,
+    this.name,
+    this.status,
+    this.joinedMethod,
+    this.joinedTimestamp,
+  });
+  static Account fromJson(Map<String, dynamic> json) => Account();
+}
 
-class DeclineHandshakeResponse {}
+class CancelHandshakeResponse {
+  /// A structure that contains details about the handshake that you canceled.
+  final Handshake handshake;
 
-class DescribeAccountResponse {}
+  CancelHandshakeResponse({
+    this.handshake,
+  });
+  static CancelHandshakeResponse fromJson(Map<String, dynamic> json) =>
+      CancelHandshakeResponse();
+}
 
-class DescribeCreateAccountStatusResponse {}
+class Child {
+  /// The unique identifier (ID) of this child entity.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a child ID string
+  /// requires one of the following:
+  ///
+  /// *   Account: a string that consists of exactly 12 digits.
+  ///
+  /// *   Organizational unit (OU): a string that begins with "ou-" followed by
+  /// from 4 to 32 lower-case letters or digits (the ID of the root that
+  /// contains the OU) followed by a second "-" dash and from 8 to 32 additional
+  /// lower-case letters or digits.
+  final String id;
 
-class DescribeHandshakeResponse {}
+  /// The type of this child entity.
+  final String type;
 
-class DescribeOrganizationResponse {}
+  Child({
+    this.id,
+    this.type,
+  });
+  static Child fromJson(Map<String, dynamic> json) => Child();
+}
 
-class DescribeOrganizationalUnitResponse {}
+class CreateAccountResponse {
+  /// A structure that contains details about the request to create an account.
+  /// This response structure might not be fully populated when you first
+  /// receive it because account creation is an asynchronous process. You can
+  /// pass the returned `CreateAccountStatus` ID as a parameter to
+  /// DescribeCreateAccountStatus to get status about the progress of the
+  /// request at later times. You can also check the AWS CloudTrail log for the
+  /// `CreateAccountResult` event. For more information, see [Monitoring the
+  /// Activity in Your
+  /// Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
+  /// in the _AWS Organizations User Guide_.
+  final CreateAccountStatus createAccountStatus;
 
-class DescribePolicyResponse {}
+  CreateAccountResponse({
+    this.createAccountStatus,
+  });
+  static CreateAccountResponse fromJson(Map<String, dynamic> json) =>
+      CreateAccountResponse();
+}
 
-class DisablePolicyTypeResponse {}
+class CreateAccountStatus {
+  /// The unique identifier (ID) that references this request. You get this
+  /// value from the response of the initial CreateAccount request to create the
+  /// account.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an create account
+  /// request ID string requires "car-" followed by from 8 to 32 lower-case
+  /// letters or digits.
+  final String id;
 
-class EnableAllFeaturesResponse {}
+  /// The account name given to the account when it was created.
+  final String accountName;
 
-class EnablePolicyTypeResponse {}
+  /// The status of the request.
+  final String state;
 
-class EnabledServicePrincipal {}
+  /// The date and time that the request was made for the account creation.
+  final DateTime requestedTimestamp;
 
-class Handshake {}
+  /// The date and time that the account was created and the request completed.
+  final DateTime completedTimestamp;
 
-class HandshakeFilter {}
+  /// If the account was created successfully, the unique identifier (ID) of the
+  /// new account.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
+  /// string requires exactly 12 digits.
+  final String accountId;
 
-class HandshakeParty {}
+  /// If the account was created successfully, the unique identifier (ID) of the
+  /// new account in the AWS GovCloud (US) Region.
+  final String govCloudAccountId;
 
-class HandshakeResource {}
+  /// If the request failed, a description of the reason for the failure.
+  ///
+  /// *   ACCOUNT\_LIMIT\_EXCEEDED: The account could not be created because you
+  /// have reached the limit on the number of accounts in your organization.
+  ///
+  /// *   EMAIL\_ALREADY\_EXISTS: The account could not be created because
+  /// another AWS account with that email address already exists.
+  ///
+  /// *   INVALID_ADDRESS: The account could not be created because the address
+  /// you provided is not valid.
+  ///
+  /// *   INVALID_EMAIL: The account could not be created because the email
+  /// address you provided is not valid.
+  ///
+  /// *   INTERNAL_FAILURE: The account could not be created because of an
+  /// internal failure. Try again later. If the problem persists, contact
+  /// Customer Support.
+  final String failureReason;
 
-class InviteAccountToOrganizationResponse {}
+  CreateAccountStatus({
+    this.id,
+    this.accountName,
+    this.state,
+    this.requestedTimestamp,
+    this.completedTimestamp,
+    this.accountId,
+    this.govCloudAccountId,
+    this.failureReason,
+  });
+  static CreateAccountStatus fromJson(Map<String, dynamic> json) =>
+      CreateAccountStatus();
+}
 
-class ListAwsServiceAccessForOrganizationResponse {}
+class CreateGovCloudAccountResponse {
+  final CreateAccountStatus createAccountStatus;
 
-class ListAccountsForParentResponse {}
+  CreateGovCloudAccountResponse({
+    this.createAccountStatus,
+  });
+  static CreateGovCloudAccountResponse fromJson(Map<String, dynamic> json) =>
+      CreateGovCloudAccountResponse();
+}
 
-class ListAccountsResponse {}
+class CreateOrganizationResponse {
+  /// A structure that contains details about the newly created organization.
+  final Organization organization;
 
-class ListChildrenResponse {}
+  CreateOrganizationResponse({
+    this.organization,
+  });
+  static CreateOrganizationResponse fromJson(Map<String, dynamic> json) =>
+      CreateOrganizationResponse();
+}
 
-class ListCreateAccountStatusResponse {}
+class CreateOrganizationalUnitResponse {
+  /// A structure that contains details about the newly created OU.
+  final OrganizationalUnit organizationalUnit;
 
-class ListHandshakesForAccountResponse {}
+  CreateOrganizationalUnitResponse({
+    this.organizationalUnit,
+  });
+  static CreateOrganizationalUnitResponse fromJson(Map<String, dynamic> json) =>
+      CreateOrganizationalUnitResponse();
+}
 
-class ListHandshakesForOrganizationResponse {}
+class CreatePolicyResponse {
+  /// A structure that contains details about the newly created policy.
+  final Policy policy;
 
-class ListOrganizationalUnitsForParentResponse {}
+  CreatePolicyResponse({
+    this.policy,
+  });
+  static CreatePolicyResponse fromJson(Map<String, dynamic> json) =>
+      CreatePolicyResponse();
+}
 
-class ListParentsResponse {}
+class DeclineHandshakeResponse {
+  /// A structure that contains details about the declined handshake. The state
+  /// is updated to show the value `DECLINED`.
+  final Handshake handshake;
 
-class ListPoliciesForTargetResponse {}
+  DeclineHandshakeResponse({
+    this.handshake,
+  });
+  static DeclineHandshakeResponse fromJson(Map<String, dynamic> json) =>
+      DeclineHandshakeResponse();
+}
 
-class ListPoliciesResponse {}
+class DescribeAccountResponse {
+  /// A structure that contains information about the requested account.
+  final Account account;
 
-class ListRootsResponse {}
+  DescribeAccountResponse({
+    this.account,
+  });
+  static DescribeAccountResponse fromJson(Map<String, dynamic> json) =>
+      DescribeAccountResponse();
+}
 
-class ListTagsForResourceResponse {}
+class DescribeCreateAccountStatusResponse {
+  /// A structure that contains the current status of an account creation
+  /// request.
+  final CreateAccountStatus createAccountStatus;
 
-class ListTargetsForPolicyResponse {}
+  DescribeCreateAccountStatusResponse({
+    this.createAccountStatus,
+  });
+  static DescribeCreateAccountStatusResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeCreateAccountStatusResponse();
+}
 
-class Organization {}
+class DescribeHandshakeResponse {
+  /// A structure that contains information about the specified handshake.
+  final Handshake handshake;
 
-class OrganizationalUnit {}
+  DescribeHandshakeResponse({
+    this.handshake,
+  });
+  static DescribeHandshakeResponse fromJson(Map<String, dynamic> json) =>
+      DescribeHandshakeResponse();
+}
 
-class Parent {}
+class DescribeOrganizationResponse {
+  /// A structure that contains information about the organization.
+  final Organization organization;
 
-class Policy {}
+  DescribeOrganizationResponse({
+    this.organization,
+  });
+  static DescribeOrganizationResponse fromJson(Map<String, dynamic> json) =>
+      DescribeOrganizationResponse();
+}
 
-class PolicySummary {}
+class DescribeOrganizationalUnitResponse {
+  /// A structure that contains details about the specified OU.
+  final OrganizationalUnit organizationalUnit;
 
-class PolicyTargetSummary {}
+  DescribeOrganizationalUnitResponse({
+    this.organizationalUnit,
+  });
+  static DescribeOrganizationalUnitResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeOrganizationalUnitResponse();
+}
 
-class PolicyTypeSummary {}
+class DescribePolicyResponse {
+  /// A structure that contains details about the specified policy.
+  final Policy policy;
 
-class Root {}
+  DescribePolicyResponse({
+    this.policy,
+  });
+  static DescribePolicyResponse fromJson(Map<String, dynamic> json) =>
+      DescribePolicyResponse();
+}
 
-class Tag {}
+class DisablePolicyTypeResponse {
+  /// A structure that shows the root with the updated list of enabled policy
+  /// types.
+  final Root root;
 
-class UpdateOrganizationalUnitResponse {}
+  DisablePolicyTypeResponse({
+    this.root,
+  });
+  static DisablePolicyTypeResponse fromJson(Map<String, dynamic> json) =>
+      DisablePolicyTypeResponse();
+}
 
-class UpdatePolicyResponse {}
+class EnableAllFeaturesResponse {
+  /// A structure that contains details about the handshake created to support
+  /// this request to enable all features in the organization.
+  final Handshake handshake;
+
+  EnableAllFeaturesResponse({
+    this.handshake,
+  });
+  static EnableAllFeaturesResponse fromJson(Map<String, dynamic> json) =>
+      EnableAllFeaturesResponse();
+}
+
+class EnablePolicyTypeResponse {
+  /// A structure that shows the root with the updated list of enabled policy
+  /// types.
+  final Root root;
+
+  EnablePolicyTypeResponse({
+    this.root,
+  });
+  static EnablePolicyTypeResponse fromJson(Map<String, dynamic> json) =>
+      EnablePolicyTypeResponse();
+}
+
+class EnabledServicePrincipal {
+  /// The name of the service principal. This is typically in the form of a URL,
+  /// such as:  `_servicename_.amazonaws.com`.
+  final String servicePrincipal;
+
+  /// The date that the service principal was enabled for integration with AWS
+  /// Organizations.
+  final DateTime dateEnabled;
+
+  EnabledServicePrincipal({
+    this.servicePrincipal,
+    this.dateEnabled,
+  });
+  static EnabledServicePrincipal fromJson(Map<String, dynamic> json) =>
+      EnabledServicePrincipal();
+}
+
+class Handshake {
+  /// The unique identifier (ID) of a handshake. The originating account creates
+  /// the ID when it initiates the handshake.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of a handshake.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
+
+  /// Information about the two accounts that are participating in the
+  /// handshake.
+  final List<HandshakeParty> parties;
+
+  /// The current state of the handshake. Use the state to trace the flow of the
+  /// handshake through the process from its creation to its acceptance. The
+  /// meaning of each of the valid values is as follows:
+  ///
+  /// *    **REQUESTED**: This handshake was sent to multiple recipients
+  /// (applicable to only some handshake types) and not all recipients have
+  /// responded yet. The request stays in this state until all recipients
+  /// respond.
+  ///
+  /// *    **OPEN**: This handshake was sent to multiple recipients (applicable
+  /// to only some policy types) and all recipients have responded, allowing the
+  /// originator to complete the handshake action.
+  ///
+  /// *    **CANCELED**: This handshake is no longer active because it was
+  /// canceled by the originating account.
+  ///
+  /// *    **ACCEPTED**: This handshake is complete because it has been accepted
+  /// by the recipient.
+  ///
+  /// *    **DECLINED**: This handshake is no longer active because it was
+  /// declined by the recipient account.
+  ///
+  /// *    **EXPIRED**: This handshake is no longer active because the
+  /// originator did not receive a response of any kind from the recipient
+  /// before the expiration time (15 days).
+  final String state;
+
+  /// The date and time that the handshake request was made.
+  final DateTime requestedTimestamp;
+
+  /// The date and time that the handshake expires. If the recipient of the
+  /// handshake request fails to respond before the specified date and time, the
+  /// handshake becomes inactive and is no longer valid.
+  final DateTime expirationTimestamp;
+
+  /// The type of handshake, indicating what action occurs when the recipient
+  /// accepts the handshake. The following handshake types are supported:
+  ///
+  /// *    **INVITE**: This type of handshake represents a request to join an
+  /// organization. It is always sent from the master account to only non-member
+  /// accounts.
+  ///
+  /// *    **ENABLE\_ALL\_FEATURES**: This type of handshake represents a
+  /// request to enable all features in an organization. It is always sent from
+  /// the master account to only _invited_ member accounts. Created accounts do
+  /// not receive this because those accounts were created by the organization's
+  /// master account and approval is inferred.
+  ///
+  /// *    **APPROVE\_ALL\_FEATURES**: This type of handshake is sent from the
+  /// Organizations service when all member accounts have approved the
+  /// `ENABLE\_ALL\_FEATURES` invitation. It is sent only to the master account
+  /// and signals the master that it can finalize the process to enable all
+  /// features.
+  final String action;
+
+  /// Additional information that is needed to process the handshake.
+  final List<HandshakeResource> resources;
+
+  Handshake({
+    this.id,
+    this.arn,
+    this.parties,
+    this.state,
+    this.requestedTimestamp,
+    this.expirationTimestamp,
+    this.action,
+    this.resources,
+  });
+  static Handshake fromJson(Map<String, dynamic> json) => Handshake();
+}
+
+class HandshakeFilter {
+  /// Specifies the type of handshake action.
+  ///
+  /// If you specify `ActionType`, you cannot also specify `ParentHandshakeId`.
+  final String actionType;
+
+  /// Specifies the parent handshake. Only used for handshake types that are a
+  /// child of another type.
+  ///
+  /// If you specify `ParentHandshakeId`, you cannot also specify `ActionType`.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  final String parentHandshakeId;
+
+  HandshakeFilter({
+    this.actionType,
+    this.parentHandshakeId,
+  });
+}
+
+class HandshakeParty {
+  /// The unique identifier (ID) for the party.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for handshake ID
+  /// string requires "h-" followed by from 8 to 32 lower-case letters or
+  /// digits.
+  final String id;
+
+  /// The type of party.
+  final String type;
+
+  HandshakeParty({
+    @required this.id,
+    @required this.type,
+  });
+  static HandshakeParty fromJson(Map<String, dynamic> json) => HandshakeParty();
+}
+
+class HandshakeResource {
+  /// The information that is passed to the other party in the handshake. The
+  /// format of the value string must match the requirements of the specified
+  /// type.
+  final String value;
+
+  /// The type of information being passed, specifying how the value is to be
+  /// interpreted by the other party:
+  ///
+  /// *    `ACCOUNT` \- Specifies an AWS account ID number.
+  ///
+  /// *    `ORGANIZATION` \- Specifies an organization ID number.
+  ///
+  /// *    `EMAIL` \- Specifies the email address that is associated with the
+  /// account that receives the handshake.
+  ///
+  /// *    `OWNER_EMAIL` \- Specifies the email address associated with the
+  /// master account. Included as information about an organization.
+  ///
+  /// *    `OWNER_NAME` \- Specifies the name associated with the master
+  /// account. Included as information about an organization.
+  ///
+  /// *    `NOTES` \- Additional text provided by the handshake initiator and
+  /// intended for the recipient to read.
+  final String type;
+
+  /// When needed, contains an additional array of `HandshakeResource` objects.
+  final List<HandshakeResource> resources;
+
+  HandshakeResource({
+    this.value,
+    this.type,
+    this.resources,
+  });
+  static HandshakeResource fromJson(Map<String, dynamic> json) =>
+      HandshakeResource();
+}
+
+class InviteAccountToOrganizationResponse {
+  /// A structure that contains details about the handshake that is created to
+  /// support this invitation request.
+  final Handshake handshake;
+
+  InviteAccountToOrganizationResponse({
+    this.handshake,
+  });
+  static InviteAccountToOrganizationResponse fromJson(
+          Map<String, dynamic> json) =>
+      InviteAccountToOrganizationResponse();
+}
+
+class ListAwsServiceAccessForOrganizationResponse {
+  /// A list of the service principals for the services that are enabled to
+  /// integrate with your organization. Each principal is a structure that
+  /// includes the name and the date that it was enabled for integration with
+  /// AWS Organizations.
+  final List<EnabledServicePrincipal> enabledServicePrincipals;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListAwsServiceAccessForOrganizationResponse({
+    this.enabledServicePrincipals,
+    this.nextToken,
+  });
+  static ListAwsServiceAccessForOrganizationResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListAwsServiceAccessForOrganizationResponse();
+}
+
+class ListAccountsForParentResponse {
+  /// A list of the accounts in the specified root or OU.
+  final List<Account> accounts;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListAccountsForParentResponse({
+    this.accounts,
+    this.nextToken,
+  });
+  static ListAccountsForParentResponse fromJson(Map<String, dynamic> json) =>
+      ListAccountsForParentResponse();
+}
+
+class ListAccountsResponse {
+  /// A list of objects in the organization.
+  final List<Account> accounts;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListAccountsResponse({
+    this.accounts,
+    this.nextToken,
+  });
+  static ListAccountsResponse fromJson(Map<String, dynamic> json) =>
+      ListAccountsResponse();
+}
+
+class ListChildrenResponse {
+  /// The list of children of the specified parent container.
+  final List<Child> children;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListChildrenResponse({
+    this.children,
+    this.nextToken,
+  });
+  static ListChildrenResponse fromJson(Map<String, dynamic> json) =>
+      ListChildrenResponse();
+}
+
+class ListCreateAccountStatusResponse {
+  /// A list of objects with details about the requests. Certain elements, such
+  /// as the accountId number, are present in the output only after the account
+  /// has been successfully created.
+  final List<CreateAccountStatus> createAccountStatuses;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListCreateAccountStatusResponse({
+    this.createAccountStatuses,
+    this.nextToken,
+  });
+  static ListCreateAccountStatusResponse fromJson(Map<String, dynamic> json) =>
+      ListCreateAccountStatusResponse();
+}
+
+class ListHandshakesForAccountResponse {
+  /// A list of Handshake objects with details about each of the handshakes that
+  /// is associated with the specified account.
+  final List<Handshake> handshakes;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListHandshakesForAccountResponse({
+    this.handshakes,
+    this.nextToken,
+  });
+  static ListHandshakesForAccountResponse fromJson(Map<String, dynamic> json) =>
+      ListHandshakesForAccountResponse();
+}
+
+class ListHandshakesForOrganizationResponse {
+  /// A list of Handshake objects with details about each of the handshakes that
+  /// are associated with an organization.
+  final List<Handshake> handshakes;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListHandshakesForOrganizationResponse({
+    this.handshakes,
+    this.nextToken,
+  });
+  static ListHandshakesForOrganizationResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListHandshakesForOrganizationResponse();
+}
+
+class ListOrganizationalUnitsForParentResponse {
+  /// A list of the OUs in the specified root or parent OU.
+  final List<OrganizationalUnit> organizationalUnits;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListOrganizationalUnitsForParentResponse({
+    this.organizationalUnits,
+    this.nextToken,
+  });
+  static ListOrganizationalUnitsForParentResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListOrganizationalUnitsForParentResponse();
+}
+
+class ListParentsResponse {
+  /// A list of parents for the specified child account or OU.
+  final List<Parent> parents;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListParentsResponse({
+    this.parents,
+    this.nextToken,
+  });
+  static ListParentsResponse fromJson(Map<String, dynamic> json) =>
+      ListParentsResponse();
+}
+
+class ListPoliciesForTargetResponse {
+  /// The list of policies that match the criteria in the request.
+  final List<PolicySummary> policies;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListPoliciesForTargetResponse({
+    this.policies,
+    this.nextToken,
+  });
+  static ListPoliciesForTargetResponse fromJson(Map<String, dynamic> json) =>
+      ListPoliciesForTargetResponse();
+}
+
+class ListPoliciesResponse {
+  /// A list of policies that match the filter criteria in the request. The
+  /// output list doesn't include the policy contents. To see the content for a
+  /// policy, see DescribePolicy.
+  final List<PolicySummary> policies;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListPoliciesResponse({
+    this.policies,
+    this.nextToken,
+  });
+  static ListPoliciesResponse fromJson(Map<String, dynamic> json) =>
+      ListPoliciesResponse();
+}
+
+class ListRootsResponse {
+  /// A list of roots that are defined in an organization.
+  final List<Root> roots;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListRootsResponse({
+    this.roots,
+    this.nextToken,
+  });
+  static ListRootsResponse fromJson(Map<String, dynamic> json) =>
+      ListRootsResponse();
+}
+
+class ListTagsForResourceResponse {
+  /// The tags that are assigned to the resource.
+  final List<Tag> tags;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListTagsForResourceResponse({
+    this.tags,
+    this.nextToken,
+  });
+  static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
+      ListTagsForResourceResponse();
+}
+
+class ListTargetsForPolicyResponse {
+  /// A list of structures, each of which contains details about one of the
+  /// entities to which the specified policy is attached.
+  final List<PolicyTargetSummary> targets;
+
+  /// If present, this value indicates that there is more output available than
+  /// is included in the current response. Use this value in the `NextToken`
+  /// request parameter in a subsequent call to the operation to get the next
+  /// part of the output. You should repeat this until the `NextToken` response
+  /// element comes back as `null`.
+  final String nextToken;
+
+  ListTargetsForPolicyResponse({
+    this.targets,
+    this.nextToken,
+  });
+  static ListTargetsForPolicyResponse fromJson(Map<String, dynamic> json) =>
+      ListTargetsForPolicyResponse();
+}
+
+class Organization {
+  /// The unique identifier (ID) of an organization.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an organization
+  /// ID string requires "o-" followed by from 10 to 32 lower-case letters or
+  /// digits.
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of an organization.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
+
+  /// Specifies the functionality that currently is available to the
+  /// organization. If set to "ALL", then all features are enabled and policies
+  /// can be applied to accounts in the organization. If set to
+  /// "CONSOLIDATED_BILLING", then only consolidated billing functionality is
+  /// available. For more information, see [Enabling All Features in Your
+  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
+  /// in the _AWS Organizations User Guide_.
+  final String featureSet;
+
+  /// The Amazon Resource Name (ARN) of the account that is designated as the
+  /// master account for the organization.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String masterAccountArn;
+
+  /// The unique identifier (ID) of the master account of an organization.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
+  /// string requires exactly 12 digits.
+  final String masterAccountId;
+
+  /// The email address that is associated with the AWS account that is
+  /// designated as the master account for the organization.
+  final String masterAccountEmail;
+
+  /// A list of policy types that are enabled for this organization. For
+  /// example, if your organization has all features enabled, then service
+  /// control policies (SCPs) are included in the list.
+  ///
+  ///
+  ///
+  /// Even if a policy type is shown as available in the organization, you can
+  /// separately enable and disable them at the root level by using
+  /// EnablePolicyType and DisablePolicyType. Use ListRoots to see the status of
+  /// a policy type in that root.
+  final List<PolicyTypeSummary> availablePolicyTypes;
+
+  Organization({
+    this.id,
+    this.arn,
+    this.featureSet,
+    this.masterAccountArn,
+    this.masterAccountId,
+    this.masterAccountEmail,
+    this.availablePolicyTypes,
+  });
+  static Organization fromJson(Map<String, dynamic> json) => Organization();
+}
+
+class OrganizationalUnit {
+  /// The unique identifier (ID) associated with this OU.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for an organizational
+  /// unit ID string requires "ou-" followed by from 4 to 32 lower-case letters
+  /// or digits (the ID of the root that contains the OU) followed by a second
+  /// "-" dash and from 8 to 32 additional lower-case letters or digits.
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of this OU.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
+
+  /// The friendly name of this OU.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  final String name;
+
+  OrganizationalUnit({
+    this.id,
+    this.arn,
+    this.name,
+  });
+  static OrganizationalUnit fromJson(Map<String, dynamic> json) =>
+      OrganizationalUnit();
+}
+
+class Parent {
+  /// The unique identifier (ID) of the parent entity.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
+  /// string requires one of the following:
+  ///
+  /// *   Root: a string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *   Organizational unit (OU): a string that begins with "ou-" followed by
+  /// from 4 to 32 lower-case letters or digits (the ID of the root that the OU
+  /// is in) followed by a second "-" dash and from 8 to 32 additional
+  /// lower-case letters or digits.
+  final String id;
+
+  /// The type of the parent entity.
+  final String type;
+
+  Parent({
+    this.id,
+    this.type,
+  });
+  static Parent fromJson(Map<String, dynamic> json) => Parent();
+}
+
+class Policy {
+  /// A structure that contains additional details about the policy.
+  final PolicySummary policySummary;
+
+  /// The text content of the policy.
+  final String content;
+
+  Policy({
+    this.policySummary,
+    this.content,
+  });
+  static Policy fromJson(Map<String, dynamic> json) => Policy();
+}
+
+class PolicySummary {
+  /// The unique identifier (ID) of the policy.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
+  /// string requires "p-" followed by from 8 to 128 lower-case letters or
+  /// digits.
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of the policy.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
+
+  /// The friendly name of the policy.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  final String name;
+
+  /// The description of the policy.
+  final String description;
+
+  /// The type of policy.
+  final String type;
+
+  /// A boolean value that indicates whether the specified policy is an AWS
+  /// managed policy. If true, then you can attach the policy to roots, OUs, or
+  /// accounts, but you cannot edit it.
+  final bool awsManaged;
+
+  PolicySummary({
+    this.id,
+    this.arn,
+    this.name,
+    this.description,
+    this.type,
+    this.awsManaged,
+  });
+  static PolicySummary fromJson(Map<String, dynamic> json) => PolicySummary();
+}
+
+class PolicyTargetSummary {
+  /// The unique identifier (ID) of the policy target.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
+  /// string requires one of the following:
+  ///
+  /// *   Root: a string that begins with "r-" followed by from 4 to 32
+  /// lower-case letters or digits.
+  ///
+  /// *   Account: a string that consists of exactly 12 digits.
+  ///
+  /// *   Organizational unit (OU): a string that begins with "ou-" followed by
+  /// from 4 to 32 lower-case letters or digits (the ID of the root that the OU
+  /// is in) followed by a second "-" dash and from 8 to 32 additional
+  /// lower-case letters or digits.
+  final String targetId;
+
+  /// The Amazon Resource Name (ARN) of the policy target.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
+
+  /// The friendly name of the policy target.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  final String name;
+
+  /// The type of the policy target.
+  final String type;
+
+  PolicyTargetSummary({
+    this.targetId,
+    this.arn,
+    this.name,
+    this.type,
+  });
+  static PolicyTargetSummary fromJson(Map<String, dynamic> json) =>
+      PolicyTargetSummary();
+}
+
+class PolicyTypeSummary {
+  /// The name of the policy type.
+  final String type;
+
+  /// The status of the policy type as it relates to the associated root. To
+  /// attach a policy of the specified type to a root or to an OU or account in
+  /// that root, it must be available in the organization and enabled for that
+  /// root.
+  final String status;
+
+  PolicyTypeSummary({
+    this.type,
+    this.status,
+  });
+  static PolicyTypeSummary fromJson(Map<String, dynamic> json) =>
+      PolicyTypeSummary();
+}
+
+class Root {
+  /// The unique identifier (ID) for the root.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) for a root ID string
+  /// requires "r-" followed by from 4 to 32 lower-case letters or digits.
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of the root.
+  ///
+  /// For more information about ARNs in Organizations, see [ARN Formats
+  /// Supported by
+  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// in the _AWS Organizations User Guide_.
+  final String arn;
+
+  /// The friendly name of the root.
+  ///
+  /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
+  /// validate this parameter is a string of any of the characters in the ASCII
+  /// character range.
+  final String name;
+
+  /// The types of policies that are currently enabled for the root and
+  /// therefore can be attached to the root or to its OUs or accounts.
+  ///
+  ///
+  ///
+  /// Even if a policy type is shown as available in the organization, you can
+  /// separately enable and disable them at the root level by using
+  /// EnablePolicyType and DisablePolicyType. Use DescribeOrganization to see
+  /// the availability of the policy types in that organization.
+  final List<PolicyTypeSummary> policyTypes;
+
+  Root({
+    this.id,
+    this.arn,
+    this.name,
+    this.policyTypes,
+  });
+  static Root fromJson(Map<String, dynamic> json) => Root();
+}
+
+class Tag {
+  /// The key identifier, or name, of the tag.
+  final String key;
+
+  /// The string value that's associated with the key of the tag. You can set
+  /// the value of a tag to an empty string, but you can't set the value of a
+  /// tag to null.
+  final String value;
+
+  Tag({
+    @required this.key,
+    @required this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class UpdateOrganizationalUnitResponse {
+  /// A structure that contains the details about the specified OU, including
+  /// its new name.
+  final OrganizationalUnit organizationalUnit;
+
+  UpdateOrganizationalUnitResponse({
+    this.organizationalUnit,
+  });
+  static UpdateOrganizationalUnitResponse fromJson(Map<String, dynamic> json) =>
+      UpdateOrganizationalUnitResponse();
+}
+
+class UpdatePolicyResponse {
+  /// A structure that contains details about the updated policy, showing the
+  /// requested changes.
+  final Policy policy;
+
+  UpdatePolicyResponse({
+    this.policy,
+  });
+  static UpdatePolicyResponse fromJson(Map<String, dynamic> json) =>
+      UpdatePolicyResponse();
+}

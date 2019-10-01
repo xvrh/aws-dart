@@ -231,19 +231,131 @@ class ResourceGroupsTaggingApiApi {
   /// query completed. Queries can occasionally return fewer results on a page
   /// than allowed. The `PaginationToken` response parameter value is `null`
   /// _only_ when there are no more results to display.
-  Future<void> getResources(
+  ///
+  /// [paginationToken]: A string that indicates that additional data is
+  /// available. Leave this value empty for your initial request. If the
+  /// response includes a `PaginationToken`, use that string for this value to
+  /// request an additional page of data.
+  ///
+  /// [tagFilters]: A list of TagFilters (keys and values). Each TagFilter
+  /// specified must contain a key with values as optional. A request can
+  /// include up to 50 keys, and each key can include up to 20 values.
+  ///
+  /// Note the following when deciding how to use TagFilters:
+  ///
+  /// *   If you _do_ specify a TagFilter, the response returns only those
+  /// resources that are currently associated with the specified tag.
+  ///
+  /// *   If you _don't_ specify a TagFilter, the response includes all
+  /// resources that were ever associated with tags. Resources that currently
+  /// don't have associated tags are shown with an empty tag set, like this:
+  /// `"Tags": \[\]`.
+  ///
+  /// *   If you specify more than one filter in a single request, the response
+  /// returns only those resources that satisfy all specified filters.
+  ///
+  /// *   If you specify a filter that contains more than one value for a key,
+  /// the response returns resources that match any of the specified values for
+  /// that key.
+  ///
+  /// *   If you don't specify any values for a key, the response returns
+  /// resources that are tagged with that key irrespective of the value.
+  ///
+  ///     For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2,
+  /// {value2,value3,value4}} , filter3 = {key3}:
+  ///
+  ///     *   GetResources( {filter1} ) returns resources tagged with
+  /// key1=value1
+  ///
+  ///     *   GetResources( {filter2} ) returns resources tagged with
+  /// key2=value2 or key2=value3 or key2=value4
+  ///
+  ///     *   GetResources( {filter3} ) returns resources tagged with any tag
+  /// containing key3 as its tag key, irrespective of its value
+  ///
+  ///     *   GetResources( {filter1,filter2,filter3} ) returns resources tagged
+  /// with ( key1=value1) and ( key2=value2 or key2=value3 or key2=value4) and
+  /// (key3, irrespective of the value)
+  ///
+  /// [resourcesPerPage]: A limit that restricts the number of resources
+  /// returned by GetResources in paginated output. You can set ResourcesPerPage
+  /// to a minimum of 1 item and the maximum of 100 items.
+  ///
+  /// [tagsPerPage]: A limit that restricts the number of tags (key and value
+  /// pairs) returned by GetResources in paginated output. A resource with no
+  /// tags is counted as having one tag (one key and value pair).
+  ///
+  ///  `GetResources` does not split a resource and its associated tags across
+  /// pages. If the specified `TagsPerPage` would cause such a break, a
+  /// `PaginationToken` is returned in place of the affected resource and its
+  /// tags. Use that token in another request to get the remaining data. For
+  /// example, if you specify a `TagsPerPage` of `100` and the account has 22
+  /// resources with 10 tags each (meaning that each resource has 10 key and
+  /// value pairs), the output will consist of 3 pages, with the first page
+  /// displaying the first 10 resources, each with its 10 tags, the second page
+  /// displaying the next 10 resources each with its 10 tags, and the third page
+  /// displaying the remaining 2 resources, each with its 10 tags.
+  ///
+  /// You can set `TagsPerPage` to a minimum of 100 items and the maximum of 500
+  /// items.
+  ///
+  /// [resourceTypeFilters]: The constraints on the resources that you want
+  /// returned. The format of each resource type is `service\[:resourceType\]`.
+  /// For example, specifying a resource type of `ec2` returns all Amazon EC2
+  /// resources (which includes EC2 instances). Specifying a resource type of
+  /// `ec2:instance` returns only EC2 instances.
+  ///
+  /// The string for each service name and resource type is the same as that
+  /// embedded in a resource's Amazon Resource Name (ARN). Consult the _AWS
+  /// General Reference_ for the following:
+  ///
+  /// *   For a list of service name strings, see [AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces).
+  ///
+  /// *   For resource type strings, see [Example
+  /// ARNs](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax).
+  ///
+  /// *   For more information about ARNs, see [Amazon Resource Names (ARNs) and
+  /// AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  ///
+  ///
+  /// You can specify multiple resource types by using an array. The array can
+  /// include up to 100 items. Note that the length constraint requirement
+  /// applies to each resource type filter.
+  Future<GetResourcesOutput> getResources(
       {String paginationToken,
       List<TagFilter> tagFilters,
       int resourcesPerPage,
       int tagsPerPage,
-      List<String> resourceTypeFilters}) async {}
+      List<String> resourceTypeFilters}) async {
+    return GetResourcesOutput.fromJson({});
+  }
 
   /// Returns all tag keys in the specified region for the AWS account.
-  Future<void> getTagKeys({String paginationToken}) async {}
+  ///
+  /// [paginationToken]: A string that indicates that additional data is
+  /// available. Leave this value empty for your initial request. If the
+  /// response includes a PaginationToken, use that string for this value to
+  /// request an additional page of data.
+  Future<GetTagKeysOutput> getTagKeys({String paginationToken}) async {
+    return GetTagKeysOutput.fromJson({});
+  }
 
   /// Returns all tag values for the specified key in the specified region for
   /// the AWS account.
-  Future<void> getTagValues(String key, {String paginationToken}) async {}
+  ///
+  /// [paginationToken]: A string that indicates that additional data is
+  /// available. Leave this value empty for your initial request. If the
+  /// response includes a PaginationToken, use that string for this value to
+  /// request an additional page of data.
+  ///
+  /// [key]: The key for which you want to list all existing values in the
+  /// specified region for the AWS account.
+  Future<GetTagValuesOutput> getTagValues(String key,
+      {String paginationToken}) async {
+    return GetTagValuesOutput.fromJson({});
+  }
 
   /// Applies one or more tags to the specified resources. Note the following:
   ///
@@ -264,9 +376,22 @@ class ResourceGroupsTaggingApiApi {
   /// tags. For more information, see [Obtaining Permissions for
   /// Tagging](http://docs.aws.amazon.com/ARG/latest/userguide/obtaining-permissions-for-tagging.html)
   /// in the _AWS Resource Groups User Guide_.
-  Future<void> tagResources(
+  ///
+  /// [resourceArnList]: A list of ARNs. An ARN (Amazon Resource Name) uniquely
+  /// identifies a resource. You can specify a minimum of 1 and a maximum of 20
+  /// ARNs (resources) to tag. An ARN can be set to a maximum of 1600
+  /// characters. For more information, see [Amazon Resource Names (ARNs) and
+  /// AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// in the _AWS General Reference_.
+  ///
+  /// [tags]: The tags that you want to add to the specified resources. A tag
+  /// consists of a key and a value that you define.
+  Future<TagResourcesOutput> tagResources(
       {@required List<String> resourceArnList,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    return TagResourcesOutput.fromJson({});
+  }
 
   /// Removes the specified tags from the specified resources. When you specify
   /// a tag key, the action removes both that key and its associated value. The
@@ -281,25 +406,163 @@ class ResourceGroupsTaggingApiApi {
   ///
   /// *   You can only tag resources that are located in the specified region
   /// for the AWS account.
-  Future<void> untagResources(
+  ///
+  /// [resourceArnList]: A list of ARNs. An ARN (Amazon Resource Name) uniquely
+  /// identifies a resource. You can specify a minimum of 1 and a maximum of 20
+  /// ARNs (resources) to untag. An ARN can be set to a maximum of 1600
+  /// characters. For more information, see [Amazon Resource Names (ARNs) and
+  /// AWS Service
+  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// in the _AWS General Reference_.
+  ///
+  /// [tagKeys]: A list of the tag keys that you want to remove from the
+  /// specified resources.
+  Future<UntagResourcesOutput> untagResources(
       {@required List<String> resourceArnList,
-      @required List<String> tagKeys}) async {}
+      @required List<String> tagKeys}) async {
+    return UntagResourcesOutput.fromJson({});
+  }
 }
 
-class FailureInfo {}
+class FailureInfo {
+  /// The HTTP status code of the common error.
+  final int statusCode;
 
-class GetResourcesOutput {}
+  /// The code of the common error. Valid values include
+  /// `InternalServiceException`, `InvalidParameterException`, and any valid
+  /// error code returned by the AWS service that hosts the resource that you
+  /// want to tag.
+  final String errorCode;
 
-class GetTagKeysOutput {}
+  /// The message of the common error.
+  final String errorMessage;
 
-class GetTagValuesOutput {}
+  FailureInfo({
+    this.statusCode,
+    this.errorCode,
+    this.errorMessage,
+  });
+  static FailureInfo fromJson(Map<String, dynamic> json) => FailureInfo();
+}
 
-class ResourceTagMapping {}
+class GetResourcesOutput {
+  /// A string that indicates that the response contains more data than can be
+  /// returned in a single response. To receive additional data, specify this
+  /// string for the `PaginationToken` value in a subsequent request.
+  final String paginationToken;
 
-class Tag {}
+  /// A list of resource ARNs and the tags (keys and values) associated with
+  /// each.
+  final List<ResourceTagMapping> resourceTagMappingList;
 
-class TagFilter {}
+  GetResourcesOutput({
+    this.paginationToken,
+    this.resourceTagMappingList,
+  });
+  static GetResourcesOutput fromJson(Map<String, dynamic> json) =>
+      GetResourcesOutput();
+}
 
-class TagResourcesOutput {}
+class GetTagKeysOutput {
+  /// A string that indicates that the response contains more data than can be
+  /// returned in a single response. To receive additional data, specify this
+  /// string for the `PaginationToken` value in a subsequent request.
+  final String paginationToken;
 
-class UntagResourcesOutput {}
+  /// A list of all tag keys in the AWS account.
+  final List<String> tagKeys;
+
+  GetTagKeysOutput({
+    this.paginationToken,
+    this.tagKeys,
+  });
+  static GetTagKeysOutput fromJson(Map<String, dynamic> json) =>
+      GetTagKeysOutput();
+}
+
+class GetTagValuesOutput {
+  /// A string that indicates that the response contains more data than can be
+  /// returned in a single response. To receive additional data, specify this
+  /// string for the `PaginationToken` value in a subsequent request.
+  final String paginationToken;
+
+  /// A list of all tag values for the specified key in the AWS account.
+  final List<String> tagValues;
+
+  GetTagValuesOutput({
+    this.paginationToken,
+    this.tagValues,
+  });
+  static GetTagValuesOutput fromJson(Map<String, dynamic> json) =>
+      GetTagValuesOutput();
+}
+
+class ResourceTagMapping {
+  /// The ARN of the resource.
+  final String resourceArn;
+
+  /// The tags that have been applied to one or more AWS resources.
+  final List<Tag> tags;
+
+  ResourceTagMapping({
+    this.resourceArn,
+    this.tags,
+  });
+  static ResourceTagMapping fromJson(Map<String, dynamic> json) =>
+      ResourceTagMapping();
+}
+
+class Tag {
+  /// One part of a key-value pair that make up a tag. A key is a general label
+  /// that acts like a category for more specific tag values.
+  final String key;
+
+  /// The optional part of a key-value pair that make up a tag. A value acts as
+  /// a descriptor within a tag category (key).
+  final String value;
+
+  Tag({
+    @required this.key,
+    @required this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class TagFilter {
+  /// One part of a key-value pair that make up a tag. A key is a general label
+  /// that acts like a category for more specific tag values.
+  final String key;
+
+  /// The optional part of a key-value pair that make up a tag. A value acts as
+  /// a descriptor within a tag category (key).
+  final List<String> values;
+
+  TagFilter({
+    this.key,
+    this.values,
+  });
+}
+
+class TagResourcesOutput {
+  /// Details of resources that could not be tagged. An error code, status code,
+  /// and error message are returned for each failed item.
+  final Map<String, FailureInfo> failedResourcesMap;
+
+  TagResourcesOutput({
+    this.failedResourcesMap,
+  });
+  static TagResourcesOutput fromJson(Map<String, dynamic> json) =>
+      TagResourcesOutput();
+}
+
+class UntagResourcesOutput {
+  /// Details of resources that could not be untagged. An error code, status
+  /// code, and error message are returned for each failed item.
+  final Map<String, FailureInfo> failedResourcesMap;
+
+  UntagResourcesOutput({
+    this.failedResourcesMap,
+  });
+  static UntagResourcesOutput fromJson(Map<String, dynamic> json) =>
+      UntagResourcesOutput();
+}

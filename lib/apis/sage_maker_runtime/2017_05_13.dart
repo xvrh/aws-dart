@@ -24,12 +24,55 @@ class SageMakerRuntimeApi {
   /// Endpoints are scoped to an individual account, and are not public. The URL
   /// does not contain the account ID, but Amazon SageMaker determines the
   /// account ID from the authentication token that is supplied by the caller.
-  Future<void> invokeEndpoint(
+  ///
+  /// [endpointName]: The name of the endpoint that you specified when you
+  /// created the endpoint using the
+  /// [CreateEndpoint](http://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html)
+  /// API.
+  ///
+  /// [body]: Provides input data, in the format specified in the `ContentType`
+  /// request header. Amazon SageMaker passes all of the data in the body to the
+  /// model.
+  ///
+  /// For information about the format of the request body, see [Common Data
+  /// Formats—Inference](http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html).
+  ///
+  /// [contentType]: The MIME type of the input data in the request body.
+  ///
+  /// [accept]: The desired MIME type of the inference in the response.
+  ///
+  /// [customAttributes]:
+  Future<InvokeEndpointOutput> invokeEndpoint(
       {@required String endpointName,
       @required Uint8List body,
       String contentType,
       String accept,
-      String customAttributes}) async {}
+      String customAttributes}) async {
+    return InvokeEndpointOutput.fromJson({});
+  }
 }
 
-class InvokeEndpointOutput {}
+class InvokeEndpointOutput {
+  /// Includes the inference provided by the model.
+  ///
+  /// For information about the format of the response body, see [Common Data
+  /// Formats—Inference](http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html).
+  final Uint8List body;
+
+  /// The MIME type of the inference returned in the response body.
+  final String contentType;
+
+  /// Identifies the production variant that was invoked.
+  final String invokedProductionVariant;
+
+  final String customAttributes;
+
+  InvokeEndpointOutput({
+    @required this.body,
+    this.contentType,
+    this.invokedProductionVariant,
+    this.customAttributes,
+  });
+  static InvokeEndpointOutput fromJson(Map<String, dynamic> json) =>
+      InvokeEndpointOutput();
+}

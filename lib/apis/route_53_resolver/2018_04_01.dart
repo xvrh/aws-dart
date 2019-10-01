@@ -47,19 +47,40 @@ class Route53ResolverApi {
   ///
   /// To remove an IP address from an endpoint, see
   /// DisassociateResolverEndpointIpAddress.
-  Future<void> associateResolverEndpointIpAddress(
-      {@required String resolverEndpointId,
-      @required IpAddressUpdate ipAddress}) async {}
+  ///
+  /// [resolverEndpointId]: The ID of the resolver endpoint that you want to
+  /// associate IP addresses with.
+  ///
+  /// [ipAddress]: Either the IPv4 address that you want to add to a resolver
+  /// endpoint or a subnet ID. If you specify a subnet ID, Resolver chooses an
+  /// IP address for you from the available IPs in the specified subnet.
+  Future<AssociateResolverEndpointIpAddressResponse>
+      associateResolverEndpointIpAddress(
+          {@required String resolverEndpointId,
+          @required IpAddressUpdate ipAddress}) async {
+    return AssociateResolverEndpointIpAddressResponse.fromJson({});
+  }
 
   /// Associates a resolver rule with a VPC. When you associate a rule with a
   /// VPC, Resolver forwards all DNS queries for the domain name that is
   /// specified in the rule and that originate in the VPC. The queries are
   /// forwarded to the IP addresses for the DNS resolvers that are specified in
   /// the rule. For more information about rules, see CreateResolverRule.
-  Future<void> associateResolverRule(
+  ///
+  /// [resolverRuleId]: The ID of the resolver rule that you want to associate
+  /// with the VPC. To list the existing resolver rules, use ListResolverRules.
+  ///
+  /// [name]: A name for the association that you're creating between a resolver
+  /// rule and a VPC.
+  ///
+  /// [vpcId]: The ID of the VPC that you want to associate the resolver rule
+  /// with.
+  Future<AssociateResolverRuleResponse> associateResolverRule(
       {@required String resolverRuleId,
       String name,
-      @required String vpcId}) async {}
+      @required String vpcId}) async {
+    return AssociateResolverRuleResponse.fromJson({});
+  }
 
   /// Creates a resolver endpoint. There are two types of resolver endpoints,
   /// inbound and outbound:
@@ -69,26 +90,85 @@ class Route53ResolverApi {
   ///
   /// *   An _outbound resolver endpoint_ forwards DNS queries from the DNS
   /// service for a VPC to your network or another VPC.
-  Future<void> createResolverEndpoint(
+  ///
+  /// [creatorRequestId]: A unique string that identifies the request and that
+  /// allows failed requests to be retried without the risk of executing the
+  /// operation twice. `CreatorRequestId` can be any unique string, for example,
+  /// a date/time stamp.
+  ///
+  /// [name]: A friendly name that lets you easily find a configuration in the
+  /// Resolver dashboard in the Route 53 console.
+  ///
+  /// [securityGroupIds]: The ID of one or more security groups that you want to
+  /// use to control access to this VPC. The security group that you specify
+  /// must include one or more inbound rules (for inbound resolver endpoints) or
+  /// outbound rules (for outbound resolver endpoints).
+  ///
+  /// [direction]: Specify the applicable value:
+  ///
+  /// *    `INBOUND`: Resolver forwards DNS queries to the DNS service for a VPC
+  /// from your network or another VPC
+  ///
+  /// *    `OUTBOUND`: Resolver forwards DNS queries from the DNS service for a
+  /// VPC to your network or another VPC
+  ///
+  /// [ipAddresses]: The subnets and IP addresses in your VPC that you want DNS
+  /// queries to pass through on the way from your VPCs to your network (for
+  /// outbound endpoints) or on the way from your network to your VPCs (for
+  /// inbound resolver endpoints).
+  ///
+  /// [tags]: A list of the tag keys and values that you want to associate with
+  /// the endpoint.
+  Future<CreateResolverEndpointResponse> createResolverEndpoint(
       {@required String creatorRequestId,
       String name,
       @required List<String> securityGroupIds,
       @required String direction,
       @required List<IpAddressRequest> ipAddresses,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateResolverEndpointResponse.fromJson({});
+  }
 
   /// For DNS queries that originate in your VPCs, specifies which resolver
   /// endpoint the queries pass through, one domain name that you want to
   /// forward to your network, and the IP addresses of the DNS resolvers in your
   /// network.
-  Future<void> createResolverRule(
+  ///
+  /// [creatorRequestId]: A unique string that identifies the request and that
+  /// allows failed requests to be retried without the risk of executing the
+  /// operation twice. `CreatorRequestId` can be any unique string, for example,
+  /// a date/time stamp.
+  ///
+  /// [name]: A friendly name that lets you easily find a rule in the Resolver
+  /// dashboard in the Route 53 console.
+  ///
+  /// [ruleType]: Specify `FORWARD`. Other resolver rule types aren't supported.
+  ///
+  /// [domainName]: DNS queries for this domain name are forwarded to the IP
+  /// addresses that you specify in `TargetIps`. If a query matches multiple
+  /// resolver rules (example.com and www.example.com), outbound DNS queries are
+  /// routed using the resolver rule that contains the most specific domain name
+  /// (www.example.com).
+  ///
+  /// [targetIps]: The IPs that you want Resolver to forward DNS queries to. You
+  /// can specify only IPv4 addresses. Separate IP addresses with a comma.
+  ///
+  /// [resolverEndpointId]: The ID of the outbound resolver endpoint that you
+  /// want to use to route DNS queries to the IP addresses that you specify in
+  /// `TargetIps`.
+  ///
+  /// [tags]: A list of the tag keys and values that you want to associate with
+  /// the endpoint.
+  Future<CreateResolverRuleResponse> createResolverRule(
       {@required String creatorRequestId,
       String name,
       @required String ruleType,
       @required String domainName,
       List<TargetAddress> targetIps,
       String resolverEndpointId,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateResolverRuleResponse.fromJson({});
+  }
 
   /// Deletes a resolver endpoint. The effect of deleting a resolver endpoint
   /// depends on whether it's an inbound or an outbound resolver endpoint:
@@ -98,12 +178,23 @@ class Route53ResolverApi {
   ///
   /// *    **Outbound**: DNS queries from a VPC are no longer routed to your
   /// network or to another VPC.
-  Future<void> deleteResolverEndpoint(String resolverEndpointId) async {}
+  ///
+  /// [resolverEndpointId]: The ID of the resolver endpoint that you want to
+  /// delete.
+  Future<DeleteResolverEndpointResponse> deleteResolverEndpoint(
+      String resolverEndpointId) async {
+    return DeleteResolverEndpointResponse.fromJson({});
+  }
 
   /// Deletes a resolver rule. Before you can delete a resolver rule, you must
   /// disassociate it from all the VPCs that you associated the resolver rule
   /// with. For more infomation, see DisassociateResolverRule.
-  Future<void> deleteResolverRule(String resolverRuleId) async {}
+  ///
+  /// [resolverRuleId]: The ID of the resolver rule that you want to delete.
+  Future<DeleteResolverRuleResponse> deleteResolverRule(
+      String resolverRuleId) async {
+    return DeleteResolverRuleResponse.fromJson({});
+  }
 
   /// Removes IP addresses from an inbound or an outbound resolver endpoint. If
   /// you want to remove more than one IP address, submit one
@@ -111,9 +202,18 @@ class Route53ResolverApi {
   ///
   /// To add an IP address to an endpoint, see
   /// AssociateResolverEndpointIpAddress.
-  Future<void> disassociateResolverEndpointIpAddress(
-      {@required String resolverEndpointId,
-      @required IpAddressUpdate ipAddress}) async {}
+  ///
+  /// [resolverEndpointId]: The ID of the resolver endpoint that you want to
+  /// disassociate an IP address from.
+  ///
+  /// [ipAddress]: The IPv4 address that you want to remove from a resolver
+  /// endpoint.
+  Future<DisassociateResolverEndpointIpAddressResponse>
+      disassociateResolverEndpointIpAddress(
+          {@required String resolverEndpointId,
+          @required IpAddressUpdate ipAddress}) async {
+    return DisassociateResolverEndpointIpAddressResponse.fromJson({});
+  }
 
   /// Removes the association between a specified resolver rule and a specified
   /// VPC.
@@ -122,137 +222,888 @@ class Route53ResolverApi {
   ///
   /// If you disassociate a resolver rule from a VPC, Resolver stops forwarding
   /// DNS queries for the domain name that you specified in the resolver rule.
-  Future<void> disassociateResolverRule(
-      {@required String vpcId, @required String resolverRuleId}) async {}
+  ///
+  /// [vpcId]: The ID of the VPC that you want to disassociate the resolver rule
+  /// from.
+  ///
+  /// [resolverRuleId]: The ID of the resolver rule that you want to
+  /// disassociate from the specified VPC.
+  Future<DisassociateResolverRuleResponse> disassociateResolverRule(
+      {@required String vpcId, @required String resolverRuleId}) async {
+    return DisassociateResolverRuleResponse.fromJson({});
+  }
 
   /// Gets information about a specified resolver endpoint, such as whether it's
   /// an inbound or an outbound resolver endpoint, and the current status of the
   /// endpoint.
-  Future<void> getResolverEndpoint(String resolverEndpointId) async {}
+  ///
+  /// [resolverEndpointId]: The ID of the resolver endpoint that you want to get
+  /// information about.
+  Future<GetResolverEndpointResponse> getResolverEndpoint(
+      String resolverEndpointId) async {
+    return GetResolverEndpointResponse.fromJson({});
+  }
 
   /// Gets information about a specified resolver rule, such as the domain name
   /// that the rule forwards DNS queries for and the ID of the outbound resolver
   /// endpoint that the rule is associated with.
-  Future<void> getResolverRule(String resolverRuleId) async {}
+  ///
+  /// [resolverRuleId]: The ID of the resolver rule that you want to get
+  /// information about.
+  Future<GetResolverRuleResponse> getResolverRule(String resolverRuleId) async {
+    return GetResolverRuleResponse.fromJson({});
+  }
 
   /// Gets information about an association between a specified resolver rule
   /// and a VPC. You associate a resolver rule and a VPC using
   /// AssociateResolverRule.
-  Future<void> getResolverRuleAssociation(
-      String resolverRuleAssociationId) async {}
+  ///
+  /// [resolverRuleAssociationId]: The ID of the resolver rule association that
+  /// you want to get information about.
+  Future<GetResolverRuleAssociationResponse> getResolverRuleAssociation(
+      String resolverRuleAssociationId) async {
+    return GetResolverRuleAssociationResponse.fromJson({});
+  }
 
   /// Gets information about a resolver rule policy. A resolver rule policy
   /// specifies the Resolver operations and resources that you want to allow
   /// another AWS account to be able to use.
-  Future<void> getResolverRulePolicy(String arn) async {}
+  ///
+  /// [arn]: The ID of the resolver rule policy that you want to get information
+  /// about.
+  Future<GetResolverRulePolicyResponse> getResolverRulePolicy(
+      String arn) async {
+    return GetResolverRulePolicyResponse.fromJson({});
+  }
 
   /// Gets the IP addresses for a specified resolver endpoint.
-  Future<void> listResolverEndpointIpAddresses(String resolverEndpointId,
-      {int maxResults, String nextToken}) async {}
+  ///
+  /// [resolverEndpointId]: The ID of the resolver endpoint that you want to get
+  /// IP addresses for.
+  ///
+  /// [maxResults]: The maximum number of IP addresses that you want to return
+  /// in the response to a `ListResolverEndpointIpAddresses` request. If you
+  /// don't specify a value for `MaxResults`, Resolver returns up to 100 IP
+  /// addresses.
+  ///
+  /// [nextToken]: For the first `ListResolverEndpointIpAddresses` request, omit
+  /// this value.
+  ///
+  /// If the specified resolver endpoint has more than `MaxResults` IP
+  /// addresses, you can submit another `ListResolverEndpointIpAddresses`
+  /// request to get the next group of IP addresses. In the next request,
+  /// specify the value of `NextToken` from the previous response.
+  Future<ListResolverEndpointIpAddressesResponse>
+      listResolverEndpointIpAddresses(String resolverEndpointId,
+          {int maxResults, String nextToken}) async {
+    return ListResolverEndpointIpAddressesResponse.fromJson({});
+  }
 
   /// Lists all the resolver endpoints that were created using the current AWS
   /// account.
-  Future<void> listResolverEndpoints(
-      {int maxResults, String nextToken, List<Filter> filters}) async {}
+  ///
+  /// [maxResults]: The maximum number of resolver endpoints that you want to
+  /// return in the response to a `ListResolverEndpoints` request. If you don't
+  /// specify a value for `MaxResults`, Resolver returns up to 100 resolver
+  /// endpoints.
+  ///
+  /// [nextToken]: For the first `ListResolverEndpoints` request, omit this
+  /// value.
+  ///
+  /// If you have more than `MaxResults` resolver endpoints, you can submit
+  /// another `ListResolverEndpoints` request to get the next group of resolver
+  /// endpoints. In the next request, specify the value of `NextToken` from the
+  /// previous response.
+  ///
+  /// [filters]: An optional specification to return a subset of resolver
+  /// endpoints, such as all inbound resolver endpoints.
+  ///
+  ///
+  ///
+  /// If you submit a second or subsequent `ListResolverEndpoints` request and
+  /// specify the `NextToken` parameter, you must use the same values for
+  /// `Filters`, if any, as in the previous request.
+  Future<ListResolverEndpointsResponse> listResolverEndpoints(
+      {int maxResults, String nextToken, List<Filter> filters}) async {
+    return ListResolverEndpointsResponse.fromJson({});
+  }
 
   /// Lists the associations that were created between resolver rules and VPCs
   /// using the current AWS account.
-  Future<void> listResolverRuleAssociations(
-      {int maxResults, String nextToken, List<Filter> filters}) async {}
+  ///
+  /// [maxResults]: The maximum number of rule associations that you want to
+  /// return in the response to a `ListResolverRuleAssociations` request. If you
+  /// don't specify a value for `MaxResults`, Resolver returns up to 100 rule
+  /// associations.
+  ///
+  /// [nextToken]: For the first `ListResolverRuleAssociation` request, omit
+  /// this value.
+  ///
+  /// If you have more than `MaxResults` rule associations, you can submit
+  /// another `ListResolverRuleAssociation` request to get the next group of
+  /// rule associations. In the next request, specify the value of `NextToken`
+  /// from the previous response.
+  ///
+  /// [filters]: An optional specification to return a subset of resolver rules,
+  /// such as resolver rules that are associated with the same VPC ID.
+  ///
+  ///
+  ///
+  /// If you submit a second or subsequent `ListResolverRuleAssociations`
+  /// request and specify the `NextToken` parameter, you must use the same
+  /// values for `Filters`, if any, as in the previous request.
+  Future<ListResolverRuleAssociationsResponse> listResolverRuleAssociations(
+      {int maxResults, String nextToken, List<Filter> filters}) async {
+    return ListResolverRuleAssociationsResponse.fromJson({});
+  }
 
   /// Lists the resolver rules that were created using the current AWS account.
-  Future<void> listResolverRules(
-      {int maxResults, String nextToken, List<Filter> filters}) async {}
+  ///
+  /// [maxResults]: The maximum number of resolver rules that you want to return
+  /// in the response to a `ListResolverRules` request. If you don't specify a
+  /// value for `MaxResults`, Resolver returns up to 100 resolver rules.
+  ///
+  /// [nextToken]: For the first `ListResolverRules` request, omit this value.
+  ///
+  /// If you have more than `MaxResults` resolver rules, you can submit another
+  /// `ListResolverRules` request to get the next group of resolver rules. In
+  /// the next request, specify the value of `NextToken` from the previous
+  /// response.
+  ///
+  /// [filters]: An optional specification to return a subset of resolver rules,
+  /// such as all resolver rules that are associated with the same resolver
+  /// endpoint.
+  ///
+  ///
+  ///
+  /// If you submit a second or subsequent `ListResolverRules` request and
+  /// specify the `NextToken` parameter, you must use the same values for
+  /// `Filters`, if any, as in the previous request.
+  Future<ListResolverRulesResponse> listResolverRules(
+      {int maxResults, String nextToken, List<Filter> filters}) async {
+    return ListResolverRulesResponse.fromJson({});
+  }
 
   /// Lists the tags that you associated with the specified resource.
-  Future<void> listTagsForResource(String resourceArn,
-      {int maxResults, String nextToken}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the resource that you
+  /// want to list tags for.
+  ///
+  /// [maxResults]: The maximum number of tags that you want to return in the
+  /// response to a `ListTagsForResource` request. If you don't specify a value
+  /// for `MaxResults`, Resolver returns up to 100 tags.
+  ///
+  /// [nextToken]: For the first `ListTagsForResource` request, omit this value.
+  ///
+  /// If you have more than `MaxResults` tags, you can submit another
+  /// `ListTagsForResource` request to get the next group of tags for the
+  /// resource. In the next request, specify the value of `NextToken` from the
+  /// previous response.
+  Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
+      {int maxResults, String nextToken}) async {
+    return ListTagsForResourceResponse.fromJson({});
+  }
 
   /// Specifies the Resolver operations and resources that you want to allow
   /// another AWS account to be able to use.
-  Future<void> putResolverRulePolicy(
-      {@required String arn, @required String resolverRulePolicy}) async {}
+  ///
+  /// [arn]: The Amazon Resource Name (ARN) of the account that you want to
+  /// grant permissions to.
+  ///
+  /// [resolverRulePolicy]: An AWS Identity and Access Management policy
+  /// statement that lists the permissions that you want to grant to another AWS
+  /// account.
+  Future<PutResolverRulePolicyResponse> putResolverRulePolicy(
+      {@required String arn, @required String resolverRulePolicy}) async {
+    return PutResolverRulePolicyResponse.fromJson({});
+  }
 
   /// Adds one or more tags to a specified resource.
-  Future<void> tagResource(
-      {@required String resourceArn, @required List<Tag> tags}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the resource that you
+  /// want to add tags to. To get the ARN for a resource, use the applicable
+  /// `Get` or `List` command:
+  ///
+  /// *    GetResolverEndpoint
+  ///
+  /// *    GetResolverRule
+  ///
+  /// *    GetResolverRuleAssociation
+  ///
+  /// *    ListResolverEndpoints
+  ///
+  /// *    ListResolverRuleAssociations
+  ///
+  /// *    ListResolverRules
+  ///
+  /// [tags]: The tags that you want to add to the specified resource.
+  Future<TagResourceResponse> tagResource(
+      {@required String resourceArn, @required List<Tag> tags}) async {
+    return TagResourceResponse.fromJson({});
+  }
 
   /// Removes one or more tags from a specified resource.
-  Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) for the resource that you
+  /// want to remove tags from. To get the ARN for a resource, use the
+  /// applicable `Get` or `List` command:
+  ///
+  /// *    GetResolverEndpoint
+  ///
+  /// *    GetResolverRule
+  ///
+  /// *    GetResolverRuleAssociation
+  ///
+  /// *    ListResolverEndpoints
+  ///
+  /// *    ListResolverRuleAssociations
+  ///
+  /// *    ListResolverRules
+  ///
+  /// [tagKeys]: The tags that you want to remove to the specified resource.
+  Future<UntagResourceResponse> untagResource(
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    return UntagResourceResponse.fromJson({});
+  }
 
   /// Updates the name of an inbound or an outbound resolver endpoint.
-  Future<void> updateResolverEndpoint(String resolverEndpointId,
-      {String name}) async {}
+  ///
+  /// [resolverEndpointId]: The ID of the resolver endpoint that you want to
+  /// update.
+  ///
+  /// [name]: The name of the resolver endpoint that you want to update.
+  Future<UpdateResolverEndpointResponse> updateResolverEndpoint(
+      String resolverEndpointId,
+      {String name}) async {
+    return UpdateResolverEndpointResponse.fromJson({});
+  }
 
   /// Updates settings for a specified resolver rule. `ResolverRuleId` is
   /// required, and all other parameters are optional. If you don't specify a
   /// parameter, it retains its current value.
-  Future<void> updateResolverRule(
+  ///
+  /// [resolverRuleId]: The ID of the resolver rule that you want to update.
+  ///
+  /// [config]: The new settings for the resolver rule.
+  Future<UpdateResolverRuleResponse> updateResolverRule(
       {@required String resolverRuleId,
-      @required ResolverRuleConfig config}) async {}
+      @required ResolverRuleConfig config}) async {
+    return UpdateResolverRuleResponse.fromJson({});
+  }
 }
 
-class AssociateResolverEndpointIpAddressResponse {}
+class AssociateResolverEndpointIpAddressResponse {
+  /// The response to an `AssociateResolverEndpointIpAddress` request.
+  final ResolverEndpoint resolverEndpoint;
 
-class AssociateResolverRuleResponse {}
+  AssociateResolverEndpointIpAddressResponse({
+    this.resolverEndpoint,
+  });
+  static AssociateResolverEndpointIpAddressResponse fromJson(
+          Map<String, dynamic> json) =>
+      AssociateResolverEndpointIpAddressResponse();
+}
 
-class CreateResolverEndpointResponse {}
+class AssociateResolverRuleResponse {
+  /// Information about the `AssociateResolverRule` request, including the
+  /// status of the request.
+  final ResolverRuleAssociation resolverRuleAssociation;
 
-class CreateResolverRuleResponse {}
+  AssociateResolverRuleResponse({
+    this.resolverRuleAssociation,
+  });
+  static AssociateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
+      AssociateResolverRuleResponse();
+}
 
-class DeleteResolverEndpointResponse {}
+class CreateResolverEndpointResponse {
+  /// Information about the `CreateResolverEndpoint` request, including the
+  /// status of the request.
+  final ResolverEndpoint resolverEndpoint;
 
-class DeleteResolverRuleResponse {}
+  CreateResolverEndpointResponse({
+    this.resolverEndpoint,
+  });
+  static CreateResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
+      CreateResolverEndpointResponse();
+}
 
-class DisassociateResolverEndpointIpAddressResponse {}
+class CreateResolverRuleResponse {
+  /// Information about the `CreateResolverRule` request, including the status
+  /// of the request.
+  final ResolverRule resolverRule;
 
-class DisassociateResolverRuleResponse {}
+  CreateResolverRuleResponse({
+    this.resolverRule,
+  });
+  static CreateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
+      CreateResolverRuleResponse();
+}
 
-class Filter {}
+class DeleteResolverEndpointResponse {
+  /// Information about the `DeleteResolverEndpoint` request, including the
+  /// status of the request.
+  final ResolverEndpoint resolverEndpoint;
 
-class GetResolverEndpointResponse {}
+  DeleteResolverEndpointResponse({
+    this.resolverEndpoint,
+  });
+  static DeleteResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
+      DeleteResolverEndpointResponse();
+}
 
-class GetResolverRuleAssociationResponse {}
+class DeleteResolverRuleResponse {
+  /// Information about the `DeleteResolverRule` request, including the status
+  /// of the request.
+  final ResolverRule resolverRule;
 
-class GetResolverRulePolicyResponse {}
+  DeleteResolverRuleResponse({
+    this.resolverRule,
+  });
+  static DeleteResolverRuleResponse fromJson(Map<String, dynamic> json) =>
+      DeleteResolverRuleResponse();
+}
 
-class GetResolverRuleResponse {}
+class DisassociateResolverEndpointIpAddressResponse {
+  /// The response to an `DisassociateResolverEndpointIpAddress` request.
+  final ResolverEndpoint resolverEndpoint;
 
-class IpAddressRequest {}
+  DisassociateResolverEndpointIpAddressResponse({
+    this.resolverEndpoint,
+  });
+  static DisassociateResolverEndpointIpAddressResponse fromJson(
+          Map<String, dynamic> json) =>
+      DisassociateResolverEndpointIpAddressResponse();
+}
 
-class IpAddressResponse {}
+class DisassociateResolverRuleResponse {
+  /// Information about the `DisassociateResolverRule` request, including the
+  /// status of the request.
+  final ResolverRuleAssociation resolverRuleAssociation;
 
-class IpAddressUpdate {}
+  DisassociateResolverRuleResponse({
+    this.resolverRuleAssociation,
+  });
+  static DisassociateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
+      DisassociateResolverRuleResponse();
+}
 
-class ListResolverEndpointIpAddressesResponse {}
+class Filter {
+  /// When you're using a `List` operation and you want the operation to return
+  /// a subset of objects, such as resolver endpoints or resolver rules, the
+  /// name of the parameter that you want to use to filter objects. For example,
+  /// to list only inbound resolver endpoints, specify `Direction` for the value
+  /// of `Name`.
+  final String name;
 
-class ListResolverEndpointsResponse {}
+  /// When you're using a `List` operation and you want the operation to return
+  /// a subset of objects, such as resolver endpoints or resolver rules, the
+  /// value of the parameter that you want to use to filter objects. For
+  /// example, to list only inbound resolver endpoints, specify `INBOUND` for
+  /// the value of `Values`.
+  final List<String> values;
 
-class ListResolverRuleAssociationsResponse {}
+  Filter({
+    this.name,
+    this.values,
+  });
+}
 
-class ListResolverRulesResponse {}
+class GetResolverEndpointResponse {
+  /// Information about the resolver endpoint that you specified in a
+  /// `GetResolverEndpoint` request.
+  final ResolverEndpoint resolverEndpoint;
 
-class ListTagsForResourceResponse {}
+  GetResolverEndpointResponse({
+    this.resolverEndpoint,
+  });
+  static GetResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
+      GetResolverEndpointResponse();
+}
 
-class PutResolverRulePolicyResponse {}
+class GetResolverRuleAssociationResponse {
+  /// Information about the resolver rule association that you specified in a
+  /// `GetResolverRuleAssociation` request.
+  final ResolverRuleAssociation resolverRuleAssociation;
 
-class ResolverEndpoint {}
+  GetResolverRuleAssociationResponse({
+    this.resolverRuleAssociation,
+  });
+  static GetResolverRuleAssociationResponse fromJson(
+          Map<String, dynamic> json) =>
+      GetResolverRuleAssociationResponse();
+}
 
-class ResolverRule {}
+class GetResolverRulePolicyResponse {
+  /// Information about the resolver rule policy that you specified in a
+  /// `GetResolverRulePolicy` request.
+  final String resolverRulePolicy;
 
-class ResolverRuleAssociation {}
+  GetResolverRulePolicyResponse({
+    this.resolverRulePolicy,
+  });
+  static GetResolverRulePolicyResponse fromJson(Map<String, dynamic> json) =>
+      GetResolverRulePolicyResponse();
+}
 
-class ResolverRuleConfig {}
+class GetResolverRuleResponse {
+  /// Information about the resolver rule that you specified in a
+  /// `GetResolverRule` request.
+  final ResolverRule resolverRule;
 
-class Tag {}
+  GetResolverRuleResponse({
+    this.resolverRule,
+  });
+  static GetResolverRuleResponse fromJson(Map<String, dynamic> json) =>
+      GetResolverRuleResponse();
+}
 
-class TagResourceResponse {}
+class IpAddressRequest {
+  /// The subnet that contains the IP address.
+  final String subnetId;
 
-class TargetAddress {}
+  /// The IP address that you want to use for DNS queries.
+  final String ip;
 
-class UntagResourceResponse {}
+  IpAddressRequest({
+    @required this.subnetId,
+    this.ip,
+  });
+}
 
-class UpdateResolverEndpointResponse {}
+class IpAddressResponse {
+  /// The ID of one IP address.
+  final String ipId;
 
-class UpdateResolverRuleResponse {}
+  /// The ID of one subnet.
+  final String subnetId;
+
+  /// One IP address that the resolver endpoint uses for DNS queries.
+  final String ip;
+
+  /// A status code that gives the current status of the request.
+  final String status;
+
+  /// A message that provides additional information about the status of the
+  /// request.
+  final String statusMessage;
+
+  /// The date and time that the IP address was created, in Unix time format and
+  /// Coordinated Universal Time (UTC).
+  final String creationTime;
+
+  /// The date and time that the IP address was last modified, in Unix time
+  /// format and Coordinated Universal Time (UTC).
+  final String modificationTime;
+
+  IpAddressResponse({
+    this.ipId,
+    this.subnetId,
+    this.ip,
+    this.status,
+    this.statusMessage,
+    this.creationTime,
+    this.modificationTime,
+  });
+  static IpAddressResponse fromJson(Map<String, dynamic> json) =>
+      IpAddressResponse();
+}
+
+class IpAddressUpdate {
+  ///  _Only when removing an IP address from a resolver endpoint_: The ID of
+  /// the IP address that you want to remove. To get this ID, use
+  /// GetResolverEndpoint.
+  final String ipId;
+
+  /// The ID of the subnet that includes the IP address that you want to update.
+  /// To get this ID, use GetResolverEndpoint.
+  final String subnetId;
+
+  /// The new IP address.
+  final String ip;
+
+  IpAddressUpdate({
+    this.ipId,
+    this.subnetId,
+    this.ip,
+  });
+}
+
+class ListResolverEndpointIpAddressesResponse {
+  /// If the specified endpoint has more than `MaxResults` IP addresses, you can
+  /// submit another `ListResolverEndpointIpAddresses` request to get the next
+  /// group of IP addresses. In the next request, specify the value of
+  /// `NextToken` from the previous response.
+  final String nextToken;
+
+  /// The value that you specified for `MaxResults` in the request.
+  final int maxResults;
+
+  /// The IP addresses that DNS queries pass through on their way to your
+  /// network (outbound endpoint) or on the way to Resolver (inbound endpoint).
+  final List<IpAddressResponse> ipAddresses;
+
+  ListResolverEndpointIpAddressesResponse({
+    this.nextToken,
+    this.maxResults,
+    this.ipAddresses,
+  });
+  static ListResolverEndpointIpAddressesResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListResolverEndpointIpAddressesResponse();
+}
+
+class ListResolverEndpointsResponse {
+  /// If more than `MaxResults` IP addresses match the specified criteria, you
+  /// can submit another `ListResolverEndpoint` request to get the next group of
+  /// results. In the next request, specify the value of `NextToken` from the
+  /// previous response.
+  final String nextToken;
+
+  /// The value that you specified for `MaxResults` in the request.
+  final int maxResults;
+
+  /// The resolver endpoints that were created by using the current AWS account,
+  /// and that match the specified filters, if any.
+  final List<ResolverEndpoint> resolverEndpoints;
+
+  ListResolverEndpointsResponse({
+    this.nextToken,
+    this.maxResults,
+    this.resolverEndpoints,
+  });
+  static ListResolverEndpointsResponse fromJson(Map<String, dynamic> json) =>
+      ListResolverEndpointsResponse();
+}
+
+class ListResolverRuleAssociationsResponse {
+  /// If more than `MaxResults` rule associations match the specified criteria,
+  /// you can submit another `ListResolverRuleAssociation` request to get the
+  /// next group of results. In the next request, specify the value of
+  /// `NextToken` from the previous response.
+  final String nextToken;
+
+  /// The value that you specified for `MaxResults` in the request.
+  final int maxResults;
+
+  /// The associations that were created between resolver rules and VPCs using
+  /// the current AWS account, and that match the specified filters, if any.
+  final List<ResolverRuleAssociation> resolverRuleAssociations;
+
+  ListResolverRuleAssociationsResponse({
+    this.nextToken,
+    this.maxResults,
+    this.resolverRuleAssociations,
+  });
+  static ListResolverRuleAssociationsResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListResolverRuleAssociationsResponse();
+}
+
+class ListResolverRulesResponse {
+  /// If more than `MaxResults` resolver rules match the specified criteria, you
+  /// can submit another `ListResolverRules` request to get the next group of
+  /// results. In the next request, specify the value of `NextToken` from the
+  /// previous response.
+  final String nextToken;
+
+  /// The value that you specified for `MaxResults` in the request.
+  final int maxResults;
+
+  /// The resolver rules that were created using the current AWS account and
+  /// that match the specified filters, if any.
+  final List<ResolverRule> resolverRules;
+
+  ListResolverRulesResponse({
+    this.nextToken,
+    this.maxResults,
+    this.resolverRules,
+  });
+  static ListResolverRulesResponse fromJson(Map<String, dynamic> json) =>
+      ListResolverRulesResponse();
+}
+
+class ListTagsForResourceResponse {
+  /// The tags that are associated with the resource that you specified in the
+  /// `ListTagsForResource` request.
+  final List<Tag> tags;
+
+  /// If more than `MaxResults` tags match the specified criteria, you can
+  /// submit another `ListTagsForResource` request to get the next group of
+  /// results. In the next request, specify the value of `NextToken` from the
+  /// previous response.
+  final String nextToken;
+
+  ListTagsForResourceResponse({
+    this.tags,
+    this.nextToken,
+  });
+  static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
+      ListTagsForResourceResponse();
+}
+
+class PutResolverRulePolicyResponse {
+  /// Whether the `PutResolverRulePolicy` request was successful.
+  final bool returnValue;
+
+  PutResolverRulePolicyResponse({
+    this.returnValue,
+  });
+  static PutResolverRulePolicyResponse fromJson(Map<String, dynamic> json) =>
+      PutResolverRulePolicyResponse();
+}
+
+class ResolverEndpoint {
+  /// The ID of the resolver endpoint.
+  final String id;
+
+  /// A unique string that identifies the request that created the resolver
+  /// endpoint. The `CreatorRequestId` allows failed requests to be retried
+  /// without the risk of executing the operation twice.
+  final String creatorRequestId;
+
+  /// The ARN (Amazon Resource Name) for the resolver endpoint.
+  final String arn;
+
+  /// The name that you assigned to the resolver endpoint when you submitted a
+  /// CreateResolverEndpoint request.
+  final String name;
+
+  /// The ID of one or more security groups that control access to this VPC. The
+  /// security group must include one or more inbound resolver rules.
+  final List<String> securityGroupIds;
+
+  /// Indicates whether the resolver endpoint allows inbound or outbound DNS
+  /// queries:
+  ///
+  /// *    `INBOUND`: allows DNS queries to your VPC from your network or
+  /// another VPC
+  ///
+  /// *    `OUTBOUND`: allows DNS queries from your VPC to your network or
+  /// another VPC
+  final String direction;
+
+  /// The number of IP addresses that the resolver endpoint can use for DNS
+  /// queries.
+  final int ipAddressCount;
+
+  /// The ID of the VPC that you want to create the resolver endpoint in.
+  final String hostVpcId;
+
+  /// A code that specifies the current status of the resolver endpoint.
+  final String status;
+
+  /// A detailed description of the status of the resolver endpoint.
+  final String statusMessage;
+
+  /// The date and time that the endpoint was created, in Unix time format and
+  /// Coordinated Universal Time (UTC).
+  final String creationTime;
+
+  /// The date and time that the endpoint was last modified, in Unix time format
+  /// and Coordinated Universal Time (UTC).
+  final String modificationTime;
+
+  ResolverEndpoint({
+    this.id,
+    this.creatorRequestId,
+    this.arn,
+    this.name,
+    this.securityGroupIds,
+    this.direction,
+    this.ipAddressCount,
+    this.hostVpcId,
+    this.status,
+    this.statusMessage,
+    this.creationTime,
+    this.modificationTime,
+  });
+  static ResolverEndpoint fromJson(Map<String, dynamic> json) =>
+      ResolverEndpoint();
+}
+
+class ResolverRule {
+  /// The ID that Resolver assigned to the resolver rule when you created it.
+  final String id;
+
+  /// A unique string that you specified when you created the resolver rule.
+  /// `CreatorRequestId`identifies the request and allows failed requests to be
+  /// retried without the risk of executing the operation twice.
+  final String creatorRequestId;
+
+  /// The ARN (Amazon Resource Name) for the resolver rule specified by `Id`.
+  final String arn;
+
+  /// DNS queries for this domain name are forwarded to the IP addresses that
+  /// are specified in `TargetIps`. If a query matches multiple resolver rules
+  /// (example.com and www.example.com), the query is routed using the resolver
+  /// rule that contains the most specific domain name (www.example.com).
+  final String domainName;
+
+  /// A code that specifies the current status of the resolver rule.
+  final String status;
+
+  /// A detailed description of the status of a resolver rule.
+  final String statusMessage;
+
+  /// This value is always `FORWARD`. Other resolver rule types aren't
+  /// supported.
+  final String ruleType;
+
+  /// The name for the resolver rule, which you specified when you created the
+  /// resolver rule.
+  final String name;
+
+  /// An array that contains the IP addresses and ports that you want to forward
+  final List<TargetAddress> targetIps;
+
+  /// The ID of the endpoint that the rule is associated with.
+  final String resolverEndpointId;
+
+  /// When a rule is shared with another AWS account, the account ID of the
+  /// account that the rule is shared with.
+  final String ownerId;
+
+  /// Whether the rules is shared and, if so, whether the current account is
+  /// sharing the rule with another account, or another account is sharing the
+  /// rule with the current account.
+  final String shareStatus;
+
+  ResolverRule({
+    this.id,
+    this.creatorRequestId,
+    this.arn,
+    this.domainName,
+    this.status,
+    this.statusMessage,
+    this.ruleType,
+    this.name,
+    this.targetIps,
+    this.resolverEndpointId,
+    this.ownerId,
+    this.shareStatus,
+  });
+  static ResolverRule fromJson(Map<String, dynamic> json) => ResolverRule();
+}
+
+class ResolverRuleAssociation {
+  /// The ID of the association between a resolver rule and a VPC. Resolver
+  /// assigns this value when you submit an AssociateResolverRule request.
+  final String id;
+
+  /// The ID of the resolver rule that you associated with the VPC that is
+  /// specified by `VPCId`.
+  final String resolverRuleId;
+
+  /// The name of an association between a resolver rule and a VPC.
+  final String name;
+
+  /// The ID of the VPC that you associated the resolver rule with.
+  final String vpcId;
+
+  /// A code that specifies the current status of the association between a
+  /// resolver rule and a VPC.
+  final String status;
+
+  /// A detailed description of the status of the association between a resolver
+  /// rule and a VPC.
+  final String statusMessage;
+
+  ResolverRuleAssociation({
+    this.id,
+    this.resolverRuleId,
+    this.name,
+    this.vpcId,
+    this.status,
+    this.statusMessage,
+  });
+  static ResolverRuleAssociation fromJson(Map<String, dynamic> json) =>
+      ResolverRuleAssociation();
+}
+
+class ResolverRuleConfig {
+  /// The new name for the resolver rule. The name that you specify appears in
+  /// the Resolver dashboard in the Route 53 console.
+  final String name;
+
+  /// For DNS queries that originate in your VPC, the new IP addresses that you
+  /// want to route outbound DNS queries to.
+  final List<TargetAddress> targetIps;
+
+  /// The ID of the new outbound resolver endpoint that you want to use to route
+  /// DNS queries to the IP addresses that you specify in `TargetIps`.
+  final String resolverEndpointId;
+
+  ResolverRuleConfig({
+    this.name,
+    this.targetIps,
+    this.resolverEndpointId,
+  });
+}
+
+class Tag {
+  /// The name for the tag. For example, if you want to associate Resolver
+  /// resources with the account IDs of your customers for billing purposes, the
+  /// value of `Key` might be `account-id`.
+  final String key;
+
+  /// The value for the tag. For example, if `Key` is `account-id`, then `Value`
+  /// might be the ID of the customer account that you're creating the resource
+  /// for.
+  final String value;
+
+  Tag({
+    this.key,
+    this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class TagResourceResponse {
+  TagResourceResponse();
+  static TagResourceResponse fromJson(Map<String, dynamic> json) =>
+      TagResourceResponse();
+}
+
+class TargetAddress {
+  /// One IP address that you want to forward DNS queries to. You can specify
+  /// only IPv4 addresses.
+  final String ip;
+
+  /// The port at `Ip` that you want to forward DNS queries to.
+  final int port;
+
+  TargetAddress({
+    @required this.ip,
+    this.port,
+  });
+  static TargetAddress fromJson(Map<String, dynamic> json) => TargetAddress();
+}
+
+class UntagResourceResponse {
+  UntagResourceResponse();
+  static UntagResourceResponse fromJson(Map<String, dynamic> json) =>
+      UntagResourceResponse();
+}
+
+class UpdateResolverEndpointResponse {
+  /// The response to an `UpdateResolverEndpoint` request.
+  final ResolverEndpoint resolverEndpoint;
+
+  UpdateResolverEndpointResponse({
+    this.resolverEndpoint,
+  });
+  static UpdateResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
+      UpdateResolverEndpointResponse();
+}
+
+class UpdateResolverRuleResponse {
+  /// The response to an `UpdateResolverRule` request.
+  final ResolverRule resolverRule;
+
+  UpdateResolverRuleResponse({
+    this.resolverRule,
+  });
+  static UpdateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
+      UpdateResolverRuleResponse();
+}

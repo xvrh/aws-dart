@@ -10,7 +10,99 @@ import 'package:meta/meta.dart';
 class DaxApi {
   /// Creates a DAX cluster. All nodes in the cluster run the same DAX caching
   /// software.
-  Future<void> createCluster(
+  ///
+  /// [clusterName]: The cluster identifier. This parameter is stored as a
+  /// lowercase string.
+  ///
+  ///  **Constraints:**
+  ///
+  /// *   A name must contain from 1 to 20 alphanumeric characters or hyphens.
+  ///
+  /// *   The first character must be a letter.
+  ///
+  /// *   A name cannot end with a hyphen or contain two consecutive hyphens.
+  ///
+  /// [nodeType]: The compute and memory capacity of the nodes in the cluster.
+  ///
+  /// [description]: A description of the cluster.
+  ///
+  /// [replicationFactor]: The number of nodes in the DAX cluster. A replication
+  /// factor of 1 will create a single-node cluster, without any read replicas.
+  /// For additional fault tolerance, you can create a multiple node cluster
+  /// with one or more read replicas. To do this, set _ReplicationFactor_ to 2
+  /// or more.
+  ///
+  ///
+  ///
+  /// AWS recommends that you have at least two read replicas per cluster.
+  ///
+  /// [availabilityZones]: The Availability Zones (AZs) in which the cluster
+  /// nodes will be created. All nodes belonging to the cluster are placed in
+  /// these Availability Zones. Use this parameter if you want to distribute the
+  /// nodes across multiple AZs.
+  ///
+  /// [subnetGroupName]: The name of the subnet group to be used for the
+  /// replication group.
+  ///
+  ///
+  ///
+  /// DAX clusters can only run in an Amazon VPC environment. All of the subnets
+  /// that you specify in a subnet group must exist in the same VPC.
+  ///
+  /// [securityGroupIds]: A list of security group IDs to be assigned to each
+  /// node in the DAX cluster. (Each of the security group ID is
+  /// system-generated.)
+  ///
+  /// If this parameter is not specified, DAX assigns the default VPC security
+  /// group to each node.
+  ///
+  /// [preferredMaintenanceWindow]: Specifies the weekly time range during which
+  /// maintenance on the DAX cluster is performed. It is specified as a range in
+  /// the format ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum
+  /// maintenance window is a 60 minute period. Valid values for `ddd` are:
+  ///
+  /// *    `sun`
+  ///
+  /// *    `mon`
+  ///
+  /// *    `tue`
+  ///
+  /// *    `wed`
+  ///
+  /// *    `thu`
+  ///
+  /// *    `fri`
+  ///
+  /// *    `sat`
+  ///
+  ///
+  /// Example: `sun:05:00-sun:09:00`
+  ///
+  ///
+  ///
+  /// If you don't specify a preferred maintenance window when you create or
+  /// modify a cache cluster, DAX assigns a 60-minute maintenance window on a
+  /// randomly selected day of the week.
+  ///
+  /// [notificationTopicArn]: The Amazon Resource Name (ARN) of the Amazon SNS
+  /// topic to which notifications will be sent.
+  ///
+  ///
+  ///
+  /// The Amazon SNS topic owner must be same as the DAX cluster owner.
+  ///
+  /// [iamRoleArn]: A valid Amazon Resource Name (ARN) that identifies an IAM
+  /// role. At runtime, DAX will assume this role and use the role's permissions
+  /// to access DynamoDB on your behalf.
+  ///
+  /// [parameterGroupName]: The parameter group to be associated with the DAX
+  /// cluster.
+  ///
+  /// [tags]: A set of tags to associate with the DAX cluster.
+  ///
+  /// [sseSpecification]: Represents the settings used to enable server-side
+  /// encryption on the cluster.
+  Future<CreateClusterResponse> createCluster(
       {@required String clusterName,
       @required String nodeType,
       String description,
@@ -23,18 +115,37 @@ class DaxApi {
       @required String iamRoleArn,
       String parameterGroupName,
       List<Tag> tags,
-      SseSpecification sseSpecification}) async {}
+      SseSpecification sseSpecification}) async {
+    return CreateClusterResponse.fromJson({});
+  }
 
   /// Creates a new parameter group. A parameter group is a collection of
   /// parameters that you apply to all of the nodes in a DAX cluster.
-  Future<void> createParameterGroup(String parameterGroupName,
-      {String description}) async {}
+  ///
+  /// [parameterGroupName]: The name of the parameter group to apply to all of
+  /// the clusters in this replication group.
+  ///
+  /// [description]: A description of the parameter group.
+  Future<CreateParameterGroupResponse> createParameterGroup(
+      String parameterGroupName,
+      {String description}) async {
+    return CreateParameterGroupResponse.fromJson({});
+  }
 
   /// Creates a new subnet group.
-  Future<void> createSubnetGroup(
+  ///
+  /// [subnetGroupName]: A name for the subnet group. This value is stored as a
+  /// lowercase string.
+  ///
+  /// [description]: A description for the subnet group
+  ///
+  /// [subnetIds]: A list of VPC subnet IDs for the subnet group.
+  Future<CreateSubnetGroupResponse> createSubnetGroup(
       {@required String subnetGroupName,
       String description,
-      @required List<String> subnetIds}) async {}
+      @required List<String> subnetIds}) async {
+    return CreateSubnetGroupResponse.fromJson({});
+  }
 
   /// Removes one or more nodes from a DAX cluster.
   ///
@@ -42,21 +153,42 @@ class DaxApi {
   ///
   /// You cannot use `DecreaseReplicationFactor` to remove the last node in a
   /// DAX cluster. If you need to do this, use `DeleteCluster` instead.
-  Future<void> decreaseReplicationFactor(
+  ///
+  /// [clusterName]: The name of the DAX cluster from which you want to remove
+  /// nodes.
+  ///
+  /// [newReplicationFactor]: The new number of nodes for the DAX cluster.
+  ///
+  /// [availabilityZones]: The Availability Zone(s) from which to remove nodes.
+  ///
+  /// [nodeIdsToRemove]: The unique identifiers of the nodes to be removed from
+  /// the cluster.
+  Future<DecreaseReplicationFactorResponse> decreaseReplicationFactor(
       {@required String clusterName,
       @required int newReplicationFactor,
       List<String> availabilityZones,
-      List<String> nodeIdsToRemove}) async {}
+      List<String> nodeIdsToRemove}) async {
+    return DecreaseReplicationFactorResponse.fromJson({});
+  }
 
   /// Deletes a previously provisioned DAX cluster. _DeleteCluster_ deletes all
   /// associated nodes, node endpoints and the DAX cluster itself. When you
   /// receive a successful response from this action, DAX immediately begins
   /// deleting the cluster; you cannot cancel or revert this action.
-  Future<void> deleteCluster(String clusterName) async {}
+  ///
+  /// [clusterName]: The name of the cluster to be deleted.
+  Future<DeleteClusterResponse> deleteCluster(String clusterName) async {
+    return DeleteClusterResponse.fromJson({});
+  }
 
   /// Deletes the specified parameter group. You cannot delete a parameter group
   /// if it is associated with any DAX clusters.
-  Future<void> deleteParameterGroup(String parameterGroupName) async {}
+  ///
+  /// [parameterGroupName]: The name of the parameter group to delete.
+  Future<DeleteParameterGroupResponse> deleteParameterGroup(
+      String parameterGroupName) async {
+    return DeleteParameterGroupResponse.fromJson({});
+  }
 
   /// Deletes a subnet group.
   ///
@@ -64,7 +196,12 @@ class DaxApi {
   ///
   /// You cannot delete a subnet group if it is associated with any DAX
   /// clusters.
-  Future<void> deleteSubnetGroup(String subnetGroupName) async {}
+  ///
+  /// [subnetGroupName]: The name of the subnet group to delete.
+  Future<DeleteSubnetGroupResponse> deleteSubnetGroup(
+      String subnetGroupName) async {
+    return DeleteSubnetGroupResponse.fromJson({});
+  }
 
   /// Returns information about all provisioned DAX clusters if no cluster
   /// identifier is specified, or about a specific DAX cluster if a cluster
@@ -83,13 +220,41 @@ class DaxApi {
   ///
   /// If nodes are currently being removed from the DAX cluster, no endpoint
   /// information for the removed nodes is displayed.
-  Future<void> describeClusters(
-      {List<String> clusterNames, int maxResults, String nextToken}) async {}
+  ///
+  /// [clusterNames]: The names of the DAX clusters being described.
+  ///
+  /// [maxResults]: The maximum number of results to include in the response. If
+  /// more results exist than the specified `MaxResults` value, a token is
+  /// included in the response so that the remaining results can be retrieved.
+  ///
+  /// The value for `MaxResults` must be between 20 and 100.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token, up to the
+  /// value specified by `MaxResults`.
+  Future<DescribeClustersResponse> describeClusters(
+      {List<String> clusterNames, int maxResults, String nextToken}) async {
+    return DescribeClustersResponse.fromJson({});
+  }
 
   /// Returns the default system parameter information for the DAX caching
   /// software.
-  Future<void> describeDefaultParameters(
-      {int maxResults, String nextToken}) async {}
+  ///
+  /// [maxResults]: The maximum number of results to include in the response. If
+  /// more results exist than the specified `MaxResults` value, a token is
+  /// included in the response so that the remaining results can be retrieved.
+  ///
+  /// The value for `MaxResults` must be between 20 and 100.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token, up to the
+  /// value specified by `MaxResults`.
+  Future<DescribeDefaultParametersResponse> describeDefaultParameters(
+      {int maxResults, String nextToken}) async {
+    return DescribeDefaultParametersResponse.fromJson({});
+  }
 
   /// Returns events related to DAX clusters and parameter groups. You can
   /// obtain events specific to a particular DAX cluster or parameter group by
@@ -97,151 +262,884 @@ class DaxApi {
   ///
   /// By default, only the events occurring within the last hour are returned;
   /// however, you can retrieve up to 14 days' worth of events if necessary.
-  Future<void> describeEvents(
+  ///
+  /// [sourceName]: The identifier of the event source for which events will be
+  /// returned. If not specified, then all sources are included in the response.
+  ///
+  /// [sourceType]: The event source to retrieve events for. If no value is
+  /// specified, all events are returned.
+  ///
+  /// [startTime]: The beginning of the time interval to retrieve events for,
+  /// specified in ISO 8601 format.
+  ///
+  /// [endTime]: The end of the time interval for which to retrieve events,
+  /// specified in ISO 8601 format.
+  ///
+  /// [duration]: The number of minutes' worth of events to retrieve.
+  ///
+  /// [maxResults]: The maximum number of results to include in the response. If
+  /// more results exist than the specified `MaxResults` value, a token is
+  /// included in the response so that the remaining results can be retrieved.
+  ///
+  /// The value for `MaxResults` must be between 20 and 100.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token, up to the
+  /// value specified by `MaxResults`.
+  Future<DescribeEventsResponse> describeEvents(
       {String sourceName,
       String sourceType,
       DateTime startTime,
       DateTime endTime,
       int duration,
       int maxResults,
-      String nextToken}) async {}
+      String nextToken}) async {
+    return DescribeEventsResponse.fromJson({});
+  }
 
   /// Returns a list of parameter group descriptions. If a parameter group name
   /// is specified, the list will contain only the descriptions for that group.
-  Future<void> describeParameterGroups(
+  ///
+  /// [parameterGroupNames]: The names of the parameter groups.
+  ///
+  /// [maxResults]: The maximum number of results to include in the response. If
+  /// more results exist than the specified `MaxResults` value, a token is
+  /// included in the response so that the remaining results can be retrieved.
+  ///
+  /// The value for `MaxResults` must be between 20 and 100.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token, up to the
+  /// value specified by `MaxResults`.
+  Future<DescribeParameterGroupsResponse> describeParameterGroups(
       {List<String> parameterGroupNames,
       int maxResults,
-      String nextToken}) async {}
+      String nextToken}) async {
+    return DescribeParameterGroupsResponse.fromJson({});
+  }
 
   /// Returns the detailed parameter list for a particular parameter group.
-  Future<void> describeParameters(String parameterGroupName,
-      {String source, int maxResults, String nextToken}) async {}
+  ///
+  /// [parameterGroupName]: The name of the parameter group.
+  ///
+  /// [source]: How the parameter is defined. For example, `system` denotes a
+  /// system-defined parameter.
+  ///
+  /// [maxResults]: The maximum number of results to include in the response. If
+  /// more results exist than the specified `MaxResults` value, a token is
+  /// included in the response so that the remaining results can be retrieved.
+  ///
+  /// The value for `MaxResults` must be between 20 and 100.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token, up to the
+  /// value specified by `MaxResults`.
+  Future<DescribeParametersResponse> describeParameters(
+      String parameterGroupName,
+      {String source,
+      int maxResults,
+      String nextToken}) async {
+    return DescribeParametersResponse.fromJson({});
+  }
 
   /// Returns a list of subnet group descriptions. If a subnet group name is
   /// specified, the list will contain only the description of that group.
-  Future<void> describeSubnetGroups(
-      {List<String> subnetGroupNames,
-      int maxResults,
-      String nextToken}) async {}
+  ///
+  /// [subnetGroupNames]: The name of the subnet group.
+  ///
+  /// [maxResults]: The maximum number of results to include in the response. If
+  /// more results exist than the specified `MaxResults` value, a token is
+  /// included in the response so that the remaining results can be retrieved.
+  ///
+  /// The value for `MaxResults` must be between 20 and 100.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token, up to the
+  /// value specified by `MaxResults`.
+  Future<DescribeSubnetGroupsResponse> describeSubnetGroups(
+      {List<String> subnetGroupNames, int maxResults, String nextToken}) async {
+    return DescribeSubnetGroupsResponse.fromJson({});
+  }
 
   /// Adds one or more nodes to a DAX cluster.
-  Future<void> increaseReplicationFactor(
+  ///
+  /// [clusterName]: The name of the DAX cluster that will receive additional
+  /// nodes.
+  ///
+  /// [newReplicationFactor]: The new number of nodes for the DAX cluster.
+  ///
+  /// [availabilityZones]: The Availability Zones (AZs) in which the cluster
+  /// nodes will be created. All nodes belonging to the cluster are placed in
+  /// these Availability Zones. Use this parameter if you want to distribute the
+  /// nodes across multiple AZs.
+  Future<IncreaseReplicationFactorResponse> increaseReplicationFactor(
       {@required String clusterName,
       @required int newReplicationFactor,
-      List<String> availabilityZones}) async {}
+      List<String> availabilityZones}) async {
+    return IncreaseReplicationFactorResponse.fromJson({});
+  }
 
   /// List all of the tags for a DAX cluster. You can call `ListTags` up to 10
   /// times per second, per account.
-  Future<void> listTags(String resourceName, {String nextToken}) async {}
+  ///
+  /// [resourceName]: The name of the DAX resource to which the tags belong.
+  ///
+  /// [nextToken]: An optional token returned from a prior request. Use this
+  /// token for pagination of results from this action. If this parameter is
+  /// specified, the response includes only results beyond the token.
+  Future<ListTagsResponse> listTags(String resourceName,
+      {String nextToken}) async {
+    return ListTagsResponse.fromJson({});
+  }
 
   /// Reboots a single node of a DAX cluster. The reboot action takes place as
   /// soon as possible. During the reboot, the node status is set to REBOOTING.
-  Future<void> rebootNode(
-      {@required String clusterName, @required String nodeId}) async {}
+  ///
+  /// [clusterName]: The name of the DAX cluster containing the node to be
+  /// rebooted.
+  ///
+  /// [nodeId]: The system-assigned ID of the node to be rebooted.
+  Future<RebootNodeResponse> rebootNode(
+      {@required String clusterName, @required String nodeId}) async {
+    return RebootNodeResponse.fromJson({});
+  }
 
   /// Associates a set of tags with a DAX resource. You can call `TagResource`
   /// up to 5 times per second, per account.
-  Future<void> tagResource(
-      {@required String resourceName, @required List<Tag> tags}) async {}
+  ///
+  /// [resourceName]: The name of the DAX resource to which tags should be
+  /// added.
+  ///
+  /// [tags]: The tags to be assigned to the DAX resource.
+  Future<TagResourceResponse> tagResource(
+      {@required String resourceName, @required List<Tag> tags}) async {
+    return TagResourceResponse.fromJson({});
+  }
 
   /// Removes the association of tags from a DAX resource. You can call
   /// `UntagResource` up to 5 times per second, per account.
-  Future<void> untagResource(
-      {@required String resourceName, @required List<String> tagKeys}) async {}
+  ///
+  /// [resourceName]: The name of the DAX resource from which the tags should be
+  /// removed.
+  ///
+  /// [tagKeys]: A list of tag keys. If the DAX cluster has any tags with these
+  /// keys, then the tags are removed from the cluster.
+  Future<UntagResourceResponse> untagResource(
+      {@required String resourceName, @required List<String> tagKeys}) async {
+    return UntagResourceResponse.fromJson({});
+  }
 
   /// Modifies the settings for a DAX cluster. You can use this action to change
   /// one or more cluster configuration parameters by specifying the parameters
   /// and the new values.
-  Future<void> updateCluster(String clusterName,
+  ///
+  /// [clusterName]: The name of the DAX cluster to be modified.
+  ///
+  /// [description]: A description of the changes being made to the cluster.
+  ///
+  /// [preferredMaintenanceWindow]: A range of time when maintenance of DAX
+  /// cluster software will be performed. For example: `sun:01:00-sun:09:00`.
+  /// Cluster maintenance normally takes less than 30 minutes, and is performed
+  /// automatically within the maintenance window.
+  ///
+  /// [notificationTopicArn]: The Amazon Resource Name (ARN) that identifies the
+  /// topic.
+  ///
+  /// [notificationTopicStatus]: The current state of the topic.
+  ///
+  /// [parameterGroupName]: The name of a parameter group for this cluster.
+  ///
+  /// [securityGroupIds]: A list of user-specified security group IDs to be
+  /// assigned to each node in the DAX cluster. If this parameter is not
+  /// specified, DAX assigns the default VPC security group to each node.
+  Future<UpdateClusterResponse> updateCluster(String clusterName,
       {String description,
       String preferredMaintenanceWindow,
       String notificationTopicArn,
       String notificationTopicStatus,
       String parameterGroupName,
-      List<String> securityGroupIds}) async {}
+      List<String> securityGroupIds}) async {
+    return UpdateClusterResponse.fromJson({});
+  }
 
   /// Modifies the parameters of a parameter group. You can modify up to 20
   /// parameters in a single request by submitting a list parameter name and
   /// value pairs.
-  Future<void> updateParameterGroup(
+  ///
+  /// [parameterGroupName]: The name of the parameter group.
+  ///
+  /// [parameterNameValues]: An array of name-value pairs for the parameters in
+  /// the group. Each element in the array represents a single parameter.
+  Future<UpdateParameterGroupResponse> updateParameterGroup(
       {@required String parameterGroupName,
-      @required List<ParameterNameValue> parameterNameValues}) async {}
+      @required List<ParameterNameValue> parameterNameValues}) async {
+    return UpdateParameterGroupResponse.fromJson({});
+  }
 
   /// Modifies an existing subnet group.
-  Future<void> updateSubnetGroup(String subnetGroupName,
-      {String description, List<String> subnetIds}) async {}
+  ///
+  /// [subnetGroupName]: The name of the subnet group.
+  ///
+  /// [description]: A description of the subnet group.
+  ///
+  /// [subnetIds]: A list of subnet IDs in the subnet group.
+  Future<UpdateSubnetGroupResponse> updateSubnetGroup(String subnetGroupName,
+      {String description, List<String> subnetIds}) async {
+    return UpdateSubnetGroupResponse.fromJson({});
+  }
 }
 
-class Cluster {}
+class Cluster {
+  /// The name of the DAX cluster.
+  final String clusterName;
 
-class CreateClusterResponse {}
+  /// The description of the cluster.
+  final String description;
 
-class CreateParameterGroupResponse {}
+  /// The Amazon Resource Name (ARN) that uniquely identifies the cluster.
+  final String clusterArn;
 
-class CreateSubnetGroupResponse {}
+  /// The total number of nodes in the cluster.
+  final int totalNodes;
 
-class DecreaseReplicationFactorResponse {}
+  /// The number of nodes in the cluster that are active (i.e., capable of
+  /// serving requests).
+  final int activeNodes;
 
-class DeleteClusterResponse {}
+  /// The node type for the nodes in the cluster. (All nodes in a DAX cluster
+  /// are of the same type.)
+  final String nodeType;
 
-class DeleteParameterGroupResponse {}
+  /// The current status of the cluster.
+  final String status;
 
-class DeleteSubnetGroupResponse {}
+  /// The configuration endpoint for this DAX cluster, consisting of a DNS name
+  /// and a port number. Client applications can specify this endpoint, rather
+  /// than an individual node endpoint, and allow the DAX client software to
+  /// intelligently route requests and responses to nodes in the DAX cluster.
+  final Endpoint clusterDiscoveryEndpoint;
 
-class DescribeClustersResponse {}
+  /// A list of nodes to be removed from the cluster.
+  final List<String> nodeIdsToRemove;
 
-class DescribeDefaultParametersResponse {}
+  /// A list of nodes that are currently in the cluster.
+  final List<Node> nodes;
 
-class DescribeEventsResponse {}
+  /// A range of time when maintenance of DAX cluster software will be
+  /// performed. For example: `sun:01:00-sun:09:00`. Cluster maintenance
+  /// normally takes less than 30 minutes, and is performed automatically within
+  /// the maintenance window.
+  final String preferredMaintenanceWindow;
 
-class DescribeParameterGroupsResponse {}
+  /// Describes a notification topic and its status. Notification topics are
+  /// used for publishing DAX events to subscribers using Amazon Simple
+  /// Notification Service (SNS).
+  final NotificationConfiguration notificationConfiguration;
 
-class DescribeParametersResponse {}
+  /// The subnet group where the DAX cluster is running.
+  final String subnetGroup;
 
-class DescribeSubnetGroupsResponse {}
+  /// A list of security groups, and the status of each, for the nodes in the
+  /// cluster.
+  final List<SecurityGroupMembership> securityGroups;
 
-class Endpoint {}
+  /// A valid Amazon Resource Name (ARN) that identifies an IAM role. At
+  /// runtime, DAX will assume this role and use the role's permissions to
+  /// access DynamoDB on your behalf.
+  final String iamRoleArn;
 
-class Event {}
+  /// The parameter group being used by nodes in the cluster.
+  final ParameterGroupStatus parameterGroup;
 
-class IncreaseReplicationFactorResponse {}
+  /// The description of the server-side encryption status on the specified DAX
+  /// cluster.
+  final SseDescription sseDescription;
 
-class ListTagsResponse {}
+  Cluster({
+    this.clusterName,
+    this.description,
+    this.clusterArn,
+    this.totalNodes,
+    this.activeNodes,
+    this.nodeType,
+    this.status,
+    this.clusterDiscoveryEndpoint,
+    this.nodeIdsToRemove,
+    this.nodes,
+    this.preferredMaintenanceWindow,
+    this.notificationConfiguration,
+    this.subnetGroup,
+    this.securityGroups,
+    this.iamRoleArn,
+    this.parameterGroup,
+    this.sseDescription,
+  });
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+}
 
-class Node {}
+class CreateClusterResponse {
+  /// A description of the DAX cluster that you have created.
+  final Cluster cluster;
 
-class NodeTypeSpecificValue {}
+  CreateClusterResponse({
+    this.cluster,
+  });
+  static CreateClusterResponse fromJson(Map<String, dynamic> json) =>
+      CreateClusterResponse();
+}
 
-class NotificationConfiguration {}
+class CreateParameterGroupResponse {
+  /// Represents the output of a _CreateParameterGroup_ action.
+  final ParameterGroup parameterGroup;
 
-class Parameter {}
+  CreateParameterGroupResponse({
+    this.parameterGroup,
+  });
+  static CreateParameterGroupResponse fromJson(Map<String, dynamic> json) =>
+      CreateParameterGroupResponse();
+}
 
-class ParameterGroup {}
+class CreateSubnetGroupResponse {
+  /// Represents the output of a _CreateSubnetGroup_ operation.
+  final SubnetGroup subnetGroup;
 
-class ParameterGroupStatus {}
+  CreateSubnetGroupResponse({
+    this.subnetGroup,
+  });
+  static CreateSubnetGroupResponse fromJson(Map<String, dynamic> json) =>
+      CreateSubnetGroupResponse();
+}
 
-class ParameterNameValue {}
+class DecreaseReplicationFactorResponse {
+  /// A description of the DAX cluster, after you have decreased its replication
+  /// factor.
+  final Cluster cluster;
 
-class RebootNodeResponse {}
+  DecreaseReplicationFactorResponse({
+    this.cluster,
+  });
+  static DecreaseReplicationFactorResponse fromJson(
+          Map<String, dynamic> json) =>
+      DecreaseReplicationFactorResponse();
+}
 
-class SseDescription {}
+class DeleteClusterResponse {
+  /// A description of the DAX cluster that is being deleted.
+  final Cluster cluster;
 
-class SseSpecification {}
+  DeleteClusterResponse({
+    this.cluster,
+  });
+  static DeleteClusterResponse fromJson(Map<String, dynamic> json) =>
+      DeleteClusterResponse();
+}
 
-class SecurityGroupMembership {}
+class DeleteParameterGroupResponse {
+  /// A user-specified message for this action (i.e., a reason for deleting the
+  /// parameter group).
+  final String deletionMessage;
 
-class Subnet {}
+  DeleteParameterGroupResponse({
+    this.deletionMessage,
+  });
+  static DeleteParameterGroupResponse fromJson(Map<String, dynamic> json) =>
+      DeleteParameterGroupResponse();
+}
 
-class SubnetGroup {}
+class DeleteSubnetGroupResponse {
+  /// A user-specified message for this action (i.e., a reason for deleting the
+  /// subnet group).
+  final String deletionMessage;
 
-class Tag {}
+  DeleteSubnetGroupResponse({
+    this.deletionMessage,
+  });
+  static DeleteSubnetGroupResponse fromJson(Map<String, dynamic> json) =>
+      DeleteSubnetGroupResponse();
+}
 
-class TagResourceResponse {}
+class DescribeClustersResponse {
+  /// Provides an identifier to allow retrieval of paginated results.
+  final String nextToken;
 
-class UntagResourceResponse {}
+  /// The descriptions of your DAX clusters, in response to a _DescribeClusters_
+  /// request.
+  final List<Cluster> clusters;
 
-class UpdateClusterResponse {}
+  DescribeClustersResponse({
+    this.nextToken,
+    this.clusters,
+  });
+  static DescribeClustersResponse fromJson(Map<String, dynamic> json) =>
+      DescribeClustersResponse();
+}
 
-class UpdateParameterGroupResponse {}
+class DescribeDefaultParametersResponse {
+  /// Provides an identifier to allow retrieval of paginated results.
+  final String nextToken;
 
-class UpdateSubnetGroupResponse {}
+  /// A list of parameters. Each element in the list represents one parameter.
+  final List<Parameter> parameters;
+
+  DescribeDefaultParametersResponse({
+    this.nextToken,
+    this.parameters,
+  });
+  static DescribeDefaultParametersResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeDefaultParametersResponse();
+}
+
+class DescribeEventsResponse {
+  /// Provides an identifier to allow retrieval of paginated results.
+  final String nextToken;
+
+  /// An array of events. Each element in the array represents one event.
+  final List<Event> events;
+
+  DescribeEventsResponse({
+    this.nextToken,
+    this.events,
+  });
+  static DescribeEventsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEventsResponse();
+}
+
+class DescribeParameterGroupsResponse {
+  /// Provides an identifier to allow retrieval of paginated results.
+  final String nextToken;
+
+  /// An array of parameter groups. Each element in the array represents one
+  /// parameter group.
+  final List<ParameterGroup> parameterGroups;
+
+  DescribeParameterGroupsResponse({
+    this.nextToken,
+    this.parameterGroups,
+  });
+  static DescribeParameterGroupsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeParameterGroupsResponse();
+}
+
+class DescribeParametersResponse {
+  /// Provides an identifier to allow retrieval of paginated results.
+  final String nextToken;
+
+  /// A list of parameters within a parameter group. Each element in the list
+  /// represents one parameter.
+  final List<Parameter> parameters;
+
+  DescribeParametersResponse({
+    this.nextToken,
+    this.parameters,
+  });
+  static DescribeParametersResponse fromJson(Map<String, dynamic> json) =>
+      DescribeParametersResponse();
+}
+
+class DescribeSubnetGroupsResponse {
+  /// Provides an identifier to allow retrieval of paginated results.
+  final String nextToken;
+
+  /// An array of subnet groups. Each element in the array represents a single
+  /// subnet group.
+  final List<SubnetGroup> subnetGroups;
+
+  DescribeSubnetGroupsResponse({
+    this.nextToken,
+    this.subnetGroups,
+  });
+  static DescribeSubnetGroupsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeSubnetGroupsResponse();
+}
+
+class Endpoint {
+  /// The DNS hostname of the endpoint.
+  final String address;
+
+  /// The port number that applications should use to connect to the endpoint.
+  final int port;
+
+  Endpoint({
+    this.address,
+    this.port,
+  });
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+}
+
+class Event {
+  /// The source of the event. For example, if the event occurred at the node
+  /// level, the source would be the node ID.
+  final String sourceName;
+
+  /// Specifies the origin of this event - a cluster, a parameter group, a node
+  /// ID, etc.
+  final String sourceType;
+
+  /// A user-defined message associated with the event.
+  final String message;
+
+  /// The date and time when the event occurred.
+  final DateTime date;
+
+  Event({
+    this.sourceName,
+    this.sourceType,
+    this.message,
+    this.date,
+  });
+  static Event fromJson(Map<String, dynamic> json) => Event();
+}
+
+class IncreaseReplicationFactorResponse {
+  /// A description of the DAX cluster. with its new replication factor.
+  final Cluster cluster;
+
+  IncreaseReplicationFactorResponse({
+    this.cluster,
+  });
+  static IncreaseReplicationFactorResponse fromJson(
+          Map<String, dynamic> json) =>
+      IncreaseReplicationFactorResponse();
+}
+
+class ListTagsResponse {
+  /// A list of tags currently associated with the DAX cluster.
+  final List<Tag> tags;
+
+  /// If this value is present, there are additional results to be displayed. To
+  /// retrieve them, call `ListTags` again, with `NextToken` set to this value.
+  final String nextToken;
+
+  ListTagsResponse({
+    this.tags,
+    this.nextToken,
+  });
+  static ListTagsResponse fromJson(Map<String, dynamic> json) =>
+      ListTagsResponse();
+}
+
+class Node {
+  /// A system-generated identifier for the node.
+  final String nodeId;
+
+  /// The endpoint for the node, consisting of a DNS name and a port number.
+  /// Client applications can connect directly to a node endpoint, if desired
+  /// (as an alternative to allowing DAX client software to intelligently route
+  /// requests and responses to nodes in the DAX cluster.
+  final Endpoint endpoint;
+
+  /// The date and time (in UNIX epoch format) when the node was launched.
+  final DateTime nodeCreateTime;
+
+  /// The Availability Zone (AZ) in which the node has been deployed.
+  final String availabilityZone;
+
+  /// The current status of the node. For example: `available`.
+  final String nodeStatus;
+
+  /// The status of the parameter group associated with this node. For example,
+  /// `in-sync`.
+  final String parameterGroupStatus;
+
+  Node({
+    this.nodeId,
+    this.endpoint,
+    this.nodeCreateTime,
+    this.availabilityZone,
+    this.nodeStatus,
+    this.parameterGroupStatus,
+  });
+  static Node fromJson(Map<String, dynamic> json) => Node();
+}
+
+class NodeTypeSpecificValue {
+  /// A node type to which the parameter value applies.
+  final String nodeType;
+
+  /// The parameter value for this node type.
+  final String value;
+
+  NodeTypeSpecificValue({
+    this.nodeType,
+    this.value,
+  });
+  static NodeTypeSpecificValue fromJson(Map<String, dynamic> json) =>
+      NodeTypeSpecificValue();
+}
+
+class NotificationConfiguration {
+  /// The Amazon Resource Name (ARN) that identifies the topic.
+  final String topicArn;
+
+  /// The current state of the topic.
+  final String topicStatus;
+
+  NotificationConfiguration({
+    this.topicArn,
+    this.topicStatus,
+  });
+  static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
+      NotificationConfiguration();
+}
+
+class Parameter {
+  /// The name of the parameter.
+  final String parameterName;
+
+  /// Determines whether the parameter can be applied to any nodes, or only
+  /// nodes of a particular type.
+  final String parameterType;
+
+  /// The value for the parameter.
+  final String parameterValue;
+
+  /// A list of node types, and specific parameter values for each node.
+  final List<NodeTypeSpecificValue> nodeTypeSpecificValues;
+
+  /// A description of the parameter
+  final String description;
+
+  /// How the parameter is defined. For example, `system` denotes a
+  /// system-defined parameter.
+  final String source;
+
+  /// The data type of the parameter. For example, `integer`:
+  final String dataType;
+
+  /// A range of values within which the parameter can be set.
+  final String allowedValues;
+
+  /// Whether the customer is allowed to modify the parameter.
+  final String isModifiable;
+
+  /// The conditions under which changes to this parameter can be applied. For
+  /// example, `requires-reboot` indicates that a new value for this parameter
+  /// will only take effect if a node is rebooted.
+  final String changeType;
+
+  Parameter({
+    this.parameterName,
+    this.parameterType,
+    this.parameterValue,
+    this.nodeTypeSpecificValues,
+    this.description,
+    this.source,
+    this.dataType,
+    this.allowedValues,
+    this.isModifiable,
+    this.changeType,
+  });
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+}
+
+class ParameterGroup {
+  /// The name of the parameter group.
+  final String parameterGroupName;
+
+  /// A description of the parameter group.
+  final String description;
+
+  ParameterGroup({
+    this.parameterGroupName,
+    this.description,
+  });
+  static ParameterGroup fromJson(Map<String, dynamic> json) => ParameterGroup();
+}
+
+class ParameterGroupStatus {
+  /// The name of the parameter group.
+  final String parameterGroupName;
+
+  /// The status of parameter updates.
+  final String parameterApplyStatus;
+
+  /// The node IDs of one or more nodes to be rebooted.
+  final List<String> nodeIdsToReboot;
+
+  ParameterGroupStatus({
+    this.parameterGroupName,
+    this.parameterApplyStatus,
+    this.nodeIdsToReboot,
+  });
+  static ParameterGroupStatus fromJson(Map<String, dynamic> json) =>
+      ParameterGroupStatus();
+}
+
+class ParameterNameValue {
+  /// The name of the parameter.
+  final String parameterName;
+
+  /// The value of the parameter.
+  final String parameterValue;
+
+  ParameterNameValue({
+    this.parameterName,
+    this.parameterValue,
+  });
+}
+
+class RebootNodeResponse {
+  /// A description of the DAX cluster after a node has been rebooted.
+  final Cluster cluster;
+
+  RebootNodeResponse({
+    this.cluster,
+  });
+  static RebootNodeResponse fromJson(Map<String, dynamic> json) =>
+      RebootNodeResponse();
+}
+
+class SseDescription {
+  /// The current state of server-side encryption:
+  ///
+  /// *    `ENABLING` \- Server-side encryption is being enabled.
+  ///
+  /// *    `ENABLED` \- Server-side encryption is enabled.
+  ///
+  /// *    `DISABLING` \- Server-side encryption is being disabled.
+  ///
+  /// *    `DISABLED` \- Server-side encryption is disabled.
+  final String status;
+
+  SseDescription({
+    this.status,
+  });
+  static SseDescription fromJson(Map<String, dynamic> json) => SseDescription();
+}
+
+class SseSpecification {
+  /// Indicates whether server-side encryption is enabled (true) or disabled
+  /// (false) on the cluster.
+  final bool enabled;
+
+  SseSpecification({
+    @required this.enabled,
+  });
+}
+
+class SecurityGroupMembership {
+  /// The unique ID for this security group.
+  final String securityGroupIdentifier;
+
+  /// The status of this security group.
+  final String status;
+
+  SecurityGroupMembership({
+    this.securityGroupIdentifier,
+    this.status,
+  });
+  static SecurityGroupMembership fromJson(Map<String, dynamic> json) =>
+      SecurityGroupMembership();
+}
+
+class Subnet {
+  /// The system-assigned identifier for the subnet.
+  final String subnetIdentifier;
+
+  /// The Availability Zone (AZ) for subnet subnet.
+  final String subnetAvailabilityZone;
+
+  Subnet({
+    this.subnetIdentifier,
+    this.subnetAvailabilityZone,
+  });
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+}
+
+class SubnetGroup {
+  /// The name of the subnet group.
+  final String subnetGroupName;
+
+  /// The description of the subnet group.
+  final String description;
+
+  /// The Amazon Virtual Private Cloud identifier (VPC ID) of the subnet group.
+  final String vpcId;
+
+  /// A list of subnets associated with the subnet group.
+  final List<Subnet> subnets;
+
+  SubnetGroup({
+    this.subnetGroupName,
+    this.description,
+    this.vpcId,
+    this.subnets,
+  });
+  static SubnetGroup fromJson(Map<String, dynamic> json) => SubnetGroup();
+}
+
+class Tag {
+  /// The key for the tag. Tag keys are case sensitive. Every DAX cluster can
+  /// only have one tag with the same key. If you try to add an existing tag
+  /// (same key), the existing tag value will be updated to the new value.
+  final String key;
+
+  /// The value of the tag. Tag values are case-sensitive and can be null.
+  final String value;
+
+  Tag({
+    this.key,
+    this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class TagResourceResponse {
+  /// The list of tags that are associated with the DAX resource.
+  final List<Tag> tags;
+
+  TagResourceResponse({
+    this.tags,
+  });
+  static TagResourceResponse fromJson(Map<String, dynamic> json) =>
+      TagResourceResponse();
+}
+
+class UntagResourceResponse {
+  /// The tag keys that have been removed from the cluster.
+  final List<Tag> tags;
+
+  UntagResourceResponse({
+    this.tags,
+  });
+  static UntagResourceResponse fromJson(Map<String, dynamic> json) =>
+      UntagResourceResponse();
+}
+
+class UpdateClusterResponse {
+  /// A description of the DAX cluster, after it has been modified.
+  final Cluster cluster;
+
+  UpdateClusterResponse({
+    this.cluster,
+  });
+  static UpdateClusterResponse fromJson(Map<String, dynamic> json) =>
+      UpdateClusterResponse();
+}
+
+class UpdateParameterGroupResponse {
+  /// The parameter group that has been modified.
+  final ParameterGroup parameterGroup;
+
+  UpdateParameterGroupResponse({
+    this.parameterGroup,
+  });
+  static UpdateParameterGroupResponse fromJson(Map<String, dynamic> json) =>
+      UpdateParameterGroupResponse();
+}
+
+class UpdateSubnetGroupResponse {
+  /// The subnet group that has been modified.
+  final SubnetGroup subnetGroup;
+
+  UpdateSubnetGroupResponse({
+    this.subnetGroup,
+  });
+  static UpdateSubnetGroupResponse fromJson(Map<String, dynamic> json) =>
+      UpdateSubnetGroupResponse();
+}

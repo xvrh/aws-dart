@@ -15,6 +15,10 @@ class KinesisApi {
   /// overwrites any existing tags that correspond to the specified tag keys.
   ///
   ///  AddTagsToStream has a limit of five transactions per second per account.
+  ///
+  /// [streamName]: The name of the stream.
+  ///
+  /// [tags]: A set of up to 10 key-value pairs to use to create the tags.
   Future<void> addTagsToStream(
       {@required String streamName,
       @required Map<String, String> tags}) async {}
@@ -63,6 +67,18 @@ class KinesisApi {
   /// in `StreamStatus`.
   ///
   ///  CreateStream has a limit of five transactions per second per account.
+  ///
+  /// [streamName]: A name to identify the stream. The stream name is scoped to
+  /// the AWS account used by the application that creates the stream. It is
+  /// also scoped by AWS Region. That is, two streams in two different AWS
+  /// accounts can have the same name. Two streams in the same AWS account but
+  /// in two different Regions can also have the same name.
+  ///
+  /// [shardCount]: The number of shards that the stream will use. The
+  /// throughput of the stream is a function of the number of shards; more
+  /// shards are required for greater provisioned throughput.
+  ///
+  /// DefaultShardLimit;
   Future<void> createStream(
       {@required String streamName, @required int shardCount}) async {}
 
@@ -73,6 +89,11 @@ class KinesisApi {
   /// This operation may result in lost data. For example, if the stream's
   /// retention period is 48 hours and is decreased to 24 hours, any data
   /// already in the stream that is older than 24 hours is inaccessible.
+  ///
+  /// [streamName]: The name of the stream to modify.
+  ///
+  /// [retentionPeriodHours]: The new retention period of the stream, in hours.
+  /// Must be less than the current retention period.
   Future<void> decreaseStreamRetentionPeriod(
       {@required String streamName,
       @required int retentionPeriodHours}) async {}
@@ -97,6 +118,12 @@ class KinesisApi {
   /// which is returned in `StreamStatus`.
   ///
   ///  DeleteStream has a limit of five transactions per second per account.
+  ///
+  /// [streamName]: The name of the stream to delete.
+  ///
+  /// [enforceConsumerDeletion]: If this parameter is unset (`null`) or if you
+  /// set it to `false`, and the stream has registered consumers, the call to
+  /// `DeleteStream` fails with a `ResourceInUseException`.
   Future<void> deleteStream(String streamName,
       {bool enforceConsumerDeletion}) async {}
 
@@ -110,6 +137,20 @@ class KinesisApi {
   /// consumer contains its name and ARN.
   ///
   /// This operation has a limit of five transactions per second per account.
+  ///
+  /// [streamArn]: The ARN of the Kinesis data stream that the consumer is
+  /// registered with. For more information, see [Amazon Resource Names (ARNs)
+  /// and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  ///
+  /// [consumerName]: The name that you gave to the consumer.
+  ///
+  /// [consumerArn]: The ARN returned by Kinesis Data Streams when you
+  /// registered the consumer. If you don't know the ARN of the consumer that
+  /// you want to deregister, you can use the ListStreamConsumers operation to
+  /// get a list of the descriptions of all the consumers that are currently
+  /// registered with a given data stream. The description of a consumer
+  /// contains its ARN.
   Future<void> deregisterStreamConsumer(
       {String streamArn, String consumerName, String consumerArn}) async {}
 
@@ -119,7 +160,9 @@ class KinesisApi {
   /// few minutes.
   ///
   /// This operation has a limit of one transaction per second per account.
-  Future<void> describeLimits() async {}
+  Future<DescribeLimitsOutput> describeLimits() async {
+    return DescribeLimitsOutput.fromJson({});
+  }
 
   /// Describes the specified Kinesis data stream.
   ///
@@ -141,8 +184,18 @@ class KinesisApi {
   /// track the lineage to the oldest shard.
   ///
   /// This operation has a limit of 10 transactions per second per account.
-  Future<void> describeStream(String streamName,
-      {int limit, String exclusiveStartShardId}) async {}
+  ///
+  /// [streamName]: The name of the stream to describe.
+  ///
+  /// [limit]: The maximum number of shards to return in a single call. The
+  /// default value is 100. If you specify a value greater than 100, at most 100
+  /// shards are returned.
+  ///
+  /// [exclusiveStartShardId]: The shard ID of the shard to start with.
+  Future<DescribeStreamOutput> describeStream(String streamName,
+      {int limit, String exclusiveStartShardId}) async {
+    return DescribeStreamOutput.fromJson({});
+  }
 
   /// To get the description of a registered consumer, provide the ARN of the
   /// consumer. Alternatively, you can provide the ARN of the data stream and
@@ -154,8 +207,20 @@ class KinesisApi {
   /// given data stream.
   ///
   /// This operation has a limit of 20 transactions per second per account.
-  Future<void> describeStreamConsumer(
-      {String streamArn, String consumerName, String consumerArn}) async {}
+  ///
+  /// [streamArn]: The ARN of the Kinesis data stream that the consumer is
+  /// registered with. For more information, see [Amazon Resource Names (ARNs)
+  /// and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  ///
+  /// [consumerName]: The name that you gave to the consumer.
+  ///
+  /// [consumerArn]: The ARN returned by Kinesis Data Streams when you
+  /// registered the consumer.
+  Future<DescribeStreamConsumerOutput> describeStreamConsumer(
+      {String streamArn, String consumerName, String consumerArn}) async {
+    return DescribeStreamConsumerOutput.fromJson({});
+  }
 
   /// Provides a summarized description of the specified Kinesis data stream
   /// without the shard list.
@@ -163,17 +228,86 @@ class KinesisApi {
   /// The information returned includes the stream name, Amazon Resource Name
   /// (ARN), status, record retention period, approximate creation time,
   /// monitoring, encryption details, and open shard count.
-  Future<void> describeStreamSummary(String streamName) async {}
+  ///
+  /// [streamName]: The name of the stream to describe.
+  Future<DescribeStreamSummaryOutput> describeStreamSummary(
+      String streamName) async {
+    return DescribeStreamSummaryOutput.fromJson({});
+  }
 
   /// Disables enhanced monitoring.
-  Future<void> disableEnhancedMonitoring(
+  ///
+  /// [streamName]: The name of the Kinesis data stream for which to disable
+  /// enhanced monitoring.
+  ///
+  /// [shardLevelMetrics]: List of shard-level metrics to disable.
+  ///
+  /// The following are the valid shard-level metrics. The value "`ALL`"
+  /// disables every metric.
+  ///
+  /// *    `IncomingBytes`
+  ///
+  /// *    `IncomingRecords`
+  ///
+  /// *    `OutgoingBytes`
+  ///
+  /// *    `OutgoingRecords`
+  ///
+  /// *    `WriteProvisionedThroughputExceeded`
+  ///
+  /// *    `ReadProvisionedThroughputExceeded`
+  ///
+  /// *    `IteratorAgeMilliseconds`
+  ///
+  /// *    `ALL`
+  ///
+  ///
+  /// For more information, see [Monitoring the Amazon Kinesis Data Streams
+  /// Service with Amazon
+  /// CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+  /// in the _Amazon Kinesis Data Streams Developer Guide_.
+  Future<EnhancedMonitoringOutput> disableEnhancedMonitoring(
       {@required String streamName,
-      @required List<String> shardLevelMetrics}) async {}
+      @required List<String> shardLevelMetrics}) async {
+    return EnhancedMonitoringOutput.fromJson({});
+  }
 
   /// Enables enhanced Kinesis data stream monitoring for shard-level metrics.
-  Future<void> enableEnhancedMonitoring(
+  ///
+  /// [streamName]: The name of the stream for which to enable enhanced
+  /// monitoring.
+  ///
+  /// [shardLevelMetrics]: List of shard-level metrics to enable.
+  ///
+  /// The following are the valid shard-level metrics. The value "`ALL`" enables
+  /// every metric.
+  ///
+  /// *    `IncomingBytes`
+  ///
+  /// *    `IncomingRecords`
+  ///
+  /// *    `OutgoingBytes`
+  ///
+  /// *    `OutgoingRecords`
+  ///
+  /// *    `WriteProvisionedThroughputExceeded`
+  ///
+  /// *    `ReadProvisionedThroughputExceeded`
+  ///
+  /// *    `IteratorAgeMilliseconds`
+  ///
+  /// *    `ALL`
+  ///
+  ///
+  /// For more information, see [Monitoring the Amazon Kinesis Data Streams
+  /// Service with Amazon
+  /// CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+  /// in the _Amazon Kinesis Data Streams Developer Guide_.
+  Future<EnhancedMonitoringOutput> enableEnhancedMonitoring(
       {@required String streamName,
-      @required List<String> shardLevelMetrics}) async {}
+      @required List<String> shardLevelMetrics}) async {
+    return EnhancedMonitoringOutput.fromJson({});
+  }
 
   /// Gets data records from a Kinesis data stream's shard.
   ///
@@ -237,7 +371,17 @@ class KinesisApi {
   /// time stamps that are out of order.
   ///
   /// This operation has a limit of five transactions per second per account.
-  Future<void> getRecords(String shardIterator, {int limit}) async {}
+  ///
+  /// [shardIterator]: The position in the shard from which you want to start
+  /// sequentially reading data records. A shard iterator specifies this
+  /// position using the sequence number of a data record in the shard.
+  ///
+  /// [limit]: The maximum number of records to return. Specify a value of up to
+  /// 10,000. If you specify a value that is greater than 10,000, GetRecords
+  /// throws `InvalidArgumentException`.
+  Future<GetRecordsOutput> getRecords(String shardIterator, {int limit}) async {
+    return GetRecordsOutput.fromJson({});
+  }
 
   /// Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes
   /// after it is returned to the requester.
@@ -280,12 +424,53 @@ class KinesisApi {
   ///
   ///  GetShardIterator has a limit of five transactions per second per account
   /// per open shard.
-  Future<void> getShardIterator(
+  ///
+  /// [streamName]: The name of the Amazon Kinesis data stream.
+  ///
+  /// [shardId]: The shard ID of the Kinesis Data Streams shard to get the
+  /// iterator for.
+  ///
+  /// [shardIteratorType]: Determines how the shard iterator is used to start
+  /// reading data records from the shard.
+  ///
+  /// The following are the valid Amazon Kinesis shard iterator types:
+  ///
+  /// *   AT\_SEQUENCE\_NUMBER - Start reading from the position denoted by a
+  /// specific sequence number, provided in the value `StartingSequenceNumber`.
+  ///
+  /// *   AFTER\_SEQUENCE\_NUMBER - Start reading right after the position
+  /// denoted by a specific sequence number, provided in the value
+  /// `StartingSequenceNumber`.
+  ///
+  /// *   AT_TIMESTAMP - Start reading from the position denoted by a specific
+  /// time stamp, provided in the value `Timestamp`.
+  ///
+  /// *   TRIM_HORIZON - Start reading at the last untrimmed record in the shard
+  /// in the system, which is the oldest data record in the shard.
+  ///
+  /// *   LATEST - Start reading just after the most recent record in the shard,
+  /// so that you always read the most recent data in the shard.
+  ///
+  /// [startingSequenceNumber]: The sequence number of the data record in the
+  /// shard from which to start reading. Used with shard iterator type
+  /// AT\_SEQUENCE\_NUMBER and AFTER\_SEQUENCE\_NUMBER.
+  ///
+  /// [timestamp]: The time stamp of the data record from which to start
+  /// reading. Used with shard iterator type AT_TIMESTAMP. A time stamp is the
+  /// Unix epoch date with precision in milliseconds. For example,
+  /// `2016-04-04T19:58:46.480-00:00` or `1459799926.480`. If a record with this
+  /// exact time stamp does not exist, the iterator returned is for the next
+  /// (later) record. If the time stamp is older than the current trim horizon,
+  /// the iterator returned is for the oldest untrimmed data record
+  /// (TRIM_HORIZON).
+  Future<GetShardIteratorOutput> getShardIterator(
       {@required String streamName,
       @required String shardId,
       @required String shardIteratorType,
       String startingSequenceNumber,
-      DateTime timestamp}) async {}
+      DateTime timestamp}) async {
+    return GetShardIteratorOutput.fromJson({});
+  }
 
   /// Increases the Kinesis data stream's retention period, which is the length
   /// of time data records are accessible after they are added to the stream.
@@ -298,6 +483,11 @@ class KinesisApi {
   /// been called. For example, if a stream's retention period is set to 24
   /// hours and is increased to 168 hours, any data that is older than 24 hours
   /// remains inaccessible to consumer applications.
+  ///
+  /// [streamName]: The name of the stream to modify.
+  ///
+  /// [retentionPeriodHours]: The new retention period of the stream, in hours.
+  /// Must be more than the current retention period.
   Future<void> increaseStreamRetentionPeriod(
       {@required String streamName,
       @required int retentionPeriodHours}) async {}
@@ -313,21 +503,121 @@ class KinesisApi {
   /// API. For more information, see [Controlling Access to Amazon Kinesis Data
   /// Streams Resources Using
   /// IAM](https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html).
-  Future<void> listShards(
+  ///
+  /// [streamName]: The name of the data stream whose shards you want to list.
+  ///
+  /// You cannot specify this parameter if you specify the `NextToken`
+  /// parameter.
+  ///
+  /// [nextToken]: When the number of shards in the data stream is greater than
+  /// the default value for the `MaxResults` parameter, or if you explicitly
+  /// specify a value for `MaxResults` that is less than the number of shards in
+  /// the data stream, the response includes a pagination token named
+  /// `NextToken`. You can specify this `NextToken` value in a subsequent call
+  /// to `ListShards` to list the next set of shards.
+  ///
+  /// Don't specify `StreamName` or `StreamCreationTimestamp` if you specify
+  /// `NextToken` because the latter unambiguously identifies the stream.
+  ///
+  /// You can optionally specify a value for the `MaxResults` parameter when you
+  /// specify `NextToken`. If you specify a `MaxResults` value that is less than
+  /// the number of shards that the operation returns if you don't specify
+  /// `MaxResults`, the response will contain a new `NextToken` value. You can
+  /// use the new `NextToken` value in a subsequent call to the `ListShards`
+  /// operation.
+  ///
+  ///
+  ///
+  /// Tokens expire after 300 seconds. When you obtain a value for `NextToken`
+  /// in the response to a call to `ListShards`, you have 300 seconds to use
+  /// that value. If you specify an expired token in a call to `ListShards`, you
+  /// get `ExpiredNextTokenException`.
+  ///
+  /// [exclusiveStartShardId]: Specify this parameter to indicate that you want
+  /// to list the shards starting with the shard whose ID immediately follows
+  /// `ExclusiveStartShardId`.
+  ///
+  /// If you don't specify this parameter, the default behavior is for
+  /// `ListShards` to list the shards starting with the first one in the stream.
+  ///
+  /// You cannot specify this parameter if you specify `NextToken`.
+  ///
+  /// [maxResults]: The maximum number of shards to return in a single call to
+  /// `ListShards`. The minimum value you can specify for this parameter is 1,
+  /// and the maximum is 1,000, which is also the default.
+  ///
+  /// When the number of shards to be listed is greater than the value of
+  /// `MaxResults`, the response contains a `NextToken` value that you can use
+  /// in a subsequent call to `ListShards` to list the next set of shards.
+  ///
+  /// [streamCreationTimestamp]: Specify this input parameter to distinguish
+  /// data streams that have the same name. For example, if you create a data
+  /// stream and then delete it, and you later create another data stream with
+  /// the same name, you can use this input parameter to specify which of the
+  /// two streams you want to list the shards for.
+  ///
+  /// You cannot specify this parameter if you specify the `NextToken`
+  /// parameter.
+  Future<ListShardsOutput> listShards(
       {String streamName,
       String nextToken,
       String exclusiveStartShardId,
       int maxResults,
-      DateTime streamCreationTimestamp}) async {}
+      DateTime streamCreationTimestamp}) async {
+    return ListShardsOutput.fromJson({});
+  }
 
   /// Lists the consumers registered to receive data from a stream using
   /// enhanced fan-out, and provides information about each consumer.
   ///
   /// This operation has a limit of 10 transactions per second per account.
-  Future<void> listStreamConsumers(String streamArn,
+  ///
+  /// [streamArn]: The ARN of the Kinesis data stream for which you want to list
+  /// the registered consumers. For more information, see [Amazon Resource Names
+  /// (ARNs) and AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  ///
+  /// [nextToken]: When the number of consumers that are registered with the
+  /// data stream is greater than the default value for the `MaxResults`
+  /// parameter, or if you explicitly specify a value for `MaxResults` that is
+  /// less than the number of consumers that are registered with the data
+  /// stream, the response includes a pagination token named `NextToken`. You
+  /// can specify this `NextToken` value in a subsequent call to
+  /// `ListStreamConsumers` to list the next set of registered consumers.
+  ///
+  /// Don't specify `StreamName` or `StreamCreationTimestamp` if you specify
+  /// `NextToken` because the latter unambiguously identifies the stream.
+  ///
+  /// You can optionally specify a value for the `MaxResults` parameter when you
+  /// specify `NextToken`. If you specify a `MaxResults` value that is less than
+  /// the number of consumers that the operation returns if you don't specify
+  /// `MaxResults`, the response will contain a new `NextToken` value. You can
+  /// use the new `NextToken` value in a subsequent call to the
+  /// `ListStreamConsumers` operation to list the next set of consumers.
+  ///
+  ///
+  ///
+  /// Tokens expire after 300 seconds. When you obtain a value for `NextToken`
+  /// in the response to a call to `ListStreamConsumers`, you have 300 seconds
+  /// to use that value. If you specify an expired token in a call to
+  /// `ListStreamConsumers`, you get `ExpiredNextTokenException`.
+  ///
+  /// [maxResults]: The maximum number of consumers that you want a single call
+  /// of `ListStreamConsumers` to return.
+  ///
+  /// [streamCreationTimestamp]: Specify this input parameter to distinguish
+  /// data streams that have the same name. For example, if you create a data
+  /// stream and then delete it, and you later create another data stream with
+  /// the same name, you can use this input parameter to specify which of the
+  /// two streams you want to list the consumers for.
+  ///
+  /// You can't specify this parameter if you specify the NextToken parameter.
+  Future<ListStreamConsumersOutput> listStreamConsumers(String streamArn,
       {String nextToken,
       int maxResults,
-      DateTime streamCreationTimestamp}) async {}
+      DateTime streamCreationTimestamp}) async {
+    return ListStreamConsumersOutput.fromJson({});
+  }
 
   /// Lists your Kinesis data streams.
   ///
@@ -347,13 +637,32 @@ class KinesisApi {
   /// the stream names have been collected in the list.
   ///
   ///  ListStreams has a limit of five transactions per second per account.
-  Future<void> listStreams(
-      {int limit, String exclusiveStartStreamName}) async {}
+  ///
+  /// [limit]: The maximum number of streams to list.
+  ///
+  /// [exclusiveStartStreamName]: The name of the stream to start the list with.
+  Future<ListStreamsOutput> listStreams(
+      {int limit, String exclusiveStartStreamName}) async {
+    return ListStreamsOutput.fromJson({});
+  }
 
   /// Lists the tags for the specified Kinesis data stream. This operation has a
   /// limit of five transactions per second per account.
-  Future<void> listTagsForStream(String streamName,
-      {String exclusiveStartTagKey, int limit}) async {}
+  ///
+  /// [streamName]: The name of the stream.
+  ///
+  /// [exclusiveStartTagKey]: The key to use as the starting point for the list
+  /// of tags. If this parameter is set, `ListTagsForStream` gets all tags that
+  /// occur after `ExclusiveStartTagKey`.
+  ///
+  /// [limit]: The number of tags to return. If this number is less than the
+  /// total number of tags associated with the stream, `HasMoreTags` is set to
+  /// `true`. To list additional tags, set `ExclusiveStartTagKey` to the last
+  /// key in the response.
+  Future<ListTagsForStreamOutput> listTagsForStream(String streamName,
+      {String exclusiveStartTagKey, int limit}) async {
+    return ListTagsForStreamOutput.fromJson({});
+  }
 
   /// Merges two adjacent shards in a Kinesis data stream and combines them into
   /// a single shard to reduce the stream's capacity to ingest and transport
@@ -395,6 +704,13 @@ class KinesisApi {
   /// `LimitExceededException`.
   ///
   ///  `MergeShards` has a limit of five transactions per second per account.
+  ///
+  /// [streamName]: The name of the stream for the merge.
+  ///
+  /// [shardToMerge]: The shard ID of the shard to combine with the adjacent
+  /// shard for the merge.
+  ///
+  /// [adjacentShardToMerge]: The shard ID of the adjacent shard for the merge.
   Future<void> mergeShards(
       {@required String streamName,
       @required String shardToMerge,
@@ -446,12 +762,41 @@ class KinesisApi {
   /// By default, data records are accessible for 24 hours from the time that
   /// they are added to a stream. You can use IncreaseStreamRetentionPeriod or
   /// DecreaseStreamRetentionPeriod to modify this retention period.
-  Future<void> putRecord(
+  ///
+  /// [streamName]: The name of the stream to put the data record into.
+  ///
+  /// [data]: The data blob to put into the record, which is base64-encoded when
+  /// the blob is serialized. When the data blob (the payload before
+  /// base64-encoding) is added to the partition key size, the total size must
+  /// not exceed the maximum record size (1 MB).
+  ///
+  /// [partitionKey]: Determines which shard in the stream the data record is
+  /// assigned to. Partition keys are Unicode strings with a maximum length
+  /// limit of 256 characters for each key. Amazon Kinesis Data Streams uses the
+  /// partition key as input to a hash function that maps the partition key and
+  /// associated data to a specific shard. Specifically, an MD5 hash function is
+  /// used to map partition keys to 128-bit integer values and to map associated
+  /// data records to shards. As a result of this hashing mechanism, all data
+  /// records with the same partition key map to the same shard within the
+  /// stream.
+  ///
+  /// [explicitHashKey]: The hash value used to explicitly determine the shard
+  /// the data record is assigned to by overriding the partition key hash.
+  ///
+  /// [sequenceNumberForOrdering]: Guarantees strictly increasing sequence
+  /// numbers, for puts from the same client and to the same partition key.
+  /// Usage: set the `SequenceNumberForOrdering` of record _n_ to the sequence
+  /// number of record _n-1_ (as returned in the result when putting record
+  /// _n-1_). If this parameter is not set, records are coarsely ordered based
+  /// on arrival time.
+  Future<PutRecordOutput> putRecord(
       {@required String streamName,
       @required Uint8List data,
       @required String partitionKey,
       String explicitHashKey,
-      String sequenceNumberForOrdering}) async {}
+      String sequenceNumberForOrdering}) async {
+    return PutRecordOutput.fromJson({});
+  }
 
   /// Writes multiple data records into a Kinesis data stream in a single call
   /// (also referred to as a `PutRecords` request). Use this operation to send
@@ -519,9 +864,15 @@ class KinesisApi {
   /// By default, data records are accessible for 24 hours from the time that
   /// they are added to a stream. You can use IncreaseStreamRetentionPeriod or
   /// DecreaseStreamRetentionPeriod to modify this retention period.
-  Future<void> putRecords(
+  ///
+  /// [records]: The records associated with the request.
+  ///
+  /// [streamName]: The stream name associated with the request.
+  Future<PutRecordsOutput> putRecords(
       {@required List<PutRecordsRequestEntry> records,
-      @required String streamName}) async {}
+      @required String streamName}) async {
+    return PutRecordsOutput.fromJson({});
+  }
 
   /// Registers a consumer with a Kinesis data stream. When you use this
   /// operation, the consumer you register can read data from the stream at a
@@ -532,8 +883,19 @@ class KinesisApi {
   /// be registered with one stream.
   ///
   /// This operation has a limit of five transactions per second per account.
-  Future<void> registerStreamConsumer(
-      {@required String streamArn, @required String consumerName}) async {}
+  ///
+  /// [streamArn]: The ARN of the Kinesis data stream that you want to register
+  /// the consumer with. For more info, see [Amazon Resource Names (ARNs) and
+  /// AWS Service
+  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  ///
+  /// [consumerName]: For a given Kinesis data stream, each consumer must have a
+  /// unique name. However, consumer names don't have to be unique across data
+  /// streams.
+  Future<RegisterStreamConsumerOutput> registerStreamConsumer(
+      {@required String streamArn, @required String consumerName}) async {
+    return RegisterStreamConsumerOutput.fromJson({});
+  }
 
   /// Removes tags from the specified Kinesis data stream. Removed tags are
   /// deleted and cannot be recovered after this operation successfully
@@ -543,6 +905,11 @@ class KinesisApi {
   ///
   ///  RemoveTagsFromStream has a limit of five transactions per second per
   /// account.
+  ///
+  /// [streamName]: The name of the stream.
+  ///
+  /// [tagKeys]: A list of tag keys. Each corresponding tag is removed from the
+  /// stream.
   Future<void> removeTagsFromStream(
       {@required String streamName, @required List<String> tagKeys}) async {}
 
@@ -596,6 +963,19 @@ class KinesisApi {
   /// `LimitExceededException`.
   ///
   ///  `SplitShard` has a limit of five transactions per second per account.
+  ///
+  /// [streamName]: The name of the stream for the shard split.
+  ///
+  /// [shardToSplit]: The shard ID of the shard to split.
+  ///
+  /// [newStartingHashKey]: A hash key value for the starting hash key of one of
+  /// the child shards created by the split. The hash key range for a given
+  /// shard constitutes a set of ordered contiguous positive integers. The value
+  /// for `NewStartingHashKey` must be in the range of hash keys being mapped
+  /// into the shard. The `NewStartingHashKey` hash key value and all higher
+  /// hash key values in hash key range are distributed to one of the child
+  /// shards. All the lower hash key values in the range are distributed to the
+  /// other child shard.
   Future<void> splitShard(
       {@required String streamName,
       @required String shardToSplit,
@@ -620,6 +1000,30 @@ class KinesisApi {
   /// status before all records written to the stream are encrypted. After you
   /// enable encryption, you can verify that encryption is applied by inspecting
   /// the API response from `PutRecord` or `PutRecords`.
+  ///
+  /// [streamName]: The name of the stream for which to start encrypting
+  /// records.
+  ///
+  /// [encryptionType]: The encryption type to use. The only valid value is
+  /// `KMS`.
+  ///
+  /// [keyId]: The GUID for the customer-managed AWS KMS key to use for
+  /// encryption. This value can be a globally unique identifier, a fully
+  /// specified Amazon Resource Name (ARN) to either an alias or a key, or an
+  /// alias name prefixed by "alias/".You can also use a master key owned by
+  /// Kinesis Data Streams by specifying the alias `aws/kinesis`.
+  ///
+  /// *   Key ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:alias/MyAliasName`
+  ///
+  /// *   Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias name example: `alias/MyAliasName`
+  ///
+  /// *   Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
   Future<void> startStreamEncryption(
       {@required String streamName,
       @required String encryptionType,
@@ -644,6 +1048,28 @@ class KinesisApi {
   /// encryption. After you disabled encryption, you can verify that encryption
   /// is not applied by inspecting the API response from `PutRecord` or
   /// `PutRecords`.
+  ///
+  /// [streamName]: The name of the stream on which to stop encrypting records.
+  ///
+  /// [encryptionType]: The encryption type. The only valid value is `KMS`.
+  ///
+  /// [keyId]: The GUID for the customer-managed AWS KMS key to use for
+  /// encryption. This value can be a globally unique identifier, a fully
+  /// specified Amazon Resource Name (ARN) to either an alias or a key, or an
+  /// alias name prefixed by "alias/".You can also use a master key owned by
+  /// Kinesis Data Streams by specifying the alias `aws/kinesis`.
+  ///
+  /// *   Key ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:alias/MyAliasName`
+  ///
+  /// *   Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias name example: `alias/MyAliasName`
+  ///
+  /// *   Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
   Future<void> stopStreamEncryption(
       {@required String streamName,
       @required String encryptionType,
@@ -688,62 +1114,736 @@ class KinesisApi {
   /// increase in the call rate limit, the shard limit for this API, or your
   /// overall shard limit, use the [limits
   /// form](https://console.aws.amazon.com/support/v1#/case/create?issueType=service-limit-increase&limitType=service-code-kinesis).
-  Future<void> updateShardCount(
+  ///
+  /// [streamName]: The name of the stream.
+  ///
+  /// [targetShardCount]: The new number of shards.
+  ///
+  /// [scalingType]: The scaling type. Uniform scaling creates shards of equal
+  /// size.
+  Future<UpdateShardCountOutput> updateShardCount(
       {@required String streamName,
       @required int targetShardCount,
-      @required String scalingType}) async {}
+      @required String scalingType}) async {
+    return UpdateShardCountOutput.fromJson({});
+  }
 }
 
-class Consumer {}
+class Consumer {
+  /// The name of the consumer is something you choose when you register the
+  /// consumer.
+  final String consumerName;
 
-class ConsumerDescription {}
+  /// When you register a consumer, Kinesis Data Streams generates an ARN for
+  /// it. You need this ARN to be able to call SubscribeToShard.
+  ///
+  /// If you delete a consumer and then create a new one with the same name, it
+  /// won't have the same ARN. That's because consumer ARNs contain the creation
+  /// timestamp. This is important to keep in mind if you have IAM policies that
+  /// reference consumer ARNs.
+  final String consumerArn;
 
-class DescribeLimitsOutput {}
+  /// A consumer can't read data while in the `CREATING` or `DELETING` states.
+  final String consumerStatus;
 
-class DescribeStreamConsumerOutput {}
+  final DateTime consumerCreationTimestamp;
 
-class DescribeStreamOutput {}
+  Consumer({
+    @required this.consumerName,
+    @required this.consumerArn,
+    @required this.consumerStatus,
+    @required this.consumerCreationTimestamp,
+  });
+  static Consumer fromJson(Map<String, dynamic> json) => Consumer();
+}
 
-class DescribeStreamSummaryOutput {}
+class ConsumerDescription {
+  /// The name of the consumer is something you choose when you register the
+  /// consumer.
+  final String consumerName;
 
-class EnhancedMetrics {}
+  /// When you register a consumer, Kinesis Data Streams generates an ARN for
+  /// it. You need this ARN to be able to call SubscribeToShard.
+  ///
+  /// If you delete a consumer and then create a new one with the same name, it
+  /// won't have the same ARN. That's because consumer ARNs contain the creation
+  /// timestamp. This is important to keep in mind if you have IAM policies that
+  /// reference consumer ARNs.
+  final String consumerArn;
 
-class EnhancedMonitoringOutput {}
+  /// A consumer can't read data while in the `CREATING` or `DELETING` states.
+  final String consumerStatus;
 
-class GetRecordsOutput {}
+  final DateTime consumerCreationTimestamp;
 
-class GetShardIteratorOutput {}
+  /// The ARN of the stream with which you registered the consumer.
+  final String streamArn;
 
-class HashKeyRange {}
+  ConsumerDescription({
+    @required this.consumerName,
+    @required this.consumerArn,
+    @required this.consumerStatus,
+    @required this.consumerCreationTimestamp,
+    @required this.streamArn,
+  });
+  static ConsumerDescription fromJson(Map<String, dynamic> json) =>
+      ConsumerDescription();
+}
 
-class ListShardsOutput {}
+class DescribeLimitsOutput {
+  /// The maximum number of shards.
+  final int shardLimit;
 
-class ListStreamConsumersOutput {}
+  /// The number of open shards.
+  final int openShardCount;
 
-class ListStreamsOutput {}
+  DescribeLimitsOutput({
+    @required this.shardLimit,
+    @required this.openShardCount,
+  });
+  static DescribeLimitsOutput fromJson(Map<String, dynamic> json) =>
+      DescribeLimitsOutput();
+}
 
-class ListTagsForStreamOutput {}
+class DescribeStreamConsumerOutput {
+  /// An object that represents the details of the consumer.
+  final ConsumerDescription consumerDescription;
 
-class PutRecordOutput {}
+  DescribeStreamConsumerOutput({
+    @required this.consumerDescription,
+  });
+  static DescribeStreamConsumerOutput fromJson(Map<String, dynamic> json) =>
+      DescribeStreamConsumerOutput();
+}
 
-class PutRecordsOutput {}
+class DescribeStreamOutput {
+  /// The current status of the stream, the stream Amazon Resource Name (ARN),
+  /// an array of shard objects that comprise the stream, and whether there are
+  /// more shards available.
+  final StreamDescription streamDescription;
 
-class PutRecordsRequestEntry {}
+  DescribeStreamOutput({
+    @required this.streamDescription,
+  });
+  static DescribeStreamOutput fromJson(Map<String, dynamic> json) =>
+      DescribeStreamOutput();
+}
 
-class PutRecordsResultEntry {}
+class DescribeStreamSummaryOutput {
+  /// A StreamDescriptionSummary containing information about the stream.
+  final StreamDescriptionSummary streamDescriptionSummary;
 
-class Record {}
+  DescribeStreamSummaryOutput({
+    @required this.streamDescriptionSummary,
+  });
+  static DescribeStreamSummaryOutput fromJson(Map<String, dynamic> json) =>
+      DescribeStreamSummaryOutput();
+}
 
-class RegisterStreamConsumerOutput {}
+class EnhancedMetrics {
+  /// List of shard-level metrics.
+  ///
+  /// The following are the valid shard-level metrics. The value "`ALL`"
+  /// enhances every metric.
+  ///
+  /// *    `IncomingBytes`
+  ///
+  /// *    `IncomingRecords`
+  ///
+  /// *    `OutgoingBytes`
+  ///
+  /// *    `OutgoingRecords`
+  ///
+  /// *    `WriteProvisionedThroughputExceeded`
+  ///
+  /// *    `ReadProvisionedThroughputExceeded`
+  ///
+  /// *    `IteratorAgeMilliseconds`
+  ///
+  /// *    `ALL`
+  ///
+  ///
+  /// For more information, see [Monitoring the Amazon Kinesis Data Streams
+  /// Service with Amazon
+  /// CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+  /// in the _Amazon Kinesis Data Streams Developer Guide_.
+  final List<String> shardLevelMetrics;
 
-class SequenceNumberRange {}
+  EnhancedMetrics({
+    this.shardLevelMetrics,
+  });
+  static EnhancedMetrics fromJson(Map<String, dynamic> json) =>
+      EnhancedMetrics();
+}
 
-class Shard {}
+class EnhancedMonitoringOutput {
+  /// The name of the Kinesis data stream.
+  final String streamName;
 
-class StreamDescription {}
+  /// Represents the current state of the metrics that are in the enhanced state
+  /// before the operation.
+  final List<String> currentShardLevelMetrics;
 
-class StreamDescriptionSummary {}
+  /// Represents the list of all the metrics that would be in the enhanced state
+  /// after the operation.
+  final List<String> desiredShardLevelMetrics;
 
-class Tag {}
+  EnhancedMonitoringOutput({
+    this.streamName,
+    this.currentShardLevelMetrics,
+    this.desiredShardLevelMetrics,
+  });
+  static EnhancedMonitoringOutput fromJson(Map<String, dynamic> json) =>
+      EnhancedMonitoringOutput();
+}
 
-class UpdateShardCountOutput {}
+class GetRecordsOutput {
+  /// The data records retrieved from the shard.
+  final List<Record> records;
+
+  /// The next position in the shard from which to start sequentially reading
+  /// data records. If set to `null`, the shard has been closed and the
+  /// requested iterator does not return any more data.
+  final String nextShardIterator;
+
+  /// The number of milliseconds the GetRecords response is from the tip of the
+  /// stream, indicating how far behind current time the consumer is. A value of
+  /// zero indicates that record processing is caught up, and there are no new
+  /// records to process at this moment.
+  final BigInt millisBehindLatest;
+
+  GetRecordsOutput({
+    @required this.records,
+    this.nextShardIterator,
+    this.millisBehindLatest,
+  });
+  static GetRecordsOutput fromJson(Map<String, dynamic> json) =>
+      GetRecordsOutput();
+}
+
+class GetShardIteratorOutput {
+  /// The position in the shard from which to start reading data records
+  /// sequentially. A shard iterator specifies this position using the sequence
+  /// number of a data record in a shard.
+  final String shardIterator;
+
+  GetShardIteratorOutput({
+    this.shardIterator,
+  });
+  static GetShardIteratorOutput fromJson(Map<String, dynamic> json) =>
+      GetShardIteratorOutput();
+}
+
+class HashKeyRange {
+  /// The starting hash key of the hash key range.
+  final String startingHashKey;
+
+  /// The ending hash key of the hash key range.
+  final String endingHashKey;
+
+  HashKeyRange({
+    @required this.startingHashKey,
+    @required this.endingHashKey,
+  });
+  static HashKeyRange fromJson(Map<String, dynamic> json) => HashKeyRange();
+}
+
+class ListShardsOutput {
+  /// An array of JSON objects. Each object represents one shard and specifies
+  /// the IDs of the shard, the shard's parent, and the shard that's adjacent to
+  /// the shard's parent. Each object also contains the starting and ending hash
+  /// keys and the starting and ending sequence numbers for the shard.
+  final List<Shard> shards;
+
+  /// When the number of shards in the data stream is greater than the default
+  /// value for the `MaxResults` parameter, or if you explicitly specify a value
+  /// for `MaxResults` that is less than the number of shards in the data
+  /// stream, the response includes a pagination token named `NextToken`. You
+  /// can specify this `NextToken` value in a subsequent call to `ListShards` to
+  /// list the next set of shards. For more information about the use of this
+  /// pagination token when calling the `ListShards` operation, see
+  /// ListShardsInput$NextToken.
+  ///
+  ///
+  ///
+  /// Tokens expire after 300 seconds. When you obtain a value for `NextToken`
+  /// in the response to a call to `ListShards`, you have 300 seconds to use
+  /// that value. If you specify an expired token in a call to `ListShards`, you
+  /// get `ExpiredNextTokenException`.
+  final String nextToken;
+
+  ListShardsOutput({
+    this.shards,
+    this.nextToken,
+  });
+  static ListShardsOutput fromJson(Map<String, dynamic> json) =>
+      ListShardsOutput();
+}
+
+class ListStreamConsumersOutput {
+  /// An array of JSON objects. Each object represents one registered consumer.
+  final List<Consumer> consumers;
+
+  /// When the number of consumers that are registered with the data stream is
+  /// greater than the default value for the `MaxResults` parameter, or if you
+  /// explicitly specify a value for `MaxResults` that is less than the number
+  /// of registered consumers, the response includes a pagination token named
+  /// `NextToken`. You can specify this `NextToken` value in a subsequent call
+  /// to `ListStreamConsumers` to list the next set of registered consumers. For
+  /// more information about the use of this pagination token when calling the
+  /// `ListStreamConsumers` operation, see ListStreamConsumersInput$NextToken.
+  ///
+  ///
+  ///
+  /// Tokens expire after 300 seconds. When you obtain a value for `NextToken`
+  /// in the response to a call to `ListStreamConsumers`, you have 300 seconds
+  /// to use that value. If you specify an expired token in a call to
+  /// `ListStreamConsumers`, you get `ExpiredNextTokenException`.
+  final String nextToken;
+
+  ListStreamConsumersOutput({
+    this.consumers,
+    this.nextToken,
+  });
+  static ListStreamConsumersOutput fromJson(Map<String, dynamic> json) =>
+      ListStreamConsumersOutput();
+}
+
+class ListStreamsOutput {
+  /// The names of the streams that are associated with the AWS account making
+  /// the `ListStreams` request.
+  final List<String> streamNames;
+
+  /// If set to `true`, there are more streams available to list.
+  final bool hasMoreStreams;
+
+  ListStreamsOutput({
+    @required this.streamNames,
+    @required this.hasMoreStreams,
+  });
+  static ListStreamsOutput fromJson(Map<String, dynamic> json) =>
+      ListStreamsOutput();
+}
+
+class ListTagsForStreamOutput {
+  /// A list of tags associated with `StreamName`, starting with the first tag
+  /// after `ExclusiveStartTagKey` and up to the specified `Limit`.
+  final List<Tag> tags;
+
+  /// If set to `true`, more tags are available. To request additional tags, set
+  /// `ExclusiveStartTagKey` to the key of the last tag returned.
+  final bool hasMoreTags;
+
+  ListTagsForStreamOutput({
+    @required this.tags,
+    @required this.hasMoreTags,
+  });
+  static ListTagsForStreamOutput fromJson(Map<String, dynamic> json) =>
+      ListTagsForStreamOutput();
+}
+
+class PutRecordOutput {
+  /// The shard ID of the shard where the data record was placed.
+  final String shardId;
+
+  /// The sequence number identifier that was assigned to the put data record.
+  /// The sequence number for the record is unique across all records in the
+  /// stream. A sequence number is the identifier associated with every record
+  /// put into the stream.
+  final String sequenceNumber;
+
+  /// The encryption type to use on the record. This parameter can be one of the
+  /// following values:
+  ///
+  /// *    `NONE`: Do not encrypt the records in the stream.
+  ///
+  /// *    `KMS`: Use server-side encryption on the records in the stream using
+  /// a customer-managed AWS KMS key.
+  final String encryptionType;
+
+  PutRecordOutput({
+    @required this.shardId,
+    @required this.sequenceNumber,
+    this.encryptionType,
+  });
+  static PutRecordOutput fromJson(Map<String, dynamic> json) =>
+      PutRecordOutput();
+}
+
+class PutRecordsOutput {
+  /// The number of unsuccessfully processed records in a `PutRecords` request.
+  final int failedRecordCount;
+
+  /// An array of successfully and unsuccessfully processed record results,
+  /// correlated with the request by natural ordering. A record that is
+  /// successfully added to a stream includes `SequenceNumber` and `ShardId` in
+  /// the result. A record that fails to be added to a stream includes
+  /// `ErrorCode` and `ErrorMessage` in the result.
+  final List<PutRecordsResultEntry> records;
+
+  /// The encryption type used on the records. This parameter can be one of the
+  /// following values:
+  ///
+  /// *    `NONE`: Do not encrypt the records.
+  ///
+  /// *    `KMS`: Use server-side encryption on the records using a
+  /// customer-managed AWS KMS key.
+  final String encryptionType;
+
+  PutRecordsOutput({
+    this.failedRecordCount,
+    @required this.records,
+    this.encryptionType,
+  });
+  static PutRecordsOutput fromJson(Map<String, dynamic> json) =>
+      PutRecordsOutput();
+}
+
+class PutRecordsRequestEntry {
+  /// The data blob to put into the record, which is base64-encoded when the
+  /// blob is serialized. When the data blob (the payload before
+  /// base64-encoding) is added to the partition key size, the total size must
+  /// not exceed the maximum record size (1 MB).
+  final Uint8List data;
+
+  /// The hash value used to determine explicitly the shard that the data record
+  /// is assigned to by overriding the partition key hash.
+  final String explicitHashKey;
+
+  /// Determines which shard in the stream the data record is assigned to.
+  /// Partition keys are Unicode strings with a maximum length limit of 256
+  /// characters for each key. Amazon Kinesis Data Streams uses the partition
+  /// key as input to a hash function that maps the partition key and associated
+  /// data to a specific shard. Specifically, an MD5 hash function is used to
+  /// map partition keys to 128-bit integer values and to map associated data
+  /// records to shards. As a result of this hashing mechanism, all data records
+  /// with the same partition key map to the same shard within the stream.
+  final String partitionKey;
+
+  PutRecordsRequestEntry({
+    @required this.data,
+    this.explicitHashKey,
+    @required this.partitionKey,
+  });
+}
+
+class PutRecordsResultEntry {
+  /// The sequence number for an individual record result.
+  final String sequenceNumber;
+
+  /// The shard ID for an individual record result.
+  final String shardId;
+
+  /// The error code for an individual record result. `ErrorCodes` can be either
+  /// `ProvisionedThroughputExceededException` or `InternalFailure`.
+  final String errorCode;
+
+  /// The error message for an individual record result. An `ErrorCode` value of
+  /// `ProvisionedThroughputExceededException` has an error message that
+  /// includes the account ID, stream name, and shard ID. An `ErrorCode` value
+  /// of `InternalFailure` has the error message `"Internal Service Failure"`.
+  final String errorMessage;
+
+  PutRecordsResultEntry({
+    this.sequenceNumber,
+    this.shardId,
+    this.errorCode,
+    this.errorMessage,
+  });
+  static PutRecordsResultEntry fromJson(Map<String, dynamic> json) =>
+      PutRecordsResultEntry();
+}
+
+class Record {
+  /// The unique identifier of the record within its shard.
+  final String sequenceNumber;
+
+  /// The approximate time that the record was inserted into the stream.
+  final DateTime approximateArrivalTimestamp;
+
+  /// The data blob. The data in the blob is both opaque and immutable to
+  /// Kinesis Data Streams, which does not inspect, interpret, or change the
+  /// data in the blob in any way. When the data blob (the payload before
+  /// base64-encoding) is added to the partition key size, the total size must
+  /// not exceed the maximum record size (1 MB).
+  final Uint8List data;
+
+  /// Identifies which shard in the stream the data record is assigned to.
+  final String partitionKey;
+
+  /// The encryption type used on the record. This parameter can be one of the
+  /// following values:
+  ///
+  /// *    `NONE`: Do not encrypt the records in the stream.
+  ///
+  /// *    `KMS`: Use server-side encryption on the records in the stream using
+  /// a customer-managed AWS KMS key.
+  final String encryptionType;
+
+  Record({
+    @required this.sequenceNumber,
+    this.approximateArrivalTimestamp,
+    @required this.data,
+    @required this.partitionKey,
+    this.encryptionType,
+  });
+  static Record fromJson(Map<String, dynamic> json) => Record();
+}
+
+class RegisterStreamConsumerOutput {
+  /// An object that represents the details of the consumer you registered. When
+  /// you register a consumer, it gets an ARN that is generated by Kinesis Data
+  /// Streams.
+  final Consumer consumer;
+
+  RegisterStreamConsumerOutput({
+    @required this.consumer,
+  });
+  static RegisterStreamConsumerOutput fromJson(Map<String, dynamic> json) =>
+      RegisterStreamConsumerOutput();
+}
+
+class SequenceNumberRange {
+  /// The starting sequence number for the range.
+  final String startingSequenceNumber;
+
+  /// The ending sequence number for the range. Shards that are in the OPEN
+  /// state have an ending sequence number of `null`.
+  final String endingSequenceNumber;
+
+  SequenceNumberRange({
+    @required this.startingSequenceNumber,
+    this.endingSequenceNumber,
+  });
+  static SequenceNumberRange fromJson(Map<String, dynamic> json) =>
+      SequenceNumberRange();
+}
+
+class Shard {
+  /// The unique identifier of the shard within the stream.
+  final String shardId;
+
+  /// The shard ID of the shard's parent.
+  final String parentShardId;
+
+  /// The shard ID of the shard adjacent to the shard's parent.
+  final String adjacentParentShardId;
+
+  /// The range of possible hash key values for the shard, which is a set of
+  /// ordered contiguous positive integers.
+  final HashKeyRange hashKeyRange;
+
+  /// The range of possible sequence numbers for the shard.
+  final SequenceNumberRange sequenceNumberRange;
+
+  Shard({
+    @required this.shardId,
+    this.parentShardId,
+    this.adjacentParentShardId,
+    @required this.hashKeyRange,
+    @required this.sequenceNumberRange,
+  });
+  static Shard fromJson(Map<String, dynamic> json) => Shard();
+}
+
+class StreamDescription {
+  /// The name of the stream being described.
+  final String streamName;
+
+  /// The Amazon Resource Name (ARN) for the stream being described.
+  final String streamArn;
+
+  /// The current status of the stream being described. The stream status is one
+  /// of the following states:
+  ///
+  /// *    `CREATING` \- The stream is being created. Kinesis Data Streams
+  /// immediately returns and sets `StreamStatus` to `CREATING`.
+  ///
+  /// *    `DELETING` \- The stream is being deleted. The specified stream is in
+  /// the `DELETING` state until Kinesis Data Streams completes the deletion.
+  ///
+  /// *    `ACTIVE` \- The stream exists and is ready for read and write
+  /// operations or deletion. You should perform read and write operations only
+  /// on an `ACTIVE` stream.
+  ///
+  /// *    `UPDATING` \- Shards in the stream are being merged or split. Read
+  /// and write operations continue to work while the stream is in the
+  /// `UPDATING` state.
+  final String streamStatus;
+
+  /// The shards that comprise the stream.
+  final List<Shard> shards;
+
+  /// If set to `true`, more shards in the stream are available to describe.
+  final bool hasMoreShards;
+
+  /// The current retention period, in hours.
+  final int retentionPeriodHours;
+
+  /// The approximate time that the stream was created.
+  final DateTime streamCreationTimestamp;
+
+  /// Represents the current enhanced monitoring settings of the stream.
+  final List<EnhancedMetrics> enhancedMonitoring;
+
+  /// The server-side encryption type used on the stream. This parameter can be
+  /// one of the following values:
+  ///
+  /// *    `NONE`: Do not encrypt the records in the stream.
+  ///
+  /// *    `KMS`: Use server-side encryption on the records in the stream using
+  /// a customer-managed AWS KMS key.
+  final String encryptionType;
+
+  /// The GUID for the customer-managed AWS KMS key to use for encryption. This
+  /// value can be a globally unique identifier, a fully specified ARN to either
+  /// an alias or a key, or an alias name prefixed by "alias/".You can also use
+  /// a master key owned by Kinesis Data Streams by specifying the alias
+  /// `aws/kinesis`.
+  ///
+  /// *   Key ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:alias/MyAliasName`
+  ///
+  /// *   Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias name example: `alias/MyAliasName`
+  ///
+  /// *   Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
+  final String keyId;
+
+  StreamDescription({
+    @required this.streamName,
+    @required this.streamArn,
+    @required this.streamStatus,
+    @required this.shards,
+    @required this.hasMoreShards,
+    @required this.retentionPeriodHours,
+    @required this.streamCreationTimestamp,
+    @required this.enhancedMonitoring,
+    this.encryptionType,
+    this.keyId,
+  });
+  static StreamDescription fromJson(Map<String, dynamic> json) =>
+      StreamDescription();
+}
+
+class StreamDescriptionSummary {
+  /// The name of the stream being described.
+  final String streamName;
+
+  /// The Amazon Resource Name (ARN) for the stream being described.
+  final String streamArn;
+
+  /// The current status of the stream being described. The stream status is one
+  /// of the following states:
+  ///
+  /// *    `CREATING` \- The stream is being created. Kinesis Data Streams
+  /// immediately returns and sets `StreamStatus` to `CREATING`.
+  ///
+  /// *    `DELETING` \- The stream is being deleted. The specified stream is in
+  /// the `DELETING` state until Kinesis Data Streams completes the deletion.
+  ///
+  /// *    `ACTIVE` \- The stream exists and is ready for read and write
+  /// operations or deletion. You should perform read and write operations only
+  /// on an `ACTIVE` stream.
+  ///
+  /// *    `UPDATING` \- Shards in the stream are being merged or split. Read
+  /// and write operations continue to work while the stream is in the
+  /// `UPDATING` state.
+  final String streamStatus;
+
+  /// The current retention period, in hours.
+  final int retentionPeriodHours;
+
+  /// The approximate time that the stream was created.
+  final DateTime streamCreationTimestamp;
+
+  /// Represents the current enhanced monitoring settings of the stream.
+  final List<EnhancedMetrics> enhancedMonitoring;
+
+  /// The encryption type used. This value is one of the following:
+  ///
+  /// *    `KMS`
+  ///
+  /// *    `NONE`
+  final String encryptionType;
+
+  /// The GUID for the customer-managed AWS KMS key to use for encryption. This
+  /// value can be a globally unique identifier, a fully specified ARN to either
+  /// an alias or a key, or an alias name prefixed by "alias/".You can also use
+  /// a master key owned by Kinesis Data Streams by specifying the alias
+  /// `aws/kinesis`.
+  ///
+  /// *   Key ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias ARN example:
+  /// `arn:aws:kms:us-east-1:123456789012:alias/MyAliasName`
+  ///
+  /// *   Globally unique key ID example: `12345678-1234-1234-1234-123456789012`
+  ///
+  /// *   Alias name example: `alias/MyAliasName`
+  ///
+  /// *   Master key owned by Kinesis Data Streams: `alias/aws/kinesis`
+  final String keyId;
+
+  /// The number of open shards in the stream.
+  final int openShardCount;
+
+  /// The number of enhanced fan-out consumers registered with the stream.
+  final int consumerCount;
+
+  StreamDescriptionSummary({
+    @required this.streamName,
+    @required this.streamArn,
+    @required this.streamStatus,
+    @required this.retentionPeriodHours,
+    @required this.streamCreationTimestamp,
+    @required this.enhancedMonitoring,
+    this.encryptionType,
+    this.keyId,
+    @required this.openShardCount,
+    this.consumerCount,
+  });
+  static StreamDescriptionSummary fromJson(Map<String, dynamic> json) =>
+      StreamDescriptionSummary();
+}
+
+class Tag {
+  /// A unique identifier for the tag. Maximum length: 128 characters. Valid
+  /// characters: Unicode letters, digits, white space, _ . / = + - % @
+  final String key;
+
+  /// An optional string, typically used to describe or define the tag. Maximum
+  /// length: 256 characters. Valid characters: Unicode letters, digits, white
+  /// space, _ . / = + - % @
+  final String value;
+
+  Tag({
+    @required this.key,
+    this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class UpdateShardCountOutput {
+  /// The name of the stream.
+  final String streamName;
+
+  /// The current number of shards.
+  final int currentShardCount;
+
+  /// The updated number of shards.
+  final int targetShardCount;
+
+  UpdateShardCountOutput({
+    this.streamName,
+    this.currentShardCount,
+    this.targetShardCount,
+  });
+  static UpdateShardCountOutput fromJson(Map<String, dynamic> json) =>
+      UpdateShardCountOutput();
+}

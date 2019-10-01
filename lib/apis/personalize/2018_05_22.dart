@@ -47,10 +47,22 @@ class PersonalizeApi {
   /// *    UpdateCampaign
   ///
   /// *    DeleteCampaign
-  Future<void> createCampaign(
+  ///
+  /// [name]: A name for the new campaign. The campaign name must be unique
+  /// within your account.
+  ///
+  /// [solutionVersionArn]: The Amazon Resource Name (ARN) of the solution
+  /// version to deploy.
+  ///
+  /// [minProvisionedTps]: Specifies the requested minimum provisioned
+  /// transactions (recommendations) per second that Amazon Personalize will
+  /// support.
+  Future<CreateCampaignResponse> createCampaign(
       {@required String name,
       @required String solutionVersionArn,
-      @required int minProvisionedTps}) async {}
+      @required int minProvisionedTps}) async {
+    return CreateCampaignResponse.fromJson({});
+  }
 
   /// Creates an empty dataset and adds it to the specified dataset group. Use
   /// CreateDatasetImportJob to import your training data to a dataset.
@@ -86,11 +98,31 @@ class PersonalizeApi {
   /// *    DescribeDataset
   ///
   /// *    DeleteDataset
-  Future<void> createDataset(
+  ///
+  /// [name]: The name for the dataset.
+  ///
+  /// [schemaArn]: The ARN of the schema to associate with the dataset. The
+  /// schema defines the dataset fields.
+  ///
+  /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group to
+  /// add the dataset to.
+  ///
+  /// [datasetType]: The type of dataset.
+  ///
+  /// One of the following (case insensitive) values:
+  ///
+  /// *   Interactions
+  ///
+  /// *   Items
+  ///
+  /// *   Users
+  Future<CreateDatasetResponse> createDataset(
       {@required String name,
       @required String schemaArn,
       @required String datasetGroupArn,
-      @required String datasetType}) async {}
+      @required String datasetType}) async {
+    return CreateDatasetResponse.fromJson({});
+  }
 
   /// Creates an empty dataset group. A dataset group contains related datasets
   /// that supply data for training a model. A dataset group can contain at most
@@ -142,8 +174,18 @@ class PersonalizeApi {
   /// *    DescribeDatasetGroup
   ///
   /// *    DeleteDatasetGroup
-  Future<void> createDatasetGroup(String name,
-      {String roleArn, String kmsKeyArn}) async {}
+  ///
+  /// [name]: The name for the new dataset group.
+  ///
+  /// [roleArn]: The ARN of the IAM role that has permissions to access the KMS
+  /// key. Supplying an IAM role is only valid when also specifying a KMS key.
+  ///
+  /// [kmsKeyArn]: The Amazon Resource Name (ARN) of a KMS key used to encrypt
+  /// the datasets.
+  Future<CreateDatasetGroupResponse> createDatasetGroup(String name,
+      {String roleArn, String kmsKeyArn}) async {
+    return CreateDatasetGroupResponse.fromJson({});
+  }
 
   /// Creates a job that imports training data from your data source (an Amazon
   /// S3 bucket) to an Amazon Personalize dataset. To allow Amazon Personalize
@@ -173,11 +215,23 @@ class PersonalizeApi {
   /// *    ListDatasetImportJobs
   ///
   /// *    DescribeDatasetImportJob
-  Future<void> createDatasetImportJob(
+  ///
+  /// [jobName]: The name for the dataset import job.
+  ///
+  /// [datasetArn]: The ARN of the dataset that receives the imported data.
+  ///
+  /// [dataSource]: The Amazon S3 bucket that contains the training data to
+  /// import.
+  ///
+  /// [roleArn]: The ARN of the IAM role that has permissions to read from the
+  /// Amazon S3 data source.
+  Future<CreateDatasetImportJobResponse> createDatasetImportJob(
       {@required String jobName,
       @required String datasetArn,
       @required DataSource dataSource,
-      @required String roleArn}) async {}
+      @required String roleArn}) async {
+    return CreateDatasetImportJobResponse.fromJson({});
+  }
 
   /// Creates an event tracker that you use when sending event data to the
   /// specified dataset group using the
@@ -216,8 +270,15 @@ class PersonalizeApi {
   /// *    DescribeEventTracker
   ///
   /// *    DeleteEventTracker
-  Future<void> createEventTracker(
-      {@required String name, @required String datasetGroupArn}) async {}
+  ///
+  /// [name]: The name for the event tracker.
+  ///
+  /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group
+  /// that receives the event data.
+  Future<CreateEventTrackerResponse> createEventTracker(
+      {@required String name, @required String datasetGroupArn}) async {
+    return CreateEventTrackerResponse.fromJson({});
+  }
 
   /// Creates an Amazon Personalize schema from the specified schema string. The
   /// schema you create must be in Avro JSON format.
@@ -233,8 +294,14 @@ class PersonalizeApi {
   /// *    DescribeSchema
   ///
   /// *    DeleteSchema
-  Future<void> createSchema(
-      {@required String name, @required String schema}) async {}
+  ///
+  /// [name]: The name for the schema.
+  ///
+  /// [schema]: A schema in Avro JSON format.
+  Future<CreateSchemaResponse> createSchema(
+      {@required String name, @required String schema}) async {
+    return CreateSchemaResponse.fromJson({});
+  }
 
   /// Creates the configuration for training a model. A trained model is known
   /// as a solution. After the configuration is created, you train the model
@@ -283,14 +350,48 @@ class PersonalizeApi {
   /// *    ListSolutionVersions
   ///
   /// *    DescribeSolutionVersion
-  Future<void> createSolution(
+  ///
+  /// [name]: The name for the solution.
+  ///
+  /// [performHpo]: Whether to perform hyperparameter optimization (HPO) on the
+  /// specified or selected recipe. The default is `false`.
+  ///
+  /// When performing AutoML, this parameter is always `true` and you should not
+  /// set it to `false`.
+  ///
+  /// [performAutoML]: Whether to perform automated machine learning (AutoML).
+  /// The default is `false`. For this case, you must specify `recipeArn`.
+  ///
+  /// When set to `true`, Amazon Personalize analyzes your training data and
+  /// selects the optimal USER_PERSONALIZATION recipe and hyperparameters. In
+  /// this case, you must omit `recipeArn`. Amazon Personalize determines the
+  /// optimal recipe by running tests with different values for the
+  /// hyperparameters. AutoML lengthens the training process as compared to
+  /// selecting a specific recipe.
+  ///
+  /// [recipeArn]: The ARN of the recipe to use for model training. Only
+  /// specified when `performAutoML` is false.
+  ///
+  /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group
+  /// that provides the training data.
+  ///
+  /// [eventType]: When your have multiple event types (using an `EVENT_TYPE`
+  /// schema field), this parameter specifies which event type (for example,
+  /// 'click' or 'like') is used for training the model.
+  ///
+  /// [solutionConfig]: The configuration to use with the solution. When
+  /// `performAutoML` is set to true, Amazon Personalize only evaluates the
+  /// `autoMLConfig` section of the solution configuration.
+  Future<CreateSolutionResponse> createSolution(
       {@required String name,
       bool performHpo,
       bool performAutoML,
       String recipeArn,
       @required String datasetGroupArn,
       String eventType,
-      SolutionConfig solutionConfig}) async {}
+      SolutionConfig solutionConfig}) async {
+    return CreateSolutionResponse.fromJson({});
+  }
 
   /// Trains or retrains an active solution. A solution is created using the
   /// CreateSolution operation and must be in the ACTIVE state before calling
@@ -324,18 +425,28 @@ class PersonalizeApi {
   /// *    DescribeSolution
   ///
   /// *    DeleteSolution
-  Future<void> createSolutionVersion(String solutionArn) async {}
+  ///
+  /// [solutionArn]: The Amazon Resource Name (ARN) of the solution containing
+  /// the training configuration information.
+  Future<CreateSolutionVersionResponse> createSolutionVersion(
+      String solutionArn) async {
+    return CreateSolutionVersionResponse.fromJson({});
+  }
 
   /// Removes a campaign by deleting the solution deployment. The solution that
   /// the campaign is based on is not deleted and can be redeployed when needed.
   /// A deleted campaign can no longer be specified in a
   /// [GetRecommendations](https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html)
   /// request. For more information on campaigns, see CreateCampaign.
+  ///
+  /// [campaignArn]: The Amazon Resource Name (ARN) of the campaign to delete.
   Future<void> deleteCampaign(String campaignArn) async {}
 
   /// Deletes a dataset. You can't delete a dataset if an associated
   /// `DatasetImportJob` or `SolutionVersion` is in the CREATE PENDING or IN
   /// PROGRESS state. For more information on datasets, see CreateDataset.
+  ///
+  /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset to delete.
   Future<void> deleteDataset(String datasetArn) async {}
 
   /// Deletes a dataset group. Before you delete a dataset group, you must
@@ -346,15 +457,22 @@ class PersonalizeApi {
   /// *   All associated solutions.
   ///
   /// *   All datasets in the dataset group.
+  ///
+  /// [datasetGroupArn]: The ARN of the dataset group to delete.
   Future<void> deleteDatasetGroup(String datasetGroupArn) async {}
 
   /// Deletes the event tracker. Does not delete the event-interactions dataset
   /// from the associated dataset group. For more information on event trackers,
   /// see CreateEventTracker.
+  ///
+  /// [eventTrackerArn]: The Amazon Resource Name (ARN) of the event tracker to
+  /// delete.
   Future<void> deleteEventTracker(String eventTrackerArn) async {}
 
   /// Deletes a schema. Before deleting a schema, you must delete all datasets
   /// referencing the schema. For more information on schemas, see CreateSchema.
+  ///
+  /// [schemaArn]: The Amazon Resource Name (ARN) of the schema to delete.
   Future<void> deleteSchema(String schemaArn) async {}
 
   /// Deletes all versions of a solution and the `Solution` object itself.
@@ -364,10 +482,18 @@ class PersonalizeApi {
   /// You can't delete a solution if an associated `SolutionVersion` is in the
   /// CREATE PENDING or IN PROGRESS state. For more information on solutions,
   /// see CreateSolution.
+  ///
+  /// [solutionArn]: The ARN of the solution to delete.
   Future<void> deleteSolution(String solutionArn) async {}
 
   /// Describes the given algorithm.
-  Future<void> describeAlgorithm(String algorithmArn) async {}
+  ///
+  /// [algorithmArn]: The Amazon Resource Name (ARN) of the algorithm to
+  /// describe.
+  Future<DescribeAlgorithmResponse> describeAlgorithm(
+      String algorithmArn) async {
+    return DescribeAlgorithmResponse.fromJson({});
+  }
 
   /// Describes the given campaign, including its status.
   ///
@@ -382,28 +508,59 @@ class PersonalizeApi {
   /// `failureReason` key, which describes why.
   ///
   /// For more information on campaigns, see CreateCampaign.
-  Future<void> describeCampaign(String campaignArn) async {}
+  ///
+  /// [campaignArn]: The Amazon Resource Name (ARN) of the campaign.
+  Future<DescribeCampaignResponse> describeCampaign(String campaignArn) async {
+    return DescribeCampaignResponse.fromJson({});
+  }
 
   /// Describes the given dataset. For more information on datasets, see
   /// CreateDataset.
-  Future<void> describeDataset(String datasetArn) async {}
+  ///
+  /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset to describe.
+  Future<DescribeDatasetResponse> describeDataset(String datasetArn) async {
+    return DescribeDatasetResponse.fromJson({});
+  }
 
   /// Describes the given dataset group. For more information on dataset groups,
   /// see CreateDatasetGroup.
-  Future<void> describeDatasetGroup(String datasetGroupArn) async {}
+  ///
+  /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group to
+  /// describe.
+  Future<DescribeDatasetGroupResponse> describeDatasetGroup(
+      String datasetGroupArn) async {
+    return DescribeDatasetGroupResponse.fromJson({});
+  }
 
   /// Describes the dataset import job created by CreateDatasetImportJob,
   /// including the import job status.
-  Future<void> describeDatasetImportJob(String datasetImportJobArn) async {}
+  ///
+  /// [datasetImportJobArn]: The Amazon Resource Name (ARN) of the dataset
+  /// import job to describe.
+  Future<DescribeDatasetImportJobResponse> describeDatasetImportJob(
+      String datasetImportJobArn) async {
+    return DescribeDatasetImportJobResponse.fromJson({});
+  }
 
   /// Describes an event tracker. The response includes the `trackingId` and
   /// `status` of the event tracker. For more information on event trackers, see
   /// CreateEventTracker.
-  Future<void> describeEventTracker(String eventTrackerArn) async {}
+  ///
+  /// [eventTrackerArn]: The Amazon Resource Name (ARN) of the event tracker to
+  /// describe.
+  Future<DescribeEventTrackerResponse> describeEventTracker(
+      String eventTrackerArn) async {
+    return DescribeEventTrackerResponse.fromJson({});
+  }
 
   /// Describes the given feature transformation.
-  Future<void> describeFeatureTransformation(
-      String featureTransformationArn) async {}
+  ///
+  /// [featureTransformationArn]: The Amazon Resource Name (ARN) of the feature
+  /// transformation to describe.
+  Future<DescribeFeatureTransformationResponse> describeFeatureTransformation(
+      String featureTransformationArn) async {
+    return DescribeFeatureTransformationResponse.fromJson({});
+  }
 
   /// Describes a recipe.
   ///
@@ -424,34 +581,78 @@ class PersonalizeApi {
   /// can provide recommendations using the
   /// [GetRecommendations](https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html)
   /// API.
-  Future<void> describeRecipe(String recipeArn) async {}
+  ///
+  /// [recipeArn]: The Amazon Resource Name (ARN) of the recipe to describe.
+  Future<DescribeRecipeResponse> describeRecipe(String recipeArn) async {
+    return DescribeRecipeResponse.fromJson({});
+  }
 
   /// Describes a schema. For more information on schemas, see CreateSchema.
-  Future<void> describeSchema(String schemaArn) async {}
+  ///
+  /// [schemaArn]: The Amazon Resource Name (ARN) of the schema to retrieve.
+  Future<DescribeSchemaResponse> describeSchema(String schemaArn) async {
+    return DescribeSchemaResponse.fromJson({});
+  }
 
   /// Describes a solution. For more information on solutions, see
   /// CreateSolution.
-  Future<void> describeSolution(String solutionArn) async {}
+  ///
+  /// [solutionArn]: The Amazon Resource Name (ARN) of the solution to describe.
+  Future<DescribeSolutionResponse> describeSolution(String solutionArn) async {
+    return DescribeSolutionResponse.fromJson({});
+  }
 
   /// Describes a specific version of a solution. For more information on
   /// solutions, see CreateSolution.
-  Future<void> describeSolutionVersion(String solutionVersionArn) async {}
+  ///
+  /// [solutionVersionArn]: The Amazon Resource Name (ARN) of the solution
+  /// version.
+  Future<DescribeSolutionVersionResponse> describeSolutionVersion(
+      String solutionVersionArn) async {
+    return DescribeSolutionVersionResponse.fromJson({});
+  }
 
   /// Gets the metrics for the specified solution version.
-  Future<void> getSolutionMetrics(String solutionVersionArn) async {}
+  ///
+  /// [solutionVersionArn]: The Amazon Resource Name (ARN) of the solution
+  /// version for which to get metrics.
+  Future<GetSolutionMetricsResponse> getSolutionMetrics(
+      String solutionVersionArn) async {
+    return GetSolutionMetricsResponse.fromJson({});
+  }
 
   /// Returns a list of campaigns that use the given solution. When a solution
   /// is not specified, all the campaigns associated with the account are
   /// listed. The response provides the properties for each campaign, including
   /// the Amazon Resource Name (ARN). For more information on campaigns, see
   /// CreateCampaign.
-  Future<void> listCampaigns(
-      {String solutionArn, String nextToken, int maxResults}) async {}
+  ///
+  /// [solutionArn]: The Amazon Resource Name (ARN) of the solution to list the
+  /// campaigns for. When a solution is not specified, all the campaigns
+  /// associated with the account are listed.
+  ///
+  /// [nextToken]: A token returned from the previous call to `ListCampaigns`
+  /// for getting the next set of campaigns (if they exist).
+  ///
+  /// [maxResults]: The maximum number of campaigns to return.
+  Future<ListCampaignsResponse> listCampaigns(
+      {String solutionArn, String nextToken, int maxResults}) async {
+    return ListCampaignsResponse.fromJson({});
+  }
 
   /// Returns a list of dataset groups. The response provides the properties for
   /// each dataset group, including the Amazon Resource Name (ARN). For more
   /// information on dataset groups, see CreateDatasetGroup.
-  Future<void> listDatasetGroups({String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: A token returned from the previous call to
+  /// `ListDatasetGroups` for getting the next set of dataset groups (if they
+  /// exist).
+  ///
+  /// [maxResults]: The maximum number of dataset groups to return.
+  Future<ListDatasetGroupsResponse> listDatasetGroups(
+      {String nextToken, int maxResults}) async {
+    return ListDatasetGroupsResponse.fromJson({});
+  }
 
   /// Returns a list of dataset import jobs that use the given dataset. When a
   /// dataset is not specified, all the dataset import jobs associated with the
@@ -459,47 +660,115 @@ class PersonalizeApi {
   /// import job, including the Amazon Resource Name (ARN). For more information
   /// on dataset import jobs, see CreateDatasetImportJob. For more information
   /// on datasets, see CreateDataset.
-  Future<void> listDatasetImportJobs(
-      {String datasetArn, String nextToken, int maxResults}) async {}
+  ///
+  /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset to list the
+  /// dataset import jobs for.
+  ///
+  /// [nextToken]: A token returned from the previous call to
+  /// `ListDatasetImportJobs` for getting the next set of dataset import jobs
+  /// (if they exist).
+  ///
+  /// [maxResults]: The maximum number of dataset import jobs to return.
+  Future<ListDatasetImportJobsResponse> listDatasetImportJobs(
+      {String datasetArn, String nextToken, int maxResults}) async {
+    return ListDatasetImportJobsResponse.fromJson({});
+  }
 
   /// Returns the list of datasets contained in the given dataset group. The
   /// response provides the properties for each dataset, including the Amazon
   /// Resource Name (ARN). For more information on datasets, see CreateDataset.
-  Future<void> listDatasets(
-      {String datasetGroupArn, String nextToken, int maxResults}) async {}
+  ///
+  /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group
+  /// that contains the datasets to list.
+  ///
+  /// [nextToken]: A token returned from the previous call to
+  /// `ListDatasetImportJobs` for getting the next set of dataset import jobs
+  /// (if they exist).
+  ///
+  /// [maxResults]: The maximum number of datasets to return.
+  Future<ListDatasetsResponse> listDatasets(
+      {String datasetGroupArn, String nextToken, int maxResults}) async {
+    return ListDatasetsResponse.fromJson({});
+  }
 
   /// Returns the list of event trackers associated with the account. The
   /// response provides the properties for each event tracker, including the
   /// Amazon Resource Name (ARN) and tracking ID. For more information on event
   /// trackers, see CreateEventTracker.
-  Future<void> listEventTrackers(
-      {String datasetGroupArn, String nextToken, int maxResults}) async {}
+  ///
+  /// [datasetGroupArn]: The ARN of a dataset group used to filter the response.
+  ///
+  /// [nextToken]: A token returned from the previous call to
+  /// `ListEventTrackers` for getting the next set of event trackers (if they
+  /// exist).
+  ///
+  /// [maxResults]: The maximum number of event trackers to return.
+  Future<ListEventTrackersResponse> listEventTrackers(
+      {String datasetGroupArn, String nextToken, int maxResults}) async {
+    return ListEventTrackersResponse.fromJson({});
+  }
 
   /// Returns a list of available recipes. The response provides the properties
   /// for each recipe, including the recipe's Amazon Resource Name (ARN).
-  Future<void> listRecipes(
-      {String recipeProvider, String nextToken, int maxResults}) async {}
+  ///
+  /// [recipeProvider]: The default is `SERVICE`.
+  ///
+  /// [nextToken]: A token returned from the previous call to `ListRecipes` for
+  /// getting the next set of recipes (if they exist).
+  ///
+  /// [maxResults]: The maximum number of recipes to return.
+  Future<ListRecipesResponse> listRecipes(
+      {String recipeProvider, String nextToken, int maxResults}) async {
+    return ListRecipesResponse.fromJson({});
+  }
 
   /// Returns the list of schemas associated with the account. The response
   /// provides the properties for each schema, including the Amazon Resource
   /// Name (ARN). For more information on schemas, see CreateSchema.
-  Future<void> listSchemas({String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: A token returned from the previous call to `ListSchemas` for
+  /// getting the next set of schemas (if they exist).
+  ///
+  /// [maxResults]: The maximum number of schemas to return.
+  Future<ListSchemasResponse> listSchemas(
+      {String nextToken, int maxResults}) async {
+    return ListSchemasResponse.fromJson({});
+  }
 
   /// Returns a list of solution versions for the given solution. When a
   /// solution is not specified, all the solution versions associated with the
   /// account are listed. The response provides the properties for each solution
   /// version, including the Amazon Resource Name (ARN). For more information on
   /// solutions, see CreateSolution.
-  Future<void> listSolutionVersions(
-      {String solutionArn, String nextToken, int maxResults}) async {}
+  ///
+  /// [solutionArn]: The Amazon Resource Name (ARN) of the solution.
+  ///
+  /// [nextToken]: A token returned from the previous call to
+  /// `ListSolutionVersions` for getting the next set of solution versions (if
+  /// they exist).
+  ///
+  /// [maxResults]: The maximum number of solution versions to return.
+  Future<ListSolutionVersionsResponse> listSolutionVersions(
+      {String solutionArn, String nextToken, int maxResults}) async {
+    return ListSolutionVersionsResponse.fromJson({});
+  }
 
   /// Returns a list of solutions that use the given dataset group. When a
   /// dataset group is not specified, all the solutions associated with the
   /// account are listed. The response provides the properties for each
   /// solution, including the Amazon Resource Name (ARN). For more information
   /// on solutions, see CreateSolution.
-  Future<void> listSolutions(
-      {String datasetGroupArn, String nextToken, int maxResults}) async {}
+  ///
+  /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group.
+  ///
+  /// [nextToken]: A token returned from the previous call to `ListSolutions`
+  /// for getting the next set of solutions (if they exist).
+  ///
+  /// [maxResults]: The maximum number of solutions to return.
+  Future<ListSolutionsResponse> listSolutions(
+      {String datasetGroupArn, String nextToken, int maxResults}) async {
+    return ListSolutionsResponse.fromJson({});
+  }
 
   /// Updates a campaign by either deploying a new solution or changing the
   /// value of the campaign's `minProvisionedTPS` parameter.
@@ -511,140 +780,1571 @@ class PersonalizeApi {
   /// before asking the campaign for recommendations.
   ///
   /// For more information on campaigns, see CreateCampaign.
-  Future<void> updateCampaign(String campaignArn,
-      {String solutionVersionArn, int minProvisionedTps}) async {}
+  ///
+  /// [campaignArn]: The Amazon Resource Name (ARN) of the campaign.
+  ///
+  /// [solutionVersionArn]: The ARN of a new solution version to deploy.
+  ///
+  /// [minProvisionedTps]: Specifies the requested minimum provisioned
+  /// transactions (recommendations) per second that Amazon Personalize will
+  /// support.
+  Future<UpdateCampaignResponse> updateCampaign(String campaignArn,
+      {String solutionVersionArn, int minProvisionedTps}) async {
+    return UpdateCampaignResponse.fromJson({});
+  }
 }
 
-class Algorithm {}
-
-class AlgorithmImage {}
-
-class AutoMLConfig {}
-
-class AutoMLResult {}
-
-class Campaign {}
-
-class CampaignSummary {}
-
-class CampaignUpdateSummary {}
-
-class CategoricalHyperParameterRange {}
-
-class ContinuousHyperParameterRange {}
-
-class CreateCampaignResponse {}
-
-class CreateDatasetGroupResponse {}
-
-class CreateDatasetImportJobResponse {}
-
-class CreateDatasetResponse {}
-
-class CreateEventTrackerResponse {}
-
-class CreateSchemaResponse {}
-
-class CreateSolutionResponse {}
-
-class CreateSolutionVersionResponse {}
-
-class DataSource {}
-
-class Dataset {}
-
-class DatasetGroup {}
-
-class DatasetGroupSummary {}
-
-class DatasetImportJob {}
-
-class DatasetImportJobSummary {}
-
-class DatasetSchema {}
-
-class DatasetSchemaSummary {}
-
-class DatasetSummary {}
-
-class DefaultCategoricalHyperParameterRange {}
-
-class DefaultContinuousHyperParameterRange {}
-
-class DefaultHyperParameterRanges {}
-
-class DefaultIntegerHyperParameterRange {}
-
-class DescribeAlgorithmResponse {}
-
-class DescribeCampaignResponse {}
-
-class DescribeDatasetGroupResponse {}
-
-class DescribeDatasetImportJobResponse {}
-
-class DescribeDatasetResponse {}
-
-class DescribeEventTrackerResponse {}
-
-class DescribeFeatureTransformationResponse {}
-
-class DescribeRecipeResponse {}
-
-class DescribeSchemaResponse {}
-
-class DescribeSolutionResponse {}
-
-class DescribeSolutionVersionResponse {}
-
-class EventTracker {}
-
-class EventTrackerSummary {}
-
-class FeatureTransformation {}
-
-class GetSolutionMetricsResponse {}
-
-class HpoConfig {}
-
-class HpoObjective {}
-
-class HpoResourceConfig {}
-
-class HyperParameterRanges {}
-
-class IntegerHyperParameterRange {}
-
-class ListCampaignsResponse {}
-
-class ListDatasetGroupsResponse {}
-
-class ListDatasetImportJobsResponse {}
-
-class ListDatasetsResponse {}
-
-class ListEventTrackersResponse {}
-
-class ListRecipesResponse {}
-
-class ListSchemasResponse {}
-
-class ListSolutionVersionsResponse {}
-
-class ListSolutionsResponse {}
-
-class Recipe {}
-
-class RecipeSummary {}
-
-class Solution {}
-
-class SolutionConfig {}
-
-class SolutionSummary {}
-
-class SolutionVersion {}
-
-class SolutionVersionSummary {}
-
-class UpdateCampaignResponse {}
+class Algorithm {
+  /// The name of the algorithm.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the algorithm.
+  final String algorithmArn;
+
+  /// The URI of the Docker container for the algorithm image.
+  final AlgorithmImage algorithmImage;
+
+  /// Specifies the default hyperparameters.
+  final Map<String, String> defaultHyperParameters;
+
+  /// Specifies the default hyperparameters, their ranges, and whether they are
+  /// tunable. A tunable hyperparameter can have its value determined during
+  /// hyperparameter optimization (HPO).
+  final DefaultHyperParameterRanges defaultHyperParameterRanges;
+
+  /// Specifies the default maximum number of training jobs and parallel
+  /// training jobs.
+  final Map<String, String> defaultResourceConfig;
+
+  /// The training input mode.
+  final String trainingInputMode;
+
+  /// The Amazon Resource Name (ARN) of the role.
+  final String roleArn;
+
+  /// The date and time (in Unix time) that the algorithm was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the algorithm was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  Algorithm({
+    this.name,
+    this.algorithmArn,
+    this.algorithmImage,
+    this.defaultHyperParameters,
+    this.defaultHyperParameterRanges,
+    this.defaultResourceConfig,
+    this.trainingInputMode,
+    this.roleArn,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static Algorithm fromJson(Map<String, dynamic> json) => Algorithm();
+}
+
+class AlgorithmImage {
+  /// The name of the algorithm image.
+  final String name;
+
+  /// The URI of the Docker container for the algorithm image.
+  final String dockerUri;
+
+  AlgorithmImage({
+    this.name,
+    @required this.dockerUri,
+  });
+  static AlgorithmImage fromJson(Map<String, dynamic> json) => AlgorithmImage();
+}
+
+class AutoMLConfig {
+  /// The metric to optimize.
+  final String metricName;
+
+  /// The list of candidate recipes.
+  final List<String> recipeList;
+
+  AutoMLConfig({
+    this.metricName,
+    this.recipeList,
+  });
+  static AutoMLConfig fromJson(Map<String, dynamic> json) => AutoMLConfig();
+}
+
+class AutoMLResult {
+  /// The Amazon Resource Name (ARN) of the best recipe.
+  final String bestRecipeArn;
+
+  AutoMLResult({
+    this.bestRecipeArn,
+  });
+  static AutoMLResult fromJson(Map<String, dynamic> json) => AutoMLResult();
+}
+
+class Campaign {
+  /// The name of the campaign.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the campaign.
+  final String campaignArn;
+
+  /// The Amazon Resource Name (ARN) of a specific version of the solution.
+  final String solutionVersionArn;
+
+  /// Specifies the requested minimum provisioned transactions (recommendations)
+  /// per second.
+  final int minProvisionedTps;
+
+  /// The status of the campaign.
+  ///
+  /// A campaign can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// If a campaign fails, the reason behind the failure.
+  final String failureReason;
+
+  /// The date and time (in Unix format) that the campaign was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix format) that the campaign was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  final CampaignUpdateSummary latestCampaignUpdate;
+
+  Campaign({
+    this.name,
+    this.campaignArn,
+    this.solutionVersionArn,
+    this.minProvisionedTps,
+    this.status,
+    this.failureReason,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.latestCampaignUpdate,
+  });
+  static Campaign fromJson(Map<String, dynamic> json) => Campaign();
+}
+
+class CampaignSummary {
+  /// The name of the campaign.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the campaign.
+  final String campaignArn;
+
+  /// The status of the campaign.
+  ///
+  /// A campaign can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The date and time (in Unix time) that the campaign was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the campaign was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  /// If a campaign fails, the reason behind the failure.
+  final String failureReason;
+
+  CampaignSummary({
+    this.name,
+    this.campaignArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.failureReason,
+  });
+  static CampaignSummary fromJson(Map<String, dynamic> json) =>
+      CampaignSummary();
+}
+
+class CampaignUpdateSummary {
+  /// The Amazon Resource Name (ARN) of the deployed solution version.
+  final String solutionVersionArn;
+
+  /// Specifies the requested minimum provisioned transactions (recommendations)
+  /// per second that Amazon Personalize will support.
+  final int minProvisionedTps;
+
+  /// The status of the campaign update.
+  ///
+  /// A campaign update can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// If a campaign update fails, the reason behind the failure.
+  final String failureReason;
+
+  /// The date and time (in Unix time) that the campaign update was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the campaign update was last
+  /// updated.
+  final DateTime lastUpdatedDateTime;
+
+  CampaignUpdateSummary({
+    this.solutionVersionArn,
+    this.minProvisionedTps,
+    this.status,
+    this.failureReason,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static CampaignUpdateSummary fromJson(Map<String, dynamic> json) =>
+      CampaignUpdateSummary();
+}
+
+class CategoricalHyperParameterRange {
+  /// The name of the hyperparameter.
+  final String name;
+
+  /// A list of the categories for the hyperparameter.
+  final List<String> values;
+
+  CategoricalHyperParameterRange({
+    this.name,
+    this.values,
+  });
+  static CategoricalHyperParameterRange fromJson(Map<String, dynamic> json) =>
+      CategoricalHyperParameterRange();
+}
+
+class ContinuousHyperParameterRange {
+  /// The name of the hyperparameter.
+  final String name;
+
+  /// The minimum allowable value for the hyperparameter.
+  final double minValue;
+
+  /// The maximum allowable value for the hyperparameter.
+  final double maxValue;
+
+  ContinuousHyperParameterRange({
+    this.name,
+    this.minValue,
+    this.maxValue,
+  });
+  static ContinuousHyperParameterRange fromJson(Map<String, dynamic> json) =>
+      ContinuousHyperParameterRange();
+}
+
+class CreateCampaignResponse {
+  /// The Amazon Resource Name (ARN) of the campaign.
+  final String campaignArn;
+
+  CreateCampaignResponse({
+    this.campaignArn,
+  });
+  static CreateCampaignResponse fromJson(Map<String, dynamic> json) =>
+      CreateCampaignResponse();
+}
+
+class CreateDatasetGroupResponse {
+  /// The Amazon Resource Name (ARN) of the new dataset group.
+  final String datasetGroupArn;
+
+  CreateDatasetGroupResponse({
+    this.datasetGroupArn,
+  });
+  static CreateDatasetGroupResponse fromJson(Map<String, dynamic> json) =>
+      CreateDatasetGroupResponse();
+}
+
+class CreateDatasetImportJobResponse {
+  /// The ARN of the dataset import job.
+  final String datasetImportJobArn;
+
+  CreateDatasetImportJobResponse({
+    this.datasetImportJobArn,
+  });
+  static CreateDatasetImportJobResponse fromJson(Map<String, dynamic> json) =>
+      CreateDatasetImportJobResponse();
+}
+
+class CreateDatasetResponse {
+  /// The ARN of the dataset.
+  final String datasetArn;
+
+  CreateDatasetResponse({
+    this.datasetArn,
+  });
+  static CreateDatasetResponse fromJson(Map<String, dynamic> json) =>
+      CreateDatasetResponse();
+}
+
+class CreateEventTrackerResponse {
+  /// The ARN of the event tracker.
+  final String eventTrackerArn;
+
+  /// The ID of the event tracker. Include this ID in requests to the
+  /// [PutEvents](https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html)
+  /// API.
+  final String trackingId;
+
+  CreateEventTrackerResponse({
+    this.eventTrackerArn,
+    this.trackingId,
+  });
+  static CreateEventTrackerResponse fromJson(Map<String, dynamic> json) =>
+      CreateEventTrackerResponse();
+}
+
+class CreateSchemaResponse {
+  /// The Amazon Resource Name (ARN) of the created schema.
+  final String schemaArn;
+
+  CreateSchemaResponse({
+    this.schemaArn,
+  });
+  static CreateSchemaResponse fromJson(Map<String, dynamic> json) =>
+      CreateSchemaResponse();
+}
+
+class CreateSolutionResponse {
+  /// The ARN of the solution.
+  final String solutionArn;
+
+  CreateSolutionResponse({
+    this.solutionArn,
+  });
+  static CreateSolutionResponse fromJson(Map<String, dynamic> json) =>
+      CreateSolutionResponse();
+}
+
+class CreateSolutionVersionResponse {
+  /// The ARN of the new solution version.
+  final String solutionVersionArn;
+
+  CreateSolutionVersionResponse({
+    this.solutionVersionArn,
+  });
+  static CreateSolutionVersionResponse fromJson(Map<String, dynamic> json) =>
+      CreateSolutionVersionResponse();
+}
+
+class DataSource {
+  /// The path to the Amazon S3 bucket where the data that you want to upload to
+  /// your dataset is stored. For example:
+  ///
+  ///  `s3://bucket-name/training-data.csv`
+  final String dataLocation;
+
+  DataSource({
+    this.dataLocation,
+  });
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+}
+
+class Dataset {
+  /// The name of the dataset.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the dataset that you want metadata for.
+  final String datasetArn;
+
+  /// The Amazon Resource Name (ARN) of the dataset group.
+  final String datasetGroupArn;
+
+  /// One of the following values:
+  ///
+  /// *   Interactions
+  ///
+  /// *   Items
+  ///
+  /// *   Users
+  final String datasetType;
+
+  /// The ARN of the associated schema.
+  final String schemaArn;
+
+  /// The status of the dataset.
+  ///
+  /// A dataset can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The creation date and time (in Unix time) of the dataset.
+  final DateTime creationDateTime;
+
+  /// A time stamp that shows when the dataset was updated.
+  final DateTime lastUpdatedDateTime;
+
+  Dataset({
+    this.name,
+    this.datasetArn,
+    this.datasetGroupArn,
+    this.datasetType,
+    this.schemaArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static Dataset fromJson(Map<String, dynamic> json) => Dataset();
+}
+
+class DatasetGroup {
+  /// The name of the dataset group.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the dataset group.
+  final String datasetGroupArn;
+
+  /// The current status of the dataset group.
+  ///
+  /// A dataset group can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING
+  final String status;
+
+  /// The ARN of the IAM role that has permissions to create the dataset group.
+  final String roleArn;
+
+  /// The Amazon Resource Name (ARN) of the KMS key used to encrypt the
+  /// datasets.
+  final String kmsKeyArn;
+
+  /// The creation date and time (in Unix time) of the dataset group.
+  final DateTime creationDateTime;
+
+  /// The last update date and time (in Unix time) of the dataset group.
+  final DateTime lastUpdatedDateTime;
+
+  /// If creating a dataset group fails, provides the reason why.
+  final String failureReason;
+
+  DatasetGroup({
+    this.name,
+    this.datasetGroupArn,
+    this.status,
+    this.roleArn,
+    this.kmsKeyArn,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.failureReason,
+  });
+  static DatasetGroup fromJson(Map<String, dynamic> json) => DatasetGroup();
+}
+
+class DatasetGroupSummary {
+  /// The name of the dataset group.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the dataset group.
+  final String datasetGroupArn;
+
+  /// The status of the dataset group.
+  ///
+  /// A dataset group can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING
+  final String status;
+
+  /// The date and time (in Unix time) that the dataset group was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the dataset group was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  /// If creating a dataset group fails, the reason behind the failure.
+  final String failureReason;
+
+  DatasetGroupSummary({
+    this.name,
+    this.datasetGroupArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.failureReason,
+  });
+  static DatasetGroupSummary fromJson(Map<String, dynamic> json) =>
+      DatasetGroupSummary();
+}
+
+class DatasetImportJob {
+  /// The name of the import job.
+  final String jobName;
+
+  /// The ARN of the dataset import job.
+  final String datasetImportJobArn;
+
+  /// The Amazon Resource Name (ARN) of the dataset that receives the imported
+  /// data.
+  final String datasetArn;
+
+  /// The Amazon S3 bucket that contains the training data to import.
+  final DataSource dataSource;
+
+  /// The ARN of the AWS Identity and Access Management (IAM) role that has
+  /// permissions to read from the Amazon S3 data source.
+  final String roleArn;
+
+  /// The status of the dataset import job.
+  ///
+  /// A dataset import job can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  final String status;
+
+  /// The creation date and time (in Unix time) of the dataset import job.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) the dataset was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  /// If a dataset import job fails, provides the reason why.
+  final String failureReason;
+
+  DatasetImportJob({
+    this.jobName,
+    this.datasetImportJobArn,
+    this.datasetArn,
+    this.dataSource,
+    this.roleArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.failureReason,
+  });
+  static DatasetImportJob fromJson(Map<String, dynamic> json) =>
+      DatasetImportJob();
+}
+
+class DatasetImportJobSummary {
+  /// The Amazon Resource Name (ARN) of the dataset import job.
+  final String datasetImportJobArn;
+
+  /// The name of the dataset import job.
+  final String jobName;
+
+  /// The status of the dataset import job.
+  ///
+  /// A dataset import job can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  final String status;
+
+  /// The date and time (in Unix time) that the dataset import job was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the dataset was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  /// If a dataset import job fails, the reason behind the failure.
+  final String failureReason;
+
+  DatasetImportJobSummary({
+    this.datasetImportJobArn,
+    this.jobName,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.failureReason,
+  });
+  static DatasetImportJobSummary fromJson(Map<String, dynamic> json) =>
+      DatasetImportJobSummary();
+}
+
+class DatasetSchema {
+  /// The name of the schema.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the schema.
+  final String schemaArn;
+
+  /// The schema.
+  final String schema;
+
+  /// The date and time (in Unix time) that the schema was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the schema was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  DatasetSchema({
+    this.name,
+    this.schemaArn,
+    this.schema,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static DatasetSchema fromJson(Map<String, dynamic> json) => DatasetSchema();
+}
+
+class DatasetSchemaSummary {
+  /// The name of the schema.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the schema.
+  final String schemaArn;
+
+  /// The date and time (in Unix time) that the schema was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the schema was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  DatasetSchemaSummary({
+    this.name,
+    this.schemaArn,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static DatasetSchemaSummary fromJson(Map<String, dynamic> json) =>
+      DatasetSchemaSummary();
+}
+
+class DatasetSummary {
+  /// The name of the dataset.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the dataset.
+  final String datasetArn;
+
+  /// The dataset type. One of the following values:
+  ///
+  /// *   Interactions
+  ///
+  /// *   Items
+  ///
+  /// *   Users
+  ///
+  /// *   Event-Interactions
+  final String datasetType;
+
+  /// The status of the dataset.
+  ///
+  /// A dataset can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The date and time (in Unix time) that the dataset was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the dataset was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  DatasetSummary({
+    this.name,
+    this.datasetArn,
+    this.datasetType,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary();
+}
+
+class DefaultCategoricalHyperParameterRange {
+  /// The name of the hyperparameter.
+  final String name;
+
+  /// A list of the categories for the hyperparameter.
+  final List<String> values;
+
+  /// Whether the hyperparameter is tunable.
+  final bool isTunable;
+
+  DefaultCategoricalHyperParameterRange({
+    this.name,
+    this.values,
+    this.isTunable,
+  });
+  static DefaultCategoricalHyperParameterRange fromJson(
+          Map<String, dynamic> json) =>
+      DefaultCategoricalHyperParameterRange();
+}
+
+class DefaultContinuousHyperParameterRange {
+  /// The name of the hyperparameter.
+  final String name;
+
+  /// The minimum allowable value for the hyperparameter.
+  final double minValue;
+
+  /// The maximum allowable value for the hyperparameter.
+  final double maxValue;
+
+  /// Whether the hyperparameter is tunable.
+  final bool isTunable;
+
+  DefaultContinuousHyperParameterRange({
+    this.name,
+    this.minValue,
+    this.maxValue,
+    this.isTunable,
+  });
+  static DefaultContinuousHyperParameterRange fromJson(
+          Map<String, dynamic> json) =>
+      DefaultContinuousHyperParameterRange();
+}
+
+class DefaultHyperParameterRanges {
+  /// The integer-valued hyperparameters and their default ranges.
+  final List<DefaultIntegerHyperParameterRange> integerHyperParameterRanges;
+
+  /// The continuous hyperparameters and their default ranges.
+  final List<DefaultContinuousHyperParameterRange>
+      continuousHyperParameterRanges;
+
+  /// The categorical hyperparameters and their default ranges.
+  final List<DefaultCategoricalHyperParameterRange>
+      categoricalHyperParameterRanges;
+
+  DefaultHyperParameterRanges({
+    this.integerHyperParameterRanges,
+    this.continuousHyperParameterRanges,
+    this.categoricalHyperParameterRanges,
+  });
+  static DefaultHyperParameterRanges fromJson(Map<String, dynamic> json) =>
+      DefaultHyperParameterRanges();
+}
+
+class DefaultIntegerHyperParameterRange {
+  /// The name of the hyperparameter.
+  final String name;
+
+  /// The minimum allowable value for the hyperparameter.
+  final int minValue;
+
+  /// The maximum allowable value for the hyperparameter.
+  final int maxValue;
+
+  /// Indicates whether the hyperparameter is tunable.
+  final bool isTunable;
+
+  DefaultIntegerHyperParameterRange({
+    this.name,
+    this.minValue,
+    this.maxValue,
+    this.isTunable,
+  });
+  static DefaultIntegerHyperParameterRange fromJson(
+          Map<String, dynamic> json) =>
+      DefaultIntegerHyperParameterRange();
+}
+
+class DescribeAlgorithmResponse {
+  /// A listing of the properties of the algorithm.
+  final Algorithm algorithm;
+
+  DescribeAlgorithmResponse({
+    this.algorithm,
+  });
+  static DescribeAlgorithmResponse fromJson(Map<String, dynamic> json) =>
+      DescribeAlgorithmResponse();
+}
+
+class DescribeCampaignResponse {
+  /// The properties of the campaign.
+  final Campaign campaign;
+
+  DescribeCampaignResponse({
+    this.campaign,
+  });
+  static DescribeCampaignResponse fromJson(Map<String, dynamic> json) =>
+      DescribeCampaignResponse();
+}
+
+class DescribeDatasetGroupResponse {
+  /// A listing of the dataset group's properties.
+  final DatasetGroup datasetGroup;
+
+  DescribeDatasetGroupResponse({
+    this.datasetGroup,
+  });
+  static DescribeDatasetGroupResponse fromJson(Map<String, dynamic> json) =>
+      DescribeDatasetGroupResponse();
+}
+
+class DescribeDatasetImportJobResponse {
+  /// Information about the dataset import job, including the status.
+  ///
+  /// The status is one of the following values:
+  ///
+  /// *   CREATE PENDING
+  ///
+  /// *   CREATE IN_PROGRESS
+  ///
+  /// *   ACTIVE
+  ///
+  /// *   CREATE FAILED
+  final DatasetImportJob datasetImportJob;
+
+  DescribeDatasetImportJobResponse({
+    this.datasetImportJob,
+  });
+  static DescribeDatasetImportJobResponse fromJson(Map<String, dynamic> json) =>
+      DescribeDatasetImportJobResponse();
+}
+
+class DescribeDatasetResponse {
+  /// A listing of the dataset's properties.
+  final Dataset dataset;
+
+  DescribeDatasetResponse({
+    this.dataset,
+  });
+  static DescribeDatasetResponse fromJson(Map<String, dynamic> json) =>
+      DescribeDatasetResponse();
+}
+
+class DescribeEventTrackerResponse {
+  /// An object that describes the event tracker.
+  final EventTracker eventTracker;
+
+  DescribeEventTrackerResponse({
+    this.eventTracker,
+  });
+  static DescribeEventTrackerResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEventTrackerResponse();
+}
+
+class DescribeFeatureTransformationResponse {
+  /// A listing of the FeatureTransformation properties.
+  final FeatureTransformation featureTransformation;
+
+  DescribeFeatureTransformationResponse({
+    this.featureTransformation,
+  });
+  static DescribeFeatureTransformationResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeFeatureTransformationResponse();
+}
+
+class DescribeRecipeResponse {
+  /// An object that describes the recipe.
+  final Recipe recipe;
+
+  DescribeRecipeResponse({
+    this.recipe,
+  });
+  static DescribeRecipeResponse fromJson(Map<String, dynamic> json) =>
+      DescribeRecipeResponse();
+}
+
+class DescribeSchemaResponse {
+  /// The requested schema.
+  final DatasetSchema schema;
+
+  DescribeSchemaResponse({
+    this.schema,
+  });
+  static DescribeSchemaResponse fromJson(Map<String, dynamic> json) =>
+      DescribeSchemaResponse();
+}
+
+class DescribeSolutionResponse {
+  /// An object that describes the solution.
+  final Solution solution;
+
+  DescribeSolutionResponse({
+    this.solution,
+  });
+  static DescribeSolutionResponse fromJson(Map<String, dynamic> json) =>
+      DescribeSolutionResponse();
+}
+
+class DescribeSolutionVersionResponse {
+  /// The solution version.
+  final SolutionVersion solutionVersion;
+
+  DescribeSolutionVersionResponse({
+    this.solutionVersion,
+  });
+  static DescribeSolutionVersionResponse fromJson(Map<String, dynamic> json) =>
+      DescribeSolutionVersionResponse();
+}
+
+class EventTracker {
+  /// The name of the event tracker.
+  final String name;
+
+  /// The ARN of the event tracker.
+  final String eventTrackerArn;
+
+  /// The Amazon AWS account that owns the event tracker.
+  final String accountId;
+
+  /// The ID of the event tracker. Include this ID in requests to the
+  /// [PutEvents](https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html)
+  /// API.
+  final String trackingId;
+
+  /// The Amazon Resource Name (ARN) of the dataset group that receives the
+  /// event data.
+  final String datasetGroupArn;
+
+  /// The status of the event tracker.
+  ///
+  /// An event tracker can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The date and time (in Unix format) that the event tracker was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the event tracker was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  EventTracker({
+    this.name,
+    this.eventTrackerArn,
+    this.accountId,
+    this.trackingId,
+    this.datasetGroupArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static EventTracker fromJson(Map<String, dynamic> json) => EventTracker();
+}
+
+class EventTrackerSummary {
+  /// The name of the event tracker.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the event tracker.
+  final String eventTrackerArn;
+
+  /// The status of the event tracker.
+  ///
+  /// An event tracker can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The date and time (in Unix time) that the event tracker was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the event tracker was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  EventTrackerSummary({
+    this.name,
+    this.eventTrackerArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static EventTrackerSummary fromJson(Map<String, dynamic> json) =>
+      EventTrackerSummary();
+}
+
+class FeatureTransformation {
+  /// The name of the feature transformation.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the FeatureTransformation object.
+  final String featureTransformationArn;
+
+  /// Provides the default parameters for feature transformation.
+  final Map<String, String> defaultParameters;
+
+  /// The creation date and time (in Unix time) of the feature transformation.
+  final DateTime creationDateTime;
+
+  /// The last update date and time (in Unix time) of the feature
+  /// transformation.
+  final DateTime lastUpdatedDateTime;
+
+  /// The status of the feature transformation.
+  ///
+  /// A feature transformation can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  final String status;
+
+  FeatureTransformation({
+    this.name,
+    this.featureTransformationArn,
+    this.defaultParameters,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.status,
+  });
+  static FeatureTransformation fromJson(Map<String, dynamic> json) =>
+      FeatureTransformation();
+}
+
+class GetSolutionMetricsResponse {
+  /// The same solution version ARN as specified in the request.
+  final String solutionVersionArn;
+
+  /// The metrics for the solution version.
+  final Map<String, double> metrics;
+
+  GetSolutionMetricsResponse({
+    this.solutionVersionArn,
+    this.metrics,
+  });
+  static GetSolutionMetricsResponse fromJson(Map<String, dynamic> json) =>
+      GetSolutionMetricsResponse();
+}
+
+class HpoConfig {
+  /// The metric to optimize during HPO.
+  final HpoObjective hpoObjective;
+
+  /// Describes the resource configuration for HPO.
+  final HpoResourceConfig hpoResourceConfig;
+
+  /// The hyperparameters and their allowable ranges.
+  final HyperParameterRanges algorithmHyperParameterRanges;
+
+  HpoConfig({
+    this.hpoObjective,
+    this.hpoResourceConfig,
+    this.algorithmHyperParameterRanges,
+  });
+  static HpoConfig fromJson(Map<String, dynamic> json) => HpoConfig();
+}
+
+class HpoObjective {
+  /// The data type of the metric.
+  final String type;
+
+  /// The name of the metric.
+  final String metricName;
+
+  /// A regular expression for finding the metric in the training job logs.
+  final String metricRegex;
+
+  HpoObjective({
+    this.type,
+    this.metricName,
+    this.metricRegex,
+  });
+  static HpoObjective fromJson(Map<String, dynamic> json) => HpoObjective();
+}
+
+class HpoResourceConfig {
+  /// The maximum number of training jobs.
+  final String maxNumberOfTrainingJobs;
+
+  /// The maximum number of parallel training jobs.
+  final String maxParallelTrainingJobs;
+
+  HpoResourceConfig({
+    this.maxNumberOfTrainingJobs,
+    this.maxParallelTrainingJobs,
+  });
+  static HpoResourceConfig fromJson(Map<String, dynamic> json) =>
+      HpoResourceConfig();
+}
+
+class HyperParameterRanges {
+  /// The integer-valued hyperparameters and their ranges.
+  final List<IntegerHyperParameterRange> integerHyperParameterRanges;
+
+  /// The continuous hyperparameters and their ranges.
+  final List<ContinuousHyperParameterRange> continuousHyperParameterRanges;
+
+  /// The categorical hyperparameters and their ranges.
+  final List<CategoricalHyperParameterRange> categoricalHyperParameterRanges;
+
+  HyperParameterRanges({
+    this.integerHyperParameterRanges,
+    this.continuousHyperParameterRanges,
+    this.categoricalHyperParameterRanges,
+  });
+  static HyperParameterRanges fromJson(Map<String, dynamic> json) =>
+      HyperParameterRanges();
+}
+
+class IntegerHyperParameterRange {
+  /// The name of the hyperparameter.
+  final String name;
+
+  /// The minimum allowable value for the hyperparameter.
+  final int minValue;
+
+  /// The maximum allowable value for the hyperparameter.
+  final int maxValue;
+
+  IntegerHyperParameterRange({
+    this.name,
+    this.minValue,
+    this.maxValue,
+  });
+  static IntegerHyperParameterRange fromJson(Map<String, dynamic> json) =>
+      IntegerHyperParameterRange();
+}
+
+class ListCampaignsResponse {
+  /// A list of the campaigns.
+  final List<CampaignSummary> campaigns;
+
+  /// A token for getting the next set of campaigns (if they exist).
+  final String nextToken;
+
+  ListCampaignsResponse({
+    this.campaigns,
+    this.nextToken,
+  });
+  static ListCampaignsResponse fromJson(Map<String, dynamic> json) =>
+      ListCampaignsResponse();
+}
+
+class ListDatasetGroupsResponse {
+  /// The list of your dataset groups.
+  final List<DatasetGroupSummary> datasetGroups;
+
+  /// A token for getting the next set of dataset groups (if they exist).
+  final String nextToken;
+
+  ListDatasetGroupsResponse({
+    this.datasetGroups,
+    this.nextToken,
+  });
+  static ListDatasetGroupsResponse fromJson(Map<String, dynamic> json) =>
+      ListDatasetGroupsResponse();
+}
+
+class ListDatasetImportJobsResponse {
+  /// The list of dataset import jobs.
+  final List<DatasetImportJobSummary> datasetImportJobs;
+
+  /// A token for getting the next set of dataset import jobs (if they exist).
+  final String nextToken;
+
+  ListDatasetImportJobsResponse({
+    this.datasetImportJobs,
+    this.nextToken,
+  });
+  static ListDatasetImportJobsResponse fromJson(Map<String, dynamic> json) =>
+      ListDatasetImportJobsResponse();
+}
+
+class ListDatasetsResponse {
+  /// An array of `Dataset` objects. Each object provides metadata information.
+  final List<DatasetSummary> datasets;
+
+  /// A token for getting the next set of datasets (if they exist).
+  final String nextToken;
+
+  ListDatasetsResponse({
+    this.datasets,
+    this.nextToken,
+  });
+  static ListDatasetsResponse fromJson(Map<String, dynamic> json) =>
+      ListDatasetsResponse();
+}
+
+class ListEventTrackersResponse {
+  /// A list of event trackers.
+  final List<EventTrackerSummary> eventTrackers;
+
+  /// A token for getting the next set of event trackers (if they exist).
+  final String nextToken;
+
+  ListEventTrackersResponse({
+    this.eventTrackers,
+    this.nextToken,
+  });
+  static ListEventTrackersResponse fromJson(Map<String, dynamic> json) =>
+      ListEventTrackersResponse();
+}
+
+class ListRecipesResponse {
+  /// The list of available recipes.
+  final List<RecipeSummary> recipes;
+
+  /// A token for getting the next set of recipes.
+  final String nextToken;
+
+  ListRecipesResponse({
+    this.recipes,
+    this.nextToken,
+  });
+  static ListRecipesResponse fromJson(Map<String, dynamic> json) =>
+      ListRecipesResponse();
+}
+
+class ListSchemasResponse {
+  /// A list of schemas.
+  final List<DatasetSchemaSummary> schemas;
+
+  /// A token used to get the next set of schemas (if they exist).
+  final String nextToken;
+
+  ListSchemasResponse({
+    this.schemas,
+    this.nextToken,
+  });
+  static ListSchemasResponse fromJson(Map<String, dynamic> json) =>
+      ListSchemasResponse();
+}
+
+class ListSolutionVersionsResponse {
+  /// A list of solution versions describing the version properties.
+  final List<SolutionVersionSummary> solutionVersions;
+
+  /// A token for getting the next set of solution versions (if they exist).
+  final String nextToken;
+
+  ListSolutionVersionsResponse({
+    this.solutionVersions,
+    this.nextToken,
+  });
+  static ListSolutionVersionsResponse fromJson(Map<String, dynamic> json) =>
+      ListSolutionVersionsResponse();
+}
+
+class ListSolutionsResponse {
+  /// A list of the current solutions.
+  final List<SolutionSummary> solutions;
+
+  /// A token for getting the next set of solutions (if they exist).
+  final String nextToken;
+
+  ListSolutionsResponse({
+    this.solutions,
+    this.nextToken,
+  });
+  static ListSolutionsResponse fromJson(Map<String, dynamic> json) =>
+      ListSolutionsResponse();
+}
+
+class Recipe {
+  /// The name of the recipe.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the recipe.
+  final String recipeArn;
+
+  /// The Amazon Resource Name (ARN) of the algorithm that Amazon Personalize
+  /// uses to train the model.
+  final String algorithmArn;
+
+  /// The ARN of the FeatureTransformation object.
+  final String featureTransformationArn;
+
+  /// The status of the recipe.
+  final String status;
+
+  /// The description of the recipe.
+  final String description;
+
+  /// The date and time (in Unix format) that the recipe was created.
+  final DateTime creationDateTime;
+
+  /// One of the following values:
+  ///
+  /// *   PERSONALIZED_RANKING
+  ///
+  /// *   RELATED_ITEMS
+  ///
+  /// *   USER_PERSONALIZATION
+  final String recipeType;
+
+  /// The date and time (in Unix format) that the recipe was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  Recipe({
+    this.name,
+    this.recipeArn,
+    this.algorithmArn,
+    this.featureTransformationArn,
+    this.status,
+    this.description,
+    this.creationDateTime,
+    this.recipeType,
+    this.lastUpdatedDateTime,
+  });
+  static Recipe fromJson(Map<String, dynamic> json) => Recipe();
+}
+
+class RecipeSummary {
+  /// The name of the recipe.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the recipe.
+  final String recipeArn;
+
+  /// The status of the recipe.
+  final String status;
+
+  /// The date and time (in Unix time) that the recipe was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the recipe was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  RecipeSummary({
+    this.name,
+    this.recipeArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static RecipeSummary fromJson(Map<String, dynamic> json) => RecipeSummary();
+}
+
+class Solution {
+  /// The name of the solution.
+  final String name;
+
+  /// The ARN of the solution.
+  final String solutionArn;
+
+  /// Whether to perform hyperparameter optimization (HPO) on the chosen recipe.
+  /// The default is `false`.
+  final bool performHpo;
+
+  /// When true, Amazon Personalize performs a search for the best
+  /// USER_PERSONALIZATION recipe from the list specified in the solution
+  /// configuration (`recipeArn` must not be specified). When false (the
+  /// default), Amazon Personalize uses `recipeArn` for training.
+  final bool performAutoML;
+
+  /// The ARN of the recipe used to create the solution.
+  final String recipeArn;
+
+  /// The Amazon Resource Name (ARN) of the dataset group that provides the
+  /// training data.
+  final String datasetGroupArn;
+
+  /// The event type (for example, 'click' or 'like') that is used for training
+  /// the model.
+  final String eventType;
+
+  /// Describes the configuration properties for the solution.
+  final SolutionConfig solutionConfig;
+
+  /// When `performAutoML` is true, specifies the best recipe found.
+  final AutoMLResult autoMLResult;
+
+  /// The status of the solution.
+  ///
+  /// A solution can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The creation date and time (in Unix time) of the solution.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the solution was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  /// Describes the latest version of the solution, including the status and the
+  /// ARN.
+  final SolutionVersionSummary latestSolutionVersion;
+
+  Solution({
+    this.name,
+    this.solutionArn,
+    this.performHpo,
+    this.performAutoML,
+    this.recipeArn,
+    this.datasetGroupArn,
+    this.eventType,
+    this.solutionConfig,
+    this.autoMLResult,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.latestSolutionVersion,
+  });
+  static Solution fromJson(Map<String, dynamic> json) => Solution();
+}
+
+class SolutionConfig {
+  /// Only events with a value greater than or equal to this threshold are used
+  /// for training a model.
+  final String eventValueThreshold;
+
+  /// Describes the properties for hyperparameter optimization (HPO). For use
+  /// with the bring-your-own-recipe feature. Not used with Amazon Personalize
+  /// predefined recipes.
+  final HpoConfig hpoConfig;
+
+  /// Lists the hyperparameter names and ranges.
+  final Map<String, String> algorithmHyperParameters;
+
+  /// Lists the feature transformation parameters.
+  final Map<String, String> featureTransformationParameters;
+
+  /// The AutoMLConfig object containing a list of recipes to search when AutoML
+  /// is performed.
+  final AutoMLConfig autoMLConfig;
+
+  SolutionConfig({
+    this.eventValueThreshold,
+    this.hpoConfig,
+    this.algorithmHyperParameters,
+    this.featureTransformationParameters,
+    this.autoMLConfig,
+  });
+  static SolutionConfig fromJson(Map<String, dynamic> json) => SolutionConfig();
+}
+
+class SolutionSummary {
+  /// The name of the solution.
+  final String name;
+
+  /// The Amazon Resource Name (ARN) of the solution.
+  final String solutionArn;
+
+  /// The status of the solution.
+  ///
+  /// A solution can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  ///
+  /// *   DELETE PENDING > DELETE IN_PROGRESS
+  final String status;
+
+  /// The date and time (in Unix time) that the solution was created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the solution was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  SolutionSummary({
+    this.name,
+    this.solutionArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static SolutionSummary fromJson(Map<String, dynamic> json) =>
+      SolutionSummary();
+}
+
+class SolutionVersion {
+  /// The ARN of the solution version.
+  final String solutionVersionArn;
+
+  /// The ARN of the solution.
+  final String solutionArn;
+
+  /// Whether to perform hyperparameter optimization (HPO) on the chosen recipe.
+  /// The default is `false`.
+  final bool performHpo;
+
+  /// When true, Amazon Personalize performs a search for the most optimal
+  /// recipe according to the solution configuration. When false (the default),
+  /// Amazon Personalize uses `recipeArn`.
+  final bool performAutoML;
+
+  /// The ARN of the recipe used in the solution.
+  final String recipeArn;
+
+  /// The event type (for example, 'click' or 'like') that is used for training
+  /// the model.
+  final String eventType;
+
+  /// The Amazon Resource Name (ARN) of the dataset group providing the training
+  /// data.
+  final String datasetGroupArn;
+
+  /// Describes the configuration properties for the solution.
+  final SolutionConfig solutionConfig;
+
+  /// The status of the solution version.
+  ///
+  /// A solution version can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  final String status;
+
+  /// If training a solution version fails, the reason behind the failure.
+  final String failureReason;
+
+  /// The date and time (in Unix time) that this version of the solution was
+  /// created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the solution was last updated.
+  final DateTime lastUpdatedDateTime;
+
+  SolutionVersion({
+    this.solutionVersionArn,
+    this.solutionArn,
+    this.performHpo,
+    this.performAutoML,
+    this.recipeArn,
+    this.eventType,
+    this.datasetGroupArn,
+    this.solutionConfig,
+    this.status,
+    this.failureReason,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+  });
+  static SolutionVersion fromJson(Map<String, dynamic> json) =>
+      SolutionVersion();
+}
+
+class SolutionVersionSummary {
+  /// The Amazon Resource Name (ARN) of the solution version.
+  final String solutionVersionArn;
+
+  /// The status of the solution version.
+  ///
+  /// A solution version can be in one of the following states:
+  ///
+  /// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
+  final String status;
+
+  /// The date and time (in Unix time) that this version of a solution was
+  /// created.
+  final DateTime creationDateTime;
+
+  /// The date and time (in Unix time) that the solution version was last
+  /// updated.
+  final DateTime lastUpdatedDateTime;
+
+  /// If a solution version fails, the reason behind the failure.
+  final String failureReason;
+
+  SolutionVersionSummary({
+    this.solutionVersionArn,
+    this.status,
+    this.creationDateTime,
+    this.lastUpdatedDateTime,
+    this.failureReason,
+  });
+  static SolutionVersionSummary fromJson(Map<String, dynamic> json) =>
+      SolutionVersionSummary();
+}
+
+class UpdateCampaignResponse {
+  /// The same campaign ARN as given in the request.
+  final String campaignArn;
+
+  UpdateCampaignResponse({
+    this.campaignArn,
+  });
+  static UpdateCampaignResponse fromJson(Map<String, dynamic> json) =>
+      UpdateCampaignResponse();
+}

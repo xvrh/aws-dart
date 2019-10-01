@@ -58,21 +58,51 @@ class MarketplaceMeteringApi {
   /// BatchMeterUsage.
   ///
   /// BatchMeterUsage can process up to 25 UsageRecords at a time.
-  Future<void> batchMeterUsage(
+  ///
+  /// [usageRecords]: The set of UsageRecords to submit. BatchMeterUsage accepts
+  /// up to 25 UsageRecords at a time.
+  ///
+  /// [productCode]: Product code is used to uniquely identify a product in AWS
+  /// Marketplace. The product code should be the same as the one used during
+  /// the publishing of a new product.
+  Future<BatchMeterUsageResult> batchMeterUsage(
       {@required List<UsageRecord> usageRecords,
-      @required String productCode}) async {}
+      @required String productCode}) async {
+    return BatchMeterUsageResult.fromJson({});
+  }
 
   /// API to emit metering records. For identical requests, the API is
   /// idempotent. It simply returns the metering record ID.
   ///
   /// MeterUsage is authenticated on the buyer's AWS account, generally when
   /// running from an EC2 instance on the AWS Marketplace.
-  Future<void> meterUsage(
+  ///
+  /// [productCode]: Product code is used to uniquely identify a product in AWS
+  /// Marketplace. The product code should be the same as the one used during
+  /// the publishing of a new product.
+  ///
+  /// [timestamp]: Timestamp, in UTC, for which the usage is being reported.
+  /// Your application can meter usage for up to one hour in the past. Make sure
+  /// the timestamp value is not before the start of the software usage.
+  ///
+  /// [usageDimension]: It will be one of the fcp dimension name provided during
+  /// the publishing of the product.
+  ///
+  /// [usageQuantity]: Consumption value for the hour. Defaults to `0` if not
+  /// specified.
+  ///
+  /// [dryRun]: Checks whether you have the permissions required for the action,
+  /// but does not make the request. If you have the permissions, the request
+  /// returns DryRunOperation; otherwise, it returns UnauthorizedException.
+  /// Defaults to `false` if not specified.
+  Future<MeterUsageResult> meterUsage(
       {@required String productCode,
       @required DateTime timestamp,
       @required String usageDimension,
       int usageQuantity,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return MeterUsageResult.fromJson({});
+  }
 
   /// Paid container software products sold through AWS Marketplace must
   /// integrate with the AWS Marketplace Metering Service and call the
@@ -108,27 +138,159 @@ class MarketplaceMeteringApi {
   /// for running ECS tasks, regardless of the customers subscription state,
   /// removing the need for your software to perform entitlement checks at
   /// runtime.
-  Future<void> registerUsage(
+  ///
+  /// [productCode]: Product code is used to uniquely identify a product in AWS
+  /// Marketplace. The product code should be the same as the one used during
+  /// the publishing of a new product.
+  ///
+  /// [publicKeyVersion]: Public Key Version provided by AWS Marketplace
+  ///
+  /// [nonce]: (Optional) To scope down the registration to a specific running
+  /// software instance and guard against replay attacks.
+  Future<RegisterUsageResult> registerUsage(
       {@required String productCode,
       @required int publicKeyVersion,
-      String nonce}) async {}
+      String nonce}) async {
+    return RegisterUsageResult.fromJson({});
+  }
 
   /// ResolveCustomer is called by a SaaS application during the registration
   /// process. When a buyer visits your website during the registration process,
   /// the buyer submits a registration token through their browser. The
   /// registration token is resolved through this API to obtain a
   /// CustomerIdentifier and product code.
-  Future<void> resolveCustomer(String registrationToken) async {}
+  ///
+  /// [registrationToken]: When a buyer visits your website during the
+  /// registration process, the buyer submits a registration token through the
+  /// browser. The registration token is resolved to obtain a CustomerIdentifier
+  /// and product code.
+  Future<ResolveCustomerResult> resolveCustomer(
+      String registrationToken) async {
+    return ResolveCustomerResult.fromJson({});
+  }
 }
 
-class BatchMeterUsageResult {}
+class BatchMeterUsageResult {
+  /// Contains all UsageRecords processed by BatchMeterUsage. These records were
+  /// either honored by AWS Marketplace Metering Service or were invalid.
+  final List<UsageRecordResult> results;
 
-class MeterUsageResult {}
+  /// Contains all UsageRecords that were not processed by BatchMeterUsage. This
+  /// is a list of UsageRecords. You can retry the failed request by making
+  /// another BatchMeterUsage call with this list as input in the
+  /// BatchMeterUsageRequest.
+  final List<UsageRecord> unprocessedRecords;
 
-class RegisterUsageResult {}
+  BatchMeterUsageResult({
+    this.results,
+    this.unprocessedRecords,
+  });
+  static BatchMeterUsageResult fromJson(Map<String, dynamic> json) =>
+      BatchMeterUsageResult();
+}
 
-class ResolveCustomerResult {}
+class MeterUsageResult {
+  /// Metering record id.
+  final String meteringRecordId;
 
-class UsageRecord {}
+  MeterUsageResult({
+    this.meteringRecordId,
+  });
+  static MeterUsageResult fromJson(Map<String, dynamic> json) =>
+      MeterUsageResult();
+}
 
-class UsageRecordResult {}
+class RegisterUsageResult {
+  /// (Optional) Only included when public key version has expired
+  final DateTime publicKeyRotationTimestamp;
+
+  /// JWT Token
+  final String signature;
+
+  RegisterUsageResult({
+    this.publicKeyRotationTimestamp,
+    this.signature,
+  });
+  static RegisterUsageResult fromJson(Map<String, dynamic> json) =>
+      RegisterUsageResult();
+}
+
+class ResolveCustomerResult {
+  /// The CustomerIdentifier is used to identify an individual customer in your
+  /// application. Calls to BatchMeterUsage require CustomerIdentifiers for each
+  /// UsageRecord.
+  final String customerIdentifier;
+
+  /// The product code is returned to confirm that the buyer is registering for
+  /// your product. Subsequent BatchMeterUsage calls should be made using this
+  /// product code.
+  final String productCode;
+
+  ResolveCustomerResult({
+    this.customerIdentifier,
+    this.productCode,
+  });
+  static ResolveCustomerResult fromJson(Map<String, dynamic> json) =>
+      ResolveCustomerResult();
+}
+
+class UsageRecord {
+  /// Timestamp, in UTC, for which the usage is being reported.
+  ///
+  /// Your application can meter usage for up to one hour in the past. Make sure
+  /// the timestamp value is not before the start of the software usage.
+  final DateTime timestamp;
+
+  /// The CustomerIdentifier is obtained through the ResolveCustomer operation
+  /// and represents an individual buyer in your application.
+  final String customerIdentifier;
+
+  /// During the process of registering a product on AWS Marketplace, up to
+  /// eight dimensions are specified. These represent different units of value
+  /// in your application.
+  final String dimension;
+
+  /// The quantity of usage consumed by the customer for the given dimension and
+  /// time. Defaults to `0` if not specified.
+  final int quantity;
+
+  UsageRecord({
+    @required this.timestamp,
+    @required this.customerIdentifier,
+    @required this.dimension,
+    this.quantity,
+  });
+  static UsageRecord fromJson(Map<String, dynamic> json) => UsageRecord();
+}
+
+class UsageRecordResult {
+  /// The UsageRecord that was part of the BatchMeterUsage request.
+  final UsageRecord usageRecord;
+
+  /// The MeteringRecordId is a unique identifier for this metering event.
+  final String meteringRecordId;
+
+  /// The UsageRecordResult Status indicates the status of an individual
+  /// UsageRecord processed by BatchMeterUsage.
+  ///
+  /// *    _Success_\- The UsageRecord was accepted and honored by
+  /// BatchMeterUsage.
+  ///
+  /// *    _CustomerNotSubscribed_\- The CustomerIdentifier specified is not
+  /// subscribed to your product. The UsageRecord was not honored. Future
+  /// UsageRecords for this customer will fail until the customer subscribes to
+  /// your product.
+  ///
+  /// *    _DuplicateRecord_\- Indicates that the UsageRecord was invalid and
+  /// not honored. A previously metered UsageRecord had the same customer,
+  /// dimension, and time, but a different quantity.
+  final String status;
+
+  UsageRecordResult({
+    this.usageRecord,
+    this.meteringRecordId,
+    this.status,
+  });
+  static UsageRecordResult fromJson(Map<String, dynamic> json) =>
+      UsageRecordResult();
+}

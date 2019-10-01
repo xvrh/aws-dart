@@ -32,7 +32,13 @@ class CognitoSyncApi {
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
-  Future<void> bulkPublish(String identityPoolId) async {}
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  Future<BulkPublishResponse> bulkPublish(String identityPoolId) async {
+    return BulkPublishResponse.fromJson({});
+  }
 
   /// Deletes the specific dataset. The dataset will be deleted permanently, and
   /// the action can't be undone. Datasets that this dataset was merged with
@@ -41,10 +47,23 @@ class CognitoSyncApi {
   ///
   /// This API can be called with temporary user credentials provided by Cognito
   /// Identity or with developer credentials.
-  Future<void> deleteDataset(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [identityId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [datasetName]: A string of up to 128 characters. Allowed characters are
+  /// a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
+  Future<DeleteDatasetResponse> deleteDataset(
       {@required String identityPoolId,
       @required String identityId,
-      @required String datasetName}) async {}
+      @required String datasetName}) async {
+    return DeleteDatasetResponse.fromJson({});
+  }
 
   /// Gets meta data about a dataset by identity and dataset name. With Amazon
   /// Cognito Sync, each identity has access only to its own data. Thus, the
@@ -54,44 +73,93 @@ class CognitoSyncApi {
   /// This API can be called with temporary user credentials provided by Cognito
   /// Identity or with developer credentials. You should use Cognito Identity
   /// credentials to make this API call.
-  Future<void> describeDataset(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [identityId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [datasetName]: A string of up to 128 characters. Allowed characters are
+  /// a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
+  Future<DescribeDatasetResponse> describeDataset(
       {@required String identityPoolId,
       @required String identityId,
-      @required String datasetName}) async {}
+      @required String datasetName}) async {
+    return DescribeDatasetResponse.fromJson({});
+  }
 
   /// Gets usage details (for example, data storage) about a particular identity
   /// pool.
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
-  Future<void> describeIdentityPoolUsage(String identityPoolId) async {}
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  Future<DescribeIdentityPoolUsageResponse> describeIdentityPoolUsage(
+      String identityPoolId) async {
+    return DescribeIdentityPoolUsageResponse.fromJson({});
+  }
 
   /// Gets usage information for an identity, including number of datasets and
   /// data usage.
   ///
   /// This API can be called with temporary user credentials provided by Cognito
   /// Identity or with developer credentials.
-  Future<void> describeIdentityUsage(
-      {@required String identityPoolId, @required String identityId}) async {}
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [identityId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  Future<DescribeIdentityUsageResponse> describeIdentityUsage(
+      {@required String identityPoolId, @required String identityId}) async {
+    return DescribeIdentityUsageResponse.fromJson({});
+  }
 
   /// Get the status of the last BulkPublish operation for an identity pool.
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
-  Future<void> getBulkPublishDetails(String identityPoolId) async {}
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  Future<GetBulkPublishDetailsResponse> getBulkPublishDetails(
+      String identityPoolId) async {
+    return GetBulkPublishDetailsResponse.fromJson({});
+  }
 
   /// Gets the events and the corresponding Lambda functions associated with an
   /// identity pool.
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
-  Future<void> getCognitoEvents(String identityPoolId) async {}
+  ///
+  /// [identityPoolId]: The Cognito Identity Pool ID for the request
+  Future<GetCognitoEventsResponse> getCognitoEvents(
+      String identityPoolId) async {
+    return GetCognitoEventsResponse.fromJson({});
+  }
 
   /// Gets the configuration settings of an identity pool.
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
-  Future<void> getIdentityPoolConfiguration(String identityPoolId) async {}
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// This is the ID of the pool for which to return a configuration.
+  Future<GetIdentityPoolConfigurationResponse> getIdentityPoolConfiguration(
+      String identityPoolId) async {
+    return GetIdentityPoolConfigurationResponse.fromJson({});
+  }
 
   /// Lists datasets for an identity. With Amazon Cognito Sync, each identity
   /// has access only to its own data. Thus, the credentials used to make this
@@ -100,19 +168,39 @@ class CognitoSyncApi {
   /// ListDatasets can be called with temporary user credentials provided by
   /// Cognito Identity or with developer credentials. You should use the Cognito
   /// Identity credentials to make this API call.
-  Future<void> listDatasets(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [identityId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [nextToken]: A pagination token for obtaining the next page of results.
+  ///
+  /// [maxResults]: The maximum number of results to be returned.
+  Future<ListDatasetsResponse> listDatasets(
       {@required String identityPoolId,
       @required String identityId,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListDatasetsResponse.fromJson({});
+  }
 
   /// Gets a list of identity pools registered with Cognito.
   ///
   /// ListIdentityPoolUsage can only be called with developer credentials. You
   /// cannot make this API call with the temporary user credentials provided by
   /// Cognito Identity.
-  Future<void> listIdentityPoolUsage(
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: A pagination token for obtaining the next page of results.
+  ///
+  /// [maxResults]: The maximum number of results to be returned.
+  Future<ListIdentityPoolUsageResponse> listIdentityPoolUsage(
+      {String nextToken, int maxResults}) async {
+    return ListIdentityPoolUsageResponse.fromJson({});
+  }
 
   /// Gets paginated records, optionally changed after a particular sync count
   /// for a dataset and identity. With Amazon Cognito Sync, each identity has
@@ -122,24 +210,58 @@ class CognitoSyncApi {
   /// ListRecords can be called with temporary user credentials provided by
   /// Cognito Identity or with developer credentials. You should use Cognito
   /// Identity credentials to make this API call.
-  Future<void> listRecords(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [identityId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [datasetName]: A string of up to 128 characters. Allowed characters are
+  /// a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
+  ///
+  /// [lastSyncCount]: The last server sync count for this record.
+  ///
+  /// [nextToken]: A pagination token for obtaining the next page of results.
+  ///
+  /// [maxResults]: The maximum number of results to be returned.
+  ///
+  /// [syncSessionToken]: A token containing a session ID, identity ID, and
+  /// expiration.
+  Future<ListRecordsResponse> listRecords(
       {@required String identityPoolId,
       @required String identityId,
       @required String datasetName,
       BigInt lastSyncCount,
       String nextToken,
       int maxResults,
-      String syncSessionToken}) async {}
+      String syncSessionToken}) async {
+    return ListRecordsResponse.fromJson({});
+  }
 
   /// Registers a device to receive push sync notifications.
   ///
   /// This API can only be called with temporary credentials provided by Cognito
   /// Identity. You cannot call this API with developer credentials.
-  Future<void> registerDevice(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// Here, the ID of the pool that the identity belongs to.
+  ///
+  /// [identityId]: The unique ID for this identity.
+  ///
+  /// [platform]: The SNS platform type (e.g. GCM, SDM, APNS, APNS_SANDBOX).
+  ///
+  /// [token]: The push token.
+  Future<RegisterDeviceResponse> registerDevice(
       {@required String identityPoolId,
       @required String identityId,
       @required String platform,
-      @required String token}) async {}
+      @required String token}) async {
+    return RegisterDeviceResponse.fromJson({});
+  }
 
   /// Sets the AWS Lambda function for a given event type for an identity pool.
   /// This request only updates the key/value pair specified. Other key/values
@@ -148,6 +270,11 @@ class CognitoSyncApi {
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
+  ///
+  /// [identityPoolId]: The Cognito Identity Pool to use when configuring
+  /// Cognito Events
+  ///
+  /// [events]: The events to configure
   Future<void> setCognitoEvents(
       {@required String identityPoolId,
       @required Map<String, String> events}) async {}
@@ -156,30 +283,68 @@ class CognitoSyncApi {
   ///
   /// This API can only be called with developer credentials. You cannot call
   /// this API with the temporary user credentials provided by Cognito Identity.
-  Future<void> setIdentityPoolConfiguration(String identityPoolId,
-      {PushSync pushSync, CognitoStreams cognitoStreams}) async {}
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// This is the ID of the pool to modify.
+  ///
+  /// [pushSync]: Options to apply to this identity pool for push
+  /// synchronization.
+  ///
+  /// [cognitoStreams]: Options to apply to this identity pool for Amazon
+  /// Cognito streams.
+  Future<SetIdentityPoolConfigurationResponse> setIdentityPoolConfiguration(
+      String identityPoolId,
+      {PushSync pushSync,
+      CognitoStreams cognitoStreams}) async {
+    return SetIdentityPoolConfigurationResponse.fromJson({});
+  }
 
   /// Subscribes to receive notifications when a dataset is modified by another
   /// device.
   ///
   /// This API can only be called with temporary credentials provided by Cognito
   /// Identity. You cannot call this API with developer credentials.
-  Future<void> subscribeToDataset(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// The ID of the pool to which the identity belongs.
+  ///
+  /// [identityId]: Unique ID for this identity.
+  ///
+  /// [datasetName]: The name of the dataset to subcribe to.
+  ///
+  /// [deviceId]: The unique ID generated for this device by Cognito.
+  Future<SubscribeToDatasetResponse> subscribeToDataset(
       {@required String identityPoolId,
       @required String identityId,
       @required String datasetName,
-      @required String deviceId}) async {}
+      @required String deviceId}) async {
+    return SubscribeToDatasetResponse.fromJson({});
+  }
 
   /// Unsubscribes from receiving notifications when a dataset is modified by
   /// another device.
   ///
   /// This API can only be called with temporary credentials provided by Cognito
   /// Identity. You cannot call this API with developer credentials.
-  Future<void> unsubscribeFromDataset(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// The ID of the pool to which this identity belongs.
+  ///
+  /// [identityId]: Unique ID for this identity.
+  ///
+  /// [datasetName]: The name of the dataset from which to unsubcribe.
+  ///
+  /// [deviceId]: The unique ID generated for this device by Cognito.
+  Future<UnsubscribeFromDatasetResponse> unsubscribeFromDataset(
       {@required String identityPoolId,
       @required String identityId,
       @required String datasetName,
-      @required String deviceId}) async {}
+      @required String deviceId}) async {
+    return UnsubscribeFromDatasetResponse.fromJson({});
+  }
 
   /// Posts updates to records and adds and deletes records for a dataset and
   /// user.
@@ -199,58 +364,502 @@ class CognitoSyncApi {
   ///
   /// This API can be called with temporary user credentials provided by Cognito
   /// Identity or with developer credentials.
-  Future<void> updateRecords(
+  ///
+  /// [identityPoolId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [identityId]: A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  ///
+  /// [datasetName]: A string of up to 128 characters. Allowed characters are
+  /// a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
+  ///
+  /// [deviceId]: The unique ID generated for this device by Cognito.
+  ///
+  /// [recordPatches]: A list of patch operations.
+  ///
+  /// [syncSessionToken]: The SyncSessionToken returned by a previous call to
+  /// ListRecords for this dataset and identity.
+  ///
+  /// [clientContext]: Intended to supply a device ID that will populate the
+  /// lastModifiedBy field referenced in other methods. The ClientContext field
+  /// is not yet implemented.
+  Future<UpdateRecordsResponse> updateRecords(
       {@required String identityPoolId,
       @required String identityId,
       @required String datasetName,
       String deviceId,
       List<RecordPatch> recordPatches,
       @required String syncSessionToken,
-      String clientContext}) async {}
+      String clientContext}) async {
+    return UpdateRecordsResponse.fromJson({});
+  }
 }
 
-class BulkPublishResponse {}
+class BulkPublishResponse {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  final String identityPoolId;
 
-class CognitoStreams {}
+  BulkPublishResponse({
+    this.identityPoolId,
+  });
+  static BulkPublishResponse fromJson(Map<String, dynamic> json) =>
+      BulkPublishResponse();
+}
 
-class Dataset {}
+class CognitoStreams {
+  /// The name of the Cognito stream to receive updates. This stream must be in
+  /// the developers account and in the same region as the identity pool.
+  final String streamName;
 
-class DeleteDatasetResponse {}
+  /// The ARN of the role Amazon Cognito can assume in order to publish to the
+  /// stream. This role must grant access to Amazon Cognito (cognito-sync) to
+  /// invoke PutRecord on your Cognito stream.
+  final String roleArn;
 
-class DescribeDatasetResponse {}
+  /// Status of the Cognito streams. Valid values are:
+  ///
+  /// ENABLED - Streaming of updates to identity pool is enabled.
+  ///
+  /// DISABLED - Streaming of updates to identity pool is disabled. Bulk publish
+  /// will also fail if StreamingStatus is DISABLED.
+  final String streamingStatus;
 
-class DescribeIdentityPoolUsageResponse {}
+  CognitoStreams({
+    this.streamName,
+    this.roleArn,
+    this.streamingStatus,
+  });
+  static CognitoStreams fromJson(Map<String, dynamic> json) => CognitoStreams();
+}
 
-class DescribeIdentityUsageResponse {}
+class Dataset {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  final String identityId;
 
-class GetBulkPublishDetailsResponse {}
+  /// A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+  /// '_' (underscore), '-' (dash), and '.' (dot).
+  final String datasetName;
 
-class GetCognitoEventsResponse {}
+  /// Date on which the dataset was created.
+  final DateTime creationDate;
 
-class GetIdentityPoolConfigurationResponse {}
+  /// Date when the dataset was last modified.
+  final DateTime lastModifiedDate;
 
-class IdentityPoolUsage {}
+  /// The device that made the last change to this dataset.
+  final String lastModifiedBy;
 
-class IdentityUsage {}
+  /// Total size in bytes of the records in this dataset.
+  final BigInt dataStorage;
 
-class ListDatasetsResponse {}
+  /// Number of records in this dataset.
+  final BigInt numRecords;
 
-class ListIdentityPoolUsageResponse {}
+  Dataset({
+    this.identityId,
+    this.datasetName,
+    this.creationDate,
+    this.lastModifiedDate,
+    this.lastModifiedBy,
+    this.dataStorage,
+    this.numRecords,
+  });
+  static Dataset fromJson(Map<String, dynamic> json) => Dataset();
+}
 
-class ListRecordsResponse {}
+class DeleteDatasetResponse {
+  /// A collection of data for an identity pool. An identity pool can have
+  /// multiple datasets. A dataset is per identity and can be general or
+  /// associated with a particular entity in an application (like a saved game).
+  /// Datasets are automatically created if they don't exist. Data is synced by
+  /// dataset, and a dataset can hold up to 1MB of key-value pairs.
+  final Dataset dataset;
 
-class PushSync {}
+  DeleteDatasetResponse({
+    this.dataset,
+  });
+  static DeleteDatasetResponse fromJson(Map<String, dynamic> json) =>
+      DeleteDatasetResponse();
+}
 
-class Record {}
+class DescribeDatasetResponse {
+  /// Meta data for a collection of data for an identity. An identity can have
+  /// multiple datasets. A dataset can be general or associated with a
+  /// particular entity in an application (like a saved game). Datasets are
+  /// automatically created if they don't exist. Data is synced by dataset, and
+  /// a dataset can hold up to 1MB of key-value pairs.
+  final Dataset dataset;
 
-class RecordPatch {}
+  DescribeDatasetResponse({
+    this.dataset,
+  });
+  static DescribeDatasetResponse fromJson(Map<String, dynamic> json) =>
+      DescribeDatasetResponse();
+}
 
-class RegisterDeviceResponse {}
+class DescribeIdentityPoolUsageResponse {
+  /// Information about the usage of the identity pool.
+  final IdentityPoolUsage identityPoolUsage;
 
-class SetIdentityPoolConfigurationResponse {}
+  DescribeIdentityPoolUsageResponse({
+    this.identityPoolUsage,
+  });
+  static DescribeIdentityPoolUsageResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeIdentityPoolUsageResponse();
+}
 
-class SubscribeToDatasetResponse {}
+class DescribeIdentityUsageResponse {
+  /// Usage information for the identity.
+  final IdentityUsage identityUsage;
 
-class UnsubscribeFromDatasetResponse {}
+  DescribeIdentityUsageResponse({
+    this.identityUsage,
+  });
+  static DescribeIdentityUsageResponse fromJson(Map<String, dynamic> json) =>
+      DescribeIdentityUsageResponse();
+}
 
-class UpdateRecordsResponse {}
+class GetBulkPublishDetailsResponse {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  final String identityPoolId;
+
+  /// The date/time at which the last bulk publish was initiated.
+  final DateTime bulkPublishStartTime;
+
+  /// If BulkPublishStatus is SUCCEEDED, the time the last bulk publish
+  /// operation completed.
+  final DateTime bulkPublishCompleteTime;
+
+  /// Status of the last bulk publish operation, valid values are:
+  ///
+  /// NOT_STARTED - No bulk publish has been requested for this identity pool
+  ///
+  /// IN_PROGRESS - Data is being published to the configured stream
+  ///
+  /// SUCCEEDED - All data for the identity pool has been published to the
+  /// configured stream
+  ///
+  /// FAILED - Some portion of the data has failed to publish, check
+  /// FailureMessage for the cause.
+  final String bulkPublishStatus;
+
+  /// If BulkPublishStatus is FAILED this field will contain the error message
+  /// that caused the bulk publish to fail.
+  final String failureMessage;
+
+  GetBulkPublishDetailsResponse({
+    this.identityPoolId,
+    this.bulkPublishStartTime,
+    this.bulkPublishCompleteTime,
+    this.bulkPublishStatus,
+    this.failureMessage,
+  });
+  static GetBulkPublishDetailsResponse fromJson(Map<String, dynamic> json) =>
+      GetBulkPublishDetailsResponse();
+}
+
+class GetCognitoEventsResponse {
+  /// The Cognito Events returned from the GetCognitoEvents request
+  final Map<String, String> events;
+
+  GetCognitoEventsResponse({
+    this.events,
+  });
+  static GetCognitoEventsResponse fromJson(Map<String, dynamic> json) =>
+      GetCognitoEventsResponse();
+}
+
+class GetIdentityPoolConfigurationResponse {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  final String identityPoolId;
+
+  /// Options to apply to this identity pool for push synchronization.
+  final PushSync pushSync;
+
+  /// Options to apply to this identity pool for Amazon Cognito streams.
+  final CognitoStreams cognitoStreams;
+
+  GetIdentityPoolConfigurationResponse({
+    this.identityPoolId,
+    this.pushSync,
+    this.cognitoStreams,
+  });
+  static GetIdentityPoolConfigurationResponse fromJson(
+          Map<String, dynamic> json) =>
+      GetIdentityPoolConfigurationResponse();
+}
+
+class IdentityPoolUsage {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  final String identityPoolId;
+
+  /// Number of sync sessions for the identity pool.
+  final BigInt syncSessionsCount;
+
+  /// Data storage information for the identity pool.
+  final BigInt dataStorage;
+
+  /// Date on which the identity pool was last modified.
+  final DateTime lastModifiedDate;
+
+  IdentityPoolUsage({
+    this.identityPoolId,
+    this.syncSessionsCount,
+    this.dataStorage,
+    this.lastModifiedDate,
+  });
+  static IdentityPoolUsage fromJson(Map<String, dynamic> json) =>
+      IdentityPoolUsage();
+}
+
+class IdentityUsage {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  final String identityId;
+
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  /// GUID generation is unique within a region.
+  final String identityPoolId;
+
+  /// Date on which the identity was last modified.
+  final DateTime lastModifiedDate;
+
+  /// Number of datasets for the identity.
+  final int datasetCount;
+
+  /// Total data storage for this identity.
+  final BigInt dataStorage;
+
+  IdentityUsage({
+    this.identityId,
+    this.identityPoolId,
+    this.lastModifiedDate,
+    this.datasetCount,
+    this.dataStorage,
+  });
+  static IdentityUsage fromJson(Map<String, dynamic> json) => IdentityUsage();
+}
+
+class ListDatasetsResponse {
+  /// A set of datasets.
+  final List<Dataset> datasets;
+
+  /// Number of datasets returned.
+  final int count;
+
+  /// A pagination token for obtaining the next page of results.
+  final String nextToken;
+
+  ListDatasetsResponse({
+    this.datasets,
+    this.count,
+    this.nextToken,
+  });
+  static ListDatasetsResponse fromJson(Map<String, dynamic> json) =>
+      ListDatasetsResponse();
+}
+
+class ListIdentityPoolUsageResponse {
+  /// Usage information for the identity pools.
+  final List<IdentityPoolUsage> identityPoolUsages;
+
+  /// The maximum number of results to be returned.
+  final int maxResults;
+
+  /// Total number of identities for the identity pool.
+  final int count;
+
+  /// A pagination token for obtaining the next page of results.
+  final String nextToken;
+
+  ListIdentityPoolUsageResponse({
+    this.identityPoolUsages,
+    this.maxResults,
+    this.count,
+    this.nextToken,
+  });
+  static ListIdentityPoolUsageResponse fromJson(Map<String, dynamic> json) =>
+      ListIdentityPoolUsageResponse();
+}
+
+class ListRecordsResponse {
+  /// A list of all records.
+  final List<Record> records;
+
+  /// A pagination token for obtaining the next page of results.
+  final String nextToken;
+
+  /// Total number of records.
+  final int count;
+
+  /// Server sync count for this dataset.
+  final BigInt datasetSyncCount;
+
+  /// The user/device that made the last change to this record.
+  final String lastModifiedBy;
+
+  /// Names of merged datasets.
+  final List<String> mergedDatasetNames;
+
+  /// Indicates whether the dataset exists.
+  final bool datasetExists;
+
+  /// A boolean value specifying whether to delete the dataset locally.
+  final bool datasetDeletedAfterRequestedSyncCount;
+
+  /// A token containing a session ID, identity ID, and expiration.
+  final String syncSessionToken;
+
+  ListRecordsResponse({
+    this.records,
+    this.nextToken,
+    this.count,
+    this.datasetSyncCount,
+    this.lastModifiedBy,
+    this.mergedDatasetNames,
+    this.datasetExists,
+    this.datasetDeletedAfterRequestedSyncCount,
+    this.syncSessionToken,
+  });
+  static ListRecordsResponse fromJson(Map<String, dynamic> json) =>
+      ListRecordsResponse();
+}
+
+class PushSync {
+  /// List of SNS platform application ARNs that could be used by clients.
+  final List<String> applicationArns;
+
+  /// A role configured to allow Cognito to call SNS on behalf of the developer.
+  final String roleArn;
+
+  PushSync({
+    this.applicationArns,
+    this.roleArn,
+  });
+  static PushSync fromJson(Map<String, dynamic> json) => PushSync();
+}
+
+class Record {
+  /// The key for the record.
+  final String key;
+
+  /// The value for the record.
+  final String value;
+
+  /// The server sync count for this record.
+  final BigInt syncCount;
+
+  /// The date on which the record was last modified.
+  final DateTime lastModifiedDate;
+
+  /// The user/device that made the last change to this record.
+  final String lastModifiedBy;
+
+  /// The last modified date of the client device.
+  final DateTime deviceLastModifiedDate;
+
+  Record({
+    this.key,
+    this.value,
+    this.syncCount,
+    this.lastModifiedDate,
+    this.lastModifiedBy,
+    this.deviceLastModifiedDate,
+  });
+  static Record fromJson(Map<String, dynamic> json) => Record();
+}
+
+class RecordPatch {
+  /// An operation, either replace or remove.
+  final String op;
+
+  /// The key associated with the record patch.
+  final String key;
+
+  /// The value associated with the record patch.
+  final String value;
+
+  /// Last known server sync count for this record. Set to 0 if unknown.
+  final BigInt syncCount;
+
+  /// The last modified date of the client device.
+  final DateTime deviceLastModifiedDate;
+
+  RecordPatch({
+    @required this.op,
+    @required this.key,
+    this.value,
+    @required this.syncCount,
+    this.deviceLastModifiedDate,
+  });
+}
+
+class RegisterDeviceResponse {
+  /// The unique ID generated for this device by Cognito.
+  final String deviceId;
+
+  RegisterDeviceResponse({
+    this.deviceId,
+  });
+  static RegisterDeviceResponse fromJson(Map<String, dynamic> json) =>
+      RegisterDeviceResponse();
+}
+
+class SetIdentityPoolConfigurationResponse {
+  /// A name-spaced GUID (for example,
+  /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
+  final String identityPoolId;
+
+  /// Options to apply to this identity pool for push synchronization.
+  final PushSync pushSync;
+
+  /// Options to apply to this identity pool for Amazon Cognito streams.
+  final CognitoStreams cognitoStreams;
+
+  SetIdentityPoolConfigurationResponse({
+    this.identityPoolId,
+    this.pushSync,
+    this.cognitoStreams,
+  });
+  static SetIdentityPoolConfigurationResponse fromJson(
+          Map<String, dynamic> json) =>
+      SetIdentityPoolConfigurationResponse();
+}
+
+class SubscribeToDatasetResponse {
+  SubscribeToDatasetResponse();
+  static SubscribeToDatasetResponse fromJson(Map<String, dynamic> json) =>
+      SubscribeToDatasetResponse();
+}
+
+class UnsubscribeFromDatasetResponse {
+  UnsubscribeFromDatasetResponse();
+  static UnsubscribeFromDatasetResponse fromJson(Map<String, dynamic> json) =>
+      UnsubscribeFromDatasetResponse();
+}
+
+class UpdateRecordsResponse {
+  /// A list of records that have been updated.
+  final List<Record> records;
+
+  UpdateRecordsResponse({
+    this.records,
+  });
+  static UpdateRecordsResponse fromJson(Map<String, dynamic> json) =>
+      UpdateRecordsResponse();
+}

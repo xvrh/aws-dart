@@ -58,6 +58,17 @@ class GlacierApi {
   /// and [Abort Multipart
   /// Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html)
   /// in the _Amazon Glacier Developer Guide_.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [uploadId]: The upload ID of the multipart upload to delete.
   Future<void> abortMultipartUpload(
       {@required String accountId,
       @required String vaultName,
@@ -82,6 +93,15 @@ class GlacierApi {
   /// This operation is idempotent. You can successfully invoke this operation
   /// multiple times, if the vault lock is in the `InProgress` state or if there
   /// is no policy associated with the vault.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  ///
+  /// [vaultName]: The name of the vault.
   Future<void> abortVaultLock(
       {@required String accountId, @required String vaultName}) async {}
 
@@ -92,6 +112,18 @@ class GlacierApi {
   /// vault under a specified key, the existing key value will be overwritten.
   /// For more information about tags, see [Tagging Amazon S3 Glacier
   /// Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [tags]: The tags to add to the vault. Each tag is composed of a key and a
+  /// value. The value can be an empty string.
   Future<void> addTagsToVault(
       {@required String accountId,
       @required String vaultName,
@@ -145,12 +177,35 @@ class GlacierApi {
   /// and [Complete Multipart
   /// Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html)
   /// in the _Amazon Glacier Developer Guide_.
-  Future<void> completeMultipartUpload(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [uploadId]: The upload ID of the multipart upload.
+  ///
+  /// [archiveSize]: The total size, in bytes, of the entire archive. This value
+  /// should be the sum of all the sizes of the individual parts that you
+  /// uploaded.
+  ///
+  /// [checksum]: The SHA256 tree hash of the entire archive. It is the tree
+  /// hash of SHA256 tree hash of the individual parts. If the value you specify
+  /// in the request does not match the SHA256 tree hash of the final assembled
+  /// archive as computed by Amazon S3 Glacier (Glacier), Glacier returns an
+  /// error and the request fails.
+  Future<ArchiveCreationOutput> completeMultipartUpload(
       {@required String accountId,
       @required String vaultName,
       @required String uploadId,
       String archiveSize,
-      String checksum}) async {}
+      String checksum}) async {
+    return ArchiveCreationOutput.fromJson({});
+  }
 
   /// This operation completes the vault locking process by transitioning the
   /// vault lock from the `InProgress` state to the `Locked` state, which causes
@@ -169,6 +224,18 @@ class GlacierApi {
   /// error. If an invalid lock ID is passed in the request when the vault lock
   /// is in the `InProgress` state, the operation throws an `InvalidParameter`
   /// error.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [lockId]: The `lockId` value is the lock ID obtained from a
+  /// InitiateVaultLock request.
   Future<void> completeVaultLock(
       {@required String accountId,
       @required String vaultName,
@@ -202,8 +269,19 @@ class GlacierApi {
   /// and [Create
   /// Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html)
   ///  in the _Amazon Glacier Developer Guide_.
-  Future<void> createVault(
-      {@required String accountId, @required String vaultName}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  Future<CreateVaultOutput> createVault(
+      {@required String accountId, @required String vaultName}) async {
+    return CreateVaultOutput.fromJson({});
+  }
 
   /// This operation deletes an archive from a vault. Subsequent requests to
   /// initiate a retrieval of this archive will fail. Archive retrievals that
@@ -235,6 +313,17 @@ class GlacierApi {
   /// and [Delete
   /// Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html)
   /// in the _Amazon Glacier Developer Guide_.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [archiveId]: The ID of the archive to delete.
   Future<void> deleteArchive(
       {@required String accountId,
       @required String vaultName,
@@ -267,6 +356,15 @@ class GlacierApi {
   /// and [Delete
   /// Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html)
   ///  in the _Amazon S3 Glacier Developer Guide_.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
   Future<void> deleteVault(
       {@required String accountId, @required String vaultName}) async {}
 
@@ -281,6 +379,15 @@ class GlacierApi {
   /// about vault access policies, see [Amazon Glacier Access Control with Vault
   /// Access
   /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
   Future<void> deleteVaultAccessPolicy(
       {@required String accountId, @required String vaultName}) async {}
 
@@ -303,6 +410,15 @@ class GlacierApi {
   /// and [Delete Vault Notification
   /// Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html)
   ///  in the Amazon S3 Glacier Developer Guide.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
   Future<void> deleteVaultNotifications(
       {@required String accountId, @required String vaultName}) async {}
 
@@ -331,10 +447,23 @@ class GlacierApi {
   /// for the underlying REST API [Describe
   /// Job](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html)
   /// in the _Amazon Glacier Developer Guide_.
-  Future<void> describeJob(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [jobId]: The ID of the job to describe.
+  Future<GlacierJobDescription> describeJob(
       {@required String accountId,
       @required String vaultName,
-      @required String jobId}) async {}
+      @required String jobId}) async {
+    return GlacierJobDescription.fromJson({});
+  }
 
   /// This operation returns information about a vault, including the vault's
   /// Amazon Resource Name (ARN), the date the vault was created, the number of
@@ -361,14 +490,35 @@ class GlacierApi {
   /// and [Describe
   /// Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html)
   ///  in the _Amazon Glacier Developer Guide_.
-  Future<void> describeVault(
-      {@required String accountId, @required String vaultName}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  Future<DescribeVaultOutput> describeVault(
+      {@required String accountId, @required String vaultName}) async {
+    return DescribeVaultOutput.fromJson({});
+  }
 
   /// This operation returns the current data retrieval policy for the account
   /// and region specified in the GET request. For more information about data
   /// retrieval policies, see [Amazon Glacier Data Retrieval
   /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html).
-  Future<void> getDataRetrievalPolicy(String accountId) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  Future<GetDataRetrievalPolicyOutput> getDataRetrievalPolicy(
+      String accountId) async {
+    return GetDataRetrievalPolicyOutput.fromJson({});
+  }
 
   /// This operation downloads the output of the job you initiated using
   /// InitiateJob. Depending on the job type you specified when you initiated
@@ -420,11 +570,54 @@ class GlacierApi {
   /// Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html),
   /// and [Get Job
   /// Output](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html)
-  Future<void> getJobOutput(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [jobId]: The job ID whose data is downloaded.
+  ///
+  /// [range]: The range of bytes to retrieve from the output. For example, if
+  /// you want to download the first 1,048,576 bytes, specify the range as
+  /// `bytes=0-1048575`. By default, this operation downloads the entire output.
+  ///
+  /// If the job output is large, then you can use a range to retrieve a portion
+  /// of the output. This allows you to download the entire output in smaller
+  /// chunks of bytes. For example, suppose you have 1 GB of job output you want
+  /// to download and you decide to download 128 MB chunks of data at a time,
+  /// which is a total of eight Get Job Output requests. You use the following
+  /// process to download the job output:
+  ///
+  /// 1.  Download a 128 MB chunk of output by specifying the appropriate byte
+  /// range. Verify that all 128 MB of data was received.
+  ///
+  /// 2.  Along with the data, the response includes a SHA256 tree hash of the
+  /// payload. You compute the checksum of the payload on the client and compare
+  /// it with the checksum you received in the response to ensure you received
+  /// all the expected data.
+  ///
+  /// 3.  Repeat steps 1 and 2 for all the eight 128 MB chunks of output data,
+  /// each time specifying the appropriate byte range.
+  ///
+  /// 4.  After downloading all the parts of the job output, you have a list of
+  /// eight checksum values. Compute the tree hash of these values to find the
+  /// checksum of the entire output. Using the DescribeJob API, obtain job
+  /// information of the job that provided you the output. The response includes
+  /// the checksum of the entire archive stored in Amazon S3 Glacier. You
+  /// compare this value with the checksum you computed to ensure you have
+  /// downloaded the entire archive content with no errors.
+  Future<GetJobOutputOutput> getJobOutput(
       {@required String accountId,
       @required String vaultName,
       @required String jobId,
-      String range}) async {}
+      String range}) async {
+    return GetJobOutputOutput.fromJson({});
+  }
 
   /// This operation retrieves the `access-policy` subresource set on the vault;
   /// for more information on setting this subresource, see [Set Vault Access
@@ -434,8 +627,19 @@ class GlacierApi {
   /// `404 Not found` error. For more information about vault access policies,
   /// see [Amazon Glacier Access Control with Vault Access
   /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
-  Future<void> getVaultAccessPolicy(
-      {@required String accountId, @required String vaultName}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  Future<GetVaultAccessPolicyOutput> getVaultAccessPolicy(
+      {@required String accountId, @required String vaultName}) async {
+    return GetVaultAccessPolicyOutput.fromJson({});
+  }
 
   /// This operation retrieves the following attributes from the `lock-policy`
   /// subresource set on the specified vault:
@@ -461,8 +665,19 @@ class GlacierApi {
   /// `404 Not found` error. For more information about vault lock policies,
   /// [Amazon Glacier Access Control with Vault Lock
   /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
-  Future<void> getVaultLock(
-      {@required String accountId, @required String vaultName}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  Future<GetVaultLockOutput> getVaultLock(
+      {@required String accountId, @required String vaultName}) async {
+    return GetVaultLockOutput.fromJson({});
+  }
 
   /// This operation retrieves the `notification-configuration` subresource of
   /// the specified vault.
@@ -487,18 +702,42 @@ class GlacierApi {
   /// and [Get Vault Notification
   /// Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html)
   ///  in the _Amazon Glacier Developer Guide_.
-  Future<void> getVaultNotifications(
-      {@required String accountId, @required String vaultName}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  Future<GetVaultNotificationsOutput> getVaultNotifications(
+      {@required String accountId, @required String vaultName}) async {
+    return GetVaultNotificationsOutput.fromJson({});
+  }
 
   /// This operation initiates a job of the specified type, which can be a
   /// select, an archival retrieval, or a vault retrieval. For more information
   /// about using this operation, see the documentation for the underlying REST
   /// API [Initiate a
   /// Job](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html).
-  Future<void> initiateJob(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [jobParameters]: Provides options for specifying job information.
+  Future<InitiateJobOutput> initiateJob(
       {@required String accountId,
       @required String vaultName,
-      JobParameters jobParameters}) async {}
+      JobParameters jobParameters}) async {
+    return InitiateJobOutput.fromJson({});
+  }
 
   /// This operation initiates a multipart upload. Amazon S3 Glacier creates a
   /// multipart upload resource and returns its ID in the response. The
@@ -539,11 +778,33 @@ class GlacierApi {
   /// and [Initiate Multipart
   /// Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html)
   /// in the _Amazon Glacier Developer Guide_.
-  Future<void> initiateMultipartUpload(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [archiveDescription]: The archive description that you are uploading in
+  /// parts.
+  ///
+  /// The part size must be a megabyte (1024 KB) multiplied by a power of 2, for
+  /// example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8 MB),
+  /// and so on. The minimum allowable part size is 1 MB, and the maximum is 4
+  /// GB (4096 MB).
+  ///
+  /// [partSize]: The size of each part except the last, in bytes. The last part
+  /// can be smaller than this part size.
+  Future<InitiateMultipartUploadOutput> initiateMultipartUpload(
       {@required String accountId,
       @required String vaultName,
       String archiveDescription,
-      String partSize}) async {}
+      String partSize}) async {
+    return InitiateMultipartUploadOutput.fromJson({});
+  }
 
   /// This operation initiates the vault locking process by doing the following:
   ///
@@ -579,10 +840,24 @@ class GlacierApi {
   /// state, the operation returns an `AccessDeniedException` error. When the
   /// vault lock is in the `InProgress` state you must call AbortVaultLock
   /// before you can initiate a new vault lock policy.
-  Future<void> initiateVaultLock(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [policy]: The vault lock policy as a JSON string, which uses "\\" as an
+  /// escape character.
+  Future<InitiateVaultLockOutput> initiateVaultLock(
       {@required String accountId,
       @required String vaultName,
-      VaultLockPolicy policy}) async {}
+      VaultLockPolicy policy}) async {
+    return InitiateVaultLockOutput.fromJson({});
+  }
 
   /// This operation lists jobs for a vault, including jobs that are in-progress
   /// and jobs that have recently finished. The List Job operation returns a
@@ -621,13 +896,40 @@ class GlacierApi {
   /// For more information about using this operation, see the documentation for
   /// the underlying REST API [List
   /// Jobs](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html).
-  Future<void> listJobs(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [limit]: The maximum number of jobs to be returned. The default limit is
+  /// 50. The number of jobs returned might be fewer than the specified limit,
+  /// but the number of returned jobs never exceeds the limit.
+  ///
+  /// [marker]: An opaque string used for pagination. This value specifies the
+  /// job at which the listing of jobs should begin. Get the marker value from a
+  /// previous List Jobs response. You only need to include the marker if you
+  /// are continuing the pagination of results started in a previous List Jobs
+  /// request.
+  ///
+  /// [statuscode]: The type of job status to return. You can specify the
+  /// following values: `InProgress`, `Succeeded`, or `Failed`.
+  ///
+  /// [completed]: The state of the jobs to return. You can specify `true` or
+  /// `false`.
+  Future<ListJobsOutput> listJobs(
       {@required String accountId,
       @required String vaultName,
       String limit,
       String marker,
       String statuscode,
-      String completed}) async {}
+      String completed}) async {
+    return ListJobsOutput.fromJson({});
+  }
 
   /// This operation lists in-progress multipart uploads for the specified
   /// vault. An in-progress multipart upload is a multipart upload that has been
@@ -663,11 +965,32 @@ class GlacierApi {
   /// and [List Multipart
   /// Uploads](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html)
   ///  in the _Amazon Glacier Developer Guide_.
-  Future<void> listMultipartUploads(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [marker]: An opaque string used for pagination. This value specifies the
+  /// upload at which the listing of uploads should begin. Get the marker value
+  /// from a previous List Uploads response. You need only include the marker if
+  /// you are continuing the pagination of results started in a previous List
+  /// Uploads request.
+  ///
+  /// [limit]: Specifies the maximum number of uploads returned in the response
+  /// body. If this value is not specified, the List Uploads operation returns
+  /// up to 50 uploads.
+  Future<ListMultipartUploadsOutput> listMultipartUploads(
       {@required String accountId,
       @required String vaultName,
       String marker,
-      String limit}) async {}
+      String limit}) async {
+    return ListMultipartUploadsOutput.fromJson({});
+  }
 
   /// This operation lists the parts of an archive that have been uploaded in a
   /// specific multipart upload. You can make this request at any time during an
@@ -698,23 +1021,66 @@ class GlacierApi {
   /// and [List
   /// Parts](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html)
   /// in the _Amazon Glacier Developer Guide_.
-  Future<void> listParts(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [uploadId]: The upload ID of the multipart upload.
+  ///
+  /// [marker]: An opaque string used for pagination. This value specifies the
+  /// part at which the listing of parts should begin. Get the marker value from
+  /// the response of a previous List Parts response. You need only include the
+  /// marker if you are continuing the pagination of results started in a
+  /// previous List Parts request.
+  ///
+  /// [limit]: The maximum number of parts to be returned. The default limit is
+  /// 50. The number of parts returned might be fewer than the specified limit,
+  /// but the number of returned parts never exceeds the limit.
+  Future<ListPartsOutput> listParts(
       {@required String accountId,
       @required String vaultName,
       @required String uploadId,
       String marker,
-      String limit}) async {}
+      String limit}) async {
+    return ListPartsOutput.fromJson({});
+  }
 
   /// This operation lists the provisioned capacity units for the specified AWS
   /// account.
-  Future<void> listProvisionedCapacity(String accountId) async {}
+  ///
+  /// [accountId]: The AWS account ID of the account that owns the vault. You
+  /// can either specify an AWS account ID or optionally a single '-' (hyphen),
+  /// in which case Amazon S3 Glacier uses the AWS account ID associated with
+  /// the credentials used to sign the request. If you use an account ID, don't
+  /// include any hyphens ('-') in the ID.
+  Future<ListProvisionedCapacityOutput> listProvisionedCapacity(
+      String accountId) async {
+    return ListProvisionedCapacityOutput.fromJson({});
+  }
 
   /// This operation lists all the tags attached to a vault. The operation
   /// returns an empty map if there are no tags. For more information about
   /// tags, see [Tagging Amazon S3 Glacier
   /// Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
-  Future<void> listTagsForVault(
-      {@required String accountId, @required String vaultName}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  Future<ListTagsForVaultOutput> listTagsForVault(
+      {@required String accountId, @required String vaultName}) async {
+    return ListTagsForVaultOutput.fromJson({});
+  }
 
   /// This operation lists all vaults owned by the calling user's account. The
   /// list returned in the response is ASCII-sorted by vault name.
@@ -741,17 +1107,54 @@ class GlacierApi {
   /// and [List
   /// Vaults](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html)
   ///  in the _Amazon Glacier Developer Guide_.
-  Future<void> listVaults(String accountId,
-      {String marker, String limit}) async {}
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  ///
+  /// [marker]: A string used for pagination. The marker specifies the vault ARN
+  /// after which the listing of vaults should begin.
+  ///
+  /// [limit]: The maximum number of vaults to be returned. The default limit is
+  /// 10. The number of vaults returned might be fewer than the specified limit,
+  /// but the number of returned vaults never exceeds the limit.
+  Future<ListVaultsOutput> listVaults(String accountId,
+      {String marker, String limit}) async {
+    return ListVaultsOutput.fromJson({});
+  }
 
   /// This operation purchases a provisioned capacity unit for an AWS account.
-  Future<void> purchaseProvisionedCapacity(String accountId) async {}
+  ///
+  /// [accountId]: The AWS account ID of the account that owns the vault. You
+  /// can either specify an AWS account ID or optionally a single '-' (hyphen),
+  /// in which case Amazon S3 Glacier uses the AWS account ID associated with
+  /// the credentials used to sign the request. If you use an account ID, don't
+  /// include any hyphens ('-') in the ID.
+  Future<PurchaseProvisionedCapacityOutput> purchaseProvisionedCapacity(
+      String accountId) async {
+    return PurchaseProvisionedCapacityOutput.fromJson({});
+  }
 
   /// This operation removes one or more tags from the set of tags attached to a
   /// vault. For more information about tags, see [Tagging Amazon S3 Glacier
   /// Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
   /// This operation is idempotent. The operation will be successful, even if
   /// there are no tags attached to the vault.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [tagKeys]: A list of tag keys. Each corresponding tag is removed from the
+  /// vault.
   Future<void> removeTagsFromVault(
       {@required String accountId,
       @required String vaultName,
@@ -766,6 +1169,15 @@ class GlacierApi {
   /// progress before the policy was enacted. For more information about data
   /// retrieval policies, see [Amazon Glacier Data Retrieval
   /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html).
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID. This value must
+  /// match the AWS account ID associated with the credentials used to sign the
+  /// request. You can either specify an AWS account ID or optionally a single
+  /// '`-`' (hyphen), in which case Amazon Glacier uses the AWS account ID
+  /// associated with the credentials used to sign the request. If you specify
+  /// your account ID, do not include any hyphens ('-') in the ID.
+  ///
+  /// [policy]: The data retrieval policy in JSON format.
   Future<void> setDataRetrievalPolicy(String accountId,
       {DataRetrievalPolicy policy}) async {}
 
@@ -777,6 +1189,17 @@ class GlacierApi {
   /// more information about vault access policies, see [Amazon Glacier Access
   /// Control with Vault Access
   /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [policy]: The vault access policy as a JSON string.
   Future<void> setVaultAccessPolicy(
       {@required String accountId,
       @required String vaultName,
@@ -820,6 +1243,18 @@ class GlacierApi {
   /// and [Set Vault Notification
   /// Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html)
   ///  in the _Amazon Glacier Developer Guide_.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [vaultNotificationConfig]: Provides options for specifying notification
+  /// configuration.
   Future<void> setVaultNotifications(
       {@required String accountId,
       @required String vaultName,
@@ -867,12 +1302,30 @@ class GlacierApi {
   /// and [Upload
   /// Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html)
   /// in the _Amazon Glacier Developer Guide_.
-  Future<void> uploadArchive(
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [archiveDescription]: The optional description of the archive you are
+  /// uploading.
+  ///
+  /// [checksum]: The SHA256 tree hash of the data being uploaded.
+  ///
+  /// [body]: The data to upload.
+  Future<ArchiveCreationOutput> uploadArchive(
       {@required String vaultName,
       @required String accountId,
       String archiveDescription,
       String checksum,
-      Uint8List body}) async {}
+      Uint8List body}) async {
+    return ArchiveCreationOutput.fromJson({});
+  }
 
   /// This operation uploads a part of an archive. You can upload archive parts
   /// in any order. You can also upload them in parallel. You can upload up to
@@ -923,93 +1376,1041 @@ class GlacierApi {
   /// and [Upload
   /// Part](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html)
   ///  in the _Amazon Glacier Developer Guide_.
-  Future<void> uploadMultipartPart(
+  ///
+  /// [accountId]: The `AccountId` value is the AWS account ID of the account
+  /// that owns the vault. You can either specify an AWS account ID or
+  /// optionally a single '`-`' (hyphen), in which case Amazon S3 Glacier uses
+  /// the AWS account ID associated with the credentials used to sign the
+  /// request. If you use an account ID, do not include any hyphens ('-') in the
+  /// ID.
+  ///
+  /// [vaultName]: The name of the vault.
+  ///
+  /// [uploadId]: The upload ID of the multipart upload.
+  ///
+  /// [checksum]: The SHA256 tree hash of the data being uploaded.
+  ///
+  /// [range]: Identifies the range of bytes in the assembled archive that will
+  /// be uploaded in this part. Amazon S3 Glacier uses this information to
+  /// assemble the archive in the proper sequence. The format of this header
+  /// follows RFC 2616. An example header is Content-Range:bytes 0-4194303/*.
+  ///
+  /// [body]: The data to upload.
+  Future<UploadMultipartPartOutput> uploadMultipartPart(
       {@required String accountId,
       @required String vaultName,
       @required String uploadId,
       String checksum,
       String range,
-      Uint8List body}) async {}
+      Uint8List body}) async {
+    return UploadMultipartPartOutput.fromJson({});
+  }
 }
 
-class ArchiveCreationOutput {}
+class ArchiveCreationOutput {
+  /// The relative URI path of the newly added archive resource.
+  final String location;
 
-class CsvInput {}
+  /// The checksum of the archive computed by Amazon S3 Glacier.
+  final String checksum;
 
-class CsvOutput {}
+  /// The ID of the archive. This value is also included as part of the
+  /// location.
+  final String archiveId;
 
-class CreateVaultOutput {}
+  ArchiveCreationOutput({
+    this.location,
+    this.checksum,
+    this.archiveId,
+  });
+  static ArchiveCreationOutput fromJson(Map<String, dynamic> json) =>
+      ArchiveCreationOutput();
+}
 
-class DataRetrievalPolicy {}
+class CsvInput {
+  /// Describes the first line of input. Valid values are `None`, `Ignore`, and
+  /// `Use`.
+  final String fileHeaderInfo;
 
-class DataRetrievalRule {}
+  /// A single character used to indicate that a row should be ignored when the
+  /// character is present at the start of that row.
+  final String comments;
 
-class DescribeVaultOutput {}
+  /// A single character used for escaping the quotation-mark character inside
+  /// an already escaped value.
+  final String quoteEscapeCharacter;
 
-class Encryption {}
+  /// A value used to separate individual records from each other.
+  final String recordDelimiter;
 
-class GetDataRetrievalPolicyOutput {}
+  /// A value used to separate individual fields from each other within a
+  /// record.
+  final String fieldDelimiter;
 
-class GetJobOutputOutput {}
+  /// A value used as an escape character where the field delimiter is part of
+  /// the value.
+  final String quoteCharacter;
 
-class GetVaultAccessPolicyOutput {}
+  CsvInput({
+    this.fileHeaderInfo,
+    this.comments,
+    this.quoteEscapeCharacter,
+    this.recordDelimiter,
+    this.fieldDelimiter,
+    this.quoteCharacter,
+  });
+  static CsvInput fromJson(Map<String, dynamic> json) => CsvInput();
+}
 
-class GetVaultLockOutput {}
+class CsvOutput {
+  /// A value that indicates whether all output fields should be contained
+  /// within quotation marks.
+  final String quoteFields;
 
-class GetVaultNotificationsOutput {}
+  /// A single character used for escaping the quotation-mark character inside
+  /// an already escaped value.
+  final String quoteEscapeCharacter;
 
-class GlacierJobDescription {}
+  /// A value used to separate individual records from each other.
+  final String recordDelimiter;
 
-class Grant {}
+  /// A value used to separate individual fields from each other within a
+  /// record.
+  final String fieldDelimiter;
 
-class Grantee {}
+  /// A value used as an escape character where the field delimiter is part of
+  /// the value.
+  final String quoteCharacter;
 
-class InitiateJobOutput {}
+  CsvOutput({
+    this.quoteFields,
+    this.quoteEscapeCharacter,
+    this.recordDelimiter,
+    this.fieldDelimiter,
+    this.quoteCharacter,
+  });
+  static CsvOutput fromJson(Map<String, dynamic> json) => CsvOutput();
+}
 
-class InitiateMultipartUploadOutput {}
+class CreateVaultOutput {
+  /// The URI of the vault that was created.
+  final String location;
 
-class InitiateVaultLockOutput {}
+  CreateVaultOutput({
+    this.location,
+  });
+  static CreateVaultOutput fromJson(Map<String, dynamic> json) =>
+      CreateVaultOutput();
+}
 
-class InputSerialization {}
+class DataRetrievalPolicy {
+  /// The policy rule. Although this is a list type, currently there must be
+  /// only one rule, which contains a Strategy field and optionally a
+  /// BytesPerHour field.
+  final List<DataRetrievalRule> rules;
 
-class InventoryRetrievalJobDescription {}
+  DataRetrievalPolicy({
+    this.rules,
+  });
+  static DataRetrievalPolicy fromJson(Map<String, dynamic> json) =>
+      DataRetrievalPolicy();
+}
 
-class InventoryRetrievalJobInput {}
+class DataRetrievalRule {
+  /// The type of data retrieval policy to set.
+  ///
+  /// Valid values: BytesPerHour|FreeTier|None
+  final String strategy;
 
-class JobParameters {}
+  /// The maximum number of bytes that can be retrieved in an hour.
+  ///
+  /// This field is required only if the value of the Strategy field is
+  /// `BytesPerHour`. Your PUT operation will be rejected if the Strategy field
+  /// is not set to `BytesPerHour` and you set this field.
+  final BigInt bytesPerHour;
 
-class ListJobsOutput {}
+  DataRetrievalRule({
+    this.strategy,
+    this.bytesPerHour,
+  });
+  static DataRetrievalRule fromJson(Map<String, dynamic> json) =>
+      DataRetrievalRule();
+}
 
-class ListMultipartUploadsOutput {}
+class DescribeVaultOutput {
+  /// The Amazon Resource Name (ARN) of the vault.
+  final String vaultArn;
 
-class ListPartsOutput {}
+  /// The name of the vault.
+  final String vaultName;
 
-class ListProvisionedCapacityOutput {}
+  /// The Universal Coordinated Time (UTC) date when the vault was created. This
+  /// value should be a string in the ISO 8601 date format, for example
+  /// `2012-03-20T17:03:43.221Z`.
+  final String creationDate;
 
-class ListTagsForVaultOutput {}
+  /// The Universal Coordinated Time (UTC) date when Amazon S3 Glacier completed
+  /// the last vault inventory. This value should be a string in the ISO 8601
+  /// date format, for example `2012-03-20T17:03:43.221Z`.
+  final String lastInventoryDate;
 
-class ListVaultsOutput {}
+  /// The number of archives in the vault as of the last inventory date. This
+  /// field will return `null` if an inventory has not yet run on the vault, for
+  /// example if you just created the vault.
+  final BigInt numberOfArchives;
 
-class OutputLocation {}
+  /// Total size, in bytes, of the archives in the vault as of the last
+  /// inventory date. This field will return null if an inventory has not yet
+  /// run on the vault, for example if you just created the vault.
+  final BigInt sizeInBytes;
 
-class OutputSerialization {}
+  DescribeVaultOutput({
+    this.vaultArn,
+    this.vaultName,
+    this.creationDate,
+    this.lastInventoryDate,
+    this.numberOfArchives,
+    this.sizeInBytes,
+  });
+  static DescribeVaultOutput fromJson(Map<String, dynamic> json) =>
+      DescribeVaultOutput();
+}
 
-class PartListElement {}
+class Encryption {
+  /// The server-side encryption algorithm used when storing job results in
+  /// Amazon S3, for example `AES256` or `aws:kms`.
+  final String encryptionType;
 
-class ProvisionedCapacityDescription {}
+  /// The AWS KMS key ID to use for object encryption. All GET and PUT requests
+  /// for an object protected by AWS KMS fail if not made by using Secure
+  /// Sockets Layer (SSL) or Signature Version 4.
+  final String kmsKeyId;
 
-class PurchaseProvisionedCapacityOutput {}
+  /// Optional. If the encryption type is `aws:kms`, you can use this value to
+  /// specify the encryption context for the job results.
+  final String kmsContext;
 
-class S3Location {}
+  Encryption({
+    this.encryptionType,
+    this.kmsKeyId,
+    this.kmsContext,
+  });
+  static Encryption fromJson(Map<String, dynamic> json) => Encryption();
+}
 
-class SelectParameters {}
+class GetDataRetrievalPolicyOutput {
+  /// Contains the returned data retrieval policy in JSON format.
+  final DataRetrievalPolicy policy;
 
-class UploadListElement {}
+  GetDataRetrievalPolicyOutput({
+    this.policy,
+  });
+  static GetDataRetrievalPolicyOutput fromJson(Map<String, dynamic> json) =>
+      GetDataRetrievalPolicyOutput();
+}
 
-class UploadMultipartPartOutput {}
+class GetJobOutputOutput {
+  /// The job data, either archive data or inventory data.
+  final Uint8List body;
 
-class VaultAccessPolicy {}
+  /// The checksum of the data in the response. This header is returned only
+  /// when retrieving the output for an archive retrieval job. Furthermore, this
+  /// header appears only under the following conditions:
+  ///
+  /// *   You get the entire range of the archive.
+  ///
+  /// *   You request a range to return of the archive that starts and ends on a
+  /// multiple of 1 MB. For example, if you have an 3.1 MB archive and you
+  /// specify a range to return that starts at 1 MB and ends at 2 MB, then the
+  /// x-amz-sha256-tree-hash is returned as a response header.
+  ///
+  /// *   You request a range of the archive to return that starts on a multiple
+  /// of 1 MB and goes to the end of the archive. For example, if you have a 3.1
+  /// MB archive and you specify a range that starts at 2 MB and ends at 3.1 MB
+  /// (the end of the archive), then the x-amz-sha256-tree-hash is returned as a
+  /// response header.
+  final String checksum;
 
-class VaultLockPolicy {}
+  /// The HTTP response code for a job output request. The value depends on
+  /// whether a range was specified in the request.
+  final int status;
 
-class VaultNotificationConfig {}
+  /// The range of bytes returned by Amazon S3 Glacier. If only partial output
+  /// is downloaded, the response provides the range of bytes Amazon S3 Glacier
+  /// returned. For example, bytes 0-1048575/8388608 returns the first 1 MB from
+  /// 8 MB.
+  final String contentRange;
+
+  /// Indicates the range units accepted. For more information, see
+  /// [RFC2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+  final String acceptRanges;
+
+  /// The Content-Type depends on whether the job output is an archive or a
+  /// vault inventory. For archive data, the Content-Type is
+  /// application/octet-stream. For vault inventory, if you requested CSV format
+  /// when you initiated the job, the Content-Type is text/csv. Otherwise, by
+  /// default, vault inventory is returned as JSON, and the Content-Type is
+  /// application/json.
+  final String contentType;
+
+  /// The description of an archive.
+  final String archiveDescription;
+
+  GetJobOutputOutput({
+    this.body,
+    this.checksum,
+    this.status,
+    this.contentRange,
+    this.acceptRanges,
+    this.contentType,
+    this.archiveDescription,
+  });
+  static GetJobOutputOutput fromJson(Map<String, dynamic> json) =>
+      GetJobOutputOutput();
+}
+
+class GetVaultAccessPolicyOutput {
+  /// Contains the returned vault access policy as a JSON string.
+  final VaultAccessPolicy policy;
+
+  GetVaultAccessPolicyOutput({
+    this.policy,
+  });
+  static GetVaultAccessPolicyOutput fromJson(Map<String, dynamic> json) =>
+      GetVaultAccessPolicyOutput();
+}
+
+class GetVaultLockOutput {
+  /// The vault lock policy as a JSON string, which uses "\\" as an escape
+  /// character.
+  final String policy;
+
+  /// The state of the vault lock. `InProgress` or `Locked`.
+  final String state;
+
+  /// The UTC date and time at which the lock ID expires. This value can be
+  /// `null` if the vault lock is in a `Locked` state.
+  final String expirationDate;
+
+  /// The UTC date and time at which the vault lock was put into the
+  /// `InProgress` state.
+  final String creationDate;
+
+  GetVaultLockOutput({
+    this.policy,
+    this.state,
+    this.expirationDate,
+    this.creationDate,
+  });
+  static GetVaultLockOutput fromJson(Map<String, dynamic> json) =>
+      GetVaultLockOutput();
+}
+
+class GetVaultNotificationsOutput {
+  /// Returns the notification configuration set on the vault.
+  final VaultNotificationConfig vaultNotificationConfig;
+
+  GetVaultNotificationsOutput({
+    this.vaultNotificationConfig,
+  });
+  static GetVaultNotificationsOutput fromJson(Map<String, dynamic> json) =>
+      GetVaultNotificationsOutput();
+}
+
+class GlacierJobDescription {
+  /// An opaque string that identifies an Amazon S3 Glacier job.
+  final String jobId;
+
+  /// The job description provided when initiating the job.
+  final String jobDescription;
+
+  /// The job type. This value is either `ArchiveRetrieval`,
+  /// `InventoryRetrieval`, or `Select`.
+  final String action;
+
+  /// The archive ID requested for a select job or archive retrieval. Otherwise,
+  /// this field is null.
+  final String archiveId;
+
+  /// The Amazon Resource Name (ARN) of the vault from which an archive
+  /// retrieval was requested.
+  final String vaultArn;
+
+  /// The UTC date when the job was created. This value is a string
+  /// representation of ISO 8601 date format, for example
+  /// `"2012-03-20T17:03:43.221Z"`.
+  final String creationDate;
+
+  /// The job status. When a job is completed, you get the job's output using
+  /// Get Job Output (GET output).
+  final bool completed;
+
+  /// The status code can be `InProgress`, `Succeeded`, or `Failed`, and
+  /// indicates the status of the job.
+  final String statusCode;
+
+  /// A friendly message that describes the job status.
+  final String statusMessage;
+
+  /// For an archive retrieval job, this value is the size in bytes of the
+  /// archive being requested for download. For an inventory retrieval or select
+  /// job, this value is null.
+  final BigInt archiveSizeInBytes;
+
+  /// For an inventory retrieval job, this value is the size in bytes of the
+  /// inventory requested for download. For an archive retrieval or select job,
+  /// this value is null.
+  final BigInt inventorySizeInBytes;
+
+  /// An Amazon SNS topic that receives notification.
+  final String snsTopic;
+
+  /// The UTC time that the job request completed. While the job is in progress,
+  /// the value is null.
+  final String completionDate;
+
+  /// For an archive retrieval job, this value is the checksum of the archive.
+  /// Otherwise, this value is null.
+  ///
+  /// The SHA256 tree hash value for the requested range of an archive. If the
+  /// **InitiateJob** request for an archive specified a tree-hash aligned
+  /// range, then this field returns a value.
+  ///
+  /// If the whole archive is retrieved, this value is the same as the
+  /// ArchiveSHA256TreeHash value.
+  ///
+  /// This field is null for the following:
+  ///
+  /// *   Archive retrieval jobs that specify a range that is not tree-hash
+  /// aligned
+  ///
+  ///
+  /// *   Archival jobs that specify a range that is equal to the whole archive,
+  /// when the job status is `InProgress`
+  ///
+  ///
+  /// *   Inventory jobs
+  ///
+  /// *   Select jobs
+  final String sha256TreeHash;
+
+  /// The SHA256 tree hash of the entire archive for an archive retrieval. For
+  /// inventory retrieval or select jobs, this field is null.
+  final String archiveSha256TreeHash;
+
+  /// The retrieved byte range for archive retrieval jobs in the form
+  /// _StartByteValue_-_EndByteValue_. If no range was specified in the archive
+  /// retrieval, then the whole archive is retrieved. In this case,
+  /// _StartByteValue_ equals 0 and _EndByteValue_ equals the size of the
+  /// archive minus 1. For inventory retrieval or select jobs, this field is
+  /// null.
+  final String retrievalByteRange;
+
+  /// The tier to use for a select or an archive retrieval. Valid values are
+  /// `Expedited`, `Standard`, or `Bulk`. `Standard` is the default.
+  final String tier;
+
+  /// Parameters used for range inventory retrieval.
+  final InventoryRetrievalJobDescription inventoryRetrievalParameters;
+
+  /// Contains the job output location.
+  final String jobOutputPath;
+
+  /// Contains the parameters used for a select.
+  final SelectParameters selectParameters;
+
+  /// Contains the location where the data from the select job is stored.
+  final OutputLocation outputLocation;
+
+  GlacierJobDescription({
+    this.jobId,
+    this.jobDescription,
+    this.action,
+    this.archiveId,
+    this.vaultArn,
+    this.creationDate,
+    this.completed,
+    this.statusCode,
+    this.statusMessage,
+    this.archiveSizeInBytes,
+    this.inventorySizeInBytes,
+    this.snsTopic,
+    this.completionDate,
+    this.sha256TreeHash,
+    this.archiveSha256TreeHash,
+    this.retrievalByteRange,
+    this.tier,
+    this.inventoryRetrievalParameters,
+    this.jobOutputPath,
+    this.selectParameters,
+    this.outputLocation,
+  });
+  static GlacierJobDescription fromJson(Map<String, dynamic> json) =>
+      GlacierJobDescription();
+}
+
+class Grant {
+  /// The grantee.
+  final Grantee grantee;
+
+  /// Specifies the permission given to the grantee.
+  final String permission;
+
+  Grant({
+    this.grantee,
+    this.permission,
+  });
+  static Grant fromJson(Map<String, dynamic> json) => Grant();
+}
+
+class Grantee {
+  /// Type of grantee
+  final String type;
+
+  /// Screen name of the grantee.
+  final String displayName;
+
+  /// URI of the grantee group.
+  final String uri;
+
+  /// The canonical user ID of the grantee.
+  final String id;
+
+  /// Email address of the grantee.
+  final String emailAddress;
+
+  Grantee({
+    @required this.type,
+    this.displayName,
+    this.uri,
+    this.id,
+    this.emailAddress,
+  });
+  static Grantee fromJson(Map<String, dynamic> json) => Grantee();
+}
+
+class InitiateJobOutput {
+  /// The relative URI path of the job.
+  final String location;
+
+  /// The ID of the job.
+  final String jobId;
+
+  /// The path to the location of where the select results are stored.
+  final String jobOutputPath;
+
+  InitiateJobOutput({
+    this.location,
+    this.jobId,
+    this.jobOutputPath,
+  });
+  static InitiateJobOutput fromJson(Map<String, dynamic> json) =>
+      InitiateJobOutput();
+}
+
+class InitiateMultipartUploadOutput {
+  /// The relative URI path of the multipart upload ID Amazon S3 Glacier
+  /// created.
+  final String location;
+
+  /// The ID of the multipart upload. This value is also included as part of the
+  /// location.
+  final String uploadId;
+
+  InitiateMultipartUploadOutput({
+    this.location,
+    this.uploadId,
+  });
+  static InitiateMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
+      InitiateMultipartUploadOutput();
+}
+
+class InitiateVaultLockOutput {
+  /// The lock ID, which is used to complete the vault locking process.
+  final String lockId;
+
+  InitiateVaultLockOutput({
+    this.lockId,
+  });
+  static InitiateVaultLockOutput fromJson(Map<String, dynamic> json) =>
+      InitiateVaultLockOutput();
+}
+
+class InputSerialization {
+  /// Describes the serialization of a CSV-encoded object.
+  final CsvInput csv;
+
+  InputSerialization({
+    this.csv,
+  });
+  static InputSerialization fromJson(Map<String, dynamic> json) =>
+      InputSerialization();
+}
+
+class InventoryRetrievalJobDescription {
+  /// The output format for the vault inventory list, which is set by the
+  /// **InitiateJob** request when initiating a job to retrieve a vault
+  /// inventory. Valid values are `CSV` and `JSON`.
+  final String format;
+
+  /// The start of the date range in Universal Coordinated Time (UTC) for vault
+  /// inventory retrieval that includes archives created on or after this date.
+  /// This value should be a string in the ISO 8601 date format, for example
+  /// `2013-03-20T17:03:43Z`.
+  final String startDate;
+
+  /// The end of the date range in UTC for vault inventory retrieval that
+  /// includes archives created before this date. This value should be a string
+  /// in the ISO 8601 date format, for example `2013-03-20T17:03:43Z`.
+  final String endDate;
+
+  /// The maximum number of inventory items returned per vault inventory
+  /// retrieval request. This limit is set when initiating the job with the a
+  /// **InitiateJob** request.
+  final String limit;
+
+  /// An opaque string that represents where to continue pagination of the vault
+  /// inventory retrieval results. You use the marker in a new **InitiateJob**
+  /// request to obtain additional inventory items. If there are no more
+  /// inventory items, this value is `null`. For more information, see  [Range
+  /// Inventory
+  /// Retrieval](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering).
+  final String marker;
+
+  InventoryRetrievalJobDescription({
+    this.format,
+    this.startDate,
+    this.endDate,
+    this.limit,
+    this.marker,
+  });
+  static InventoryRetrievalJobDescription fromJson(Map<String, dynamic> json) =>
+      InventoryRetrievalJobDescription();
+}
+
+class InventoryRetrievalJobInput {
+  /// The start of the date range in UTC for vault inventory retrieval that
+  /// includes archives created on or after this date. This value should be a
+  /// string in the ISO 8601 date format, for example `2013-03-20T17:03:43Z`.
+  final String startDate;
+
+  /// The end of the date range in UTC for vault inventory retrieval that
+  /// includes archives created before this date. This value should be a string
+  /// in the ISO 8601 date format, for example `2013-03-20T17:03:43Z`.
+  final String endDate;
+
+  /// Specifies the maximum number of inventory items returned per vault
+  /// inventory retrieval request. Valid values are greater than or equal to 1.
+  final String limit;
+
+  /// An opaque string that represents where to continue pagination of the vault
+  /// inventory retrieval results. You use the marker in a new **InitiateJob**
+  /// request to obtain additional inventory items. If there are no more
+  /// inventory items, this value is `null`.
+  final String marker;
+
+  InventoryRetrievalJobInput({
+    this.startDate,
+    this.endDate,
+    this.limit,
+    this.marker,
+  });
+}
+
+class JobParameters {
+  /// When initiating a job to retrieve a vault inventory, you can optionally
+  /// add this parameter to your request to specify the output format. If you
+  /// are initiating an inventory job and do not specify a Format field, JSON is
+  /// the default format. Valid values are "CSV" and "JSON".
+  final String format;
+
+  /// The job type. You can initiate a job to perform a select query on an
+  /// archive, retrieve an archive, or get an inventory of a vault. Valid values
+  /// are "select", "archive-retrieval" and "inventory-retrieval".
+  final String type;
+
+  /// The ID of the archive that you want to retrieve. This field is required
+  /// only if `Type` is set to `select` or `archive-retrieval`code>. An error
+  /// occurs if you specify this request parameter for an inventory retrieval
+  /// job request.
+  final String archiveId;
+
+  /// The optional description for the job. The description must be less than or
+  /// equal to 1,024 bytes. The allowable characters are 7-bit ASCII without
+  /// control codes-specifically, ASCII values 32-126 decimal or 0x20-0x7E
+  /// hexadecimal.
+  final String description;
+
+  /// The Amazon SNS topic ARN to which Amazon S3 Glacier sends a notification
+  /// when the job is completed and the output is ready for you to download. The
+  /// specified topic publishes the notification to its subscribers. The SNS
+  /// topic must exist.
+  final String snsTopic;
+
+  /// The byte range to retrieve for an archive retrieval. in the form
+  /// "_StartByteValue_-_EndByteValue_" If not specified, the whole archive is
+  /// retrieved. If specified, the byte range must be megabyte (1024*1024)
+  /// aligned which means that _StartByteValue_ must be divisible by 1 MB and
+  /// _EndByteValue_ plus 1 must be divisible by 1 MB or be the end of the
+  /// archive specified as the archive byte size value minus 1. If
+  /// RetrievalByteRange is not megabyte aligned, this operation returns a 400
+  /// response.
+  ///
+  /// An error occurs if you specify this field for an inventory retrieval job
+  /// request.
+  final String retrievalByteRange;
+
+  /// The tier to use for a select or an archive retrieval job. Valid values are
+  /// `Expedited`, `Standard`, or `Bulk`. `Standard` is the default.
+  final String tier;
+
+  /// Input parameters used for range inventory retrieval.
+  final InventoryRetrievalJobInput inventoryRetrievalParameters;
+
+  /// Contains the parameters that define a job.
+  final SelectParameters selectParameters;
+
+  /// Contains information about the location where the select job results are
+  /// stored.
+  final OutputLocation outputLocation;
+
+  JobParameters({
+    this.format,
+    this.type,
+    this.archiveId,
+    this.description,
+    this.snsTopic,
+    this.retrievalByteRange,
+    this.tier,
+    this.inventoryRetrievalParameters,
+    this.selectParameters,
+    this.outputLocation,
+  });
+}
+
+class ListJobsOutput {
+  /// A list of job objects. Each job object contains metadata describing the
+  /// job.
+  final List<GlacierJobDescription> jobList;
+
+  ///  An opaque string used for pagination that specifies the job at which the
+  /// listing of jobs should begin. You get the `marker` value from a previous
+  /// List Jobs response. You only need to include the marker if you are
+  /// continuing the pagination of the results started in a previous List Jobs
+  /// request.
+  final String marker;
+
+  ListJobsOutput({
+    this.jobList,
+    this.marker,
+  });
+  static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput();
+}
+
+class ListMultipartUploadsOutput {
+  /// A list of in-progress multipart uploads.
+  final List<UploadListElement> uploadsList;
+
+  /// An opaque string that represents where to continue pagination of the
+  /// results. You use the marker in a new List Multipart Uploads request to
+  /// obtain more uploads in the list. If there are no more uploads, this value
+  /// is `null`.
+  final String marker;
+
+  ListMultipartUploadsOutput({
+    this.uploadsList,
+    this.marker,
+  });
+  static ListMultipartUploadsOutput fromJson(Map<String, dynamic> json) =>
+      ListMultipartUploadsOutput();
+}
+
+class ListPartsOutput {
+  /// The ID of the upload to which the parts are associated.
+  final String multipartUploadId;
+
+  /// The Amazon Resource Name (ARN) of the vault to which the multipart upload
+  /// was initiated.
+  final String vaultArn;
+
+  /// The description of the archive that was specified in the Initiate
+  /// Multipart Upload request.
+  final String archiveDescription;
+
+  /// The part size in bytes. This is the same value that you specified in the
+  /// Initiate Multipart Upload request.
+  final BigInt partSizeInBytes;
+
+  /// The UTC time at which the multipart upload was initiated.
+  final String creationDate;
+
+  /// A list of the part sizes of the multipart upload. Each object in the array
+  /// contains a `RangeBytes` and `sha256-tree-hash` name/value pair.
+  final List<PartListElement> parts;
+
+  /// An opaque string that represents where to continue pagination of the
+  /// results. You use the marker in a new List Parts request to obtain more
+  /// jobs in the list. If there are no more parts, this value is `null`.
+  final String marker;
+
+  ListPartsOutput({
+    this.multipartUploadId,
+    this.vaultArn,
+    this.archiveDescription,
+    this.partSizeInBytes,
+    this.creationDate,
+    this.parts,
+    this.marker,
+  });
+  static ListPartsOutput fromJson(Map<String, dynamic> json) =>
+      ListPartsOutput();
+}
+
+class ListProvisionedCapacityOutput {
+  /// The response body contains the following JSON fields.
+  final List<ProvisionedCapacityDescription> provisionedCapacityList;
+
+  ListProvisionedCapacityOutput({
+    this.provisionedCapacityList,
+  });
+  static ListProvisionedCapacityOutput fromJson(Map<String, dynamic> json) =>
+      ListProvisionedCapacityOutput();
+}
+
+class ListTagsForVaultOutput {
+  /// The tags attached to the vault. Each tag is composed of a key and a value.
+  final Map<String, String> tags;
+
+  ListTagsForVaultOutput({
+    this.tags,
+  });
+  static ListTagsForVaultOutput fromJson(Map<String, dynamic> json) =>
+      ListTagsForVaultOutput();
+}
+
+class ListVaultsOutput {
+  /// List of vaults.
+  final List<DescribeVaultOutput> vaultList;
+
+  /// The vault ARN at which to continue pagination of the results. You use the
+  /// marker in another List Vaults request to obtain more vaults in the list.
+  final String marker;
+
+  ListVaultsOutput({
+    this.vaultList,
+    this.marker,
+  });
+  static ListVaultsOutput fromJson(Map<String, dynamic> json) =>
+      ListVaultsOutput();
+}
+
+class OutputLocation {
+  /// Describes an S3 location that will receive the results of the job request.
+  final S3Location s3;
+
+  OutputLocation({
+    this.s3,
+  });
+  static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation();
+}
+
+class OutputSerialization {
+  /// Describes the serialization of CSV-encoded query results.
+  final CsvOutput csv;
+
+  OutputSerialization({
+    this.csv,
+  });
+  static OutputSerialization fromJson(Map<String, dynamic> json) =>
+      OutputSerialization();
+}
+
+class PartListElement {
+  /// The byte range of a part, inclusive of the upper value of the range.
+  final String rangeInBytes;
+
+  /// The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+  /// This field is never `null`.
+  final String sha256TreeHash;
+
+  PartListElement({
+    this.rangeInBytes,
+    this.sha256TreeHash,
+  });
+  static PartListElement fromJson(Map<String, dynamic> json) =>
+      PartListElement();
+}
+
+class ProvisionedCapacityDescription {
+  /// The ID that identifies the provisioned capacity unit.
+  final String capacityId;
+
+  /// The date that the provisioned capacity unit was purchased, in Universal
+  /// Coordinated Time (UTC).
+  final String startDate;
+
+  /// The date that the provisioned capacity unit expires, in Universal
+  /// Coordinated Time (UTC).
+  final String expirationDate;
+
+  ProvisionedCapacityDescription({
+    this.capacityId,
+    this.startDate,
+    this.expirationDate,
+  });
+  static ProvisionedCapacityDescription fromJson(Map<String, dynamic> json) =>
+      ProvisionedCapacityDescription();
+}
+
+class PurchaseProvisionedCapacityOutput {
+  /// The ID that identifies the provisioned capacity unit.
+  final String capacityId;
+
+  PurchaseProvisionedCapacityOutput({
+    this.capacityId,
+  });
+  static PurchaseProvisionedCapacityOutput fromJson(
+          Map<String, dynamic> json) =>
+      PurchaseProvisionedCapacityOutput();
+}
+
+class S3Location {
+  /// The name of the Amazon S3 bucket where the job results are stored.
+  final String bucketName;
+
+  /// The prefix that is prepended to the results for this request.
+  final String prefix;
+
+  /// Contains information about the encryption used to store the job results in
+  /// Amazon S3.
+  final Encryption encryption;
+
+  /// The canned access control list (ACL) to apply to the job results.
+  final String cannedAcl;
+
+  /// A list of grants that control access to the staged results.
+  final List<Grant> accessControlList;
+
+  /// The tag-set that is applied to the job results.
+  final Map<String, String> tagging;
+
+  /// A map of metadata to store with the job results in Amazon S3.
+  final Map<String, String> userMetadata;
+
+  /// The storage class used to store the job results.
+  final String storageClass;
+
+  S3Location({
+    this.bucketName,
+    this.prefix,
+    this.encryption,
+    this.cannedAcl,
+    this.accessControlList,
+    this.tagging,
+    this.userMetadata,
+    this.storageClass,
+  });
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+}
+
+class SelectParameters {
+  /// Describes the serialization format of the object.
+  final InputSerialization inputSerialization;
+
+  /// The type of the provided expression, for example `SQL`.
+  final String expressionType;
+
+  /// The expression that is used to select the object.
+  final String expression;
+
+  /// Describes how the results of the select job are serialized.
+  final OutputSerialization outputSerialization;
+
+  SelectParameters({
+    this.inputSerialization,
+    this.expressionType,
+    this.expression,
+    this.outputSerialization,
+  });
+  static SelectParameters fromJson(Map<String, dynamic> json) =>
+      SelectParameters();
+}
+
+class UploadListElement {
+  /// The ID of a multipart upload.
+  final String multipartUploadId;
+
+  /// The Amazon Resource Name (ARN) of the vault that contains the archive.
+  final String vaultArn;
+
+  /// The description of the archive that was specified in the Initiate
+  /// Multipart Upload request.
+  final String archiveDescription;
+
+  /// The part size, in bytes, specified in the Initiate Multipart Upload
+  /// request. This is the size of all the parts in the upload except the last
+  /// part, which may be smaller than this size.
+  final BigInt partSizeInBytes;
+
+  /// The UTC time at which the multipart upload was initiated.
+  final String creationDate;
+
+  UploadListElement({
+    this.multipartUploadId,
+    this.vaultArn,
+    this.archiveDescription,
+    this.partSizeInBytes,
+    this.creationDate,
+  });
+  static UploadListElement fromJson(Map<String, dynamic> json) =>
+      UploadListElement();
+}
+
+class UploadMultipartPartOutput {
+  /// The SHA256 tree hash that Amazon S3 Glacier computed for the uploaded
+  /// part.
+  final String checksum;
+
+  UploadMultipartPartOutput({
+    this.checksum,
+  });
+  static UploadMultipartPartOutput fromJson(Map<String, dynamic> json) =>
+      UploadMultipartPartOutput();
+}
+
+class VaultAccessPolicy {
+  /// The vault access policy.
+  final String policy;
+
+  VaultAccessPolicy({
+    this.policy,
+  });
+  static VaultAccessPolicy fromJson(Map<String, dynamic> json) =>
+      VaultAccessPolicy();
+}
+
+class VaultLockPolicy {
+  /// The vault lock policy.
+  final String policy;
+
+  VaultLockPolicy({
+    this.policy,
+  });
+}
+
+class VaultNotificationConfig {
+  /// The Amazon Simple Notification Service (Amazon SNS) topic Amazon Resource
+  /// Name (ARN).
+  final String snsTopic;
+
+  /// A list of one or more events for which Amazon S3 Glacier will send a
+  /// notification to the specified Amazon SNS topic.
+  final List<String> events;
+
+  VaultNotificationConfig({
+    this.snsTopic,
+    this.events,
+  });
+  static VaultNotificationConfig fromJson(Map<String, dynamic> json) =>
+      VaultNotificationConfig();
+}

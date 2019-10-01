@@ -3,9 +3,17 @@ import 'dart:convert';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:meta/meta.dart';
 
-
-String documentationComment(String documentation, {@required int indent}) {
+String documentationComment(String documentation, {String argumentName, @required int indent}) {
   documentation = html2md.convert(documentation);
+  documentation = documentation
+      .replaceAll('\u2028', '\n')
+  ;
+
+  if (argumentName != null) {
+    documentation = '[$argumentName]: $documentation';
+  }
+
+  documentation = documentation.replaceAll(r'\[Required\]', '*required*');
 
   return _toComment(documentation, indent: indent);
 }

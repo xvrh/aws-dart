@@ -7,22 +7,155 @@ class S3Api {
   /// To verify that all parts have been removed, so you don't get charged for
   /// the part storage, you should call the List Parts operation and ensure the
   /// parts list is empty.
-  Future<void> abortMultipartUpload(
+  ///
+  /// [bucket]: Name of the bucket to which the multipart upload was initiated.
+  ///
+  /// [key]: Key of the object for which the multipart upload was initiated.
+  ///
+  /// [uploadId]: Upload ID that identifies the multipart upload.
+  Future<AbortMultipartUploadOutput> abortMultipartUpload(
       {@required String bucket,
       @required String key,
       @required String uploadId,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return AbortMultipartUploadOutput.fromJson({});
+  }
 
   /// Completes a multipart upload by assembling previously uploaded parts.
-  Future<void> completeMultipartUpload(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [multipartUpload]:
+  ///
+  /// [uploadId]:
+  Future<CompleteMultipartUploadOutput> completeMultipartUpload(
       {@required String bucket,
       @required String key,
       CompletedMultipartUpload multipartUpload,
       @required String uploadId,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return CompleteMultipartUploadOutput.fromJson({});
+  }
 
   /// Creates a copy of an object that is already stored in Amazon S3.
-  Future<void> copyObject(
+  ///
+  /// [acl]: The canned ACL to apply to the object.
+  ///
+  /// [bucket]:
+  ///
+  /// [cacheControl]: Specifies caching behavior along the request/reply chain.
+  ///
+  /// [contentDisposition]: Specifies presentational information for the object.
+  ///
+  /// [contentEncoding]: Specifies what content encodings have been applied to
+  /// the object and thus what decoding mechanisms must be applied to obtain the
+  /// media-type referenced by the Content-Type header field.
+  ///
+  /// [contentLanguage]: The language the content is in.
+  ///
+  /// [contentType]: A standard MIME type describing the format of the object
+  /// data.
+  ///
+  /// [copySource]: The name of the source bucket and key name of the source
+  /// object, separated by a slash (/). Must be URL-encoded.
+  ///
+  /// [copySourceIfMatch]: Copies the object if its entity tag (ETag) matches
+  /// the specified tag.
+  ///
+  /// [copySourceIfModifiedSince]: Copies the object if it has been modified
+  /// since the specified time.
+  ///
+  /// [copySourceIfNoneMatch]: Copies the object if its entity tag (ETag) is
+  /// different than the specified ETag.
+  ///
+  /// [copySourceIfUnmodifiedSince]: Copies the object if it hasn't been
+  /// modified since the specified time.
+  ///
+  /// [expires]: The date and time at which the object is no longer cacheable.
+  ///
+  /// [grantFullControl]: Gives the grantee READ, READ\_ACP, and WRITE\_ACP
+  /// permissions on the object.
+  ///
+  /// [grantRead]: Allows grantee to read the object data and its metadata.
+  ///
+  /// [grantReadAcp]: Allows grantee to read the object ACL.
+  ///
+  /// [grantWriteAcp]: Allows grantee to write the ACL for the applicable
+  /// object.
+  ///
+  /// [key]:
+  ///
+  /// [metadata]: A map of metadata to store with the object in S3.
+  ///
+  /// [metadataDirective]: Specifies whether the metadata is copied from the
+  /// source object or replaced with metadata provided in the request.
+  ///
+  /// [taggingDirective]: Specifies whether the object tag-set are copied from
+  /// the source object or replaced with tag-set provided in the request.
+  ///
+  /// [serverSideEncryption]: The Server-side encryption algorithm used when
+  /// storing this object in S3 (e.g., AES256, aws:kms).
+  ///
+  /// [storageClass]: The type of storage to use for the object. Defaults to
+  /// 'STANDARD'.
+  ///
+  /// [websiteRedirectLocation]: If the bucket is configured as a website,
+  /// redirects requests for this object to another object in the same bucket or
+  /// to an external URL. Amazon S3 stores the value of this header in the
+  /// object metadata.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  ///
+  /// [ssekmsKeyId]: Specifies the AWS KMS key ID to use for object encryption.
+  /// All GET and PUT requests for an object protected by AWS KMS will fail if
+  /// not made via SSL or using SigV4. Documentation on configuring any of the
+  /// officially supported AWS SDKs and CLI can be found at
+  /// http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+  ///
+  /// [ssekmsEncryptionContext]: Specifies the AWS KMS Encryption Context to use
+  /// for object encryption. The value of this header is a base64-encoded UTF-8
+  /// string holding JSON with the encryption context key-value pairs.
+  ///
+  /// [copySourceSseCustomerAlgorithm]: Specifies the algorithm to use when
+  /// decrypting the source object (e.g., AES256).
+  ///
+  /// [copySourceSseCustomerKey]: Specifies the customer-provided encryption key
+  /// for Amazon S3 to use to decrypt the source object. The encryption key
+  /// provided in this header must be one that was used when the source object
+  /// was created.
+  ///
+  /// [copySourceSseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the
+  /// encryption key according to RFC 1321. Amazon S3 uses this header for a
+  /// message integrity check to ensure the encryption key was transmitted
+  /// without error.
+  ///
+  /// [tagging]: The tag-set for the object destination object this value must
+  /// be used in conjunction with the TaggingDirective. The tag-set must be
+  /// encoded as URL Query parameters
+  ///
+  /// [objectLockMode]: The object lock mode that you want to apply to the
+  /// copied object.
+  ///
+  /// [objectLockRetainUntilDate]: The date and time when you want the copied
+  /// object's object lock to expire.
+  ///
+  /// [objectLockLegalHoldStatus]: Specifies whether you want to apply a Legal
+  /// Hold to the copied object.
+  Future<CopyObjectOutput> copyObject(
       {String acl,
       @required String bucket,
       String cacheControl,
@@ -59,10 +192,34 @@ class S3Api {
       String tagging,
       String objectLockMode,
       DateTime objectLockRetainUntilDate,
-      String objectLockLegalHoldStatus}) async {}
+      String objectLockLegalHoldStatus}) async {
+    return CopyObjectOutput.fromJson({});
+  }
 
   /// Creates a new bucket.
-  Future<void> createBucket(String bucket,
+  ///
+  /// [acl]: The canned ACL to apply to the bucket.
+  ///
+  /// [bucket]:
+  ///
+  /// [createBucketConfiguration]:
+  ///
+  /// [grantFullControl]: Allows grantee the read, write, read ACP, and write
+  /// ACP permissions on the bucket.
+  ///
+  /// [grantRead]: Allows grantee to list the objects in the bucket.
+  ///
+  /// [grantReadAcp]: Allows grantee to read the bucket ACL.
+  ///
+  /// [grantWrite]: Allows grantee to create, overwrite, and delete any object
+  /// in the bucket.
+  ///
+  /// [grantWriteAcp]: Allows grantee to write the ACL for the applicable
+  /// bucket.
+  ///
+  /// [objectLockEnabledForBucket]: Specifies whether you want Amazon S3 object
+  /// lock to be enabled for the new bucket.
+  Future<CreateBucketOutput> createBucket(String bucket,
       {String acl,
       CreateBucketConfiguration createBucketConfiguration,
       String grantFullControl,
@@ -70,7 +227,9 @@ class S3Api {
       String grantReadAcp,
       String grantWrite,
       String grantWriteAcp,
-      bool objectLockEnabledForBucket}) async {}
+      bool objectLockEnabledForBucket}) async {
+    return CreateBucketOutput.fromJson({});
+  }
 
   /// Initiates a multipart upload and returns an upload ID.
   ///
@@ -79,7 +238,87 @@ class S3Api {
   /// getting charged for storage of the uploaded parts. Only after you either
   /// complete or abort multipart upload, Amazon S3 frees up the parts storage
   /// and stops charging you for the parts storage.
-  Future<void> createMultipartUpload(
+  ///
+  /// [acl]: The canned ACL to apply to the object.
+  ///
+  /// [bucket]:
+  ///
+  /// [cacheControl]: Specifies caching behavior along the request/reply chain.
+  ///
+  /// [contentDisposition]: Specifies presentational information for the object.
+  ///
+  /// [contentEncoding]: Specifies what content encodings have been applied to
+  /// the object and thus what decoding mechanisms must be applied to obtain the
+  /// media-type referenced by the Content-Type header field.
+  ///
+  /// [contentLanguage]: The language the content is in.
+  ///
+  /// [contentType]: A standard MIME type describing the format of the object
+  /// data.
+  ///
+  /// [expires]: The date and time at which the object is no longer cacheable.
+  ///
+  /// [grantFullControl]: Gives the grantee READ, READ\_ACP, and WRITE\_ACP
+  /// permissions on the object.
+  ///
+  /// [grantRead]: Allows grantee to read the object data and its metadata.
+  ///
+  /// [grantReadAcp]: Allows grantee to read the object ACL.
+  ///
+  /// [grantWriteAcp]: Allows grantee to write the ACL for the applicable
+  /// object.
+  ///
+  /// [key]:
+  ///
+  /// [metadata]: A map of metadata to store with the object in S3.
+  ///
+  /// [serverSideEncryption]: The Server-side encryption algorithm used when
+  /// storing this object in S3 (e.g., AES256, aws:kms).
+  ///
+  /// [storageClass]: The type of storage to use for the object. Defaults to
+  /// 'STANDARD'.
+  ///
+  /// [websiteRedirectLocation]: If the bucket is configured as a website,
+  /// redirects requests for this object to another object in the same bucket or
+  /// to an external URL. Amazon S3 stores the value of this header in the
+  /// object metadata.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  ///
+  /// [ssekmsKeyId]: Specifies the AWS KMS key ID to use for object encryption.
+  /// All GET and PUT requests for an object protected by AWS KMS will fail if
+  /// not made via SSL or using SigV4. Documentation on configuring any of the
+  /// officially supported AWS SDKs and CLI can be found at
+  /// http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+  ///
+  /// [ssekmsEncryptionContext]: Specifies the AWS KMS Encryption Context to use
+  /// for object encryption. The value of this header is a base64-encoded UTF-8
+  /// string holding JSON with the encryption context key-value pairs.
+  ///
+  /// [tagging]: The tag-set for the object. The tag-set must be encoded as URL
+  /// Query parameters
+  ///
+  /// [objectLockMode]: Specifies the object lock mode that you want to apply to
+  /// the uploaded object.
+  ///
+  /// [objectLockRetainUntilDate]: Specifies the date and time when you want the
+  /// object lock to expire.
+  ///
+  /// [objectLockLegalHoldStatus]: Specifies whether you want to apply a Legal
+  /// Hold to the uploaded object.
+  Future<CreateMultipartUploadOutput> createMultipartUpload(
       {String acl,
       @required String bucket,
       String cacheControl,
@@ -106,11 +345,15 @@ class S3Api {
       String tagging,
       String objectLockMode,
       DateTime objectLockRetainUntilDate,
-      String objectLockLegalHoldStatus}) async {}
+      String objectLockLegalHoldStatus}) async {
+    return CreateMultipartUploadOutput.fromJson({});
+  }
 
   /// Deletes the bucket. All objects (including all object versions and Delete
   /// Markers) in the bucket must be deleted before the bucket itself can be
   /// deleted.
+  ///
+  /// [bucket]:
   Future<void> deleteBucket(String bucket) async {}
 
   /// Deletes an analytics configuration for the bucket (specified by the
@@ -119,146 +362,371 @@ class S3Api {
   /// To use this operation, you must have permissions to perform the
   /// s3:PutAnalyticsConfiguration action. The bucket owner has this permission
   /// by default. The bucket owner can grant this permission to others.
+  ///
+  /// [bucket]: The name of the bucket from which an analytics configuration is
+  /// deleted.
+  ///
+  /// [id]: The ID that identifies the analytics configuration.
   Future<void> deleteBucketAnalyticsConfiguration(
       {@required String bucket, @required String id}) async {}
 
   /// Deletes the CORS configuration information set for the bucket.
+  ///
+  /// [bucket]:
   Future<void> deleteBucketCors(String bucket) async {}
 
   /// Deletes the server-side encryption configuration from the bucket.
+  ///
+  /// [bucket]: The name of the bucket containing the server-side encryption
+  /// configuration to delete.
   Future<void> deleteBucketEncryption(String bucket) async {}
 
   /// Deletes an inventory configuration (identified by the inventory ID) from
   /// the bucket.
+  ///
+  /// [bucket]: The name of the bucket containing the inventory configuration to
+  /// delete.
+  ///
+  /// [id]: The ID used to identify the inventory configuration.
   Future<void> deleteBucketInventoryConfiguration(
       {@required String bucket, @required String id}) async {}
 
   /// Deletes the lifecycle configuration from the bucket.
+  ///
+  /// [bucket]:
   Future<void> deleteBucketLifecycle(String bucket) async {}
 
   /// Deletes a metrics configuration (specified by the metrics configuration
   /// ID) from the bucket.
+  ///
+  /// [bucket]: The name of the bucket containing the metrics configuration to
+  /// delete.
+  ///
+  /// [id]: The ID used to identify the metrics configuration.
   Future<void> deleteBucketMetricsConfiguration(
       {@required String bucket, @required String id}) async {}
 
   /// Deletes the policy from the bucket.
+  ///
+  /// [bucket]:
   Future<void> deleteBucketPolicy(String bucket) async {}
 
   ///  Deletes the replication configuration from the bucket. For information
   /// about replication configuration, see [Cross-Region Replication
   /// (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html) in the
   /// _Amazon S3 Developer Guide_.
+  ///
+  /// [bucket]:  The bucket name.
+  ///
+  ///
+  ///
+  /// It can take a while to propagate the deletion of a replication
+  /// configuration to all Amazon S3 systems.
   Future<void> deleteBucketReplication(String bucket) async {}
 
   /// Deletes the tags from the bucket.
+  ///
+  /// [bucket]:
   Future<void> deleteBucketTagging(String bucket) async {}
 
   /// This operation removes the website configuration from the bucket.
+  ///
+  /// [bucket]:
   Future<void> deleteBucketWebsite(String bucket) async {}
 
   /// Removes the null version (if there is one) of an object and inserts a
   /// delete marker, which becomes the latest version of the object. If there
   /// isn't a null version, Amazon S3 does not remove any objects.
-  Future<void> deleteObject(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [mfa]: The concatenation of the authentication device's serial number, a
+  /// space, and the value that is displayed on your authentication device.
+  ///
+  /// [versionId]: VersionId used to reference a specific version of the object.
+  ///
+  /// [bypassGovernanceRetention]: Indicates whether Amazon S3 object lock
+  /// should bypass governance-mode restrictions to process this operation.
+  Future<DeleteObjectOutput> deleteObject(
       {@required String bucket,
       @required String key,
       String mfa,
       String versionId,
       String requestPayer,
-      bool bypassGovernanceRetention}) async {}
+      bool bypassGovernanceRetention}) async {
+    return DeleteObjectOutput.fromJson({});
+  }
 
   /// Removes the tag-set from an existing object.
-  Future<void> deleteObjectTagging(
-      {@required String bucket,
-      @required String key,
-      String versionId}) async {}
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [versionId]: The versionId of the object that the tag-set will be removed
+  /// from.
+  Future<DeleteObjectTaggingOutput> deleteObjectTagging(
+      {@required String bucket, @required String key, String versionId}) async {
+    return DeleteObjectTaggingOutput.fromJson({});
+  }
 
   /// This operation enables you to delete multiple objects from a bucket using
   /// a single HTTP request. You may specify up to 1000 keys.
-  Future<void> deleteObjects(
+  ///
+  /// [bucket]:
+  ///
+  /// [delete]:
+  ///
+  /// [mfa]: The concatenation of the authentication device's serial number, a
+  /// space, and the value that is displayed on your authentication device.
+  ///
+  /// [bypassGovernanceRetention]: Specifies whether you want to delete this
+  /// object even if it has a Governance-type object lock in place. You must
+  /// have sufficient permissions to perform this operation.
+  Future<DeleteObjectsOutput> deleteObjects(
       {@required String bucket,
       @required Delete delete,
       String mfa,
       String requestPayer,
-      bool bypassGovernanceRetention}) async {}
+      bool bypassGovernanceRetention}) async {
+    return DeleteObjectsOutput.fromJson({});
+  }
 
   /// Removes the `PublicAccessBlock` configuration from an Amazon S3 bucket.
+  ///
+  /// [bucket]: The Amazon S3 bucket whose `PublicAccessBlock` configuration you
+  /// want to delete.
   Future<void> deletePublicAccessBlock(String bucket) async {}
 
   /// Returns the accelerate configuration of a bucket.
-  Future<void> getBucketAccelerateConfiguration(String bucket) async {}
+  ///
+  /// [bucket]: Name of the bucket for which the accelerate configuration is
+  /// retrieved.
+  Future<GetBucketAccelerateConfigurationOutput>
+      getBucketAccelerateConfiguration(String bucket) async {
+    return GetBucketAccelerateConfigurationOutput.fromJson({});
+  }
 
   /// Gets the access control policy for the bucket.
-  Future<void> getBucketAcl(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketAclOutput> getBucketAcl(String bucket) async {
+    return GetBucketAclOutput.fromJson({});
+  }
 
   /// Gets an analytics configuration for the bucket (specified by the analytics
   /// configuration ID).
-  Future<void> getBucketAnalyticsConfiguration(
-      {@required String bucket, @required String id}) async {}
+  ///
+  /// [bucket]: The name of the bucket from which an analytics configuration is
+  /// retrieved.
+  ///
+  /// [id]: The ID that identifies the analytics configuration.
+  Future<GetBucketAnalyticsConfigurationOutput> getBucketAnalyticsConfiguration(
+      {@required String bucket, @required String id}) async {
+    return GetBucketAnalyticsConfigurationOutput.fromJson({});
+  }
 
   /// Returns the CORS configuration for the bucket.
-  Future<void> getBucketCors(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketCorsOutput> getBucketCors(String bucket) async {
+    return GetBucketCorsOutput.fromJson({});
+  }
 
   /// Returns the server-side encryption configuration of a bucket.
-  Future<void> getBucketEncryption(String bucket) async {}
+  ///
+  /// [bucket]: The name of the bucket from which the server-side encryption
+  /// configuration is retrieved.
+  Future<GetBucketEncryptionOutput> getBucketEncryption(String bucket) async {
+    return GetBucketEncryptionOutput.fromJson({});
+  }
 
   /// Returns an inventory configuration (identified by the inventory ID) from
   /// the bucket.
-  Future<void> getBucketInventoryConfiguration(
-      {@required String bucket, @required String id}) async {}
+  ///
+  /// [bucket]: The name of the bucket containing the inventory configuration to
+  /// retrieve.
+  ///
+  /// [id]: The ID used to identify the inventory configuration.
+  Future<GetBucketInventoryConfigurationOutput> getBucketInventoryConfiguration(
+      {@required String bucket, @required String id}) async {
+    return GetBucketInventoryConfigurationOutput.fromJson({});
+  }
 
   ///  No longer used, see the GetBucketLifecycleConfiguration operation.
-  Future<void> getBucketLifecycle(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketLifecycleOutput> getBucketLifecycle(String bucket) async {
+    return GetBucketLifecycleOutput.fromJson({});
+  }
 
   /// Returns the lifecycle configuration information set on the bucket.
-  Future<void> getBucketLifecycleConfiguration(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketLifecycleConfigurationOutput> getBucketLifecycleConfiguration(
+      String bucket) async {
+    return GetBucketLifecycleConfigurationOutput.fromJson({});
+  }
 
   /// Returns the region the bucket resides in.
-  Future<void> getBucketLocation(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketLocationOutput> getBucketLocation(String bucket) async {
+    return GetBucketLocationOutput.fromJson({});
+  }
 
   /// Returns the logging status of a bucket and the permissions users have to
   /// view and modify that status. To use GET, you must be the bucket owner.
-  Future<void> getBucketLogging(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketLoggingOutput> getBucketLogging(String bucket) async {
+    return GetBucketLoggingOutput.fromJson({});
+  }
 
   /// Gets a metrics configuration (specified by the metrics configuration ID)
   /// from the bucket.
-  Future<void> getBucketMetricsConfiguration(
-      {@required String bucket, @required String id}) async {}
+  ///
+  /// [bucket]: The name of the bucket containing the metrics configuration to
+  /// retrieve.
+  ///
+  /// [id]: The ID used to identify the metrics configuration.
+  Future<GetBucketMetricsConfigurationOutput> getBucketMetricsConfiguration(
+      {@required String bucket, @required String id}) async {
+    return GetBucketMetricsConfigurationOutput.fromJson({});
+  }
 
   ///  No longer used, see the GetBucketNotificationConfiguration operation.
-  Future<void> getBucketNotification(String bucket) async {}
+  ///
+  /// [bucket]: Name of the bucket to get the notification configuration for.
+  Future<NotificationConfigurationDeprecated> getBucketNotification(
+      String bucket) async {
+    return NotificationConfigurationDeprecated.fromJson({});
+  }
 
   /// Returns the notification configuration of a bucket.
-  Future<void> getBucketNotificationConfiguration(String bucket) async {}
+  ///
+  /// [bucket]: Name of the bucket to get the notification configuration for.
+  Future<NotificationConfiguration> getBucketNotificationConfiguration(
+      String bucket) async {
+    return NotificationConfiguration.fromJson({});
+  }
 
   /// Returns the policy of a specified bucket.
-  Future<void> getBucketPolicy(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketPolicyOutput> getBucketPolicy(String bucket) async {
+    return GetBucketPolicyOutput.fromJson({});
+  }
 
   /// Retrieves the policy status for an Amazon S3 bucket, indicating whether
   /// the bucket is public.
-  Future<void> getBucketPolicyStatus(String bucket) async {}
+  ///
+  /// [bucket]: The name of the Amazon S3 bucket whose policy status you want to
+  /// retrieve.
+  Future<GetBucketPolicyStatusOutput> getBucketPolicyStatus(
+      String bucket) async {
+    return GetBucketPolicyStatusOutput.fromJson({});
+  }
 
   /// Returns the replication configuration of a bucket.
   ///
   ///   It can take a while to propagate the put or delete a replication
   /// configuration to all Amazon S3 systems. Therefore, a get request soon
   /// after put or delete can return a wrong result.
-  Future<void> getBucketReplication(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketReplicationOutput> getBucketReplication(String bucket) async {
+    return GetBucketReplicationOutput.fromJson({});
+  }
 
   /// Returns the request payment configuration of a bucket.
-  Future<void> getBucketRequestPayment(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketRequestPaymentOutput> getBucketRequestPayment(
+      String bucket) async {
+    return GetBucketRequestPaymentOutput.fromJson({});
+  }
 
   /// Returns the tag set associated with the bucket.
-  Future<void> getBucketTagging(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketTaggingOutput> getBucketTagging(String bucket) async {
+    return GetBucketTaggingOutput.fromJson({});
+  }
 
   /// Returns the versioning state of a bucket.
-  Future<void> getBucketVersioning(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketVersioningOutput> getBucketVersioning(String bucket) async {
+    return GetBucketVersioningOutput.fromJson({});
+  }
 
   /// Returns the website configuration for a bucket.
-  Future<void> getBucketWebsite(String bucket) async {}
+  ///
+  /// [bucket]:
+  Future<GetBucketWebsiteOutput> getBucketWebsite(String bucket) async {
+    return GetBucketWebsiteOutput.fromJson({});
+  }
 
   /// Retrieves objects from Amazon S3.
-  Future<void> getObject(
+  ///
+  /// [bucket]:
+  ///
+  /// [ifMatch]: Return the object only if its entity tag (ETag) is the same as
+  /// the one specified, otherwise return a 412 (precondition failed).
+  ///
+  /// [ifModifiedSince]: Return the object only if it has been modified since
+  /// the specified time, otherwise return a 304 (not modified).
+  ///
+  /// [ifNoneMatch]: Return the object only if its entity tag (ETag) is
+  /// different from the one specified, otherwise return a 304 (not modified).
+  ///
+  /// [ifUnmodifiedSince]: Return the object only if it has not been modified
+  /// since the specified time, otherwise return a 412 (precondition failed).
+  ///
+  /// [key]:
+  ///
+  /// [range]: Downloads the specified range bytes of an object. For more
+  /// information about the HTTP Range header, go to
+  /// http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.
+  ///
+  /// [responseCacheControl]: Sets the Cache-Control header of the response.
+  ///
+  /// [responseContentDisposition]: Sets the Content-Disposition header of the
+  /// response
+  ///
+  /// [responseContentEncoding]: Sets the Content-Encoding header of the
+  /// response.
+  ///
+  /// [responseContentLanguage]: Sets the Content-Language header of the
+  /// response.
+  ///
+  /// [responseContentType]: Sets the Content-Type header of the response.
+  ///
+  /// [responseExpires]: Sets the Expires header of the response.
+  ///
+  /// [versionId]: VersionId used to reference a specific version of the object.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  ///
+  /// [partNumber]: Part number of the object being read. This is a positive
+  /// integer between 1 and 10,000. Effectively performs a 'ranged' GET request
+  /// for the part specified. Useful for downloading just a part of an object.
+  Future<GetObjectOutput> getObject(
       {@required String bucket,
       String ifMatch,
       DateTime ifModifiedSince,
@@ -277,57 +745,154 @@ class S3Api {
       Uint8List sseCustomerKey,
       String sseCustomerKeyMd5,
       String requestPayer,
-      int partNumber}) async {}
+      int partNumber}) async {
+    return GetObjectOutput.fromJson({});
+  }
 
   /// Returns the access control list (ACL) of an object.
-  Future<void> getObjectAcl(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [versionId]: VersionId used to reference a specific version of the object.
+  Future<GetObjectAclOutput> getObjectAcl(
       {@required String bucket,
       @required String key,
       String versionId,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return GetObjectAclOutput.fromJson({});
+  }
 
   /// Gets an object's current Legal Hold status.
-  Future<void> getObjectLegalHold(
+  ///
+  /// [bucket]: The bucket containing the object whose Legal Hold status you
+  /// want to retrieve.
+  ///
+  /// [key]: The key name for the object whose Legal Hold status you want to
+  /// retrieve.
+  ///
+  /// [versionId]: The version ID of the object whose Legal Hold status you want
+  /// to retrieve.
+  Future<GetObjectLegalHoldOutput> getObjectLegalHold(
       {@required String bucket,
       @required String key,
       String versionId,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return GetObjectLegalHoldOutput.fromJson({});
+  }
 
   /// Gets the object lock configuration for a bucket. The rule specified in the
   /// object lock configuration will be applied by default to every new object
   /// placed in the specified bucket.
-  Future<void> getObjectLockConfiguration(String bucket) async {}
+  ///
+  /// [bucket]: The bucket whose object lock configuration you want to retrieve.
+  Future<GetObjectLockConfigurationOutput> getObjectLockConfiguration(
+      String bucket) async {
+    return GetObjectLockConfigurationOutput.fromJson({});
+  }
 
   /// Retrieves an object's retention settings.
-  Future<void> getObjectRetention(
+  ///
+  /// [bucket]: The bucket containing the object whose retention settings you
+  /// want to retrieve.
+  ///
+  /// [key]: The key name for the object whose retention settings you want to
+  /// retrieve.
+  ///
+  /// [versionId]: The version ID for the object whose retention settings you
+  /// want to retrieve.
+  Future<GetObjectRetentionOutput> getObjectRetention(
       {@required String bucket,
       @required String key,
       String versionId,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return GetObjectRetentionOutput.fromJson({});
+  }
 
   /// Returns the tag-set of an object.
-  Future<void> getObjectTagging(
-      {@required String bucket,
-      @required String key,
-      String versionId}) async {}
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [versionId]:
+  Future<GetObjectTaggingOutput> getObjectTagging(
+      {@required String bucket, @required String key, String versionId}) async {
+    return GetObjectTaggingOutput.fromJson({});
+  }
 
   /// Return torrent files from a bucket.
-  Future<void> getObjectTorrent(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  Future<GetObjectTorrentOutput> getObjectTorrent(
       {@required String bucket,
       @required String key,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return GetObjectTorrentOutput.fromJson({});
+  }
 
   /// Retrieves the `PublicAccessBlock` configuration for an Amazon S3 bucket.
-  Future<void> getPublicAccessBlock(String bucket) async {}
+  ///
+  /// [bucket]: The name of the Amazon S3 bucket whose `PublicAccessBlock`
+  /// configuration you want to retrieve.
+  Future<GetPublicAccessBlockOutput> getPublicAccessBlock(String bucket) async {
+    return GetPublicAccessBlockOutput.fromJson({});
+  }
 
   /// This operation is useful to determine if a bucket exists and you have
   /// permission to access it.
+  ///
+  /// [bucket]:
   Future<void> headBucket(String bucket) async {}
 
   /// The HEAD operation retrieves metadata from an object without returning the
   /// object itself. This operation is useful if you're only interested in an
   /// object's metadata. To use HEAD, you must have READ access to the object.
-  Future<void> headObject(
+  ///
+  /// [bucket]:
+  ///
+  /// [ifMatch]: Return the object only if its entity tag (ETag) is the same as
+  /// the one specified, otherwise return a 412 (precondition failed).
+  ///
+  /// [ifModifiedSince]: Return the object only if it has been modified since
+  /// the specified time, otherwise return a 304 (not modified).
+  ///
+  /// [ifNoneMatch]: Return the object only if its entity tag (ETag) is
+  /// different from the one specified, otherwise return a 304 (not modified).
+  ///
+  /// [ifUnmodifiedSince]: Return the object only if it has not been modified
+  /// since the specified time, otherwise return a 412 (precondition failed).
+  ///
+  /// [key]:
+  ///
+  /// [range]: Downloads the specified range bytes of an object. For more
+  /// information about the HTTP Range header, go to
+  /// http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.
+  ///
+  /// [versionId]: VersionId used to reference a specific version of the object.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  ///
+  /// [partNumber]: Part number of the object being read. This is a positive
+  /// integer between 1 and 10,000. Effectively performs a 'ranged' HEAD request
+  /// for the part specified. Useful querying about the size of the part and the
+  /// number of parts in this object.
+  Future<HeadObjectOutput> headObject(
       {@required String bucket,
       String ifMatch,
       DateTime ifModifiedSince,
@@ -340,58 +905,181 @@ class S3Api {
       Uint8List sseCustomerKey,
       String sseCustomerKeyMd5,
       String requestPayer,
-      int partNumber}) async {}
+      int partNumber}) async {
+    return HeadObjectOutput.fromJson({});
+  }
 
   /// Lists the analytics configurations for the bucket.
-  Future<void> listBucketAnalyticsConfigurations(String bucket,
-      {String continuationToken}) async {}
+  ///
+  /// [bucket]: The name of the bucket from which analytics configurations are
+  /// retrieved.
+  ///
+  /// [continuationToken]: The ContinuationToken that represents a placeholder
+  /// from where this request should begin.
+  Future<ListBucketAnalyticsConfigurationsOutput>
+      listBucketAnalyticsConfigurations(String bucket,
+          {String continuationToken}) async {
+    return ListBucketAnalyticsConfigurationsOutput.fromJson({});
+  }
 
   /// Returns a list of inventory configurations for the bucket.
-  Future<void> listBucketInventoryConfigurations(String bucket,
-      {String continuationToken}) async {}
+  ///
+  /// [bucket]: The name of the bucket containing the inventory configurations
+  /// to retrieve.
+  ///
+  /// [continuationToken]: The marker used to continue an inventory
+  /// configuration listing that has been truncated. Use the
+  /// NextContinuationToken from a previously truncated list response to
+  /// continue the listing. The continuation token is an opaque value that
+  /// Amazon S3 understands.
+  Future<ListBucketInventoryConfigurationsOutput>
+      listBucketInventoryConfigurations(String bucket,
+          {String continuationToken}) async {
+    return ListBucketInventoryConfigurationsOutput.fromJson({});
+  }
 
   /// Lists the metrics configurations for the bucket.
-  Future<void> listBucketMetricsConfigurations(String bucket,
-      {String continuationToken}) async {}
+  ///
+  /// [bucket]: The name of the bucket containing the metrics configurations to
+  /// retrieve.
+  ///
+  /// [continuationToken]: The marker that is used to continue a metrics
+  /// configuration listing that has been truncated. Use the
+  /// NextContinuationToken from a previously truncated list response to
+  /// continue the listing. The continuation token is an opaque value that
+  /// Amazon S3 understands.
+  Future<ListBucketMetricsConfigurationsOutput> listBucketMetricsConfigurations(
+      String bucket,
+      {String continuationToken}) async {
+    return ListBucketMetricsConfigurationsOutput.fromJson({});
+  }
 
   /// Returns a list of all buckets owned by the authenticated sender of the
   /// request.
-  Future<void> listBuckets() async {}
+  Future<ListBucketsOutput> listBuckets() async {
+    return ListBucketsOutput.fromJson({});
+  }
 
   /// This operation lists in-progress multipart uploads.
-  Future<void> listMultipartUploads(String bucket,
+  ///
+  /// [bucket]:
+  ///
+  /// [delimiter]: Character you use to group keys.
+  ///
+  /// [keyMarker]: Together with upload-id-marker, this parameter specifies the
+  /// multipart upload after which listing should begin.
+  ///
+  /// [maxUploads]: Sets the maximum number of multipart uploads, from 1 to
+  /// 1,000, to return in the response body. 1,000 is the maximum number of
+  /// uploads that can be returned in a response.
+  ///
+  /// [prefix]: Lists in-progress uploads only for those keys that begin with
+  /// the specified prefix.
+  ///
+  /// [uploadIdMarker]: Together with key-marker, specifies the multipart upload
+  /// after which listing should begin. If key-marker is not specified, the
+  /// upload-id-marker parameter is ignored.
+  Future<ListMultipartUploadsOutput> listMultipartUploads(String bucket,
       {String delimiter,
       String encodingType,
       String keyMarker,
       int maxUploads,
       String prefix,
-      String uploadIdMarker}) async {}
+      String uploadIdMarker}) async {
+    return ListMultipartUploadsOutput.fromJson({});
+  }
 
   /// Returns metadata about all of the versions of objects in a bucket.
-  Future<void> listObjectVersions(String bucket,
+  ///
+  /// [bucket]:
+  ///
+  /// [delimiter]: A delimiter is a character you use to group keys.
+  ///
+  /// [keyMarker]: Specifies the key to start with when listing objects in a
+  /// bucket.
+  ///
+  /// [maxKeys]: Sets the maximum number of keys returned in the response. The
+  /// response might contain fewer keys but will never contain more.
+  ///
+  /// [prefix]: Limits the response to keys that begin with the specified
+  /// prefix.
+  ///
+  /// [versionIdMarker]: Specifies the object version you want to start listing
+  /// from.
+  Future<ListObjectVersionsOutput> listObjectVersions(String bucket,
       {String delimiter,
       String encodingType,
       String keyMarker,
       int maxKeys,
       String prefix,
-      String versionIdMarker}) async {}
+      String versionIdMarker}) async {
+    return ListObjectVersionsOutput.fromJson({});
+  }
 
   /// Returns some or all (up to 1000) of the objects in a bucket. You can use
   /// the request parameters as selection criteria to return a subset of the
   /// objects in a bucket.
-  Future<void> listObjects(String bucket,
+  ///
+  /// [bucket]:
+  ///
+  /// [delimiter]: A delimiter is a character you use to group keys.
+  ///
+  /// [marker]: Specifies the key to start with when listing objects in a
+  /// bucket.
+  ///
+  /// [maxKeys]: Sets the maximum number of keys returned in the response. The
+  /// response might contain fewer keys but will never contain more.
+  ///
+  /// [prefix]: Limits the response to keys that begin with the specified
+  /// prefix.
+  ///
+  /// [requestPayer]: Confirms that the requester knows that she or he will be
+  /// charged for the list objects request. Bucket owners need not specify this
+  /// parameter in their requests.
+  Future<ListObjectsOutput> listObjects(String bucket,
       {String delimiter,
       String encodingType,
       String marker,
       int maxKeys,
       String prefix,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return ListObjectsOutput.fromJson({});
+  }
 
   /// Returns some or all (up to 1000) of the objects in a bucket. You can use
   /// the request parameters as selection criteria to return a subset of the
   /// objects in a bucket. Note: ListObjectsV2 is the revised List Objects API
   /// and we recommend you use this revised API for new application development.
-  Future<void> listObjectsV2(String bucket,
+  ///
+  /// [bucket]: Name of the bucket to list.
+  ///
+  /// [delimiter]: A delimiter is a character you use to group keys.
+  ///
+  /// [encodingType]: Encoding type used by Amazon S3 to encode object keys in
+  /// the response.
+  ///
+  /// [maxKeys]: Sets the maximum number of keys returned in the response. The
+  /// response might contain fewer keys but will never contain more.
+  ///
+  /// [prefix]: Limits the response to keys that begin with the specified
+  /// prefix.
+  ///
+  /// [continuationToken]: ContinuationToken indicates Amazon S3 that the list
+  /// is being continued on this bucket with a token. ContinuationToken is
+  /// obfuscated and is not a real key
+  ///
+  /// [fetchOwner]: The owner field is not present in listV2 by default, if you
+  /// want to return owner field with each key in the result then set the fetch
+  /// owner field to true
+  ///
+  /// [startAfter]: StartAfter is where you want Amazon S3 to start listing
+  /// from. Amazon S3 starts listing after this specified key. StartAfter can be
+  /// any key in the bucket
+  ///
+  /// [requestPayer]: Confirms that the requester knows that she or he will be
+  /// charged for the list objects request in V2 style. Bucket owners need not
+  /// specify this parameter in their requests.
+  Future<ListObjectsV2Output> listObjectsV2(String bucket,
       {String delimiter,
       String encodingType,
       int maxKeys,
@@ -399,23 +1087,67 @@ class S3Api {
       String continuationToken,
       bool fetchOwner,
       String startAfter,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return ListObjectsV2Output.fromJson({});
+  }
 
   /// Lists the parts that have been uploaded for a specific multipart upload.
-  Future<void> listParts(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [maxParts]: Sets the maximum number of parts to return.
+  ///
+  /// [partNumberMarker]: Specifies the part after which listing should begin.
+  /// Only parts with higher part numbers will be listed.
+  ///
+  /// [uploadId]: Upload ID identifying the multipart upload whose parts are
+  /// being listed.
+  Future<ListPartsOutput> listParts(
       {@required String bucket,
       @required String key,
       int maxParts,
       int partNumberMarker,
       @required String uploadId,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return ListPartsOutput.fromJson({});
+  }
 
   /// Sets the accelerate configuration of an existing bucket.
+  ///
+  /// [bucket]: Name of the bucket for which the accelerate configuration is
+  /// set.
+  ///
+  /// [accelerateConfiguration]: Specifies the Accelerate Configuration you want
+  /// to set for the bucket.
   Future<void> putBucketAccelerateConfiguration(
       {@required String bucket,
       @required AccelerateConfiguration accelerateConfiguration}) async {}
 
   /// Sets the permissions on a bucket using access control lists (ACL).
+  ///
+  /// [acl]: The canned ACL to apply to the bucket.
+  ///
+  /// [accessControlPolicy]: Contains the elements that set the ACL permissions
+  /// for an object per grantee.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [grantFullControl]: Allows grantee the read, write, read ACP, and write
+  /// ACP permissions on the bucket.
+  ///
+  /// [grantRead]: Allows grantee to list the objects in the bucket.
+  ///
+  /// [grantReadAcp]: Allows grantee to read the bucket ACL.
+  ///
+  /// [grantWrite]: Allows grantee to create, overwrite, and delete any object
+  /// in the bucket.
+  ///
+  /// [grantWriteAcp]: Allows grantee to write the ACL for the applicable
+  /// bucket.
   Future<void> putBucketAcl(String bucket,
       {String acl,
       AccessControlPolicy accessControlPolicy,
@@ -428,12 +1160,26 @@ class S3Api {
 
   /// Sets an analytics configuration for the bucket (specified by the analytics
   /// configuration ID).
+  ///
+  /// [bucket]: The name of the bucket to which an analytics configuration is
+  /// stored.
+  ///
+  /// [id]: The ID that identifies the analytics configuration.
+  ///
+  /// [analyticsConfiguration]: The configuration and any analyses for the
+  /// analytics filter.
   Future<void> putBucketAnalyticsConfiguration(
       {@required String bucket,
       @required String id,
       @required AnalyticsConfiguration analyticsConfiguration}) async {}
 
   /// Sets the CORS configuration for a bucket.
+  ///
+  /// [bucket]:
+  ///
+  /// [corsConfiguration]:
+  ///
+  /// [contentMd5]:
   Future<void> putBucketCors(
       {@required String bucket,
       @required CorsConfiguration corsConfiguration,
@@ -441,6 +1187,19 @@ class S3Api {
 
   /// Creates a new server-side encryption configuration (or replaces an
   /// existing one, if present).
+  ///
+  /// [bucket]: Specifies default encryption for a bucket using server-side
+  /// encryption with Amazon S3-managed keys (SSE-S3) or AWS KMS-managed keys
+  /// (SSE-KMS). For information about the Amazon S3 default encryption feature,
+  /// see [Amazon S3 Default Bucket
+  /// Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  ///
+  /// [contentMd5]: The base64-encoded 128-bit MD5 digest of the server-side
+  /// encryption configuration. This parameter is auto-populated when using the
+  /// command from the CLI.
+  ///
+  /// [serverSideEncryptionConfiguration]:
   Future<void> putBucketEncryption(
       {@required
           String bucket,
@@ -451,24 +1210,47 @@ class S3Api {
 
   /// Adds an inventory configuration (identified by the inventory ID) from the
   /// bucket.
+  ///
+  /// [bucket]: The name of the bucket where the inventory configuration will be
+  /// stored.
+  ///
+  /// [id]: The ID used to identify the inventory configuration.
+  ///
+  /// [inventoryConfiguration]: Specifies the inventory configuration.
   Future<void> putBucketInventoryConfiguration(
       {@required String bucket,
       @required String id,
       @required InventoryConfiguration inventoryConfiguration}) async {}
 
   ///  No longer used, see the PutBucketLifecycleConfiguration operation.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [lifecycleConfiguration]:
   Future<void> putBucketLifecycle(String bucket,
       {String contentMd5,
       LifecycleConfiguration lifecycleConfiguration}) async {}
 
   /// Sets lifecycle configuration for your bucket. If a lifecycle configuration
   /// exists, it replaces it.
+  ///
+  /// [bucket]:
+  ///
+  /// [lifecycleConfiguration]:
   Future<void> putBucketLifecycleConfiguration(String bucket,
       {BucketLifecycleConfiguration lifecycleConfiguration}) async {}
 
   /// Set the logging parameters for a bucket and to specify permissions for who
   /// can view and modify the logging parameters. To set the logging status of a
   /// bucket, you must be the bucket owner.
+  ///
+  /// [bucket]:
+  ///
+  /// [bucketLoggingStatus]:
+  ///
+  /// [contentMd5]:
   Future<void> putBucketLogging(
       {@required String bucket,
       @required BucketLoggingStatus bucketLoggingStatus,
@@ -476,12 +1258,25 @@ class S3Api {
 
   /// Sets a metrics configuration (specified by the metrics configuration ID)
   /// for the bucket.
+  ///
+  /// [bucket]: The name of the bucket for which the metrics configuration is
+  /// set.
+  ///
+  /// [id]: The ID used to identify the metrics configuration.
+  ///
+  /// [metricsConfiguration]: Specifies the metrics configuration.
   Future<void> putBucketMetricsConfiguration(
       {@required String bucket,
       @required String id,
       @required MetricsConfiguration metricsConfiguration}) async {}
 
   ///  No longer used, see the PutBucketNotificationConfiguration operation.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [notificationConfiguration]:
   Future<void> putBucketNotification(
       {@required
           String bucket,
@@ -491,11 +1286,25 @@ class S3Api {
               notificationConfiguration}) async {}
 
   /// Enables notifications of specified events for a bucket.
+  ///
+  /// [bucket]:
+  ///
+  /// [notificationConfiguration]:
   Future<void> putBucketNotificationConfiguration(
       {@required String bucket,
       @required NotificationConfiguration notificationConfiguration}) async {}
 
   /// Applies an Amazon S3 bucket policy to an Amazon S3 bucket.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [confirmRemoveSelfBucketAccess]: Set this parameter to true to confirm
+  /// that you want to remove your permissions to change this bucket policy in
+  /// the future.
+  ///
+  /// [policy]: The bucket policy as a JSON document.
   Future<void> putBucketPolicy(
       {@required String bucket,
       String contentMd5,
@@ -506,6 +1315,17 @@ class S3Api {
   /// information, see [Cross-Region Replication
   /// (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html) in the
   /// _Amazon S3 Developer Guide_.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]: The base64-encoded 128-bit MD5 digest of the data. You must
+  /// use this header as a message integrity check to verify that the request
+  /// body was not corrupted in transit.
+  ///
+  /// [replicationConfiguration]:
+  ///
+  /// [token]: A token that allows Amazon S3 object lock to be enabled for an
+  /// existing bucket.
   Future<void> putBucketReplication(
       {@required String bucket,
       String contentMd5,
@@ -518,6 +1338,12 @@ class S3Api {
   /// requesting the download will be charged for the download. Documentation on
   /// requester pays buckets can be found at
   /// http://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [requestPaymentConfiguration]:
   Future<void> putBucketRequestPayment(
       {@required
           String bucket,
@@ -526,6 +1352,12 @@ class S3Api {
           RequestPaymentConfiguration requestPaymentConfiguration}) async {}
 
   /// Sets the tags for a bucket.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [tagging]:
   Future<void> putBucketTagging(
       {@required String bucket,
       String contentMd5,
@@ -533,6 +1365,15 @@ class S3Api {
 
   /// Sets the versioning state of an existing bucket. To set the versioning
   /// state, you must be the bucket owner.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [mfa]: The concatenation of the authentication device's serial number, a
+  /// space, and the value that is displayed on your authentication device.
+  ///
+  /// [versioningConfiguration]:
   Future<void> putBucketVersioning(
       {@required String bucket,
       String contentMd5,
@@ -540,13 +1381,108 @@ class S3Api {
       @required VersioningConfiguration versioningConfiguration}) async {}
 
   /// Set the website configuration for a bucket.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [websiteConfiguration]:
   Future<void> putBucketWebsite(
       {@required String bucket,
       String contentMd5,
       @required WebsiteConfiguration websiteConfiguration}) async {}
 
   /// Adds an object to a bucket.
-  Future<void> putObject(
+  ///
+  /// [acl]: The canned ACL to apply to the object.
+  ///
+  /// [body]: Object data.
+  ///
+  /// [bucket]: Name of the bucket to which the PUT operation was initiated.
+  ///
+  /// [cacheControl]: Specifies caching behavior along the request/reply chain.
+  ///
+  /// [contentDisposition]: Specifies presentational information for the object.
+  ///
+  /// [contentEncoding]: Specifies what content encodings have been applied to
+  /// the object and thus what decoding mechanisms must be applied to obtain the
+  /// media-type referenced by the Content-Type header field.
+  ///
+  /// [contentLanguage]: The language the content is in.
+  ///
+  /// [contentLength]: Size of the body in bytes. This parameter is useful when
+  /// the size of the body cannot be determined automatically.
+  ///
+  /// [contentMd5]: The base64-encoded 128-bit MD5 digest of the part data. This
+  /// parameter is auto-populated when using the command from the CLI. This
+  /// parameted is required if object lock parameters are specified.
+  ///
+  /// [contentType]: A standard MIME type describing the format of the object
+  /// data.
+  ///
+  /// [expires]: The date and time at which the object is no longer cacheable.
+  ///
+  /// [grantFullControl]: Gives the grantee READ, READ\_ACP, and WRITE\_ACP
+  /// permissions on the object.
+  ///
+  /// [grantRead]: Allows grantee to read the object data and its metadata.
+  ///
+  /// [grantReadAcp]: Allows grantee to read the object ACL.
+  ///
+  /// [grantWriteAcp]: Allows grantee to write the ACL for the applicable
+  /// object.
+  ///
+  /// [key]: Object key for which the PUT operation was initiated.
+  ///
+  /// [metadata]: A map of metadata to store with the object in S3.
+  ///
+  /// [serverSideEncryption]: The Server-side encryption algorithm used when
+  /// storing this object in S3 (e.g., AES256, aws:kms).
+  ///
+  /// [storageClass]: The type of storage to use for the object. Defaults to
+  /// 'STANDARD'.
+  ///
+  /// [websiteRedirectLocation]: If the bucket is configured as a website,
+  /// redirects requests for this object to another object in the same bucket or
+  /// to an external URL. Amazon S3 stores the value of this header in the
+  /// object metadata.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  ///
+  /// [ssekmsKeyId]: Specifies the AWS KMS key ID to use for object encryption.
+  /// All GET and PUT requests for an object protected by AWS KMS will fail if
+  /// not made via SSL or using SigV4. Documentation on configuring any of the
+  /// officially supported AWS SDKs and CLI can be found at
+  /// http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+  ///
+  /// [ssekmsEncryptionContext]: Specifies the AWS KMS Encryption Context to use
+  /// for object encryption. The value of this header is a base64-encoded UTF-8
+  /// string holding JSON with the encryption context key-value pairs.
+  ///
+  /// [tagging]: The tag-set for the object. The tag-set must be encoded as URL
+  /// Query parameters. (For example, "Key1=Value1")
+  ///
+  /// [objectLockMode]: The object lock mode that you want to apply to this
+  /// object.
+  ///
+  /// [objectLockRetainUntilDate]: The date and time when you want this object's
+  /// object lock to expire.
+  ///
+  /// [objectLockLegalHoldStatus]: The Legal Hold status that you want to apply
+  /// to the specified object.
+  Future<PutObjectOutput> putObject(
       {String acl,
       Uint8List body,
       @required String bucket,
@@ -576,11 +1512,39 @@ class S3Api {
       String tagging,
       String objectLockMode,
       DateTime objectLockRetainUntilDate,
-      String objectLockLegalHoldStatus}) async {}
+      String objectLockLegalHoldStatus}) async {
+    return PutObjectOutput.fromJson({});
+  }
 
   /// uses the acl subresource to set the access control list (ACL) permissions
   /// for an object that already exists in a bucket
-  Future<void> putObjectAcl(
+  ///
+  /// [acl]: The canned ACL to apply to the object.
+  ///
+  /// [accessControlPolicy]: Contains the elements that set the ACL permissions
+  /// for an object per grantee.
+  ///
+  /// [bucket]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [grantFullControl]: Allows grantee the read, write, read ACP, and write
+  /// ACP permissions on the bucket.
+  ///
+  /// [grantRead]: Allows grantee to list the objects in the bucket.
+  ///
+  /// [grantReadAcp]: Allows grantee to read the bucket ACL.
+  ///
+  /// [grantWrite]: Allows grantee to create, overwrite, and delete any object
+  /// in the bucket.
+  ///
+  /// [grantWriteAcp]: Allows grantee to write the ACL for the applicable
+  /// bucket.
+  ///
+  /// [key]:
+  ///
+  /// [versionId]: VersionId used to reference a specific version of the object.
+  Future<PutObjectAclOutput> putObjectAcl(
       {String acl,
       AccessControlPolicy accessControlPolicy,
       @required String bucket,
@@ -592,46 +1556,119 @@ class S3Api {
       String grantWriteAcp,
       @required String key,
       String requestPayer,
-      String versionId}) async {}
+      String versionId}) async {
+    return PutObjectAclOutput.fromJson({});
+  }
 
   /// Applies a Legal Hold configuration to the specified object.
-  Future<void> putObjectLegalHold(
+  ///
+  /// [bucket]: The bucket containing the object that you want to place a Legal
+  /// Hold on.
+  ///
+  /// [key]: The key name for the object that you want to place a Legal Hold on.
+  ///
+  /// [legalHold]: Container element for the Legal Hold configuration you want
+  /// to apply to the specified object.
+  ///
+  /// [versionId]: The version ID of the object that you want to place a Legal
+  /// Hold on.
+  ///
+  /// [contentMd5]: The MD5 hash for the request body.
+  Future<PutObjectLegalHoldOutput> putObjectLegalHold(
       {@required String bucket,
       @required String key,
       ObjectLockLegalHold legalHold,
       String requestPayer,
       String versionId,
-      String contentMd5}) async {}
+      String contentMd5}) async {
+    return PutObjectLegalHoldOutput.fromJson({});
+  }
 
   /// Places an object lock configuration on the specified bucket. The rule
   /// specified in the object lock configuration will be applied by default to
   /// every new object placed in the specified bucket.
-  Future<void> putObjectLockConfiguration(String bucket,
+  ///
+  /// [bucket]: The bucket whose object lock configuration you want to create or
+  /// replace.
+  ///
+  /// [objectLockConfiguration]: The object lock configuration that you want to
+  /// apply to the specified bucket.
+  ///
+  /// [token]: A token to allow Amazon S3 object lock to be enabled for an
+  /// existing bucket.
+  ///
+  /// [contentMd5]: The MD5 hash for the request body.
+  Future<PutObjectLockConfigurationOutput> putObjectLockConfiguration(
+      String bucket,
       {ObjectLockConfiguration objectLockConfiguration,
       String requestPayer,
       String token,
-      String contentMd5}) async {}
+      String contentMd5}) async {
+    return PutObjectLockConfigurationOutput.fromJson({});
+  }
 
   /// Places an Object Retention configuration on an object.
-  Future<void> putObjectRetention(
+  ///
+  /// [bucket]: The bucket that contains the object you want to apply this
+  /// Object Retention configuration to.
+  ///
+  /// [key]: The key name for the object that you want to apply this Object
+  /// Retention configuration to.
+  ///
+  /// [retention]: The container element for the Object Retention configuration.
+  ///
+  /// [versionId]: The version ID for the object that you want to apply this
+  /// Object Retention configuration to.
+  ///
+  /// [bypassGovernanceRetention]: Indicates whether this operation should
+  /// bypass Governance-mode restrictions.j
+  ///
+  /// [contentMd5]: The MD5 hash for the request body.
+  Future<PutObjectRetentionOutput> putObjectRetention(
       {@required String bucket,
       @required String key,
       ObjectLockRetention retention,
       String requestPayer,
       String versionId,
       bool bypassGovernanceRetention,
-      String contentMd5}) async {}
+      String contentMd5}) async {
+    return PutObjectRetentionOutput.fromJson({});
+  }
 
   /// Sets the supplied tag-set to an object that already exists in a bucket
-  Future<void> putObjectTagging(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [versionId]:
+  ///
+  /// [contentMd5]:
+  ///
+  /// [tagging]:
+  Future<PutObjectTaggingOutput> putObjectTagging(
       {@required String bucket,
       @required String key,
       String versionId,
       String contentMd5,
-      @required Tagging tagging}) async {}
+      @required Tagging tagging}) async {
+    return PutObjectTaggingOutput.fromJson({});
+  }
 
   /// Creates or modifies the `PublicAccessBlock` configuration for an Amazon S3
   /// bucket.
+  ///
+  /// [bucket]: The name of the Amazon S3 bucket whose `PublicAccessBlock`
+  /// configuration you want to set.
+  ///
+  /// [contentMd5]: The MD5 hash of the `PutPublicAccessBlock` request body.
+  ///
+  /// [publicAccessBlockConfiguration]: The `PublicAccessBlock` configuration
+  /// that you want to apply to this Amazon S3 bucket. You can enable the
+  /// configuration options in any combination. For more information about when
+  /// Amazon S3 considers a bucket or object public, see [The Meaning of
+  /// "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
   Future<void> putPublicAccessBlock(
       {@required
           String bucket,
@@ -641,12 +1678,22 @@ class S3Api {
               publicAccessBlockConfiguration}) async {}
 
   /// Restores an archived copy of an object back into Amazon S3
-  Future<void> restoreObject(
+  ///
+  /// [bucket]:
+  ///
+  /// [key]:
+  ///
+  /// [versionId]:
+  ///
+  /// [restoreRequest]:
+  Future<RestoreObjectOutput> restoreObject(
       {@required String bucket,
       @required String key,
       String versionId,
       RestoreRequest restoreRequest,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return RestoreObjectOutput.fromJson({});
+  }
 
   /// This operation filters the contents of an Amazon S3 object based on a
   /// simple Structured Query Language (SQL) statement. In the request, along
@@ -654,7 +1701,37 @@ class S3Api {
   /// (JSON or CSV) of the object. Amazon S3 uses this to parse object data into
   /// records, and returns only records that match the specified SQL expression.
   /// You must also specify the data serialization format for the response.
-  Future<void> selectObjectContent(
+  ///
+  /// [bucket]: The S3 bucket.
+  ///
+  /// [key]: The object key.
+  ///
+  /// [sseCustomerAlgorithm]: The SSE Algorithm used to encrypt the object. For
+  /// more information, see  [Server-Side Encryption (Using Customer-Provided
+  /// Encryption
+  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  ///
+  /// [sseCustomerKey]: The SSE Customer Key. For more information, see
+  /// [Server-Side Encryption (Using Customer-Provided Encryption
+  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  ///
+  /// [sseCustomerKeyMd5]: The SSE Customer Key MD5. For more information, see
+  /// [Server-Side Encryption (Using Customer-Provided Encryption
+  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  ///
+  /// [expression]: The expression that is used to query the object.
+  ///
+  /// [expressionType]: The type of the provided expression (for example., SQL).
+  ///
+  /// [requestProgress]: Specifies if periodic request progress information
+  /// should be enabled.
+  ///
+  /// [inputSerialization]: Describes the format of the data in the object that
+  /// is being queried.
+  ///
+  /// [outputSerialization]: Describes the format of the data that you want
+  /// Amazon S3 to return in response.
+  Future<SelectObjectContentOutput> selectObjectContent(
       {@required String bucket,
       @required String key,
       String sseCustomerAlgorithm,
@@ -664,7 +1741,9 @@ class S3Api {
       @required String expressionType,
       RequestProgress requestProgress,
       @required InputSerialization inputSerialization,
-      @required OutputSerialization outputSerialization}) async {}
+      @required OutputSerialization outputSerialization}) async {
+    return SelectObjectContentOutput.fromJson({});
+  }
 
   /// Uploads a part in a multipart upload.
   ///
@@ -673,7 +1752,41 @@ class S3Api {
   /// getting charged for storage of the uploaded parts. Only after you either
   /// complete or abort multipart upload, Amazon S3 frees up the parts storage
   /// and stops charging you for the parts storage.
-  Future<void> uploadPart(
+  ///
+  /// [body]: Object data.
+  ///
+  /// [bucket]: Name of the bucket to which the multipart upload was initiated.
+  ///
+  /// [contentLength]: Size of the body in bytes. This parameter is useful when
+  /// the size of the body cannot be determined automatically.
+  ///
+  /// [contentMd5]: The base64-encoded 128-bit MD5 digest of the part data. This
+  /// parameter is auto-populated when using the command from the CLI. This
+  /// parameted is required if object lock parameters are specified.
+  ///
+  /// [key]: Object key for which the multipart upload was initiated.
+  ///
+  /// [partNumber]: Part number of part being uploaded. This is a positive
+  /// integer between 1 and 10,000.
+  ///
+  /// [uploadId]: Upload ID identifying the multipart upload whose part is being
+  /// uploaded.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header. This must be the
+  /// same encryption key specified in the initiate multipart upload request.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  Future<UploadPartOutput> uploadPart(
       {Uint8List body,
       @required String bucket,
       BigInt contentLength,
@@ -684,10 +1797,71 @@ class S3Api {
       String sseCustomerAlgorithm,
       Uint8List sseCustomerKey,
       String sseCustomerKeyMd5,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return UploadPartOutput.fromJson({});
+  }
 
   /// Uploads a part by copying data from an existing object as data source.
-  Future<void> uploadPartCopy(
+  ///
+  /// [bucket]:
+  ///
+  /// [copySource]: The name of the source bucket and key name of the source
+  /// object, separated by a slash (/). Must be URL-encoded.
+  ///
+  /// [copySourceIfMatch]: Copies the object if its entity tag (ETag) matches
+  /// the specified tag.
+  ///
+  /// [copySourceIfModifiedSince]: Copies the object if it has been modified
+  /// since the specified time.
+  ///
+  /// [copySourceIfNoneMatch]: Copies the object if its entity tag (ETag) is
+  /// different than the specified ETag.
+  ///
+  /// [copySourceIfUnmodifiedSince]: Copies the object if it hasn't been
+  /// modified since the specified time.
+  ///
+  /// [copySourceRange]: The range of bytes to copy from the source object. The
+  /// range value must use the form bytes=first-last, where the first and last
+  /// are the zero-based byte offsets to copy. For example, bytes=0-9 indicates
+  /// that you want to copy the first ten bytes of the source. You can copy a
+  /// range only if the source object is greater than 5 MB.
+  ///
+  /// [key]:
+  ///
+  /// [partNumber]: Part number of part being copied. This is a positive integer
+  /// between 1 and 10,000.
+  ///
+  /// [uploadId]: Upload ID identifying the multipart upload whose part is being
+  /// copied.
+  ///
+  /// [sseCustomerAlgorithm]: Specifies the algorithm to use to when encrypting
+  /// the object (e.g., AES256).
+  ///
+  /// [sseCustomerKey]: Specifies the customer-provided encryption key for
+  /// Amazon S3 to use in encrypting data. This value is used to store the
+  /// object and then it is discarded; Amazon does not store the encryption key.
+  /// The key must be appropriate for use with the algorithm specified in the
+  /// x-amz-server-side​-encryption​-customer-algorithm header. This must be the
+  /// same encryption key specified in the initiate multipart upload request.
+  ///
+  /// [sseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the encryption
+  /// key according to RFC 1321. Amazon S3 uses this header for a message
+  /// integrity check to ensure the encryption key was transmitted without
+  /// error.
+  ///
+  /// [copySourceSseCustomerAlgorithm]: Specifies the algorithm to use when
+  /// decrypting the source object (e.g., AES256).
+  ///
+  /// [copySourceSseCustomerKey]: Specifies the customer-provided encryption key
+  /// for Amazon S3 to use to decrypt the source object. The encryption key
+  /// provided in this header must be one that was used when the source object
+  /// was created.
+  ///
+  /// [copySourceSseCustomerKeyMd5]: Specifies the 128-bit MD5 digest of the
+  /// encryption key according to RFC 1321. Amazon S3 uses this header for a
+  /// message integrity check to ensure the encryption key was transmitted
+  /// without error.
+  Future<UploadPartCopyOutput> uploadPartCopy(
       {@required String bucket,
       @required String copySource,
       String copySourceIfMatch,
@@ -704,355 +1878,3597 @@ class S3Api {
       String copySourceSseCustomerAlgorithm,
       Uint8List copySourceSseCustomerKey,
       String copySourceSseCustomerKeyMd5,
-      String requestPayer}) async {}
+      String requestPayer}) async {
+    return UploadPartCopyOutput.fromJson({});
+  }
 }
 
-class AbortIncompleteMultipartUpload {}
-
-class AbortMultipartUploadOutput {}
-
-class AccelerateConfiguration {}
-
-class AccessControlPolicy {}
-
-class AccessControlTranslation {}
-
-class AnalyticsAndOperator {}
-
-class AnalyticsConfiguration {}
-
-class AnalyticsExportDestination {}
-
-class AnalyticsFilter {}
-
-class AnalyticsS3BucketDestination {}
-
-class Bucket {}
-
-class BucketLifecycleConfiguration {}
-
-class BucketLoggingStatus {}
-
-class CorsConfiguration {}
-
-class CorsRule {}
-
-class CsvInput {}
-
-class CsvOutput {}
-
-class CloudFunctionConfiguration {}
-
-class CommonPrefix {}
-
-class CompleteMultipartUploadOutput {}
-
-class CompletedMultipartUpload {}
-
-class CompletedPart {}
-
-class Condition {}
-
-class ContinuationEvent {}
-
-class CopyObjectOutput {}
-
-class CopyObjectResult {}
-
-class CopyPartResult {}
-
-class CreateBucketConfiguration {}
-
-class CreateBucketOutput {}
-
-class CreateMultipartUploadOutput {}
-
-class DefaultRetention {}
-
-class Delete {}
-
-class DeleteMarkerEntry {}
-
-class DeleteMarkerReplication {}
-
-class DeleteObjectOutput {}
-
-class DeleteObjectTaggingOutput {}
-
-class DeleteObjectsOutput {}
-
-class DeletedObject {}
-
-class Destination {}
-
-class Encryption {}
-
-class EncryptionConfiguration {}
-
-class EndEvent {}
-
-class Error {}
-
-class ErrorDocument {}
-
-class FilterRule {}
-
-class GetBucketAccelerateConfigurationOutput {}
-
-class GetBucketAclOutput {}
-
-class GetBucketAnalyticsConfigurationOutput {}
-
-class GetBucketCorsOutput {}
-
-class GetBucketEncryptionOutput {}
-
-class GetBucketInventoryConfigurationOutput {}
-
-class GetBucketLifecycleConfigurationOutput {}
-
-class GetBucketLifecycleOutput {}
-
-class GetBucketLocationOutput {}
-
-class GetBucketLoggingOutput {}
-
-class GetBucketMetricsConfigurationOutput {}
-
-class GetBucketPolicyOutput {}
-
-class GetBucketPolicyStatusOutput {}
-
-class GetBucketReplicationOutput {}
-
-class GetBucketRequestPaymentOutput {}
-
-class GetBucketTaggingOutput {}
-
-class GetBucketVersioningOutput {}
-
-class GetBucketWebsiteOutput {}
-
-class GetObjectAclOutput {}
-
-class GetObjectLegalHoldOutput {}
-
-class GetObjectLockConfigurationOutput {}
-
-class GetObjectOutput {}
-
-class GetObjectRetentionOutput {}
-
-class GetObjectTaggingOutput {}
-
-class GetObjectTorrentOutput {}
-
-class GetPublicAccessBlockOutput {}
-
-class GlacierJobParameters {}
-
-class Grant {}
-
-class Grantee {}
-
-class HeadObjectOutput {}
-
-class IndexDocument {}
-
-class Initiator {}
-
-class InputSerialization {}
-
-class InventoryConfiguration {}
-
-class InventoryDestination {}
-
-class InventoryEncryption {}
-
-class InventoryFilter {}
-
-class InventoryS3BucketDestination {}
-
-class InventorySchedule {}
-
-class JsonInput {}
-
-class JsonOutput {}
-
-class LambdaFunctionConfiguration {}
-
-class LifecycleConfiguration {}
-
-class LifecycleExpiration {}
-
-class LifecycleRule {}
-
-class LifecycleRuleAndOperator {}
-
-class LifecycleRuleFilter {}
-
-class ListBucketAnalyticsConfigurationsOutput {}
-
-class ListBucketInventoryConfigurationsOutput {}
-
-class ListBucketMetricsConfigurationsOutput {}
-
-class ListBucketsOutput {}
-
-class ListMultipartUploadsOutput {}
-
-class ListObjectVersionsOutput {}
-
-class ListObjectsOutput {}
-
-class ListObjectsV2Output {}
-
-class ListPartsOutput {}
-
-class LoggingEnabled {}
-
-class MetadataEntry {}
-
-class MetricsAndOperator {}
-
-class MetricsConfiguration {}
-
-class MetricsFilter {}
-
-class MultipartUpload {}
-
-class NoncurrentVersionExpiration {}
-
-class NoncurrentVersionTransition {}
-
-class NotificationConfiguration {}
-
-class NotificationConfigurationDeprecated {}
-
-class NotificationConfigurationFilter {}
-
-class Object {}
-
-class ObjectIdentifier {}
-
-class ObjectLockConfiguration {}
-
-class ObjectLockLegalHold {}
-
-class ObjectLockRetention {}
-
-class ObjectLockRule {}
-
-class ObjectVersion {}
-
-class OutputLocation {}
-
-class OutputSerialization {}
-
-class Owner {}
-
-class ParquetInput {}
-
-class Part {}
-
-class PolicyStatus {}
-
-class Progress {}
-
-class ProgressEvent {}
-
-class PublicAccessBlockConfiguration {}
-
-class PutObjectAclOutput {}
-
-class PutObjectLegalHoldOutput {}
-
-class PutObjectLockConfigurationOutput {}
-
-class PutObjectOutput {}
-
-class PutObjectRetentionOutput {}
-
-class PutObjectTaggingOutput {}
-
-class QueueConfiguration {}
-
-class QueueConfigurationDeprecated {}
-
-class RecordsEvent {}
-
-class Redirect {}
-
-class RedirectAllRequestsTo {}
-
-class ReplicationConfiguration {}
-
-class ReplicationRule {}
-
-class ReplicationRuleAndOperator {}
-
-class ReplicationRuleFilter {}
-
-class RequestPaymentConfiguration {}
-
-class RequestProgress {}
-
-class RestoreObjectOutput {}
-
-class RestoreRequest {}
-
-class RoutingRule {}
-
-class Rule {}
-
-class S3KeyFilter {}
-
-class S3Location {}
-
-class Ssekms {}
-
-class Sses3 {}
-
-class SelectObjectContentEventStream {}
-
-class SelectObjectContentOutput {}
-
-class SelectParameters {}
-
-class ServerSideEncryptionByDefault {}
-
-class ServerSideEncryptionConfiguration {}
-
-class ServerSideEncryptionRule {}
-
-class SourceSelectionCriteria {}
-
-class SseKmsEncryptedObjects {}
-
-class Stats {}
-
-class StatsEvent {}
-
-class StorageClassAnalysis {}
-
-class StorageClassAnalysisDataExport {}
-
-class Tag {}
-
-class Tagging {}
-
-class TargetGrant {}
-
-class TopicConfiguration {}
-
-class TopicConfigurationDeprecated {}
-
-class Transition {}
-
-class UploadPartCopyOutput {}
-
-class UploadPartOutput {}
-
-class VersioningConfiguration {}
-
-class WebsiteConfiguration {}
+class AbortIncompleteMultipartUpload {
+  /// Specifies the number of days after which Amazon S3 aborts an incomplete
+  /// multipart upload.
+  final int daysAfterInitiation;
+
+  AbortIncompleteMultipartUpload({
+    this.daysAfterInitiation,
+  });
+  static AbortIncompleteMultipartUpload fromJson(Map<String, dynamic> json) =>
+      AbortIncompleteMultipartUpload();
+}
+
+class AbortMultipartUploadOutput {
+  final String requestCharged;
+
+  AbortMultipartUploadOutput({
+    this.requestCharged,
+  });
+  static AbortMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
+      AbortMultipartUploadOutput();
+}
+
+class AccelerateConfiguration {
+  /// Specifies the transfer acceleration status of the bucket.
+  final String status;
+
+  AccelerateConfiguration({
+    this.status,
+  });
+}
+
+class AccessControlPolicy {
+  /// A list of grants.
+  final List<Grant> grants;
+
+  /// Container for the bucket owner's display name and ID.
+  final Owner owner;
+
+  AccessControlPolicy({
+    this.grants,
+    this.owner,
+  });
+}
+
+class AccessControlTranslation {
+  /// Specifies the replica ownership. For default and valid values, see [PUT
+  /// bucket
+  /// replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html)
+  /// in the _Amazon Simple Storage Service API Reference_.
+  final String owner;
+
+  AccessControlTranslation({
+    @required this.owner,
+  });
+  static AccessControlTranslation fromJson(Map<String, dynamic> json) =>
+      AccessControlTranslation();
+}
+
+class AnalyticsAndOperator {
+  /// The prefix to use when evaluating an AND predicate: The prefix that an
+  /// object must have to be included in the metrics results.
+  final String prefix;
+
+  /// The list of tags to use when evaluating an AND predicate.
+  final List<Tag> tags;
+
+  AnalyticsAndOperator({
+    this.prefix,
+    this.tags,
+  });
+  static AnalyticsAndOperator fromJson(Map<String, dynamic> json) =>
+      AnalyticsAndOperator();
+}
+
+class AnalyticsConfiguration {
+  /// The ID that identifies the analytics configuration.
+  final String id;
+
+  /// The filter used to describe a set of objects for analyses. A filter must
+  /// have exactly one prefix, one tag, or one conjunction
+  /// (AnalyticsAndOperator). If no filter is provided, all objects will be
+  /// considered in any analysis.
+  final AnalyticsFilter filter;
+
+  ///  Contains data related to access patterns to be collected and made
+  /// available to analyze the tradeoffs between different storage classes.
+  final StorageClassAnalysis storageClassAnalysis;
+
+  AnalyticsConfiguration({
+    @required this.id,
+    this.filter,
+    @required this.storageClassAnalysis,
+  });
+  static AnalyticsConfiguration fromJson(Map<String, dynamic> json) =>
+      AnalyticsConfiguration();
+}
+
+class AnalyticsExportDestination {
+  /// A destination signifying output to an S3 bucket.
+  final AnalyticsS3BucketDestination s3BucketDestination;
+
+  AnalyticsExportDestination({
+    @required this.s3BucketDestination,
+  });
+  static AnalyticsExportDestination fromJson(Map<String, dynamic> json) =>
+      AnalyticsExportDestination();
+}
+
+class AnalyticsFilter {
+  /// The prefix to use when evaluating an analytics filter.
+  final String prefix;
+
+  /// The tag to use when evaluating an analytics filter.
+  final Tag tag;
+
+  /// A conjunction (logical AND) of predicates, which is used in evaluating an
+  /// analytics filter. The operator must have at least two predicates.
+  final AnalyticsAndOperator and;
+
+  AnalyticsFilter({
+    this.prefix,
+    this.tag,
+    this.and,
+  });
+  static AnalyticsFilter fromJson(Map<String, dynamic> json) =>
+      AnalyticsFilter();
+}
+
+class AnalyticsS3BucketDestination {
+  /// Specifies the file format used when exporting data to Amazon S3.
+  final String format;
+
+  /// The account ID that owns the destination bucket. If no account ID is
+  /// provided, the owner will not be validated prior to exporting data.
+  final String bucketAccountId;
+
+  /// The Amazon Resource Name (ARN) of the bucket to which data is exported.
+  final String bucket;
+
+  /// The prefix to use when exporting data. The prefix is prepended to all
+  /// results.
+  final String prefix;
+
+  AnalyticsS3BucketDestination({
+    @required this.format,
+    this.bucketAccountId,
+    @required this.bucket,
+    this.prefix,
+  });
+  static AnalyticsS3BucketDestination fromJson(Map<String, dynamic> json) =>
+      AnalyticsS3BucketDestination();
+}
+
+class Bucket {
+  /// The name of the bucket.
+  final String name;
+
+  /// Date the bucket was created.
+  final DateTime creationDate;
+
+  Bucket({
+    this.name,
+    this.creationDate,
+  });
+  static Bucket fromJson(Map<String, dynamic> json) => Bucket();
+}
+
+class BucketLifecycleConfiguration {
+  /// A lifecycle rule for individual objects in an Amazon S3 bucket.
+  final List<LifecycleRule> rules;
+
+  BucketLifecycleConfiguration({
+    @required this.rules,
+  });
+}
+
+class BucketLoggingStatus {
+  final LoggingEnabled loggingEnabled;
+
+  BucketLoggingStatus({
+    this.loggingEnabled,
+  });
+}
+
+class CorsConfiguration {
+  /// A set of allowed origins and methods.
+  final List<CorsRule> corsRules;
+
+  CorsConfiguration({
+    @required this.corsRules,
+  });
+}
+
+class CorsRule {
+  /// Headers that are specified in the `Access-Control-Request-Headers` header.
+  /// These headers are allowed in a preflight OPTIONS request. In response to
+  /// any preflight OPTIONS request, Amazon S3 returns any requested headers
+  /// that are allowed.
+  final List<String> allowedHeaders;
+
+  /// An HTTP method that you allow the origin to execute. Valid values are
+  /// `GET`, `PUT`, `HEAD`, `POST`, and `DELETE`.
+  final List<String> allowedMethods;
+
+  /// One or more origins you want customers to be able to access the bucket
+  /// from.
+  final List<String> allowedOrigins;
+
+  /// One or more headers in the response that you want customers to be able to
+  /// access from their applications (for example, from a JavaScript
+  /// `XMLHttpRequest` object).
+  final List<String> exposeHeaders;
+
+  /// The time in seconds that your browser is to cache the preflight response
+  /// for the specified resource.
+  final int maxAgeSeconds;
+
+  CorsRule({
+    this.allowedHeaders,
+    @required this.allowedMethods,
+    @required this.allowedOrigins,
+    this.exposeHeaders,
+    this.maxAgeSeconds,
+  });
+  static CorsRule fromJson(Map<String, dynamic> json) => CorsRule();
+}
+
+class CsvInput {
+  /// Describes the first line of input. Valid values: None, Ignore, Use.
+  final String fileHeaderInfo;
+
+  /// The single character used to indicate a row should be ignored when present
+  /// at the start of a row.
+  final String comments;
+
+  /// The single character used for escaping the quote character inside an
+  /// already escaped value.
+  final String quoteEscapeCharacter;
+
+  /// The value used to separate individual records.
+  final String recordDelimiter;
+
+  /// The value used to separate individual fields in a record.
+  final String fieldDelimiter;
+
+  /// Value used for escaping where the field delimiter is part of the value.
+  final String quoteCharacter;
+
+  /// Specifies that CSV field values may contain quoted record delimiters and
+  /// such records should be allowed. Default value is FALSE. Setting this value
+  /// to TRUE may lower performance.
+  final bool allowQuotedRecordDelimiter;
+
+  CsvInput({
+    this.fileHeaderInfo,
+    this.comments,
+    this.quoteEscapeCharacter,
+    this.recordDelimiter,
+    this.fieldDelimiter,
+    this.quoteCharacter,
+    this.allowQuotedRecordDelimiter,
+  });
+}
+
+class CsvOutput {
+  /// Indicates whether or not all output fields should be quoted.
+  final String quoteFields;
+
+  /// Th single character used for escaping the quote character inside an
+  /// already escaped value.
+  final String quoteEscapeCharacter;
+
+  /// The value used to separate individual records.
+  final String recordDelimiter;
+
+  /// The value used to separate individual fields in a record.
+  final String fieldDelimiter;
+
+  /// The value used for escaping where the field delimiter is part of the
+  /// value.
+  final String quoteCharacter;
+
+  CsvOutput({
+    this.quoteFields,
+    this.quoteEscapeCharacter,
+    this.recordDelimiter,
+    this.fieldDelimiter,
+    this.quoteCharacter,
+  });
+}
+
+class CloudFunctionConfiguration {
+  final String id;
+
+  final String event;
+
+  final List<String> events;
+
+  final String cloudFunction;
+
+  final String invocationRole;
+
+  CloudFunctionConfiguration({
+    this.id,
+    this.event,
+    this.events,
+    this.cloudFunction,
+    this.invocationRole,
+  });
+  static CloudFunctionConfiguration fromJson(Map<String, dynamic> json) =>
+      CloudFunctionConfiguration();
+}
+
+class CommonPrefix {
+  final String prefix;
+
+  CommonPrefix({
+    this.prefix,
+  });
+  static CommonPrefix fromJson(Map<String, dynamic> json) => CommonPrefix();
+}
+
+class CompleteMultipartUploadOutput {
+  final String location;
+
+  final String bucket;
+
+  final String key;
+
+  /// If the object expiration is configured, this will contain the expiration
+  /// date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
+  /// encoded.
+  final String expiration;
+
+  /// Entity tag of the object.
+  final String eTag;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// Version of the object.
+  final String versionId;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  final String requestCharged;
+
+  CompleteMultipartUploadOutput({
+    this.location,
+    this.bucket,
+    this.key,
+    this.expiration,
+    this.eTag,
+    this.serverSideEncryption,
+    this.versionId,
+    this.ssekmsKeyId,
+    this.requestCharged,
+  });
+  static CompleteMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
+      CompleteMultipartUploadOutput();
+}
+
+class CompletedMultipartUpload {
+  final List<CompletedPart> parts;
+
+  CompletedMultipartUpload({
+    this.parts,
+  });
+}
+
+class CompletedPart {
+  /// Entity tag returned when the part was uploaded.
+  final String eTag;
+
+  /// Part number that identifies the part. This is a positive integer between 1
+  /// and 10,000.
+  final int partNumber;
+
+  CompletedPart({
+    this.eTag,
+    this.partNumber,
+  });
+}
+
+class Condition {
+  /// The HTTP error code when the redirect is applied. In the event of an
+  /// error, if the error code equals this value, then the specified redirect is
+  /// applied. Required when parent element `Condition` is specified and sibling
+  /// `KeyPrefixEquals` is not specified. If both are specified, then both must
+  /// be true for the redirect to be applied.
+  final String httpErrorCodeReturnedEquals;
+
+  /// The object key name prefix when the redirect is applied. For example, to
+  /// redirect requests for `ExamplePage.html`, the key prefix will be
+  /// `ExamplePage.html`. To redirect request for all pages with the prefix
+  /// `docs/`, the key prefix will be `/docs`, which identifies all objects in
+  /// the docs/ folder. Required when the parent element `Condition` is
+  /// specified and sibling `HttpErrorCodeReturnedEquals` is not specified. If
+  /// both conditions are specified, both must be true for the redirect to be
+  /// applied.
+  final String keyPrefixEquals;
+
+  Condition({
+    this.httpErrorCodeReturnedEquals,
+    this.keyPrefixEquals,
+  });
+  static Condition fromJson(Map<String, dynamic> json) => Condition();
+}
+
+class ContinuationEvent {
+  ContinuationEvent();
+  static ContinuationEvent fromJson(Map<String, dynamic> json) =>
+      ContinuationEvent();
+}
+
+class CopyObjectOutput {
+  final CopyObjectResult copyObjectResult;
+
+  /// If the object expiration is configured, the response includes this header.
+  final String expiration;
+
+  final String copySourceVersionId;
+
+  /// Version ID of the newly created copy.
+  final String versionId;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  /// If present, specifies the AWS KMS Encryption Context to use for object
+  /// encryption. The value of this header is a base64-encoded UTF-8 string
+  /// holding JSON with the encryption context key-value pairs.
+  final String ssekmsEncryptionContext;
+
+  final String requestCharged;
+
+  CopyObjectOutput({
+    this.copyObjectResult,
+    this.expiration,
+    this.copySourceVersionId,
+    this.versionId,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.requestCharged,
+  });
+  static CopyObjectOutput fromJson(Map<String, dynamic> json) =>
+      CopyObjectOutput();
+}
+
+class CopyObjectResult {
+  final String eTag;
+
+  final DateTime lastModified;
+
+  CopyObjectResult({
+    this.eTag,
+    this.lastModified,
+  });
+  static CopyObjectResult fromJson(Map<String, dynamic> json) =>
+      CopyObjectResult();
+}
+
+class CopyPartResult {
+  /// Entity tag of the object.
+  final String eTag;
+
+  /// Date and time at which the object was uploaded.
+  final DateTime lastModified;
+
+  CopyPartResult({
+    this.eTag,
+    this.lastModified,
+  });
+  static CopyPartResult fromJson(Map<String, dynamic> json) => CopyPartResult();
+}
+
+class CreateBucketConfiguration {
+  /// Specifies the region where the bucket will be created. If you don't
+  /// specify a region, the bucket is created in US East (N. Virginia) Region
+  /// (us-east-1).
+  final String locationConstraint;
+
+  CreateBucketConfiguration({
+    this.locationConstraint,
+  });
+}
+
+class CreateBucketOutput {
+  final String location;
+
+  CreateBucketOutput({
+    this.location,
+  });
+  static CreateBucketOutput fromJson(Map<String, dynamic> json) =>
+      CreateBucketOutput();
+}
+
+class CreateMultipartUploadOutput {
+  /// Date when multipart upload will become eligible for abort operation by
+  /// lifecycle.
+  final DateTime abortDate;
+
+  /// Id of the lifecycle rule that makes a multipart upload eligible for abort
+  /// operation.
+  final String abortRuleId;
+
+  /// Name of the bucket to which the multipart upload was initiated.
+  final String bucket;
+
+  /// Object key for which the multipart upload was initiated.
+  final String key;
+
+  /// ID for the initiated multipart upload.
+  final String uploadId;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  /// If present, specifies the AWS KMS Encryption Context to use for object
+  /// encryption. The value of this header is a base64-encoded UTF-8 string
+  /// holding JSON with the encryption context key-value pairs.
+  final String ssekmsEncryptionContext;
+
+  final String requestCharged;
+
+  CreateMultipartUploadOutput({
+    this.abortDate,
+    this.abortRuleId,
+    this.bucket,
+    this.key,
+    this.uploadId,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.requestCharged,
+  });
+  static CreateMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
+      CreateMultipartUploadOutput();
+}
+
+class DefaultRetention {
+  /// The default object lock retention mode you want to apply to new objects
+  /// placed in the specified bucket.
+  final String mode;
+
+  /// The number of days that you want to specify for the default retention
+  /// period.
+  final int days;
+
+  /// The number of years that you want to specify for the default retention
+  /// period.
+  final int years;
+
+  DefaultRetention({
+    this.mode,
+    this.days,
+    this.years,
+  });
+  static DefaultRetention fromJson(Map<String, dynamic> json) =>
+      DefaultRetention();
+}
+
+class Delete {
+  final List<ObjectIdentifier> objects;
+
+  /// Element to enable quiet mode for the request. When you add this element,
+  /// you must set its value to true.
+  final bool quiet;
+
+  Delete({
+    @required this.objects,
+    this.quiet,
+  });
+}
+
+class DeleteMarkerEntry {
+  final Owner owner;
+
+  /// The object key.
+  final String key;
+
+  /// Version ID of an object.
+  final String versionId;
+
+  /// Specifies whether the object is (true) or is not (false) the latest
+  /// version of an object.
+  final bool isLatest;
+
+  /// Date and time the object was last modified.
+  final DateTime lastModified;
+
+  DeleteMarkerEntry({
+    this.owner,
+    this.key,
+    this.versionId,
+    this.isLatest,
+    this.lastModified,
+  });
+  static DeleteMarkerEntry fromJson(Map<String, dynamic> json) =>
+      DeleteMarkerEntry();
+}
+
+class DeleteMarkerReplication {
+  /// The status of the delete marker replication.
+  ///
+  ///   In the current implementation, Amazon S3 doesn't replicate the delete
+  /// markers. The status must be `Disabled`.
+  final String status;
+
+  DeleteMarkerReplication({
+    this.status,
+  });
+  static DeleteMarkerReplication fromJson(Map<String, dynamic> json) =>
+      DeleteMarkerReplication();
+}
+
+class DeleteObjectOutput {
+  /// Specifies whether the versioned object that was permanently deleted was
+  /// (true) or was not (false) a delete marker.
+  final bool deleteMarker;
+
+  /// Returns the version ID of the delete marker created as a result of the
+  /// DELETE operation.
+  final String versionId;
+
+  final String requestCharged;
+
+  DeleteObjectOutput({
+    this.deleteMarker,
+    this.versionId,
+    this.requestCharged,
+  });
+  static DeleteObjectOutput fromJson(Map<String, dynamic> json) =>
+      DeleteObjectOutput();
+}
+
+class DeleteObjectTaggingOutput {
+  /// The versionId of the object the tag-set was removed from.
+  final String versionId;
+
+  DeleteObjectTaggingOutput({
+    this.versionId,
+  });
+  static DeleteObjectTaggingOutput fromJson(Map<String, dynamic> json) =>
+      DeleteObjectTaggingOutput();
+}
+
+class DeleteObjectsOutput {
+  final List<DeletedObject> deleted;
+
+  final String requestCharged;
+
+  final List<Error> errors;
+
+  DeleteObjectsOutput({
+    this.deleted,
+    this.requestCharged,
+    this.errors,
+  });
+  static DeleteObjectsOutput fromJson(Map<String, dynamic> json) =>
+      DeleteObjectsOutput();
+}
+
+class DeletedObject {
+  final String key;
+
+  final String versionId;
+
+  final bool deleteMarker;
+
+  final String deleteMarkerVersionId;
+
+  DeletedObject({
+    this.key,
+    this.versionId,
+    this.deleteMarker,
+    this.deleteMarkerVersionId,
+  });
+  static DeletedObject fromJson(Map<String, dynamic> json) => DeletedObject();
+}
+
+class Destination {
+  ///  The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to
+  /// store replicas of the object identified by the rule.
+  ///
+  /// A replication configuration can replicate objects to only one destination
+  /// bucket. If there are multiple rules in your replication configuration, all
+  /// rules must specify the same destination bucket.
+  final String bucket;
+
+  /// Destination bucket owner account ID. In a cross-account scenario, if you
+  /// direct Amazon S3 to change replica ownership to the AWS account that owns
+  /// the destination bucket by specifying the `AccessControlTranslation`
+  /// property, this is the account ID of the destination bucket owner. For more
+  /// information, see [Cross-Region Replication Additional Configuration:
+  /// Change Replica
+  /// Owner](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-change-owner.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  final String account;
+
+  ///  The storage class to use when replicating objects, such as standard or
+  /// reduced redundancy. By default, Amazon S3 uses the storage class of the
+  /// source object to create the object replica.
+  ///
+  /// For valid values, see the `StorageClass` element of the [PUT Bucket
+  /// replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html)
+  /// action in the _Amazon Simple Storage Service API Reference_.
+  final String storageClass;
+
+  /// Specify this only in a cross-account scenario (where source and
+  /// destination bucket owners are not the same), and you want to change
+  /// replica ownership to the AWS account that owns the destination bucket. If
+  /// this is not specified in the replication configuration, the replicas are
+  /// owned by same AWS account that owns the source object.
+  final AccessControlTranslation accessControlTranslation;
+
+  /// A container that provides information about encryption. If
+  /// `SourceSelectionCriteria` is specified, you must specify this element.
+  final EncryptionConfiguration encryptionConfiguration;
+
+  Destination({
+    @required this.bucket,
+    this.account,
+    this.storageClass,
+    this.accessControlTranslation,
+    this.encryptionConfiguration,
+  });
+  static Destination fromJson(Map<String, dynamic> json) => Destination();
+}
+
+class Encryption {
+  /// The server-side encryption algorithm used when storing job results in
+  /// Amazon S3 (e.g., AES256, aws:kms).
+  final String encryptionType;
+
+  /// If the encryption type is aws:kms, this optional value specifies the AWS
+  /// KMS key ID to use for encryption of job results.
+  final String kmsKeyId;
+
+  /// If the encryption type is aws:kms, this optional value can be used to
+  /// specify the encryption context for the restore results.
+  final String kmsContext;
+
+  Encryption({
+    @required this.encryptionType,
+    this.kmsKeyId,
+    this.kmsContext,
+  });
+}
+
+class EncryptionConfiguration {
+  /// Specifies the AWS KMS Key ID (Key ARN or Alias ARN) for the destination
+  /// bucket. Amazon S3 uses this key to encrypt replica objects.
+  final String replicaKmsKeyID;
+
+  EncryptionConfiguration({
+    this.replicaKmsKeyID,
+  });
+  static EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
+      EncryptionConfiguration();
+}
+
+class EndEvent {
+  EndEvent();
+  static EndEvent fromJson(Map<String, dynamic> json) => EndEvent();
+}
+
+class Error {
+  final String key;
+
+  final String versionId;
+
+  final String code;
+
+  final String message;
+
+  Error({
+    this.key,
+    this.versionId,
+    this.code,
+    this.message,
+  });
+  static Error fromJson(Map<String, dynamic> json) => Error();
+}
+
+class ErrorDocument {
+  /// The object key name to use when a 4XX class error occurs.
+  final String key;
+
+  ErrorDocument({
+    @required this.key,
+  });
+  static ErrorDocument fromJson(Map<String, dynamic> json) => ErrorDocument();
+}
+
+class FilterRule {
+  /// The object key name prefix or suffix identifying one or more objects to
+  /// which the filtering rule applies. The maximum length is 1,024 characters.
+  /// Overlapping prefixes and suffixes are not supported. For more information,
+  /// see [Configuring Event
+  /// Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  final String name;
+
+  /// The value that the filter searches for in object key names.
+  final String value;
+
+  FilterRule({
+    this.name,
+    this.value,
+  });
+  static FilterRule fromJson(Map<String, dynamic> json) => FilterRule();
+}
+
+class GetBucketAccelerateConfigurationOutput {
+  /// The accelerate configuration of the bucket.
+  final String status;
+
+  GetBucketAccelerateConfigurationOutput({
+    this.status,
+  });
+  static GetBucketAccelerateConfigurationOutput fromJson(
+          Map<String, dynamic> json) =>
+      GetBucketAccelerateConfigurationOutput();
+}
+
+class GetBucketAclOutput {
+  final Owner owner;
+
+  /// A list of grants.
+  final List<Grant> grants;
+
+  GetBucketAclOutput({
+    this.owner,
+    this.grants,
+  });
+  static GetBucketAclOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketAclOutput();
+}
+
+class GetBucketAnalyticsConfigurationOutput {
+  /// The configuration and any analyses for the analytics filter.
+  final AnalyticsConfiguration analyticsConfiguration;
+
+  GetBucketAnalyticsConfigurationOutput({
+    this.analyticsConfiguration,
+  });
+  static GetBucketAnalyticsConfigurationOutput fromJson(
+          Map<String, dynamic> json) =>
+      GetBucketAnalyticsConfigurationOutput();
+}
+
+class GetBucketCorsOutput {
+  final List<CorsRule> corsRules;
+
+  GetBucketCorsOutput({
+    this.corsRules,
+  });
+  static GetBucketCorsOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketCorsOutput();
+}
+
+class GetBucketEncryptionOutput {
+  final ServerSideEncryptionConfiguration serverSideEncryptionConfiguration;
+
+  GetBucketEncryptionOutput({
+    this.serverSideEncryptionConfiguration,
+  });
+  static GetBucketEncryptionOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketEncryptionOutput();
+}
+
+class GetBucketInventoryConfigurationOutput {
+  /// Specifies the inventory configuration.
+  final InventoryConfiguration inventoryConfiguration;
+
+  GetBucketInventoryConfigurationOutput({
+    this.inventoryConfiguration,
+  });
+  static GetBucketInventoryConfigurationOutput fromJson(
+          Map<String, dynamic> json) =>
+      GetBucketInventoryConfigurationOutput();
+}
+
+class GetBucketLifecycleConfigurationOutput {
+  final List<LifecycleRule> rules;
+
+  GetBucketLifecycleConfigurationOutput({
+    this.rules,
+  });
+  static GetBucketLifecycleConfigurationOutput fromJson(
+          Map<String, dynamic> json) =>
+      GetBucketLifecycleConfigurationOutput();
+}
+
+class GetBucketLifecycleOutput {
+  final List<Rule> rules;
+
+  GetBucketLifecycleOutput({
+    this.rules,
+  });
+  static GetBucketLifecycleOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketLifecycleOutput();
+}
+
+class GetBucketLocationOutput {
+  final String locationConstraint;
+
+  GetBucketLocationOutput({
+    this.locationConstraint,
+  });
+  static GetBucketLocationOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketLocationOutput();
+}
+
+class GetBucketLoggingOutput {
+  final LoggingEnabled loggingEnabled;
+
+  GetBucketLoggingOutput({
+    this.loggingEnabled,
+  });
+  static GetBucketLoggingOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketLoggingOutput();
+}
+
+class GetBucketMetricsConfigurationOutput {
+  /// Specifies the metrics configuration.
+  final MetricsConfiguration metricsConfiguration;
+
+  GetBucketMetricsConfigurationOutput({
+    this.metricsConfiguration,
+  });
+  static GetBucketMetricsConfigurationOutput fromJson(
+          Map<String, dynamic> json) =>
+      GetBucketMetricsConfigurationOutput();
+}
+
+class GetBucketPolicyOutput {
+  /// The bucket policy as a JSON document.
+  final String policy;
+
+  GetBucketPolicyOutput({
+    this.policy,
+  });
+  static GetBucketPolicyOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketPolicyOutput();
+}
+
+class GetBucketPolicyStatusOutput {
+  /// The policy status for the specified bucket.
+  final PolicyStatus policyStatus;
+
+  GetBucketPolicyStatusOutput({
+    this.policyStatus,
+  });
+  static GetBucketPolicyStatusOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketPolicyStatusOutput();
+}
+
+class GetBucketReplicationOutput {
+  final ReplicationConfiguration replicationConfiguration;
+
+  GetBucketReplicationOutput({
+    this.replicationConfiguration,
+  });
+  static GetBucketReplicationOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketReplicationOutput();
+}
+
+class GetBucketRequestPaymentOutput {
+  /// Specifies who pays for the download and request fees.
+  final String payer;
+
+  GetBucketRequestPaymentOutput({
+    this.payer,
+  });
+  static GetBucketRequestPaymentOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketRequestPaymentOutput();
+}
+
+class GetBucketTaggingOutput {
+  final List<Tag> tagSet;
+
+  GetBucketTaggingOutput({
+    @required this.tagSet,
+  });
+  static GetBucketTaggingOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketTaggingOutput();
+}
+
+class GetBucketVersioningOutput {
+  /// The versioning state of the bucket.
+  final String status;
+
+  /// Specifies whether MFA delete is enabled in the bucket versioning
+  /// configuration. This element is only returned if the bucket has been
+  /// configured with MFA delete. If the bucket has never been so configured,
+  /// this element is not returned.
+  final String mfaDelete;
+
+  GetBucketVersioningOutput({
+    this.status,
+    this.mfaDelete,
+  });
+  static GetBucketVersioningOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketVersioningOutput();
+}
+
+class GetBucketWebsiteOutput {
+  final RedirectAllRequestsTo redirectAllRequestsTo;
+
+  final IndexDocument indexDocument;
+
+  final ErrorDocument errorDocument;
+
+  final List<RoutingRule> routingRules;
+
+  GetBucketWebsiteOutput({
+    this.redirectAllRequestsTo,
+    this.indexDocument,
+    this.errorDocument,
+    this.routingRules,
+  });
+  static GetBucketWebsiteOutput fromJson(Map<String, dynamic> json) =>
+      GetBucketWebsiteOutput();
+}
+
+class GetObjectAclOutput {
+  final Owner owner;
+
+  /// A list of grants.
+  final List<Grant> grants;
+
+  final String requestCharged;
+
+  GetObjectAclOutput({
+    this.owner,
+    this.grants,
+    this.requestCharged,
+  });
+  static GetObjectAclOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectAclOutput();
+}
+
+class GetObjectLegalHoldOutput {
+  /// The current Legal Hold status for the specified object.
+  final ObjectLockLegalHold legalHold;
+
+  GetObjectLegalHoldOutput({
+    this.legalHold,
+  });
+  static GetObjectLegalHoldOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectLegalHoldOutput();
+}
+
+class GetObjectLockConfigurationOutput {
+  /// The specified bucket's object lock configuration.
+  final ObjectLockConfiguration objectLockConfiguration;
+
+  GetObjectLockConfigurationOutput({
+    this.objectLockConfiguration,
+  });
+  static GetObjectLockConfigurationOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectLockConfigurationOutput();
+}
+
+class GetObjectOutput {
+  /// Object data.
+  final Uint8List body;
+
+  /// Specifies whether the object retrieved was (true) or was not (false) a
+  /// Delete Marker. If false, this response header does not appear in the
+  /// response.
+  final bool deleteMarker;
+
+  final String acceptRanges;
+
+  /// If the object expiration is configured (see PUT Bucket lifecycle), the
+  /// response includes this header. It includes the expiry-date and rule-id key
+  /// value pairs providing object expiration information. The value of the
+  /// rule-id is URL encoded.
+  final String expiration;
+
+  /// Provides information about object restoration operation and expiration
+  /// time of the restored object copy.
+  final String restore;
+
+  /// Last modified date of the object
+  final DateTime lastModified;
+
+  /// Size of the body in bytes.
+  final BigInt contentLength;
+
+  /// An ETag is an opaque identifier assigned by a web server to a specific
+  /// version of a resource found at a URL
+  final String eTag;
+
+  /// This is set to the number of metadata entries not returned in x-amz-meta
+  /// headers. This can happen if you create metadata using an API like SOAP
+  /// that supports more flexible metadata than the REST API. For example, using
+  /// SOAP, you can create metadata whose values are not legal HTTP headers.
+  final int missingMeta;
+
+  /// Version of the object.
+  final String versionId;
+
+  /// Specifies caching behavior along the request/reply chain.
+  final String cacheControl;
+
+  /// Specifies presentational information for the object.
+  final String contentDisposition;
+
+  /// Specifies what content encodings have been applied to the object and thus
+  /// what decoding mechanisms must be applied to obtain the media-type
+  /// referenced by the Content-Type header field.
+  final String contentEncoding;
+
+  /// The language the content is in.
+  final String contentLanguage;
+
+  /// The portion of the object returned in the response.
+  final String contentRange;
+
+  /// A standard MIME type describing the format of the object data.
+  final String contentType;
+
+  /// The date and time at which the object is no longer cacheable.
+  final DateTime expires;
+
+  /// If the bucket is configured as a website, redirects requests for this
+  /// object to another object in the same bucket or to an external URL. Amazon
+  /// S3 stores the value of this header in the object metadata.
+  final String websiteRedirectLocation;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// A map of metadata to store with the object in S3.
+  final Map<String, String> metadata;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  final String storageClass;
+
+  final String requestCharged;
+
+  final String replicationStatus;
+
+  /// The count of parts this object has.
+  final int partsCount;
+
+  /// The number of tags, if any, on the object.
+  final int tagCount;
+
+  /// The object lock mode currently in place for this object.
+  final String objectLockMode;
+
+  /// The date and time when this object's object lock will expire.
+  final DateTime objectLockRetainUntilDate;
+
+  /// Indicates whether this object has an active legal hold. This field is only
+  /// returned if you have permission to view an object's legal hold status.
+  final String objectLockLegalHoldStatus;
+
+  GetObjectOutput({
+    this.body,
+    this.deleteMarker,
+    this.acceptRanges,
+    this.expiration,
+    this.restore,
+    this.lastModified,
+    this.contentLength,
+    this.eTag,
+    this.missingMeta,
+    this.versionId,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentRange,
+    this.contentType,
+    this.expires,
+    this.websiteRedirectLocation,
+    this.serverSideEncryption,
+    this.metadata,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.storageClass,
+    this.requestCharged,
+    this.replicationStatus,
+    this.partsCount,
+    this.tagCount,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+  });
+  static GetObjectOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectOutput();
+}
+
+class GetObjectRetentionOutput {
+  /// The container element for an object's retention settings.
+  final ObjectLockRetention retention;
+
+  GetObjectRetentionOutput({
+    this.retention,
+  });
+  static GetObjectRetentionOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectRetentionOutput();
+}
+
+class GetObjectTaggingOutput {
+  final String versionId;
+
+  final List<Tag> tagSet;
+
+  GetObjectTaggingOutput({
+    this.versionId,
+    @required this.tagSet,
+  });
+  static GetObjectTaggingOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectTaggingOutput();
+}
+
+class GetObjectTorrentOutput {
+  final Uint8List body;
+
+  final String requestCharged;
+
+  GetObjectTorrentOutput({
+    this.body,
+    this.requestCharged,
+  });
+  static GetObjectTorrentOutput fromJson(Map<String, dynamic> json) =>
+      GetObjectTorrentOutput();
+}
+
+class GetPublicAccessBlockOutput {
+  /// The `PublicAccessBlock` configuration currently in effect for this Amazon
+  /// S3 bucket.
+  final PublicAccessBlockConfiguration publicAccessBlockConfiguration;
+
+  GetPublicAccessBlockOutput({
+    this.publicAccessBlockConfiguration,
+  });
+  static GetPublicAccessBlockOutput fromJson(Map<String, dynamic> json) =>
+      GetPublicAccessBlockOutput();
+}
+
+class GlacierJobParameters {
+  /// Glacier retrieval tier at which the restore will be processed.
+  final String tier;
+
+  GlacierJobParameters({
+    @required this.tier,
+  });
+}
+
+class Grant {
+  final Grantee grantee;
+
+  /// Specifies the permission given to the grantee.
+  final String permission;
+
+  Grant({
+    this.grantee,
+    this.permission,
+  });
+  static Grant fromJson(Map<String, dynamic> json) => Grant();
+}
+
+class Grantee {
+  /// Screen name of the grantee.
+  final String displayName;
+
+  /// Email address of the grantee.
+  final String emailAddress;
+
+  /// The canonical user ID of the grantee.
+  final String id;
+
+  /// Type of grantee
+  final String type;
+
+  /// URI of the grantee group.
+  final String uri;
+
+  Grantee({
+    this.displayName,
+    this.emailAddress,
+    this.id,
+    @required this.type,
+    this.uri,
+  });
+  static Grantee fromJson(Map<String, dynamic> json) => Grantee();
+}
+
+class HeadObjectOutput {
+  /// Specifies whether the object retrieved was (true) or was not (false) a
+  /// Delete Marker. If false, this response header does not appear in the
+  /// response.
+  final bool deleteMarker;
+
+  final String acceptRanges;
+
+  /// If the object expiration is configured (see PUT Bucket lifecycle), the
+  /// response includes this header. It includes the expiry-date and rule-id key
+  /// value pairs providing object expiration information. The value of the
+  /// rule-id is URL encoded.
+  final String expiration;
+
+  /// Provides information about object restoration operation and expiration
+  /// time of the restored object copy.
+  final String restore;
+
+  /// Last modified date of the object
+  final DateTime lastModified;
+
+  /// Size of the body in bytes.
+  final BigInt contentLength;
+
+  /// An ETag is an opaque identifier assigned by a web server to a specific
+  /// version of a resource found at a URL
+  final String eTag;
+
+  /// This is set to the number of metadata entries not returned in x-amz-meta
+  /// headers. This can happen if you create metadata using an API like SOAP
+  /// that supports more flexible metadata than the REST API. For example, using
+  /// SOAP, you can create metadata whose values are not legal HTTP headers.
+  final int missingMeta;
+
+  /// Version of the object.
+  final String versionId;
+
+  /// Specifies caching behavior along the request/reply chain.
+  final String cacheControl;
+
+  /// Specifies presentational information for the object.
+  final String contentDisposition;
+
+  /// Specifies what content encodings have been applied to the object and thus
+  /// what decoding mechanisms must be applied to obtain the media-type
+  /// referenced by the Content-Type header field.
+  final String contentEncoding;
+
+  /// The language the content is in.
+  final String contentLanguage;
+
+  /// A standard MIME type describing the format of the object data.
+  final String contentType;
+
+  /// The date and time at which the object is no longer cacheable.
+  final DateTime expires;
+
+  /// If the bucket is configured as a website, redirects requests for this
+  /// object to another object in the same bucket or to an external URL. Amazon
+  /// S3 stores the value of this header in the object metadata.
+  final String websiteRedirectLocation;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// A map of metadata to store with the object in S3.
+  final Map<String, String> metadata;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  final String storageClass;
+
+  final String requestCharged;
+
+  final String replicationStatus;
+
+  /// The count of parts this object has.
+  final int partsCount;
+
+  /// The object lock mode currently in place for this object.
+  final String objectLockMode;
+
+  /// The date and time when this object's object lock expires.
+  final DateTime objectLockRetainUntilDate;
+
+  /// The Legal Hold status for the specified object.
+  final String objectLockLegalHoldStatus;
+
+  HeadObjectOutput({
+    this.deleteMarker,
+    this.acceptRanges,
+    this.expiration,
+    this.restore,
+    this.lastModified,
+    this.contentLength,
+    this.eTag,
+    this.missingMeta,
+    this.versionId,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentType,
+    this.expires,
+    this.websiteRedirectLocation,
+    this.serverSideEncryption,
+    this.metadata,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.storageClass,
+    this.requestCharged,
+    this.replicationStatus,
+    this.partsCount,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+  });
+  static HeadObjectOutput fromJson(Map<String, dynamic> json) =>
+      HeadObjectOutput();
+}
+
+class IndexDocument {
+  /// A suffix that is appended to a request that is for a directory on the
+  /// website endpoint (e.g. if the suffix is index.html and you make a request
+  /// to samplebucket/images/ the data that is returned will be for the object
+  /// with the key name images/index.html) The suffix must not be empty and must
+  /// not include a slash character.
+  final String suffix;
+
+  IndexDocument({
+    @required this.suffix,
+  });
+  static IndexDocument fromJson(Map<String, dynamic> json) => IndexDocument();
+}
+
+class Initiator {
+  /// If the principal is an AWS account, it provides the Canonical User ID. If
+  /// the principal is an IAM User, it provides a user ARN value.
+  final String id;
+
+  /// Name of the Principal.
+  final String displayName;
+
+  Initiator({
+    this.id,
+    this.displayName,
+  });
+  static Initiator fromJson(Map<String, dynamic> json) => Initiator();
+}
+
+class InputSerialization {
+  /// Describes the serialization of a CSV-encoded object.
+  final CsvInput csv;
+
+  /// Specifies object's compression format. Valid values: NONE, GZIP, BZIP2.
+  /// Default Value: NONE.
+  final String compressionType;
+
+  /// Specifies JSON as object's input serialization format.
+  final JsonInput json;
+
+  /// Specifies Parquet as object's input serialization format.
+  final ParquetInput parquet;
+
+  InputSerialization({
+    this.csv,
+    this.compressionType,
+    this.json,
+    this.parquet,
+  });
+}
+
+class InventoryConfiguration {
+  /// Contains information about where to publish the inventory results.
+  final InventoryDestination destination;
+
+  /// Specifies whether the inventory is enabled or disabled. If set to `True`,
+  /// an inventory list is generated. If set to `False`, no inventory list is
+  /// generated.
+  final bool isEnabled;
+
+  /// Specifies an inventory filter. The inventory only includes objects that
+  /// meet the filter's criteria.
+  final InventoryFilter filter;
+
+  /// The ID used to identify the inventory configuration.
+  final String id;
+
+  /// Object versions to include in the inventory list. If set to `All`, the
+  /// list includes all the object versions, which adds the version-related
+  /// fields `VersionId`, `IsLatest`, and `DeleteMarker` to the list. If set to
+  /// `Current`, the list does not contain these version-related fields.
+  final String includedObjectVersions;
+
+  /// Contains the optional fields that are included in the inventory results.
+  final List<String> optionalFields;
+
+  /// Specifies the schedule for generating inventory results.
+  final InventorySchedule schedule;
+
+  InventoryConfiguration({
+    @required this.destination,
+    @required this.isEnabled,
+    this.filter,
+    @required this.id,
+    @required this.includedObjectVersions,
+    this.optionalFields,
+    @required this.schedule,
+  });
+  static InventoryConfiguration fromJson(Map<String, dynamic> json) =>
+      InventoryConfiguration();
+}
+
+class InventoryDestination {
+  /// Contains the bucket name, file format, bucket owner (optional), and prefix
+  /// (optional) where inventory results are published.
+  final InventoryS3BucketDestination s3BucketDestination;
+
+  InventoryDestination({
+    @required this.s3BucketDestination,
+  });
+  static InventoryDestination fromJson(Map<String, dynamic> json) =>
+      InventoryDestination();
+}
+
+class InventoryEncryption {
+  /// Specifies the use of SSE-S3 to encrypt delivered Inventory reports.
+  final Sses3 sses3;
+
+  /// Specifies the use of SSE-KMS to encrypt delivered Inventory reports.
+  final Ssekms ssekms;
+
+  InventoryEncryption({
+    this.sses3,
+    this.ssekms,
+  });
+  static InventoryEncryption fromJson(Map<String, dynamic> json) =>
+      InventoryEncryption();
+}
+
+class InventoryFilter {
+  /// The prefix that an object must have to be included in the inventory
+  /// results.
+  final String prefix;
+
+  InventoryFilter({
+    @required this.prefix,
+  });
+  static InventoryFilter fromJson(Map<String, dynamic> json) =>
+      InventoryFilter();
+}
+
+class InventoryS3BucketDestination {
+  /// The ID of the account that owns the destination bucket.
+  final String accountId;
+
+  /// The Amazon resource name (ARN) of the bucket where inventory results will
+  /// be published.
+  final String bucket;
+
+  /// Specifies the output format of the inventory results.
+  final String format;
+
+  /// The prefix that is prepended to all inventory results.
+  final String prefix;
+
+  /// Contains the type of server-side encryption used to encrypt the inventory
+  /// results.
+  final InventoryEncryption encryption;
+
+  InventoryS3BucketDestination({
+    this.accountId,
+    @required this.bucket,
+    @required this.format,
+    this.prefix,
+    this.encryption,
+  });
+  static InventoryS3BucketDestination fromJson(Map<String, dynamic> json) =>
+      InventoryS3BucketDestination();
+}
+
+class InventorySchedule {
+  /// Specifies how frequently inventory results are produced.
+  final String frequency;
+
+  InventorySchedule({
+    @required this.frequency,
+  });
+  static InventorySchedule fromJson(Map<String, dynamic> json) =>
+      InventorySchedule();
+}
+
+class JsonInput {
+  /// The type of JSON. Valid values: Document, Lines.
+  final String type;
+
+  JsonInput({
+    this.type,
+  });
+}
+
+class JsonOutput {
+  /// The value used to separate individual records in the output.
+  final String recordDelimiter;
+
+  JsonOutput({
+    this.recordDelimiter,
+  });
+}
+
+class LambdaFunctionConfiguration {
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of the AWS Lambda function that Amazon S3
+  /// invokes when the specified event type occurs.
+  final String lambdaFunctionArn;
+
+  /// The Amazon S3 bucket event for which to invoke the AWS Lambda function.
+  /// For more information, see [Supported Event
+  /// Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  final List<String> events;
+
+  final NotificationConfigurationFilter filter;
+
+  LambdaFunctionConfiguration({
+    this.id,
+    @required this.lambdaFunctionArn,
+    @required this.events,
+    this.filter,
+  });
+  static LambdaFunctionConfiguration fromJson(Map<String, dynamic> json) =>
+      LambdaFunctionConfiguration();
+}
+
+class LifecycleConfiguration {
+  final List<Rule> rules;
+
+  LifecycleConfiguration({
+    @required this.rules,
+  });
+}
+
+class LifecycleExpiration {
+  /// Indicates at what date the object is to be moved or deleted. Should be in
+  /// GMT ISO 8601 Format.
+  final DateTime date;
+
+  /// Indicates the lifetime, in days, of the objects that are subject to the
+  /// rule. The value must be a non-zero positive integer.
+  final int days;
+
+  /// Indicates whether Amazon S3 will remove a delete marker with no noncurrent
+  /// versions. If set to true, the delete marker will be expired; if set to
+  /// false the policy takes no action. This cannot be specified with Days or
+  /// Date in a Lifecycle Expiration Policy.
+  final bool expiredObjectDeleteMarker;
+
+  LifecycleExpiration({
+    this.date,
+    this.days,
+    this.expiredObjectDeleteMarker,
+  });
+  static LifecycleExpiration fromJson(Map<String, dynamic> json) =>
+      LifecycleExpiration();
+}
+
+class LifecycleRule {
+  final LifecycleExpiration expiration;
+
+  /// Unique identifier for the rule. The value cannot be longer than 255
+  /// characters.
+  final String id;
+
+  /// Prefix identifying one or more objects to which the rule applies. This is
+  /// No longer used; use Filter instead.
+  final String prefix;
+
+  final LifecycleRuleFilter filter;
+
+  /// If 'Enabled', the rule is currently being applied. If 'Disabled', the rule
+  /// is not currently being applied.
+  final String status;
+
+  final List<Transition> transitions;
+
+  final List<NoncurrentVersionTransition> noncurrentVersionTransitions;
+
+  final NoncurrentVersionExpiration noncurrentVersionExpiration;
+
+  final AbortIncompleteMultipartUpload abortIncompleteMultipartUpload;
+
+  LifecycleRule({
+    this.expiration,
+    this.id,
+    this.prefix,
+    this.filter,
+    @required this.status,
+    this.transitions,
+    this.noncurrentVersionTransitions,
+    this.noncurrentVersionExpiration,
+    this.abortIncompleteMultipartUpload,
+  });
+  static LifecycleRule fromJson(Map<String, dynamic> json) => LifecycleRule();
+}
+
+class LifecycleRuleAndOperator {
+  final String prefix;
+
+  /// All of these tags must exist in the object's tag set in order for the rule
+  /// to apply.
+  final List<Tag> tags;
+
+  LifecycleRuleAndOperator({
+    this.prefix,
+    this.tags,
+  });
+  static LifecycleRuleAndOperator fromJson(Map<String, dynamic> json) =>
+      LifecycleRuleAndOperator();
+}
+
+class LifecycleRuleFilter {
+  /// Prefix identifying one or more objects to which the rule applies.
+  final String prefix;
+
+  /// This tag must exist in the object's tag set in order for the rule to
+  /// apply.
+  final Tag tag;
+
+  final LifecycleRuleAndOperator and;
+
+  LifecycleRuleFilter({
+    this.prefix,
+    this.tag,
+    this.and,
+  });
+  static LifecycleRuleFilter fromJson(Map<String, dynamic> json) =>
+      LifecycleRuleFilter();
+}
+
+class ListBucketAnalyticsConfigurationsOutput {
+  /// Indicates whether the returned list of analytics configurations is
+  /// complete. A value of true indicates that the list is not complete and the
+  /// NextContinuationToken will be provided for a subsequent request.
+  final bool isTruncated;
+
+  /// The ContinuationToken that represents where this request began.
+  final String continuationToken;
+
+  /// NextContinuationToken is sent when isTruncated is true, which indicates
+  /// that there are more analytics configurations to list. The next request
+  /// must include this NextContinuationToken. The token is obfuscated and is
+  /// not a usable value.
+  final String nextContinuationToken;
+
+  /// The list of analytics configurations for a bucket.
+  final List<AnalyticsConfiguration> analyticsConfigurationList;
+
+  ListBucketAnalyticsConfigurationsOutput({
+    this.isTruncated,
+    this.continuationToken,
+    this.nextContinuationToken,
+    this.analyticsConfigurationList,
+  });
+  static ListBucketAnalyticsConfigurationsOutput fromJson(
+          Map<String, dynamic> json) =>
+      ListBucketAnalyticsConfigurationsOutput();
+}
+
+class ListBucketInventoryConfigurationsOutput {
+  /// If sent in the request, the marker that is used as a starting point for
+  /// this inventory configuration list response.
+  final String continuationToken;
+
+  /// The list of inventory configurations for a bucket.
+  final List<InventoryConfiguration> inventoryConfigurationList;
+
+  /// Indicates whether the returned list of inventory configurations is
+  /// truncated in this response. A value of true indicates that the list is
+  /// truncated.
+  final bool isTruncated;
+
+  /// The marker used to continue this inventory configuration listing. Use the
+  /// NextContinuationToken from this response to continue the listing in a
+  /// subsequent request. The continuation token is an opaque value that Amazon
+  /// S3 understands.
+  final String nextContinuationToken;
+
+  ListBucketInventoryConfigurationsOutput({
+    this.continuationToken,
+    this.inventoryConfigurationList,
+    this.isTruncated,
+    this.nextContinuationToken,
+  });
+  static ListBucketInventoryConfigurationsOutput fromJson(
+          Map<String, dynamic> json) =>
+      ListBucketInventoryConfigurationsOutput();
+}
+
+class ListBucketMetricsConfigurationsOutput {
+  /// Indicates whether the returned list of metrics configurations is complete.
+  /// A value of true indicates that the list is not complete and the
+  /// NextContinuationToken will be provided for a subsequent request.
+  final bool isTruncated;
+
+  /// The marker that is used as a starting point for this metrics configuration
+  /// list response. This value is present if it was sent in the request.
+  final String continuationToken;
+
+  /// The marker used to continue a metrics configuration listing that has been
+  /// truncated. Use the NextContinuationToken from a previously truncated list
+  /// response to continue the listing. The continuation token is an opaque
+  /// value that Amazon S3 understands.
+  final String nextContinuationToken;
+
+  /// The list of metrics configurations for a bucket.
+  final List<MetricsConfiguration> metricsConfigurationList;
+
+  ListBucketMetricsConfigurationsOutput({
+    this.isTruncated,
+    this.continuationToken,
+    this.nextContinuationToken,
+    this.metricsConfigurationList,
+  });
+  static ListBucketMetricsConfigurationsOutput fromJson(
+          Map<String, dynamic> json) =>
+      ListBucketMetricsConfigurationsOutput();
+}
+
+class ListBucketsOutput {
+  final List<Bucket> buckets;
+
+  final Owner owner;
+
+  ListBucketsOutput({
+    this.buckets,
+    this.owner,
+  });
+  static ListBucketsOutput fromJson(Map<String, dynamic> json) =>
+      ListBucketsOutput();
+}
+
+class ListMultipartUploadsOutput {
+  /// Name of the bucket to which the multipart upload was initiated.
+  final String bucket;
+
+  /// The key at or after which the listing began.
+  final String keyMarker;
+
+  /// Upload ID after which listing began.
+  final String uploadIdMarker;
+
+  /// When a list is truncated, this element specifies the value that should be
+  /// used for the key-marker request parameter in a subsequent request.
+  final String nextKeyMarker;
+
+  /// When a prefix is provided in the request, this field contains the
+  /// specified prefix. The result contains only keys starting with the
+  /// specified prefix.
+  final String prefix;
+
+  final String delimiter;
+
+  /// When a list is truncated, this element specifies the value that should be
+  /// used for the upload-id-marker request parameter in a subsequent request.
+  final String nextUploadIdMarker;
+
+  /// Maximum number of multipart uploads that could have been included in the
+  /// response.
+  final int maxUploads;
+
+  /// Indicates whether the returned list of multipart uploads is truncated. A
+  /// value of true indicates that the list was truncated. The list can be
+  /// truncated if the number of multipart uploads exceeds the limit allowed or
+  /// specified by max uploads.
+  final bool isTruncated;
+
+  final List<MultipartUpload> uploads;
+
+  final List<CommonPrefix> commonPrefixes;
+
+  /// Encoding type used by Amazon S3 to encode object keys in the response.
+  final String encodingType;
+
+  ListMultipartUploadsOutput({
+    this.bucket,
+    this.keyMarker,
+    this.uploadIdMarker,
+    this.nextKeyMarker,
+    this.prefix,
+    this.delimiter,
+    this.nextUploadIdMarker,
+    this.maxUploads,
+    this.isTruncated,
+    this.uploads,
+    this.commonPrefixes,
+    this.encodingType,
+  });
+  static ListMultipartUploadsOutput fromJson(Map<String, dynamic> json) =>
+      ListMultipartUploadsOutput();
+}
+
+class ListObjectVersionsOutput {
+  /// A flag that indicates whether or not Amazon S3 returned all of the results
+  /// that satisfied the search criteria. If your results were truncated, you
+  /// can make a follow-up paginated request using the NextKeyMarker and
+  /// NextVersionIdMarker response parameters as a starting place in another
+  /// request to return the rest of the results.
+  final bool isTruncated;
+
+  /// Marks the last Key returned in a truncated response.
+  final String keyMarker;
+
+  final String versionIdMarker;
+
+  /// Use this value for the key marker request parameter in a subsequent
+  /// request.
+  final String nextKeyMarker;
+
+  /// Use this value for the next version id marker parameter in a subsequent
+  /// request.
+  final String nextVersionIdMarker;
+
+  final List<ObjectVersion> versions;
+
+  final List<DeleteMarkerEntry> deleteMarkers;
+
+  final String name;
+
+  final String prefix;
+
+  final String delimiter;
+
+  final int maxKeys;
+
+  final List<CommonPrefix> commonPrefixes;
+
+  /// Encoding type used by Amazon S3 to encode object keys in the response.
+  final String encodingType;
+
+  ListObjectVersionsOutput({
+    this.isTruncated,
+    this.keyMarker,
+    this.versionIdMarker,
+    this.nextKeyMarker,
+    this.nextVersionIdMarker,
+    this.versions,
+    this.deleteMarkers,
+    this.name,
+    this.prefix,
+    this.delimiter,
+    this.maxKeys,
+    this.commonPrefixes,
+    this.encodingType,
+  });
+  static ListObjectVersionsOutput fromJson(Map<String, dynamic> json) =>
+      ListObjectVersionsOutput();
+}
+
+class ListObjectsOutput {
+  /// A flag that indicates whether or not Amazon S3 returned all of the results
+  /// that satisfied the search criteria.
+  final bool isTruncated;
+
+  final String marker;
+
+  /// When response is truncated (the IsTruncated element value in the response
+  /// is true), you can use the key name in this field as marker in the
+  /// subsequent request to get next set of objects. Amazon S3 lists objects in
+  /// alphabetical order Note: This element is returned only if you have
+  /// delimiter request parameter specified. If response does not include the
+  /// NextMaker and it is truncated, you can use the value of the last Key in
+  /// the response as the marker in the subsequent request to get the next set
+  /// of object keys.
+  final String nextMarker;
+
+  final List<Object> contents;
+
+  final String name;
+
+  final String prefix;
+
+  final String delimiter;
+
+  final int maxKeys;
+
+  final List<CommonPrefix> commonPrefixes;
+
+  /// Encoding type used by Amazon S3 to encode object keys in the response.
+  final String encodingType;
+
+  ListObjectsOutput({
+    this.isTruncated,
+    this.marker,
+    this.nextMarker,
+    this.contents,
+    this.name,
+    this.prefix,
+    this.delimiter,
+    this.maxKeys,
+    this.commonPrefixes,
+    this.encodingType,
+  });
+  static ListObjectsOutput fromJson(Map<String, dynamic> json) =>
+      ListObjectsOutput();
+}
+
+class ListObjectsV2Output {
+  /// A flag that indicates whether or not Amazon S3 returned all of the results
+  /// that satisfied the search criteria.
+  final bool isTruncated;
+
+  /// Metadata about each object returned.
+  final List<Object> contents;
+
+  /// Name of the bucket to list.
+  final String name;
+
+  /// Limits the response to keys that begin with the specified prefix.
+  final String prefix;
+
+  /// A delimiter is a character you use to group keys.
+  final String delimiter;
+
+  /// Sets the maximum number of keys returned in the response. The response
+  /// might contain fewer keys but will never contain more.
+  final int maxKeys;
+
+  /// CommonPrefixes contains all (if there are any) keys between Prefix and the
+  /// next occurrence of the string specified by delimiter
+  final List<CommonPrefix> commonPrefixes;
+
+  /// Encoding type used by Amazon S3 to encode object keys in the response.
+  final String encodingType;
+
+  /// KeyCount is the number of keys returned with this request. KeyCount will
+  /// always be less than equals to MaxKeys field. Say you ask for 50 keys, your
+  /// result will include less than equals 50 keys
+  final int keyCount;
+
+  /// ContinuationToken indicates Amazon S3 that the list is being continued on
+  /// this bucket with a token. ContinuationToken is obfuscated and is not a
+  /// real key
+  final String continuationToken;
+
+  /// NextContinuationToken is sent when isTruncated is true which means there
+  /// are more keys in the bucket that can be listed. The next list requests to
+  /// Amazon S3 can be continued with this NextContinuationToken.
+  /// NextContinuationToken is obfuscated and is not a real key
+  final String nextContinuationToken;
+
+  /// StartAfter is where you want Amazon S3 to start listing from. Amazon S3
+  /// starts listing after this specified key. StartAfter can be any key in the
+  /// bucket
+  final String startAfter;
+
+  ListObjectsV2Output({
+    this.isTruncated,
+    this.contents,
+    this.name,
+    this.prefix,
+    this.delimiter,
+    this.maxKeys,
+    this.commonPrefixes,
+    this.encodingType,
+    this.keyCount,
+    this.continuationToken,
+    this.nextContinuationToken,
+    this.startAfter,
+  });
+  static ListObjectsV2Output fromJson(Map<String, dynamic> json) =>
+      ListObjectsV2Output();
+}
+
+class ListPartsOutput {
+  /// Date when multipart upload will become eligible for abort operation by
+  /// lifecycle.
+  final DateTime abortDate;
+
+  /// Id of the lifecycle rule that makes a multipart upload eligible for abort
+  /// operation.
+  final String abortRuleId;
+
+  /// Name of the bucket to which the multipart upload was initiated.
+  final String bucket;
+
+  /// Object key for which the multipart upload was initiated.
+  final String key;
+
+  /// Upload ID identifying the multipart upload whose parts are being listed.
+  final String uploadId;
+
+  /// Part number after which listing begins.
+  final int partNumberMarker;
+
+  /// When a list is truncated, this element specifies the last part in the
+  /// list, as well as the value to use for the part-number-marker request
+  /// parameter in a subsequent request.
+  final int nextPartNumberMarker;
+
+  /// Maximum number of parts that were allowed in the response.
+  final int maxParts;
+
+  /// Indicates whether the returned list of parts is truncated.
+  final bool isTruncated;
+
+  final List<Part> parts;
+
+  /// Identifies who initiated the multipart upload.
+  final Initiator initiator;
+
+  final Owner owner;
+
+  /// The class of storage used to store the object.
+  final String storageClass;
+
+  final String requestCharged;
+
+  ListPartsOutput({
+    this.abortDate,
+    this.abortRuleId,
+    this.bucket,
+    this.key,
+    this.uploadId,
+    this.partNumberMarker,
+    this.nextPartNumberMarker,
+    this.maxParts,
+    this.isTruncated,
+    this.parts,
+    this.initiator,
+    this.owner,
+    this.storageClass,
+    this.requestCharged,
+  });
+  static ListPartsOutput fromJson(Map<String, dynamic> json) =>
+      ListPartsOutput();
+}
+
+class LoggingEnabled {
+  /// Specifies the bucket where you want Amazon S3 to store server access logs.
+  /// You can have your logs delivered to any bucket that you own, including the
+  /// same bucket that is being logged. You can also configure multiple buckets
+  /// to deliver their logs to the same target bucket. In this case you should
+  /// choose a different TargetPrefix for each source bucket so that the
+  /// delivered log files can be distinguished by key.
+  final String targetBucket;
+
+  final List<TargetGrant> targetGrants;
+
+  /// A prefix for all log object keys. If you store log files from multiple
+  /// Amazon S3 buckets in a single bucket, you can use a prefix to distinguish
+  /// which log files came from which bucket.
+  final String targetPrefix;
+
+  LoggingEnabled({
+    @required this.targetBucket,
+    this.targetGrants,
+    @required this.targetPrefix,
+  });
+  static LoggingEnabled fromJson(Map<String, dynamic> json) => LoggingEnabled();
+}
+
+class MetadataEntry {
+  final String name;
+
+  final String value;
+
+  MetadataEntry({
+    this.name,
+    this.value,
+  });
+}
+
+class MetricsAndOperator {
+  /// The prefix used when evaluating an AND predicate.
+  final String prefix;
+
+  /// The list of tags used when evaluating an AND predicate.
+  final List<Tag> tags;
+
+  MetricsAndOperator({
+    this.prefix,
+    this.tags,
+  });
+  static MetricsAndOperator fromJson(Map<String, dynamic> json) =>
+      MetricsAndOperator();
+}
+
+class MetricsConfiguration {
+  /// The ID used to identify the metrics configuration.
+  final String id;
+
+  /// Specifies a metrics configuration filter. The metrics configuration will
+  /// only include objects that meet the filter's criteria. A filter must be a
+  /// prefix, a tag, or a conjunction (MetricsAndOperator).
+  final MetricsFilter filter;
+
+  MetricsConfiguration({
+    @required this.id,
+    this.filter,
+  });
+  static MetricsConfiguration fromJson(Map<String, dynamic> json) =>
+      MetricsConfiguration();
+}
+
+class MetricsFilter {
+  /// The prefix used when evaluating a metrics filter.
+  final String prefix;
+
+  /// The tag used when evaluating a metrics filter.
+  final Tag tag;
+
+  /// A conjunction (logical AND) of predicates, which is used in evaluating a
+  /// metrics filter. The operator must have at least two predicates, and an
+  /// object must match all of the predicates in order for the filter to apply.
+  final MetricsAndOperator and;
+
+  MetricsFilter({
+    this.prefix,
+    this.tag,
+    this.and,
+  });
+  static MetricsFilter fromJson(Map<String, dynamic> json) => MetricsFilter();
+}
+
+class MultipartUpload {
+  /// Upload ID that identifies the multipart upload.
+  final String uploadId;
+
+  /// Key of the object for which the multipart upload was initiated.
+  final String key;
+
+  /// Date and time at which the multipart upload was initiated.
+  final DateTime initiated;
+
+  /// The class of storage used to store the object.
+  final String storageClass;
+
+  final Owner owner;
+
+  /// Identifies who initiated the multipart upload.
+  final Initiator initiator;
+
+  MultipartUpload({
+    this.uploadId,
+    this.key,
+    this.initiated,
+    this.storageClass,
+    this.owner,
+    this.initiator,
+  });
+  static MultipartUpload fromJson(Map<String, dynamic> json) =>
+      MultipartUpload();
+}
+
+class NoncurrentVersionExpiration {
+  /// Specifies the number of days an object is noncurrent before Amazon S3 can
+  /// perform the associated action. For information about the noncurrent days
+  /// calculations, see [How Amazon S3 Calculates When an Object Became
+  /// Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations)
+  /// in the Amazon Simple Storage Service Developer Guide.
+  final int noncurrentDays;
+
+  NoncurrentVersionExpiration({
+    this.noncurrentDays,
+  });
+  static NoncurrentVersionExpiration fromJson(Map<String, dynamic> json) =>
+      NoncurrentVersionExpiration();
+}
+
+class NoncurrentVersionTransition {
+  /// Specifies the number of days an object is noncurrent before Amazon S3 can
+  /// perform the associated action. For information about the noncurrent days
+  /// calculations, see [How Amazon S3 Calculates When an Object Became
+  /// Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  final int noncurrentDays;
+
+  /// The class of storage used to store the object.
+  final String storageClass;
+
+  NoncurrentVersionTransition({
+    this.noncurrentDays,
+    this.storageClass,
+  });
+  static NoncurrentVersionTransition fromJson(Map<String, dynamic> json) =>
+      NoncurrentVersionTransition();
+}
+
+class NotificationConfiguration {
+  /// The topic to which notifications are sent and the events for which
+  /// notifications are generated.
+  final List<TopicConfiguration> topicConfigurations;
+
+  /// The Amazon Simple Queue Service queues to publish messages to and the
+  /// events for which to publish messages.
+  final List<QueueConfiguration> queueConfigurations;
+
+  /// Describes the AWS Lambda functions to invoke and the events for which to
+  /// invoke them.
+  final List<LambdaFunctionConfiguration> lambdaFunctionConfigurations;
+
+  NotificationConfiguration({
+    this.topicConfigurations,
+    this.queueConfigurations,
+    this.lambdaFunctionConfigurations,
+  });
+  static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
+      NotificationConfiguration();
+}
+
+class NotificationConfigurationDeprecated {
+  final TopicConfigurationDeprecated topicConfiguration;
+
+  final QueueConfigurationDeprecated queueConfiguration;
+
+  final CloudFunctionConfiguration cloudFunctionConfiguration;
+
+  NotificationConfigurationDeprecated({
+    this.topicConfiguration,
+    this.queueConfiguration,
+    this.cloudFunctionConfiguration,
+  });
+  static NotificationConfigurationDeprecated fromJson(
+          Map<String, dynamic> json) =>
+      NotificationConfigurationDeprecated();
+}
+
+class NotificationConfigurationFilter {
+  final S3KeyFilter key;
+
+  NotificationConfigurationFilter({
+    this.key,
+  });
+  static NotificationConfigurationFilter fromJson(Map<String, dynamic> json) =>
+      NotificationConfigurationFilter();
+}
+
+class Object {
+  final String key;
+
+  final DateTime lastModified;
+
+  final String eTag;
+
+  final int size;
+
+  /// The class of storage used to store the object.
+  final String storageClass;
+
+  final Owner owner;
+
+  Object({
+    this.key,
+    this.lastModified,
+    this.eTag,
+    this.size,
+    this.storageClass,
+    this.owner,
+  });
+  static Object fromJson(Map<String, dynamic> json) => Object();
+}
+
+class ObjectIdentifier {
+  /// Key name of the object to delete.
+  final String key;
+
+  /// VersionId for the specific version of the object to delete.
+  final String versionId;
+
+  ObjectIdentifier({
+    @required this.key,
+    this.versionId,
+  });
+}
+
+class ObjectLockConfiguration {
+  /// Indicates whether this bucket has an object lock configuration enabled.
+  final String objectLockEnabled;
+
+  /// The object lock rule in place for the specified object.
+  final ObjectLockRule rule;
+
+  ObjectLockConfiguration({
+    this.objectLockEnabled,
+    this.rule,
+  });
+  static ObjectLockConfiguration fromJson(Map<String, dynamic> json) =>
+      ObjectLockConfiguration();
+}
+
+class ObjectLockLegalHold {
+  /// Indicates whether the specified object has a Legal Hold in place.
+  final String status;
+
+  ObjectLockLegalHold({
+    this.status,
+  });
+  static ObjectLockLegalHold fromJson(Map<String, dynamic> json) =>
+      ObjectLockLegalHold();
+}
+
+class ObjectLockRetention {
+  /// Indicates the Retention mode for the specified object.
+  final String mode;
+
+  /// The date on which this object lock retention expires.
+  final DateTime retainUntilDate;
+
+  ObjectLockRetention({
+    this.mode,
+    this.retainUntilDate,
+  });
+  static ObjectLockRetention fromJson(Map<String, dynamic> json) =>
+      ObjectLockRetention();
+}
+
+class ObjectLockRule {
+  /// The default retention period that you want to apply to new objects placed
+  /// in the specified bucket.
+  final DefaultRetention defaultRetention;
+
+  ObjectLockRule({
+    this.defaultRetention,
+  });
+  static ObjectLockRule fromJson(Map<String, dynamic> json) => ObjectLockRule();
+}
+
+class ObjectVersion {
+  final String eTag;
+
+  /// Size in bytes of the object.
+  final int size;
+
+  /// The class of storage used to store the object.
+  final String storageClass;
+
+  /// The object key.
+  final String key;
+
+  /// Version ID of an object.
+  final String versionId;
+
+  /// Specifies whether the object is (true) or is not (false) the latest
+  /// version of an object.
+  final bool isLatest;
+
+  /// Date and time the object was last modified.
+  final DateTime lastModified;
+
+  final Owner owner;
+
+  ObjectVersion({
+    this.eTag,
+    this.size,
+    this.storageClass,
+    this.key,
+    this.versionId,
+    this.isLatest,
+    this.lastModified,
+    this.owner,
+  });
+  static ObjectVersion fromJson(Map<String, dynamic> json) => ObjectVersion();
+}
+
+class OutputLocation {
+  /// Describes an S3 location that will receive the results of the restore
+  /// request.
+  final S3Location s3;
+
+  OutputLocation({
+    this.s3,
+  });
+}
+
+class OutputSerialization {
+  /// Describes the serialization of CSV-encoded Select results.
+  final CsvOutput csv;
+
+  /// Specifies JSON as request's output serialization format.
+  final JsonOutput json;
+
+  OutputSerialization({
+    this.csv,
+    this.json,
+  });
+}
+
+class Owner {
+  final String displayName;
+
+  final String id;
+
+  Owner({
+    this.displayName,
+    this.id,
+  });
+  static Owner fromJson(Map<String, dynamic> json) => Owner();
+}
+
+class ParquetInput {
+  ParquetInput();
+}
+
+class Part {
+  /// Part number identifying the part. This is a positive integer between 1 and
+  /// 10,000.
+  final int partNumber;
+
+  /// Date and time at which the part was uploaded.
+  final DateTime lastModified;
+
+  /// Entity tag returned when the part was uploaded.
+  final String eTag;
+
+  /// Size in bytes of the uploaded part data.
+  final int size;
+
+  Part({
+    this.partNumber,
+    this.lastModified,
+    this.eTag,
+    this.size,
+  });
+  static Part fromJson(Map<String, dynamic> json) => Part();
+}
+
+class PolicyStatus {
+  /// The policy status for this bucket. `TRUE` indicates that this bucket is
+  /// public. `FALSE` indicates that the bucket is not public.
+  final bool isPublic;
+
+  PolicyStatus({
+    this.isPublic,
+  });
+  static PolicyStatus fromJson(Map<String, dynamic> json) => PolicyStatus();
+}
+
+class Progress {
+  /// The current number of object bytes scanned.
+  final BigInt bytesScanned;
+
+  /// The current number of uncompressed object bytes processed.
+  final BigInt bytesProcessed;
+
+  /// The current number of bytes of records payload data returned.
+  final BigInt bytesReturned;
+
+  Progress({
+    this.bytesScanned,
+    this.bytesProcessed,
+    this.bytesReturned,
+  });
+  static Progress fromJson(Map<String, dynamic> json) => Progress();
+}
+
+class ProgressEvent {
+  /// The Progress event details.
+  final Progress details;
+
+  ProgressEvent({
+    this.details,
+  });
+  static ProgressEvent fromJson(Map<String, dynamic> json) => ProgressEvent();
+}
+
+class PublicAccessBlockConfiguration {
+  /// Specifies whether Amazon S3 should block public access control lists
+  /// (ACLs) for this bucket and objects in this bucket. Setting this element to
+  /// `TRUE` causes the following behavior:
+  ///
+  /// *   PUT Bucket acl and PUT Object acl calls fail if the specified ACL is
+  /// public.
+  ///
+  /// *   PUT Object calls fail if the request includes a public ACL.
+  ///
+  ///
+  /// Enabling this setting doesn't affect existing policies or ACLs.
+  final bool blockPublicAcls;
+
+  /// Specifies whether Amazon S3 should ignore public ACLs for this bucket and
+  /// objects in this bucket. Setting this element to `TRUE` causes Amazon S3 to
+  /// ignore all public ACLs on this bucket and objects in this bucket.
+  ///
+  /// Enabling this setting doesn't affect the persistence of any existing ACLs
+  /// and doesn't prevent new public ACLs from being set.
+  final bool ignorePublicAcls;
+
+  /// Specifies whether Amazon S3 should block public bucket policies for this
+  /// bucket. Setting this element to `TRUE` causes Amazon S3 to reject calls to
+  /// PUT Bucket policy if the specified bucket policy allows public access.
+  ///
+  /// Enabling this setting doesn't affect existing bucket policies.
+  final bool blockPublicPolicy;
+
+  /// Specifies whether Amazon S3 should restrict public bucket policies for
+  /// this bucket. Setting this element to `TRUE` restricts access to this
+  /// bucket to only AWS services and authorized users within this account if
+  /// the bucket has a public policy.
+  ///
+  /// Enabling this setting doesn't affect previously stored bucket policies,
+  /// except that public and cross-account access within any public bucket
+  /// policy, including non-public delegation to specific accounts, is blocked.
+  final bool restrictPublicBuckets;
+
+  PublicAccessBlockConfiguration({
+    this.blockPublicAcls,
+    this.ignorePublicAcls,
+    this.blockPublicPolicy,
+    this.restrictPublicBuckets,
+  });
+  static PublicAccessBlockConfiguration fromJson(Map<String, dynamic> json) =>
+      PublicAccessBlockConfiguration();
+}
+
+class PutObjectAclOutput {
+  final String requestCharged;
+
+  PutObjectAclOutput({
+    this.requestCharged,
+  });
+  static PutObjectAclOutput fromJson(Map<String, dynamic> json) =>
+      PutObjectAclOutput();
+}
+
+class PutObjectLegalHoldOutput {
+  final String requestCharged;
+
+  PutObjectLegalHoldOutput({
+    this.requestCharged,
+  });
+  static PutObjectLegalHoldOutput fromJson(Map<String, dynamic> json) =>
+      PutObjectLegalHoldOutput();
+}
+
+class PutObjectLockConfigurationOutput {
+  final String requestCharged;
+
+  PutObjectLockConfigurationOutput({
+    this.requestCharged,
+  });
+  static PutObjectLockConfigurationOutput fromJson(Map<String, dynamic> json) =>
+      PutObjectLockConfigurationOutput();
+}
+
+class PutObjectOutput {
+  /// If the object expiration is configured, this will contain the expiration
+  /// date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
+  /// encoded.
+  final String expiration;
+
+  /// Entity tag for the uploaded object.
+  final String eTag;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// Version of the object.
+  final String versionId;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  /// If present, specifies the AWS KMS Encryption Context to use for object
+  /// encryption. The value of this header is a base64-encoded UTF-8 string
+  /// holding JSON with the encryption context key-value pairs.
+  final String ssekmsEncryptionContext;
+
+  final String requestCharged;
+
+  PutObjectOutput({
+    this.expiration,
+    this.eTag,
+    this.serverSideEncryption,
+    this.versionId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.requestCharged,
+  });
+  static PutObjectOutput fromJson(Map<String, dynamic> json) =>
+      PutObjectOutput();
+}
+
+class PutObjectRetentionOutput {
+  final String requestCharged;
+
+  PutObjectRetentionOutput({
+    this.requestCharged,
+  });
+  static PutObjectRetentionOutput fromJson(Map<String, dynamic> json) =>
+      PutObjectRetentionOutput();
+}
+
+class PutObjectTaggingOutput {
+  final String versionId;
+
+  PutObjectTaggingOutput({
+    this.versionId,
+  });
+  static PutObjectTaggingOutput fromJson(Map<String, dynamic> json) =>
+      PutObjectTaggingOutput();
+}
+
+class QueueConfiguration {
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3
+  /// publishes a message when it detects events of the specified type.
+  final String queueArn;
+
+  final List<String> events;
+
+  final NotificationConfigurationFilter filter;
+
+  QueueConfiguration({
+    this.id,
+    @required this.queueArn,
+    @required this.events,
+    this.filter,
+  });
+  static QueueConfiguration fromJson(Map<String, dynamic> json) =>
+      QueueConfiguration();
+}
+
+class QueueConfigurationDeprecated {
+  final String id;
+
+  final String event;
+
+  final List<String> events;
+
+  final String queue;
+
+  QueueConfigurationDeprecated({
+    this.id,
+    this.event,
+    this.events,
+    this.queue,
+  });
+  static QueueConfigurationDeprecated fromJson(Map<String, dynamic> json) =>
+      QueueConfigurationDeprecated();
+}
+
+class RecordsEvent {
+  /// The byte array of partial, one or more result records.
+  final Uint8List payload;
+
+  RecordsEvent({
+    this.payload,
+  });
+  static RecordsEvent fromJson(Map<String, dynamic> json) => RecordsEvent();
+}
+
+class Redirect {
+  /// The host name to use in the redirect request.
+  final String hostName;
+
+  /// The HTTP redirect code to use on the response. Not required if one of the
+  /// siblings is present.
+  final String httpRedirectCode;
+
+  /// Protocol to use when redirecting requests. The default is the protocol
+  /// that is used in the original request.
+  final String protocol;
+
+  /// The object key prefix to use in the redirect request. For example, to
+  /// redirect requests for all pages with prefix `docs/` (objects in the
+  /// `docs/` folder) to `documents/`, you can set a condition block with
+  /// `KeyPrefixEquals` set to `docs/` and in the Redirect set
+  /// `ReplaceKeyPrefixWith` to `/documents`. Not required if one of the
+  /// siblings is present. Can be present only if `ReplaceKeyWith` is not
+  /// provided.
+  final String replaceKeyPrefixWith;
+
+  /// The specific object key to use in the redirect request. For example,
+  /// redirect request to `error.html`. Not required if one of the siblings is
+  /// present. Can be present only if `ReplaceKeyPrefixWith` is not provided.
+  final String replaceKeyWith;
+
+  Redirect({
+    this.hostName,
+    this.httpRedirectCode,
+    this.protocol,
+    this.replaceKeyPrefixWith,
+    this.replaceKeyWith,
+  });
+  static Redirect fromJson(Map<String, dynamic> json) => Redirect();
+}
+
+class RedirectAllRequestsTo {
+  /// Name of the host where requests are redirected.
+  final String hostName;
+
+  /// Protocol to use when redirecting requests. The default is the protocol
+  /// that is used in the original request.
+  final String protocol;
+
+  RedirectAllRequestsTo({
+    @required this.hostName,
+    this.protocol,
+  });
+  static RedirectAllRequestsTo fromJson(Map<String, dynamic> json) =>
+      RedirectAllRequestsTo();
+}
+
+class ReplicationConfiguration {
+  /// The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+  /// (IAM) role that Amazon S3 assumes when replicating objects. For more
+  /// information, see [How to Set Up Cross-Region
+  /// Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-how-setup.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  final String role;
+
+  /// A container for one or more replication rules. A replication configuration
+  /// must have at least one rule and can contain a maximum of 1,000 rules.
+  final List<ReplicationRule> rules;
+
+  ReplicationConfiguration({
+    @required this.role,
+    @required this.rules,
+  });
+  static ReplicationConfiguration fromJson(Map<String, dynamic> json) =>
+      ReplicationConfiguration();
+}
+
+class ReplicationRule {
+  /// A unique identifier for the rule. The maximum value is 255 characters.
+  final String id;
+
+  /// The priority associated with the rule. If you specify multiple rules in a
+  /// replication configuration, Amazon S3 prioritizes the rules to prevent
+  /// conflicts when filtering. If two or more rules identify the same object
+  /// based on a specified filter, the rule with higher priority takes
+  /// precedence. For example:
+  ///
+  /// *   Same object quality prefix based filter criteria If prefixes you
+  /// specified in multiple rules overlap
+  ///
+  /// *   Same object qualify tag based filter criteria specified in multiple
+  /// rules
+  ///
+  ///
+  /// For more information, see [Cross-Region Replication
+  /// (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html) in the
+  /// _Amazon S3 Developer Guide_.
+  final int priority;
+
+  /// An object keyname prefix that identifies the object or objects to which
+  /// the rule applies. The maximum prefix length is 1,024 characters. To
+  /// include all objects in a bucket, specify an empty string.
+  final String prefix;
+
+  final ReplicationRuleFilter filter;
+
+  /// Specifies whether the rule is enabled.
+  final String status;
+
+  /// A container that describes additional filters for identifying the source
+  /// objects that you want to replicate. You can choose to enable or disable
+  /// the replication of these objects. Currently, Amazon S3 supports only the
+  /// filter that you can specify for objects created with server-side
+  /// encryption using an AWS KMS-Managed Key (SSE-KMS).
+  final SourceSelectionCriteria sourceSelectionCriteria;
+
+  /// A container for information about the replication destination.
+  final Destination destination;
+
+  final DeleteMarkerReplication deleteMarkerReplication;
+
+  ReplicationRule({
+    this.id,
+    this.priority,
+    this.prefix,
+    this.filter,
+    @required this.status,
+    this.sourceSelectionCriteria,
+    @required this.destination,
+    this.deleteMarkerReplication,
+  });
+  static ReplicationRule fromJson(Map<String, dynamic> json) =>
+      ReplicationRule();
+}
+
+class ReplicationRuleAndOperator {
+  final String prefix;
+
+  final List<Tag> tags;
+
+  ReplicationRuleAndOperator({
+    this.prefix,
+    this.tags,
+  });
+  static ReplicationRuleAndOperator fromJson(Map<String, dynamic> json) =>
+      ReplicationRuleAndOperator();
+}
+
+class ReplicationRuleFilter {
+  /// An object keyname prefix that identifies the subset of objects to which
+  /// the rule applies.
+  final String prefix;
+
+  /// A container for specifying a tag key and value.
+  ///
+  /// The rule applies only to objects that have the tag in their tag set.
+  final Tag tag;
+
+  /// A container for specifying rule filters. The filters determine the subset
+  /// of objects to which the rule applies. This element is required only if you
+  /// specify more than one filter. For example:
+  ///
+  /// *   If you specify both a `Prefix` and a `Tag` filter, wrap these filters
+  /// in an `And` tag.
+  ///
+  /// *   If you specify a filter based on multiple tags, wrap the `Tag`
+  /// elements in an `And` tag.
+  final ReplicationRuleAndOperator and;
+
+  ReplicationRuleFilter({
+    this.prefix,
+    this.tag,
+    this.and,
+  });
+  static ReplicationRuleFilter fromJson(Map<String, dynamic> json) =>
+      ReplicationRuleFilter();
+}
+
+class RequestPaymentConfiguration {
+  /// Specifies who pays for the download and request fees.
+  final String payer;
+
+  RequestPaymentConfiguration({
+    @required this.payer,
+  });
+}
+
+class RequestProgress {
+  /// Specifies whether periodic QueryProgress frames should be sent. Valid
+  /// values: TRUE, FALSE. Default value: FALSE.
+  final bool enabled;
+
+  RequestProgress({
+    this.enabled,
+  });
+}
+
+class RestoreObjectOutput {
+  final String requestCharged;
+
+  /// Indicates the path in the provided S3 output location where Select results
+  /// will be restored to.
+  final String restoreOutputPath;
+
+  RestoreObjectOutput({
+    this.requestCharged,
+    this.restoreOutputPath,
+  });
+  static RestoreObjectOutput fromJson(Map<String, dynamic> json) =>
+      RestoreObjectOutput();
+}
+
+class RestoreRequest {
+  /// Lifetime of the active copy in days. Do not use with restores that specify
+  /// OutputLocation.
+  final int days;
+
+  /// Glacier related parameters pertaining to this job. Do not use with
+  /// restores that specify OutputLocation.
+  final GlacierJobParameters glacierJobParameters;
+
+  /// Type of restore request.
+  final String type;
+
+  /// Glacier retrieval tier at which the restore will be processed.
+  final String tier;
+
+  /// The optional description for the job.
+  final String description;
+
+  /// Describes the parameters for Select job types.
+  final SelectParameters selectParameters;
+
+  /// Describes the location where the restore job's output is stored.
+  final OutputLocation outputLocation;
+
+  RestoreRequest({
+    this.days,
+    this.glacierJobParameters,
+    this.type,
+    this.tier,
+    this.description,
+    this.selectParameters,
+    this.outputLocation,
+  });
+}
+
+class RoutingRule {
+  /// A container for describing a condition that must be met for the specified
+  /// redirect to apply. For example, 1. If request is for pages in the `/docs`
+  /// folder, redirect to the `/documents` folder. 2. If request results in HTTP
+  /// error 4xx, redirect request to another host where you might process the
+  /// error.
+  final Condition condition;
+
+  /// Container for redirect information. You can redirect requests to another
+  /// host, to another page, or with another protocol. In the event of an error,
+  /// you can specify a different error code to return.
+  final Redirect redirect;
+
+  RoutingRule({
+    this.condition,
+    @required this.redirect,
+  });
+  static RoutingRule fromJson(Map<String, dynamic> json) => RoutingRule();
+}
+
+class Rule {
+  final LifecycleExpiration expiration;
+
+  /// Unique identifier for the rule. The value can't be longer than 255
+  /// characters.
+  final String id;
+
+  /// Object key prefix that identifies one or more objects to which this rule
+  /// applies.
+  final String prefix;
+
+  /// If `Enabled`, the rule is currently being applied. If `Disabled`, the rule
+  /// is not currently being applied.
+  final String status;
+
+  final Transition transition;
+
+  final NoncurrentVersionTransition noncurrentVersionTransition;
+
+  final NoncurrentVersionExpiration noncurrentVersionExpiration;
+
+  final AbortIncompleteMultipartUpload abortIncompleteMultipartUpload;
+
+  Rule({
+    this.expiration,
+    this.id,
+    @required this.prefix,
+    @required this.status,
+    this.transition,
+    this.noncurrentVersionTransition,
+    this.noncurrentVersionExpiration,
+    this.abortIncompleteMultipartUpload,
+  });
+  static Rule fromJson(Map<String, dynamic> json) => Rule();
+}
+
+class S3KeyFilter {
+  final List<FilterRule> filterRules;
+
+  S3KeyFilter({
+    this.filterRules,
+  });
+  static S3KeyFilter fromJson(Map<String, dynamic> json) => S3KeyFilter();
+}
+
+class S3Location {
+  /// The name of the bucket where the restore results will be placed.
+  final String bucketName;
+
+  /// The prefix that is prepended to the restore results for this request.
+  final String prefix;
+
+  final Encryption encryption;
+
+  /// The canned ACL to apply to the restore results.
+  final String cannedAcl;
+
+  /// A list of grants that control access to the staged results.
+  final List<Grant> accessControlList;
+
+  /// The tag-set that is applied to the restore results.
+  final Tagging tagging;
+
+  /// A list of metadata to store with the restore results in S3.
+  final List<MetadataEntry> userMetadata;
+
+  /// The class of storage used to store the restore results.
+  final String storageClass;
+
+  S3Location({
+    @required this.bucketName,
+    @required this.prefix,
+    this.encryption,
+    this.cannedAcl,
+    this.accessControlList,
+    this.tagging,
+    this.userMetadata,
+    this.storageClass,
+  });
+}
+
+class Ssekms {
+  /// Specifies the ID of the AWS Key Management Service (KMS) master encryption
+  /// key to use for encrypting Inventory reports.
+  final String keyId;
+
+  Ssekms({
+    @required this.keyId,
+  });
+  static Ssekms fromJson(Map<String, dynamic> json) => Ssekms();
+}
+
+class Sses3 {
+  Sses3();
+  static Sses3 fromJson(Map<String, dynamic> json) => Sses3();
+}
+
+class SelectObjectContentEventStream {
+  /// The Records Event.
+  final RecordsEvent records;
+
+  /// The Stats Event.
+  final StatsEvent stats;
+
+  /// The Progress Event.
+  final ProgressEvent progress;
+
+  /// The Continuation Event.
+  final ContinuationEvent cont;
+
+  /// The End Event.
+  final EndEvent end;
+
+  SelectObjectContentEventStream({
+    this.records,
+    this.stats,
+    this.progress,
+    this.cont,
+    this.end,
+  });
+  static SelectObjectContentEventStream fromJson(Map<String, dynamic> json) =>
+      SelectObjectContentEventStream();
+}
+
+class SelectObjectContentOutput {
+  final SelectObjectContentEventStream payload;
+
+  SelectObjectContentOutput({
+    this.payload,
+  });
+  static SelectObjectContentOutput fromJson(Map<String, dynamic> json) =>
+      SelectObjectContentOutput();
+}
+
+class SelectParameters {
+  /// Describes the serialization format of the object.
+  final InputSerialization inputSerialization;
+
+  /// The type of the provided expression (e.g., SQL).
+  final String expressionType;
+
+  /// The expression that is used to query the object.
+  final String expression;
+
+  /// Describes how the results of the Select job are serialized.
+  final OutputSerialization outputSerialization;
+
+  SelectParameters({
+    @required this.inputSerialization,
+    @required this.expressionType,
+    @required this.expression,
+    @required this.outputSerialization,
+  });
+}
+
+class ServerSideEncryptionByDefault {
+  /// Server-side encryption algorithm to use for the default encryption.
+  final String sseAlgorithm;
+
+  /// KMS master key ID to use for the default encryption. This parameter is
+  /// allowed if and only if `SSEAlgorithm` is set to `aws:kms`.
+  final String kmsMasterKeyID;
+
+  ServerSideEncryptionByDefault({
+    @required this.sseAlgorithm,
+    this.kmsMasterKeyID,
+  });
+  static ServerSideEncryptionByDefault fromJson(Map<String, dynamic> json) =>
+      ServerSideEncryptionByDefault();
+}
+
+class ServerSideEncryptionConfiguration {
+  /// Container for information about a particular server-side encryption
+  /// configuration rule.
+  final List<ServerSideEncryptionRule> rules;
+
+  ServerSideEncryptionConfiguration({
+    @required this.rules,
+  });
+  static ServerSideEncryptionConfiguration fromJson(
+          Map<String, dynamic> json) =>
+      ServerSideEncryptionConfiguration();
+}
+
+class ServerSideEncryptionRule {
+  /// Specifies the default server-side encryption to apply to new objects in
+  /// the bucket. If a PUT Object request doesn't specify any server-side
+  /// encryption, this default encryption will be applied.
+  final ServerSideEncryptionByDefault applyServerSideEncryptionByDefault;
+
+  ServerSideEncryptionRule({
+    this.applyServerSideEncryptionByDefault,
+  });
+  static ServerSideEncryptionRule fromJson(Map<String, dynamic> json) =>
+      ServerSideEncryptionRule();
+}
+
+class SourceSelectionCriteria {
+  ///  A container for filter information for the selection of Amazon S3 objects
+  /// encrypted with AWS KMS. If you include `SourceSelectionCriteria` in the
+  /// replication configuration, this element is required.
+  final SseKmsEncryptedObjects sseKmsEncryptedObjects;
+
+  SourceSelectionCriteria({
+    this.sseKmsEncryptedObjects,
+  });
+  static SourceSelectionCriteria fromJson(Map<String, dynamic> json) =>
+      SourceSelectionCriteria();
+}
+
+class SseKmsEncryptedObjects {
+  /// Specifies whether Amazon S3 replicates objects created with server-side
+  /// encryption using an AWS KMS-managed key.
+  final String status;
+
+  SseKmsEncryptedObjects({
+    @required this.status,
+  });
+  static SseKmsEncryptedObjects fromJson(Map<String, dynamic> json) =>
+      SseKmsEncryptedObjects();
+}
+
+class Stats {
+  /// The total number of object bytes scanned.
+  final BigInt bytesScanned;
+
+  /// The total number of uncompressed object bytes processed.
+  final BigInt bytesProcessed;
+
+  /// The total number of bytes of records payload data returned.
+  final BigInt bytesReturned;
+
+  Stats({
+    this.bytesScanned,
+    this.bytesProcessed,
+    this.bytesReturned,
+  });
+  static Stats fromJson(Map<String, dynamic> json) => Stats();
+}
+
+class StatsEvent {
+  /// The Stats event details.
+  final Stats details;
+
+  StatsEvent({
+    this.details,
+  });
+  static StatsEvent fromJson(Map<String, dynamic> json) => StatsEvent();
+}
+
+class StorageClassAnalysis {
+  /// Specifies how data related to the storage class analysis for an Amazon S3
+  /// bucket should be exported.
+  final StorageClassAnalysisDataExport dataExport;
+
+  StorageClassAnalysis({
+    this.dataExport,
+  });
+  static StorageClassAnalysis fromJson(Map<String, dynamic> json) =>
+      StorageClassAnalysis();
+}
+
+class StorageClassAnalysisDataExport {
+  /// The version of the output schema to use when exporting data. Must be
+  /// `V_1`.
+  final String outputSchemaVersion;
+
+  /// The place to store the data for an analysis.
+  final AnalyticsExportDestination destination;
+
+  StorageClassAnalysisDataExport({
+    @required this.outputSchemaVersion,
+    @required this.destination,
+  });
+  static StorageClassAnalysisDataExport fromJson(Map<String, dynamic> json) =>
+      StorageClassAnalysisDataExport();
+}
+
+class Tag {
+  /// Name of the tag.
+  final String key;
+
+  /// Value of the tag.
+  final String value;
+
+  Tag({
+    @required this.key,
+    @required this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class Tagging {
+  final List<Tag> tagSet;
+
+  Tagging({
+    @required this.tagSet,
+  });
+}
+
+class TargetGrant {
+  final Grantee grantee;
+
+  /// Logging permissions assigned to the Grantee for the bucket.
+  final String permission;
+
+  TargetGrant({
+    this.grantee,
+    this.permission,
+  });
+  static TargetGrant fromJson(Map<String, dynamic> json) => TargetGrant();
+}
+
+class TopicConfiguration {
+  final String id;
+
+  /// The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3
+  /// publishes a message when it detects events of the specified type.
+  final String topicArn;
+
+  /// The Amazon S3 bucket event about which to send notifications. For more
+  /// information, see [Supported Event
+  /// Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+  /// in the _Amazon Simple Storage Service Developer Guide_.
+  final List<String> events;
+
+  final NotificationConfigurationFilter filter;
+
+  TopicConfiguration({
+    this.id,
+    @required this.topicArn,
+    @required this.events,
+    this.filter,
+  });
+  static TopicConfiguration fromJson(Map<String, dynamic> json) =>
+      TopicConfiguration();
+}
+
+class TopicConfigurationDeprecated {
+  final String id;
+
+  final List<String> events;
+
+  /// Bucket event for which to send notifications.
+  final String event;
+
+  /// Amazon SNS topic to which Amazon S3 will publish a message to report the
+  /// specified events for the bucket.
+  final String topic;
+
+  TopicConfigurationDeprecated({
+    this.id,
+    this.events,
+    this.event,
+    this.topic,
+  });
+  static TopicConfigurationDeprecated fromJson(Map<String, dynamic> json) =>
+      TopicConfigurationDeprecated();
+}
+
+class Transition {
+  /// Indicates when objects are transitioned to the specified storage class.
+  /// The date value must be in ISO 8601 format. The time is always midnight
+  /// UTC.
+  final DateTime date;
+
+  /// Indicates the number of days after creation when objects are transitioned
+  /// to the specified storage class. The value must be a positive integer.
+  final int days;
+
+  /// The storage class to which you want the object to transition.
+  final String storageClass;
+
+  Transition({
+    this.date,
+    this.days,
+    this.storageClass,
+  });
+  static Transition fromJson(Map<String, dynamic> json) => Transition();
+}
+
+class UploadPartCopyOutput {
+  /// The version of the source object that was copied, if you have enabled
+  /// versioning on the source bucket.
+  final String copySourceVersionId;
+
+  final CopyPartResult copyPartResult;
+
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  final String requestCharged;
+
+  UploadPartCopyOutput({
+    this.copySourceVersionId,
+    this.copyPartResult,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.requestCharged,
+  });
+  static UploadPartCopyOutput fromJson(Map<String, dynamic> json) =>
+      UploadPartCopyOutput();
+}
+
+class UploadPartOutput {
+  /// The Server-side encryption algorithm used when storing this object in S3
+  /// (e.g., AES256, aws:kms).
+  final String serverSideEncryption;
+
+  /// Entity tag for the uploaded object.
+  final String eTag;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header confirming the encryption
+  /// algorithm used.
+  final String sseCustomerAlgorithm;
+
+  /// If server-side encryption with a customer-provided encryption key was
+  /// requested, the response will include this header to provide round trip
+  /// message integrity verification of the customer-provided encryption key.
+  final String sseCustomerKeyMd5;
+
+  /// If present, specifies the ID of the AWS Key Management Service (KMS)
+  /// master encryption key that was used for the object.
+  final String ssekmsKeyId;
+
+  final String requestCharged;
+
+  UploadPartOutput({
+    this.serverSideEncryption,
+    this.eTag,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.requestCharged,
+  });
+  static UploadPartOutput fromJson(Map<String, dynamic> json) =>
+      UploadPartOutput();
+}
+
+class VersioningConfiguration {
+  /// Specifies whether MFA delete is enabled in the bucket versioning
+  /// configuration. This element is only returned if the bucket has been
+  /// configured with MFA delete. If the bucket has never been so configured,
+  /// this element is not returned.
+  final String mfaDelete;
+
+  /// The versioning state of the bucket.
+  final String status;
+
+  VersioningConfiguration({
+    this.mfaDelete,
+    this.status,
+  });
+}
+
+class WebsiteConfiguration {
+  /// The name of the error document for the website.
+  final ErrorDocument errorDocument;
+
+  /// The name of the index document for the website.
+  final IndexDocument indexDocument;
+
+  /// The redirect behavior for every request to this bucket's website endpoint.
+  ///
+  ///
+  ///
+  /// If you specify this property, you can't specify any other property.
+  final RedirectAllRequestsTo redirectAllRequestsTo;
+
+  /// Rules that define when a redirect is applied and the redirect behavior.
+  final List<RoutingRule> routingRules;
+
+  WebsiteConfiguration({
+    this.errorDocument,
+    this.indexDocument,
+    this.redirectAllRequestsTo,
+    this.routingRules,
+  });
+}

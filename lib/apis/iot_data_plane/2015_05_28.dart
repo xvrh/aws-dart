@@ -15,20 +15,34 @@ class IotDataPlaneApi {
   /// For more information, see
   /// [DeleteThingShadow](http://docs.aws.amazon.com/iot/latest/developerguide/API_DeleteThingShadow.html)
   /// in the _AWS IoT Developer Guide_.
-  Future<void> deleteThingShadow(String thingName) async {}
+  ///
+  /// [thingName]: The name of the thing.
+  Future<DeleteThingShadowResponse> deleteThingShadow(String thingName) async {
+    return DeleteThingShadowResponse.fromJson({});
+  }
 
   /// Gets the thing shadow for the specified thing.
   ///
   /// For more information, see
   /// [GetThingShadow](http://docs.aws.amazon.com/iot/latest/developerguide/API_GetThingShadow.html)
   /// in the _AWS IoT Developer Guide_.
-  Future<void> getThingShadow(String thingName) async {}
+  ///
+  /// [thingName]: The name of the thing.
+  Future<GetThingShadowResponse> getThingShadow(String thingName) async {
+    return GetThingShadowResponse.fromJson({});
+  }
 
   /// Publishes state information.
   ///
   /// For more information, see [HTTP
   /// Protocol](http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http)
   /// in the _AWS IoT Developer Guide_.
+  ///
+  /// [topic]: The name of the MQTT topic.
+  ///
+  /// [qos]: The Quality of Service (QoS) level.
+  ///
+  /// [payload]: The state information, in JSON format.
   Future<void> publish(String topic, {int qos, Uint8List payload}) async {}
 
   /// Updates the thing shadow for the specified thing.
@@ -36,12 +50,45 @@ class IotDataPlaneApi {
   /// For more information, see
   /// [UpdateThingShadow](http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html)
   /// in the _AWS IoT Developer Guide_.
-  Future<void> updateThingShadow(
-      {@required String thingName, @required Uint8List payload}) async {}
+  ///
+  /// [thingName]: The name of the thing.
+  ///
+  /// [payload]: The state information, in JSON format.
+  Future<UpdateThingShadowResponse> updateThingShadow(
+      {@required String thingName, @required Uint8List payload}) async {
+    return UpdateThingShadowResponse.fromJson({});
+  }
 }
 
-class DeleteThingShadowResponse {}
+class DeleteThingShadowResponse {
+  /// The state information, in JSON format.
+  final Uint8List payload;
 
-class GetThingShadowResponse {}
+  DeleteThingShadowResponse({
+    @required this.payload,
+  });
+  static DeleteThingShadowResponse fromJson(Map<String, dynamic> json) =>
+      DeleteThingShadowResponse();
+}
 
-class UpdateThingShadowResponse {}
+class GetThingShadowResponse {
+  /// The state information, in JSON format.
+  final Uint8List payload;
+
+  GetThingShadowResponse({
+    this.payload,
+  });
+  static GetThingShadowResponse fromJson(Map<String, dynamic> json) =>
+      GetThingShadowResponse();
+}
+
+class UpdateThingShadowResponse {
+  /// The state information, in JSON format.
+  final Uint8List payload;
+
+  UpdateThingShadowResponse({
+    this.payload,
+  });
+  static UpdateThingShadowResponse fromJson(Map<String, dynamic> json) =>
+      UpdateThingShadowResponse();
+}

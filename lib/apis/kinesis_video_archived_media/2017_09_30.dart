@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'dart:typed_data';
 
 class KinesisVideoArchivedMediaApi {
   /// Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the
@@ -157,7 +158,134 @@ class KinesisVideoArchivedMediaApi {
   /// For more information, see the **Errors** section at the bottom of this
   /// topic, as well as [Common
   /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
-  Future<void> getDashStreamingSessionUrl(
+  ///
+  /// [streamName]: The name of the stream for which to retrieve the MPEG-DASH
+  /// manifest URL.
+  ///
+  /// You must specify either the `StreamName` or the `StreamARN`.
+  ///
+  /// [streamArn]: The Amazon Resource Name (ARN) of the stream for which to
+  /// retrieve the MPEG-DASH manifest URL.
+  ///
+  /// You must specify either the `StreamName` or the `StreamARN`.
+  ///
+  /// [playbackMode]: Whether to retrieve live, live replay, or archived,
+  /// on-demand data.
+  ///
+  /// Features of the three types of sessions include the following:
+  ///
+  /// *     **`LIVE`** : For sessions of this type, the MPEG-DASH manifest is
+  /// continually updated with the latest fragments as they become available. We
+  /// recommend that the media player retrieve a new manifest on a one-second
+  /// interval. When this type of session is played in a media player, the user
+  /// interface typically displays a "live" notification, with no scrubber
+  /// control for choosing the position in the playback window to display.
+  ///
+  ///      In `LIVE` mode, the newest available fragments are included in an
+  /// MPEG-DASH manifest, even if there is a gap between fragments (that is, if
+  /// a fragment is missing). A gap like this might cause a media player to halt
+  /// or cause a jump in playback. In this mode, fragments are not added to the
+  /// MPEG-DASH manifest if they are older than the newest fragment in the
+  /// playlist. If the missing fragment becomes available after a subsequent
+  /// fragment is added to the manifest, the older fragment is not added, and
+  /// the gap is not filled.
+  /// *     **`LIVE_REPLAY`** : For sessions of this type, the MPEG-DASH
+  /// manifest is updated similarly to how it is updated for `LIVE` mode except
+  /// that it starts by including fragments from a given start time. Instead of
+  /// fragments being added as they are ingested, fragments are added as the
+  /// duration of the next fragment elapses. For example, if the fragments in
+  /// the session are two seconds long, then a new fragment is added to the
+  /// manifest every two seconds. This mode is useful to be able to start
+  /// playback from when an event is detected and continue live streaming media
+  /// that has not yet been ingested as of the time of the session creation.
+  /// This mode is also useful to stream previously archived media without being
+  /// limited by the 1,000 fragment limit in the `ON_DEMAND` mode.
+  ///
+  /// *     **`ON_DEMAND`** : For sessions of this type, the MPEG-DASH manifest
+  /// contains all the fragments for the session, up to the number that is
+  /// specified in `MaxMediaPlaylistFragmentResults`. The manifest must be
+  /// retrieved only once for each session. When this type of session is played
+  /// in a media player, the user interface typically displays a scrubber
+  /// control for choosing the position in the playback window to display.
+  ///
+  ///
+  /// In all playback modes, if `FragmentSelectorType` is `PRODUCER_TIMESTAMP`,
+  /// and if there are multiple fragments with the same start timestamp, the
+  /// fragment that has the larger fragment number (that is, the newer fragment)
+  /// is included in the MPEG-DASH manifest. The other fragments are not
+  /// included. Fragments that have different timestamps but have overlapping
+  /// durations are still included in the MPEG-DASH manifest. This can lead to
+  /// unexpected behavior in the media player.
+  ///
+  /// The default is `LIVE`.
+  ///
+  /// [displayFragmentTimestamp]: Per the MPEG-DASH specification, the
+  /// wall-clock time of fragments in the manifest file can be derived using
+  /// attributes in the manifest itself. However, typically, MPEG-DASH
+  /// compatible media players do not properly handle gaps in the media
+  /// timeline. Kinesis Video Streams adjusts the media timeline in the manifest
+  /// file to enable playback of media with discontinuities. Therefore, the
+  /// wall-clock time derived from the manifest file may be inaccurate. If
+  /// DisplayFragmentTimestamp is set to `ALWAYS`, the accurate fragment
+  /// timestamp is added to each S element in the manifest file with the
+  /// attribute name “kvs:ts”. A custom MPEG-DASH media player is necessary to
+  /// leverage this custom attribute.
+  ///
+  /// The default value is `NEVER`. When DASHFragmentSelector is
+  /// `SERVER_TIMESTAMP`, the timestamps will be the server start timestamps.
+  /// Similarly, when DASHFragmentSelector is `PRODUCER_TIMESTAMP`, the
+  /// timestamps will be the producer start timestamps.
+  ///
+  /// [displayFragmentNumber]: Fragments are identified in the manifest file
+  /// based on their sequence number in the session. If DisplayFragmentNumber is
+  /// set to `ALWAYS`, the Kinesis Video Streams fragment number is added to
+  /// each S element in the manifest file with the attribute name “kvs:fn”.
+  /// These fragment numbers can be used for logging or for use with other APIs
+  /// (e.g. `GetMedia` and `GetMediaForFragmentList`). A custom MPEG-DASH media
+  /// player is necessary to leverage these this custom attribute.
+  ///
+  /// The default value is `NEVER`.
+  ///
+  /// [dashFragmentSelector]: The time range of the requested fragment, and the
+  /// source of the timestamps.
+  ///
+  /// This parameter is required if `PlaybackMode` is `ON_DEMAND` or
+  /// `LIVE_REPLAY`. This parameter is optional if PlaybackMode is `` `LIVE`. If
+  /// `PlaybackMode` is `LIVE`, the `FragmentSelectorType` can be set, but the
+  /// `TimestampRange` should not be set. If `PlaybackMode` is `ON_DEMAND` or
+  /// `LIVE_REPLAY`, both `FragmentSelectorType` and `TimestampRange` must be
+  /// set.``
+  ///
+  /// [expires]: The time in seconds until the requested session expires. This
+  /// value can be between 300 (5 minutes) and 43200 (12 hours).
+  ///
+  /// When a session expires, no new calls to `GetDashManifest`,
+  /// `GetMP4InitFragment`, or `GetMP4MediaFragment` can be made for that
+  /// session.
+  ///
+  /// The default is 300 (5 minutes).
+  ///
+  /// [maxManifestFragmentResults]: The maximum number of fragments that are
+  /// returned in the MPEG-DASH manifest.
+  ///
+  /// When the `PlaybackMode` is `LIVE`, the most recent fragments are returned
+  /// up to this value. When the `PlaybackMode` is `ON_DEMAND`, the oldest
+  /// fragments are returned, up to this maximum number.
+  ///
+  /// When there are a higher number of fragments available in a live MPEG-DASH
+  /// manifest, video players often buffer content before starting playback.
+  /// Increasing the buffer size increases the playback latency, but it
+  /// decreases the likelihood that rebuffering will occur during playback. We
+  /// recommend that a live MPEG-DASH manifest have a minimum of 3 fragments and
+  /// a maximum of 10 fragments.
+  ///
+  /// The default is 5 fragments if `PlaybackMode` is `LIVE` or `LIVE_REPLAY`,
+  /// and 1,000 if `PlaybackMode` is `ON_DEMAND`.
+  ///
+  /// The maximum value of 1,000 fragments corresponds to more than 16 minutes
+  /// of video on streams with 1-second fragments, and more than 2 1/2 hours of
+  /// video on streams with 10-second fragments.
+  Future<GetDashStreamingSessionUrlOutput> getDashStreamingSessionUrl(
       {String streamName,
       String streamArn,
       String playbackMode,
@@ -165,7 +293,9 @@ class KinesisVideoArchivedMediaApi {
       String displayFragmentNumber,
       DashFragmentSelector dashFragmentSelector,
       int expires,
-      BigInt maxManifestFragmentResults}) async {}
+      BigInt maxManifestFragmentResults}) async {
+    return GetDashStreamingSessionUrlOutput.fromJson({});
+  }
 
   /// Retrieves an HTTP Live Streaming (HLS) URL for the stream. You can then
   /// open the URL in a browser or media player to view the stream contents.
@@ -350,7 +480,151 @@ class KinesisVideoArchivedMediaApi {
   /// For more information, see the **Errors** section at the bottom of this
   /// topic, as well as [Common
   /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
-  Future<void> getHlsStreamingSessionUrl(
+  ///
+  /// [streamName]: The name of the stream for which to retrieve the HLS master
+  /// playlist URL.
+  ///
+  /// You must specify either the `StreamName` or the `StreamARN`.
+  ///
+  /// [streamArn]: The Amazon Resource Name (ARN) of the stream for which to
+  /// retrieve the HLS master playlist URL.
+  ///
+  /// You must specify either the `StreamName` or the `StreamARN`.
+  ///
+  /// [playbackMode]: Whether to retrieve live, live replay, or archived,
+  /// on-demand data.
+  ///
+  /// Features of the three types of sessions include the following:
+  ///
+  /// *     **`LIVE`** : For sessions of this type, the HLS media playlist is
+  /// continually updated with the latest fragments as they become available. We
+  /// recommend that the media player retrieve a new playlist on a one-second
+  /// interval. When this type of session is played in a media player, the user
+  /// interface typically displays a "live" notification, with no scrubber
+  /// control for choosing the position in the playback window to display.
+  ///
+  ///      In `LIVE` mode, the newest available fragments are included in an HLS
+  /// media playlist, even if there is a gap between fragments (that is, if a
+  /// fragment is missing). A gap like this might cause a media player to halt
+  /// or cause a jump in playback. In this mode, fragments are not added to the
+  /// HLS media playlist if they are older than the newest fragment in the
+  /// playlist. If the missing fragment becomes available after a subsequent
+  /// fragment is added to the playlist, the older fragment is not added, and
+  /// the gap is not filled.
+  /// *     **`LIVE_REPLAY`** : For sessions of this type, the HLS media
+  /// playlist is updated similarly to how it is updated for `LIVE` mode except
+  /// that it starts by including fragments from a given start time. Instead of
+  /// fragments being added as they are ingested, fragments are added as the
+  /// duration of the next fragment elapses. For example, if the fragments in
+  /// the session are two seconds long, then a new fragment is added to the
+  /// media playlist every two seconds. This mode is useful to be able to start
+  /// playback from when an event is detected and continue live streaming media
+  /// that has not yet been ingested as of the time of the session creation.
+  /// This mode is also useful to stream previously archived media without being
+  /// limited by the 1,000 fragment limit in the `ON_DEMAND` mode.
+  ///
+  /// *     **`ON_DEMAND`** : For sessions of this type, the HLS media playlist
+  /// contains all the fragments for the session, up to the number that is
+  /// specified in `MaxMediaPlaylistFragmentResults`. The playlist must be
+  /// retrieved only once for each session. When this type of session is played
+  /// in a media player, the user interface typically displays a scrubber
+  /// control for choosing the position in the playback window to display.
+  ///
+  ///
+  /// In all playback modes, if `FragmentSelectorType` is `PRODUCER_TIMESTAMP`,
+  /// and if there are multiple fragments with the same start timestamp, the
+  /// fragment that has the larger fragment number (that is, the newer fragment)
+  /// is included in the HLS media playlist. The other fragments are not
+  /// included. Fragments that have different timestamps but have overlapping
+  /// durations are still included in the HLS media playlist. This can lead to
+  /// unexpected behavior in the media player.
+  ///
+  /// The default is `LIVE`.
+  ///
+  /// [hlsFragmentSelector]: The time range of the requested fragment, and the
+  /// source of the timestamps.
+  ///
+  /// This parameter is required if `PlaybackMode` is `ON_DEMAND` or
+  /// `LIVE_REPLAY`. This parameter is optional if PlaybackMode is `` `LIVE`. If
+  /// `PlaybackMode` is `LIVE`, the `FragmentSelectorType` can be set, but the
+  /// `TimestampRange` should not be set. If `PlaybackMode` is `ON_DEMAND` or
+  /// `LIVE_REPLAY`, both `FragmentSelectorType` and `TimestampRange` must be
+  /// set.``
+  ///
+  /// [containerFormat]: Specifies which format should be used for packaging the
+  /// media. Specifying the `FRAGMENTED_MP4` container format packages the media
+  /// into MP4 fragments (fMP4 or CMAF). This is the recommended packaging
+  /// because there is minimal packaging overhead. The other container format
+  /// option is `MPEG_TS`. HLS has supported MPEG TS chunks since it was
+  /// released and is sometimes the only supported packaging on older HLS
+  /// players. MPEG TS typically has a 5-25 percent packaging overhead. This
+  /// means MPEG TS typically requires 5-25 percent more bandwidth and cost than
+  /// fMP4.
+  ///
+  /// The default is `FRAGMENTED_MP4`.
+  ///
+  /// [discontinuityMode]: Specifies when flags marking discontinuities between
+  /// fragments will be added to the media playlists. The default is `ALWAYS`
+  /// when HLSFragmentSelector is `SERVER_TIMESTAMP`, and `NEVER` when it is
+  /// `PRODUCER_TIMESTAMP`.
+  ///
+  /// Media players typically build a timeline of media content to play, based
+  /// on the timestamps of each fragment. This means that if there is any
+  /// overlap between fragments (as is typical if HLSFragmentSelector is
+  /// `SERVER_TIMESTAMP`), the media player timeline has small gaps between
+  /// fragments in some places, and overwrites frames in other places. When
+  /// there are discontinuity flags between fragments, the media player is
+  /// expected to reset the timeline, resulting in the fragment being played
+  /// immediately after the previous fragment. We recommend that you always have
+  /// discontinuity flags between fragments if the fragment timestamps are not
+  /// accurate or if fragments might be missing. You should not place
+  /// discontinuity flags between fragments for the player timeline to
+  /// accurately map to the producer timestamps.
+  ///
+  /// [displayFragmentTimestamp]: Specifies when the fragment start timestamps
+  /// should be included in the HLS media playlist. Typically, media players
+  /// report the playhead position as a time relative to the start of the first
+  /// fragment in the playback session. However, when the start timestamps are
+  /// included in the HLS media playlist, some media players might report the
+  /// current playhead as an absolute time based on the fragment timestamps.
+  /// This can be useful for creating a playback experience that shows viewers
+  /// the wall-clock time of the media.
+  ///
+  /// The default is `NEVER`. When HLSFragmentSelector is `SERVER_TIMESTAMP`,
+  /// the timestamps will be the server start timestamps. Similarly, when
+  /// HLSFragmentSelector is `PRODUCER_TIMESTAMP`, the timestamps will be the
+  /// producer start timestamps.
+  ///
+  /// [expires]: The time in seconds until the requested session expires. This
+  /// value can be between 300 (5 minutes) and 43200 (12 hours).
+  ///
+  /// When a session expires, no new calls to `GetHLSMasterPlaylist`,
+  /// `GetHLSMediaPlaylist`, `GetMP4InitFragment`, `GetMP4MediaFragment`, or
+  /// `GetTSFragment` can be made for that session.
+  ///
+  /// The default is 300 (5 minutes).
+  ///
+  /// [maxMediaPlaylistFragmentResults]: The maximum number of fragments that
+  /// are returned in the HLS media playlists.
+  ///
+  /// When the `PlaybackMode` is `LIVE`, the most recent fragments are returned
+  /// up to this value. When the `PlaybackMode` is `ON_DEMAND`, the oldest
+  /// fragments are returned, up to this maximum number.
+  ///
+  /// When there are a higher number of fragments available in a live HLS media
+  /// playlist, video players often buffer content before starting playback.
+  /// Increasing the buffer size increases the playback latency, but it
+  /// decreases the likelihood that rebuffering will occur during playback. We
+  /// recommend that a live HLS media playlist have a minimum of 3 fragments and
+  /// a maximum of 10 fragments.
+  ///
+  /// The default is 5 fragments if `PlaybackMode` is `LIVE` or `LIVE_REPLAY`,
+  /// and 1,000 if `PlaybackMode` is `ON_DEMAND`.
+  ///
+  /// The maximum value of 1,000 fragments corresponds to more than 16 minutes
+  /// of video on streams with 1-second fragments, and more than 2 1/2 hours of
+  /// video on streams with 10-second fragments.
+  Future<GetHlsStreamingSessionUrlOutput> getHlsStreamingSessionUrl(
       {String streamName,
       String streamArn,
       String playbackMode,
@@ -359,7 +633,9 @@ class KinesisVideoArchivedMediaApi {
       String discontinuityMode,
       String displayFragmentTimestamp,
       int expires,
-      BigInt maxMediaPlaylistFragmentResults}) async {}
+      BigInt maxMediaPlaylistFragmentResults}) async {
+    return GetHlsStreamingSessionUrlOutput.fromJson({});
+  }
 
   /// Gets media for a list of fragments (specified by fragment number) from the
   /// archived data in an Amazon Kinesis video stream.
@@ -401,8 +677,16 @@ class KinesisVideoArchivedMediaApi {
   /// For more information, see the **Errors** section at the bottom of this
   /// topic, as well as [Common
   /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
-  Future<void> getMediaForFragmentList(
-      {@required String streamName, @required List<String> fragments}) async {}
+  ///
+  /// [streamName]: The name of the stream from which to retrieve fragment
+  /// media.
+  ///
+  /// [fragments]: A list of the numbers of fragments for which to retrieve
+  /// media. You retrieve these values with ListFragments.
+  Future<GetMediaForFragmentListOutput> getMediaForFragmentList(
+      {@required String streamName, @required List<String> fragments}) async {
+    return GetMediaForFragmentListOutput.fromJson({});
+  }
 
   /// Returns a list of Fragment objects from the specified stream and timestamp
   /// range within the archived data.
@@ -438,30 +722,325 @@ class KinesisVideoArchivedMediaApi {
   /// For more information, see the **Errors** section at the bottom of this
   /// topic, as well as [Common
   /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
-  Future<void> listFragments(String streamName,
+  ///
+  /// [streamName]: The name of the stream from which to retrieve a fragment
+  /// list.
+  ///
+  /// [maxResults]: The total number of fragments to return. If the total number
+  /// of fragments available is more than the value specified in `max-results`,
+  /// then a ListFragmentsOutput$NextToken is provided in the output that you
+  /// can use to resume pagination.
+  ///
+  /// [nextToken]: A token to specify where to start paginating. This is the
+  /// ListFragmentsOutput$NextToken from a previously truncated response.
+  ///
+  /// [fragmentSelector]: Describes the timestamp range and timestamp origin for
+  /// the range of fragments to return.
+  Future<ListFragmentsOutput> listFragments(String streamName,
       {BigInt maxResults,
       String nextToken,
-      FragmentSelector fragmentSelector}) async {}
+      FragmentSelector fragmentSelector}) async {
+    return ListFragmentsOutput.fromJson({});
+  }
 }
 
-class DashFragmentSelector {}
+class DashFragmentSelector {
+  /// The source of the timestamps for the requested media.
+  ///
+  /// When `FragmentSelectorType` is set to `PRODUCER_TIMESTAMP` and
+  /// GetDASHStreamingSessionURLInput$PlaybackMode is `ON_DEMAND` or
+  /// `LIVE_REPLAY`, the first fragment ingested with a producer timestamp
+  /// within the specified FragmentSelector$TimestampRange is included in the
+  /// media playlist. In addition, the fragments with producer timestamps within
+  /// the `TimestampRange` ingested immediately following the first fragment (up
+  /// to the GetDASHStreamingSessionURLInput$MaxManifestFragmentResults value)
+  /// are included.
+  ///
+  /// Fragments that have duplicate producer timestamps are deduplicated. This
+  /// means that if producers are producing a stream of fragments with producer
+  /// timestamps that are approximately equal to the true clock time, the
+  /// MPEG-DASH manifest will contain all of the fragments within the requested
+  /// timestamp range. If some fragments are ingested within the same time range
+  /// and very different points in time, only the oldest ingested collection of
+  /// fragments are returned.
+  ///
+  /// When `FragmentSelectorType` is set to `PRODUCER_TIMESTAMP` and
+  /// GetDASHStreamingSessionURLInput$PlaybackMode is `LIVE`, the producer
+  /// timestamps are used in the MP4 fragments and for deduplication. But the
+  /// most recently ingested fragments based on server timestamps are included
+  /// in the MPEG-DASH manifest. This means that even if fragments ingested in
+  /// the past have producer timestamps with values now, they are not included
+  /// in the HLS media playlist.
+  ///
+  /// The default is `SERVER_TIMESTAMP`.
+  final String fragmentSelectorType;
 
-class DashTimestampRange {}
+  /// The start and end of the timestamp range for the requested media.
+  ///
+  /// This value should not be present if `PlaybackType` is `LIVE`.
+  final DashTimestampRange timestampRange;
 
-class Fragment {}
+  DashFragmentSelector({
+    this.fragmentSelectorType,
+    this.timestampRange,
+  });
+}
 
-class FragmentSelector {}
+class DashTimestampRange {
+  /// The start of the timestamp range for the requested media.
+  ///
+  /// If the `DASHTimestampRange` value is specified, the `StartTimestamp` value
+  /// is required.
+  ///
+  ///
+  ///
+  /// This value is inclusive. Fragments that start before the `StartTimestamp`
+  /// and continue past it are included in the session. If
+  /// `FragmentSelectorType` is `SERVER_TIMESTAMP`, the `StartTimestamp` must be
+  /// later than the stream head.
+  final DateTime startTimestamp;
 
-class GetDashStreamingSessionUrlOutput {}
+  /// The end of the timestamp range for the requested media. This value must be
+  /// within 3 hours of the specified `StartTimestamp`, and it must be later
+  /// than the `StartTimestamp` value.
+  ///
+  /// If `FragmentSelectorType` for the request is `SERVER_TIMESTAMP`, this
+  /// value must be in the past.
+  ///
+  /// The `EndTimestamp` value is required for `ON_DEMAND` mode, but optional
+  /// for `LIVE_REPLAY` mode. If the `EndTimestamp` is not set for `LIVE_REPLAY`
+  /// mode then the session will continue to include newly ingested fragments
+  /// until the session expires.
+  ///
+  ///
+  ///
+  /// This value is inclusive. The `EndTimestamp` is compared to the (starting)
+  /// timestamp of the fragment. Fragments that start before the `EndTimestamp`
+  /// value and continue past it are included in the session.
+  final DateTime endTimestamp;
 
-class GetHlsStreamingSessionUrlOutput {}
+  DashTimestampRange({
+    this.startTimestamp,
+    this.endTimestamp,
+  });
+}
 
-class GetMediaForFragmentListOutput {}
+class Fragment {
+  /// The unique identifier of the fragment. This value monotonically increases
+  /// based on the ingestion order.
+  final String fragmentNumber;
 
-class HlsFragmentSelector {}
+  /// The total fragment size, including information about the fragment and
+  /// contained media data.
+  final BigInt fragmentSizeInBytes;
 
-class HlsTimestampRange {}
+  /// The timestamp from the producer corresponding to the fragment.
+  final DateTime producerTimestamp;
 
-class ListFragmentsOutput {}
+  /// The timestamp from the AWS server corresponding to the fragment.
+  final DateTime serverTimestamp;
 
-class TimestampRange {}
+  /// The playback duration or other time value associated with the fragment.
+  final BigInt fragmentLengthInMilliseconds;
+
+  Fragment({
+    this.fragmentNumber,
+    this.fragmentSizeInBytes,
+    this.producerTimestamp,
+    this.serverTimestamp,
+    this.fragmentLengthInMilliseconds,
+  });
+  static Fragment fromJson(Map<String, dynamic> json) => Fragment();
+}
+
+class FragmentSelector {
+  /// The origin of the timestamps to use (Server or Producer).
+  final String fragmentSelectorType;
+
+  /// The range of timestamps to return.
+  final TimestampRange timestampRange;
+
+  FragmentSelector({
+    @required this.fragmentSelectorType,
+    @required this.timestampRange,
+  });
+}
+
+class GetDashStreamingSessionUrlOutput {
+  /// The URL (containing the session token) that a media player can use to
+  /// retrieve the MPEG-DASH manifest.
+  final String dashStreamingSessionUrl;
+
+  GetDashStreamingSessionUrlOutput({
+    this.dashStreamingSessionUrl,
+  });
+  static GetDashStreamingSessionUrlOutput fromJson(Map<String, dynamic> json) =>
+      GetDashStreamingSessionUrlOutput();
+}
+
+class GetHlsStreamingSessionUrlOutput {
+  /// The URL (containing the session token) that a media player can use to
+  /// retrieve the HLS master playlist.
+  final String hlsStreamingSessionUrl;
+
+  GetHlsStreamingSessionUrlOutput({
+    this.hlsStreamingSessionUrl,
+  });
+  static GetHlsStreamingSessionUrlOutput fromJson(Map<String, dynamic> json) =>
+      GetHlsStreamingSessionUrlOutput();
+}
+
+class GetMediaForFragmentListOutput {
+  /// The content type of the requested media.
+  final String contentType;
+
+  /// The payload that Kinesis Video Streams returns is a sequence of chunks
+  /// from the specified stream. For information about the chunks, see
+  /// [PutMedia](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_dataplane_PutMedia.html).
+  /// The chunks that Kinesis Video Streams returns in the
+  /// `GetMediaForFragmentList` call also include the following additional
+  /// Matroska (MKV) tags:
+  ///
+  /// *   AWS\_KINESISVIDEO\_FRAGMENT_NUMBER - Fragment number returned in the
+  /// chunk.
+  ///
+  /// *   AWS\_KINESISVIDEO\_SERVER\_SIDE\_TIMESTAMP - Server-side timestamp of
+  /// the fragment.
+  ///
+  /// *   AWS\_KINESISVIDEO\_PRODUCER\_SIDE\_TIMESTAMP - Producer-side timestamp
+  /// of the fragment.
+  ///
+  ///
+  /// The following tags will be included if an exception occurs:
+  ///
+  /// *   AWS\_KINESISVIDEO\_FRAGMENT_NUMBER - The number of the fragment that
+  /// threw the exception
+  ///
+  /// *   AWS\_KINESISVIDEO\_EXCEPTION\_ERROR\_CODE - The integer code of the
+  /// exception
+  ///
+  /// *   AWS\_KINESISVIDEO\_EXCEPTION_MESSAGE - A text description of the
+  /// exception
+  final Uint8List payload;
+
+  GetMediaForFragmentListOutput({
+    this.contentType,
+    this.payload,
+  });
+  static GetMediaForFragmentListOutput fromJson(Map<String, dynamic> json) =>
+      GetMediaForFragmentListOutput();
+}
+
+class HlsFragmentSelector {
+  /// The source of the timestamps for the requested media.
+  ///
+  /// When `FragmentSelectorType` is set to `PRODUCER_TIMESTAMP` and
+  /// GetHLSStreamingSessionURLInput$PlaybackMode is `ON_DEMAND` or
+  /// `LIVE_REPLAY`, the first fragment ingested with a producer timestamp
+  /// within the specified FragmentSelector$TimestampRange is included in the
+  /// media playlist. In addition, the fragments with producer timestamps within
+  /// the `TimestampRange` ingested immediately following the first fragment (up
+  /// to the GetHLSStreamingSessionURLInput$MaxMediaPlaylistFragmentResults
+  /// value) are included.
+  ///
+  /// Fragments that have duplicate producer timestamps are deduplicated. This
+  /// means that if producers are producing a stream of fragments with producer
+  /// timestamps that are approximately equal to the true clock time, the HLS
+  /// media playlists will contain all of the fragments within the requested
+  /// timestamp range. If some fragments are ingested within the same time range
+  /// and very different points in time, only the oldest ingested collection of
+  /// fragments are returned.
+  ///
+  /// When `FragmentSelectorType` is set to `PRODUCER_TIMESTAMP` and
+  /// GetHLSStreamingSessionURLInput$PlaybackMode is `LIVE`, the producer
+  /// timestamps are used in the MP4 fragments and for deduplication. But the
+  /// most recently ingested fragments based on server timestamps are included
+  /// in the HLS media playlist. This means that even if fragments ingested in
+  /// the past have producer timestamps with values now, they are not included
+  /// in the HLS media playlist.
+  ///
+  /// The default is `SERVER_TIMESTAMP`.
+  final String fragmentSelectorType;
+
+  /// The start and end of the timestamp range for the requested media.
+  ///
+  /// This value should not be present if `PlaybackType` is `LIVE`.
+  final HlsTimestampRange timestampRange;
+
+  HlsFragmentSelector({
+    this.fragmentSelectorType,
+    this.timestampRange,
+  });
+}
+
+class HlsTimestampRange {
+  /// The start of the timestamp range for the requested media.
+  ///
+  /// If the `HLSTimestampRange` value is specified, the `StartTimestamp` value
+  /// is required.
+  ///
+  ///
+  ///
+  /// This value is inclusive. Fragments that start before the `StartTimestamp`
+  /// and continue past it are included in the session. If
+  /// `FragmentSelectorType` is `SERVER_TIMESTAMP`, the `StartTimestamp` must be
+  /// later than the stream head.
+  final DateTime startTimestamp;
+
+  /// The end of the timestamp range for the requested media. This value must be
+  /// within 3 hours of the specified `StartTimestamp`, and it must be later
+  /// than the `StartTimestamp` value.
+  ///
+  /// If `FragmentSelectorType` for the request is `SERVER_TIMESTAMP`, this
+  /// value must be in the past.
+  ///
+  /// The `EndTimestamp` value is required for `ON_DEMAND` mode, but optional
+  /// for `LIVE_REPLAY` mode. If the `EndTimestamp` is not set for `LIVE_REPLAY`
+  /// mode then the session will continue to include newly ingested fragments
+  /// until the session expires.
+  ///
+  ///
+  ///
+  /// This value is inclusive. The `EndTimestamp` is compared to the (starting)
+  /// timestamp of the fragment. Fragments that start before the `EndTimestamp`
+  /// value and continue past it are included in the session.
+  final DateTime endTimestamp;
+
+  HlsTimestampRange({
+    this.startTimestamp,
+    this.endTimestamp,
+  });
+}
+
+class ListFragmentsOutput {
+  /// A list of archived Fragment objects from the stream that meet the selector
+  /// criteria. Results are in no specific order, even across pages.
+  final List<Fragment> fragments;
+
+  /// If the returned list is truncated, the operation returns this token to use
+  /// to retrieve the next page of results. This value is `null` when there are
+  /// no more results to return.
+  final String nextToken;
+
+  ListFragmentsOutput({
+    this.fragments,
+    this.nextToken,
+  });
+  static ListFragmentsOutput fromJson(Map<String, dynamic> json) =>
+      ListFragmentsOutput();
+}
+
+class TimestampRange {
+  /// The starting timestamp in the range of timestamps for which to return
+  /// fragments.
+  final DateTime startTimestamp;
+
+  /// The ending timestamp in the range of timestamps for which to return
+  /// fragments.
+  final DateTime endTimestamp;
+
+  TimestampRange({
+    @required this.startTimestamp,
+    @required this.endTimestamp,
+  });
+}

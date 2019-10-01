@@ -99,7 +99,24 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> cancelKeyDeletion(String keyId) async {}
+  ///
+  /// [keyId]: The unique identifier for the customer master key (CMK) for which
+  /// to cancel deletion.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  Future<CancelKeyDeletionResponse> cancelKeyDeletion(String keyId) async {
+    return CancelKeyDeletionResponse.fromJson({});
+  }
 
   /// Connects or reconnects a [custom key
   /// store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
@@ -146,7 +163,14 @@ class KmsApi {
   /// see [Troubleshooting a Custom Key
   /// Store](https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> connectCustomKeyStore(String customKeyStoreId) async {}
+  ///
+  /// [customKeyStoreId]: Enter the key store ID of the custom key store that
+  /// you want to connect. To find the ID of a custom key store, use the
+  /// DescribeCustomKeyStores operation.
+  Future<ConnectCustomKeyStoreResponse> connectCustomKeyStore(
+      String customKeyStoreId) async {
+    return ConnectCustomKeyStoreResponse.fromJson({});
+  }
 
   /// Creates a display name for a customer managed customer master key (CMK).
   /// You can use an alias to identify a CMK in selected operations, such as
@@ -177,6 +201,18 @@ class KmsApi {
   /// The result of this operation varies with the key state of the CMK. For
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [aliasName]: Specifies the alias name. This value must begin with `alias/`
+  /// followed by a name, such as `alias/ExampleAlias`. The alias name cannot
+  /// begin with `alias/aws/`. The `alias/aws/` prefix is reserved for AWS
+  /// managed CMKs.
+  ///
+  /// [targetKeyId]: Identifies the CMK to which the alias refers. Specify the
+  /// key ID or the Amazon Resource Name (ARN) of the CMK. You cannot specify
+  /// another alias. For help finding the key ID and ARN, see [Finding the Key
+  /// ID and
+  /// ARN](https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn)
   /// in the _AWS Key Management Service Developer Guide_.
   Future<void> createAlias(
       {@required String aliasName, @required String targetKeyId}) async {}
@@ -210,11 +246,36 @@ class KmsApi {
   /// For help with failures, see [Troubleshooting a Custom Key
   /// Store](https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> createCustomKeyStore(
+  ///
+  /// [customKeyStoreName]: Specifies a friendly name for the custom key store.
+  /// The name must be unique in your AWS account.
+  ///
+  /// [cloudHsmClusterId]: Identifies the AWS CloudHSM cluster for the custom
+  /// key store. Enter the cluster ID of any active AWS CloudHSM cluster that is
+  /// not already associated with a custom key store. To find the cluster ID,
+  /// use the
+  /// [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html)
+  /// operation.
+  ///
+  /// [trustAnchorCertificate]: Enter the content of the trust anchor
+  /// certificate for the cluster. This is the content of the `customerCA.crt`
+  /// file that you created when you [initialized the
+  /// cluster](https://docs.aws.amazon.com/cloudhsm/latest/userguide/initialize-cluster.html).
+  ///
+  /// [keyStorePassword]: Enter the password of the  [`kmsuser` crypto user (CU)
+  /// account](https://docs.aws.amazon.com/kms/latest/developerguide/key-store-concepts.html#concept-kmsuser)
+  /// in the specified AWS CloudHSM cluster. AWS KMS logs into the cluster as
+  /// this user to manage key material on your behalf.
+  ///
+  /// This parameter tells AWS KMS the `kmsuser` account password; it does not
+  /// change the password in the AWS CloudHSM cluster.
+  Future<CreateCustomKeyStoreResponse> createCustomKeyStore(
       {@required String customKeyStoreName,
       @required String cloudHsmClusterId,
       @required String trustAnchorCertificate,
-      @required String keyStorePassword}) async {}
+      @required String keyStorePassword}) async {
+    return CreateCustomKeyStoreResponse.fromJson({});
+  }
 
   /// Adds a grant to a customer master key (CMK). The grant allows the grantee
   /// principal to use the CMK when the conditions specified in the grant are
@@ -235,14 +296,86 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> createGrant(
+  ///
+  /// [keyId]: The unique identifier for the customer master key (CMK) that the
+  /// grant applies to.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+  /// specify a CMK in a different AWS account, you must use the key ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [granteePrincipal]: The principal that is given permission to perform the
+  /// operations that the grant permits.
+  ///
+  /// To specify the principal, use the [Amazon Resource Name
+  /// (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// of an AWS principal. Valid AWS principals include AWS accounts (root), IAM
+  /// users, IAM roles, federated users, and assumed role users. For examples of
+  /// the ARN syntax to use for specifying a principal, see [AWS Identity and
+  /// Access Management
+  /// (IAM)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam)
+  /// in the Example ARNs section of the _AWS General Reference_.
+  ///
+  /// [retiringPrincipal]: The principal that is given permission to retire the
+  /// grant by using RetireGrant operation.
+  ///
+  /// To specify the principal, use the [Amazon Resource Name
+  /// (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// of an AWS principal. Valid AWS principals include AWS accounts (root), IAM
+  /// users, federated users, and assumed role users. For examples of the ARN
+  /// syntax to use for specifying a principal, see [AWS Identity and Access
+  /// Management
+  /// (IAM)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam)
+  /// in the Example ARNs section of the _AWS General Reference_.
+  ///
+  /// [operations]: A list of operations that the grant permits.
+  ///
+  /// [constraints]: Allows a cryptographic operation only when the encryption
+  /// context matches or includes the encryption context specified in this
+  /// structure. For more information about encryption context, see [Encryption
+  /// Context](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context)
+  /// in the  __AWS Key Management Service Developer Guide__ .
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [name]: A friendly name for identifying the grant. Use this value to
+  /// prevent the unintended creation of duplicate grants when retrying this
+  /// request.
+  ///
+  /// When this value is absent, all `CreateGrant` requests result in a new
+  /// grant with a unique `GrantId` even if all the supplied parameters are
+  /// identical. This can result in unintended duplicates when you retry the
+  /// `CreateGrant` request.
+  ///
+  /// When this value is present, you can retry a `CreateGrant` request with
+  /// identical parameters; if the grant already exists, the original `GrantId`
+  /// is returned without creating a new grant. Note that the returned grant
+  /// token is unique with every `CreateGrant` request, even when a duplicate
+  /// `GrantId` is returned. All grant tokens obtained in this way can be used
+  /// interchangeably.
+  Future<CreateGrantResponse> createGrant(
       {@required String keyId,
       @required String granteePrincipal,
       String retiringPrincipal,
       @required List<String> operations,
       GrantConstraints constraints,
       List<String> grantTokens,
-      String name}) async {}
+      String name}) async {
+    return CreateGrantResponse.fromJson({});
+  }
 
   /// Creates a customer managed [customer master
   /// key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys)
@@ -265,14 +398,119 @@ class KmsApi {
   /// Region.
   ///
   /// You cannot use this operation to create a CMK in a different AWS account.
-  Future<void> createKey(
+  ///
+  /// [policy]: The key policy to attach to the CMK.
+  ///
+  /// If you provide a key policy, it must meet the following criteria:
+  ///
+  /// *   If you don't set `BypassPolicyLockoutSafetyCheck` to true, the key
+  /// policy must allow the principal that is making the `CreateKey` request to
+  /// make a subsequent PutKeyPolicy request on the CMK. This reduces the risk
+  /// that the CMK becomes unmanageable. For more information, refer to the
+  /// scenario in the [Default Key
+  /// Policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam)
+  /// section of the  __AWS Key Management Service Developer Guide__ .
+  ///
+  /// *   Each statement in the key policy must contain one or more principals.
+  /// The principals in the key policy must exist and be visible to AWS KMS.
+  /// When you create a new AWS principal (for example, an IAM user or role),
+  /// you might need to enforce a delay before including the new principal in a
+  /// key policy because the new principal might not be immediately visible to
+  /// AWS KMS. For more information, see [Changes that I make are not always
+  /// immediately
+  /// visible](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency)
+  /// in the _AWS Identity and Access Management User Guide_.
+  ///
+  ///
+  /// If you do not provide a key policy, AWS KMS attaches a default key policy
+  /// to the CMK. For more information, see [Default Key
+  /// Policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// The key policy size limit is 32 kilobytes (32768 bytes).
+  ///
+  /// [description]: A description of the CMK.
+  ///
+  /// Use a description that helps you decide whether the CMK is appropriate for
+  /// a task.
+  ///
+  /// [keyUsage]: The cryptographic operations for which you can use the CMK.
+  /// The only valid value is `ENCRYPT_DECRYPT`, which means you can use the CMK
+  /// to encrypt and decrypt data.
+  ///
+  /// [origin]: The source of the key material for the CMK. You cannot change
+  /// the origin after you create the CMK.
+  ///
+  /// The default is `AWS_KMS`, which means AWS KMS creates the key material in
+  /// its own key store.
+  ///
+  /// When the parameter value is `EXTERNAL`, AWS KMS creates a CMK without key
+  /// material so that you can import key material from your existing key
+  /// management infrastructure. For more information about importing key
+  /// material into AWS KMS, see [Importing Key
+  /// Material](https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// When the parameter value is `AWS_CLOUDHSM`, AWS KMS creates the CMK in an
+  /// AWS KMS [custom key
+  /// store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
+  /// and creates its key material in the associated AWS CloudHSM cluster. You
+  /// must also use the `CustomKeyStoreId` parameter to identify the custom key
+  /// store.
+  ///
+  /// [customKeyStoreId]: Creates the CMK in the specified [custom key
+  /// store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
+  /// and the key material in its associated AWS CloudHSM cluster. To create a
+  /// CMK in a custom key store, you must also specify the `Origin` parameter
+  /// with a value of `AWS_CLOUDHSM`. The AWS CloudHSM cluster that is
+  /// associated with the custom key store must have at least two active HSMs,
+  /// each in a different Availability Zone in the Region.
+  ///
+  /// To find the ID of a custom key store, use the DescribeCustomKeyStores
+  /// operation.
+  ///
+  /// The response includes the custom key store ID and the ID of the AWS
+  /// CloudHSM cluster.
+  ///
+  /// This operation is part of the [Custom Key Store
+  /// feature](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
+  /// feature in AWS KMS, which combines the convenience and extensive
+  /// integration of AWS KMS with the isolation and control of a single-tenant
+  /// key store.
+  ///
+  /// [bypassPolicyLockoutSafetyCheck]: A flag to indicate whether to bypass the
+  /// key policy lockout safety check.
+  ///
+  ///  Setting this value to true increases the risk that the CMK becomes
+  /// unmanageable. Do not set this value to true indiscriminately.
+  ///
+  /// For more information, refer to the scenario in the [Default Key
+  /// Policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam)
+  /// section in the  __AWS Key Management Service Developer Guide__ .
+  ///
+  /// Use this parameter only when you include a policy in the request and you
+  /// intend to prevent the principal that is making the request from making a
+  /// subsequent PutKeyPolicy request on the CMK.
+  ///
+  /// The default value is false.
+  ///
+  /// [tags]: One or more tags. Each tag consists of a tag key and a tag value.
+  /// Tag keys and tag values are both required, but tag values can be empty
+  /// (null) strings.
+  ///
+  /// Use this parameter to tag the CMK when it is created. Alternately, you can
+  /// omit this parameter and instead tag the CMK after it is created using
+  /// TagResource.
+  Future<CreateKeyResponse> createKey(
       {String policy,
       String description,
       String keyUsage,
       String origin,
       String customKeyStoreId,
       bool bypassPolicyLockoutSafetyCheck,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateKeyResponse.fromJson({});
+  }
 
   /// Decrypts ciphertext. Ciphertext is plaintext that has been previously
   /// encrypted by using any of the following operations:
@@ -296,9 +534,23 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> decrypt(Uint8List ciphertextBlob,
-      {Map<String, String> encryptionContext,
-      List<String> grantTokens}) async {}
+  ///
+  /// [ciphertextBlob]: Ciphertext to be decrypted. The blob includes metadata.
+  ///
+  /// [encryptionContext]: The encryption context. If this was specified in the
+  /// Encrypt function, it must be specified here or the decryption operation
+  /// will fail. For more information, see [Encryption
+  /// Context](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context).
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  Future<DecryptResponse> decrypt(Uint8List ciphertextBlob,
+      {Map<String, String> encryptionContext, List<String> grantTokens}) async {
+    return DecryptResponse.fromJson({});
+  }
 
   /// Deletes the specified alias. You cannot perform this operation on an alias
   /// in a different AWS account.
@@ -312,6 +564,9 @@ class KmsApi {
   /// DeleteAlias to delete the current alias and CreateAlias to create a new
   /// alias. To associate an existing alias with a different customer master key
   /// (CMK), call UpdateAlias.
+  ///
+  /// [aliasName]: The alias to be deleted. The alias name must begin with
+  /// `alias/` followed by the alias name, such as `alias/ExampleAlias`.
   Future<void> deleteAlias(String aliasName) async {}
 
   /// Deletes a [custom key
@@ -349,7 +604,14 @@ class KmsApi {
   /// feature in AWS KMS, which combines the convenience and extensive
   /// integration of AWS KMS with the isolation and control of a single-tenant
   /// key store.
-  Future<void> deleteCustomKeyStore(String customKeyStoreId) async {}
+  ///
+  /// [customKeyStoreId]: Enter the ID of the custom key store you want to
+  /// delete. To find the ID of a custom key store, use the
+  /// DescribeCustomKeyStores operation.
+  Future<DeleteCustomKeyStoreResponse> deleteCustomKeyStore(
+      String customKeyStoreId) async {
+    return DeleteCustomKeyStoreResponse.fromJson({});
+  }
 
   /// Deletes key material that you previously imported. This operation makes
   /// the specified customer master key (CMK) unusable. For more information
@@ -369,6 +631,21 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: Identifies the CMK from which you are deleting imported key
+  /// material. The `Origin` of the CMK must be `EXTERNAL`.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<void> deleteImportedKeyMaterial(String keyId) async {}
 
   /// Gets information about [custom key
@@ -404,11 +681,37 @@ class KmsApi {
   /// Key
   /// Stores](https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html)
   /// topic in the _AWS Key Management Service Developer Guide_.
-  Future<void> describeCustomKeyStores(
+  ///
+  /// [customKeyStoreId]: Gets only information about the specified custom key
+  /// store. Enter the key store ID.
+  ///
+  /// By default, this operation gets information about all custom key stores in
+  /// the account and region. To limit the output to a particular custom key
+  /// store, you can use either the `CustomKeyStoreId` or `CustomKeyStoreName`
+  /// parameter, but not both.
+  ///
+  /// [customKeyStoreName]: Gets only information about the specified custom key
+  /// store. Enter the friendly name of the custom key store.
+  ///
+  /// By default, this operation gets information about all custom key stores in
+  /// the account and region. To limit the output to a particular custom key
+  /// store, you can use either the `CustomKeyStoreId` or `CustomKeyStoreName`
+  /// parameter, but not both.
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  Future<DescribeCustomKeyStoresResponse> describeCustomKeyStores(
       {String customKeyStoreId,
       String customKeyStoreName,
       int limit,
-      String marker}) async {}
+      String marker}) async {
+    return DescribeCustomKeyStoresResponse.fromJson({});
+  }
 
   /// Provides detailed information about the specified customer master key
   /// (CMK).
@@ -421,7 +724,43 @@ class KmsApi {
   ///
   /// To perform this operation on a CMK in a different AWS account, specify the
   /// key ARN or alias ARN in the value of the KeyId parameter.
-  Future<void> describeKey(String keyId, {List<String> grantTokens}) async {}
+  ///
+  /// [keyId]: Describes the specified customer master key (CMK).
+  ///
+  /// If you specify a predefined AWS alias (an AWS alias with no key ID), KMS
+  /// associates the alias with an [AWS managed
+  /// CMK](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys)
+  /// and returns its `KeyId` and `Arn` in the response.
+  ///
+  /// To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name,
+  /// or alias ARN. When using an alias name, prefix it with `"alias/"`. To
+  /// specify a CMK in a different AWS account, you must use the key ARN or
+  /// alias ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Alias name: `alias/ExampleAlias`
+  ///
+  /// *   Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+  /// get the alias name and alias ARN, use ListAliases.
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  Future<DescribeKeyResponse> describeKey(String keyId,
+      {List<String> grantTokens}) async {
+    return DescribeKeyResponse.fromJson({});
+  }
 
   /// Sets the state of a customer master key (CMK) to disabled, thereby
   /// preventing its use for cryptographic operations. You cannot perform this
@@ -436,6 +775,20 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<void> disableKey(String keyId) async {}
 
   /// Disables [automatic rotation of the key
@@ -447,6 +800,20 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<void> disableKeyRotation(String keyId) async {}
 
   /// Disconnects the [custom key
@@ -472,7 +839,14 @@ class KmsApi {
   /// feature in AWS KMS, which combines the convenience and extensive
   /// integration of AWS KMS with the isolation and control of a single-tenant
   /// key store.
-  Future<void> disconnectCustomKeyStore(String customKeyStoreId) async {}
+  ///
+  /// [customKeyStoreId]: Enter the ID of the custom key store you want to
+  /// disconnect. To find the ID of a custom key store, use the
+  /// DescribeCustomKeyStores operation.
+  Future<DisconnectCustomKeyStoreResponse> disconnectCustomKeyStore(
+      String customKeyStoreId) async {
+    return DisconnectCustomKeyStoreResponse.fromJson({});
+  }
 
   /// Sets the key state of a customer master key (CMK) to enabled. This allows
   /// you to use the CMK for cryptographic operations. You cannot perform this
@@ -482,6 +856,20 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<void> enableKey(String keyId) async {}
 
   /// Enables [automatic rotation of the key
@@ -497,6 +885,20 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<void> enableKeyRotation(String keyId) async {}
 
   /// Encrypts plaintext into ciphertext by using a customer master key (CMK).
@@ -528,11 +930,49 @@ class KmsApi {
   ///
   /// To perform this operation on a CMK in a different AWS account, specify the
   /// key ARN or alias ARN in the value of the KeyId parameter.
-  Future<void> encrypt(
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name,
+  /// or alias ARN. When using an alias name, prefix it with `"alias/"`. To
+  /// specify a CMK in a different AWS account, you must use the key ARN or
+  /// alias ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Alias name: `alias/ExampleAlias`
+  ///
+  /// *   Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+  /// get the alias name and alias ARN, use ListAliases.
+  ///
+  /// [plaintext]: Data to be encrypted.
+  ///
+  /// [encryptionContext]: Name-value pair that specifies the encryption context
+  /// to be used for authenticated encryption. If used here, the same value must
+  /// be supplied to the `Decrypt` API or decryption will fail. For more
+  /// information, see [Encryption
+  /// Context](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context).
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  Future<EncryptResponse> encrypt(
       {@required String keyId,
       @required Uint8List plaintext,
       Map<String, String> encryptionContext,
-      List<String> grantTokens}) async {}
+      List<String> grantTokens}) async {
+    return EncryptResponse.fromJson({});
+  }
 
   /// Generates a unique data key. This operation returns a plaintext copy of
   /// the data key and a copy that is encrypted under a customer master key
@@ -594,11 +1034,56 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> generateDataKey(String keyId,
+  ///
+  /// [keyId]: An identifier for the CMK that encrypts the data key.
+  ///
+  /// To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name,
+  /// or alias ARN. When using an alias name, prefix it with `"alias/"`. To
+  /// specify a CMK in a different AWS account, you must use the key ARN or
+  /// alias ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Alias name: `alias/ExampleAlias`
+  ///
+  /// *   Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+  /// get the alias name and alias ARN, use ListAliases.
+  ///
+  /// [encryptionContext]: A set of key-value pairs that represents additional
+  /// authenticated data.
+  ///
+  /// For more information, see [Encryption
+  /// Context](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [numberOfBytes]: The length of the data key in bytes. For example, use the
+  /// value 64 to generate a 512-bit data key (64 bytes is 512 bits). For common
+  /// key lengths (128-bit and 256-bit symmetric keys), we recommend that you
+  /// use the `KeySpec` field instead of this one.
+  ///
+  /// [keySpec]: The length of the data key. Use `AES_128` to generate a 128-bit
+  /// symmetric key, or `AES_256` to generate a 256-bit symmetric key.
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  Future<GenerateDataKeyResponse> generateDataKey(String keyId,
       {Map<String, String> encryptionContext,
       int numberOfBytes,
       String keySpec,
-      List<String> grantTokens}) async {}
+      List<String> grantTokens}) async {
+    return GenerateDataKeyResponse.fromJson({});
+  }
 
   /// Generates a unique data key. This operation returns a data key that is
   /// encrypted under a customer master key (CMK) that you specify.
@@ -626,11 +1111,58 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> generateDataKeyWithoutPlaintext(String keyId,
-      {Map<String, String> encryptionContext,
-      String keySpec,
-      int numberOfBytes,
-      List<String> grantTokens}) async {}
+  ///
+  /// [keyId]: The identifier of the customer master key (CMK) that encrypts the
+  /// data key.
+  ///
+  /// To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name,
+  /// or alias ARN. When using an alias name, prefix it with `"alias/"`. To
+  /// specify a CMK in a different AWS account, you must use the key ARN or
+  /// alias ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Alias name: `alias/ExampleAlias`
+  ///
+  /// *   Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+  /// get the alias name and alias ARN, use ListAliases.
+  ///
+  /// [encryptionContext]: A set of key-value pairs that represents additional
+  /// authenticated data.
+  ///
+  /// For more information, see [Encryption
+  /// Context](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keySpec]: The length of the data key. Use `AES_128` to generate a 128-bit
+  /// symmetric key, or `AES_256` to generate a 256-bit symmetric key.
+  ///
+  /// [numberOfBytes]: The length of the data key in bytes. For example, use the
+  /// value 64 to generate a 512-bit data key (64 bytes is 512 bits). For common
+  /// key lengths (128-bit and 256-bit symmetric keys), we recommend that you
+  /// use the `KeySpec` field instead of this one.
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  Future<GenerateDataKeyWithoutPlaintextResponse>
+      generateDataKeyWithoutPlaintext(String keyId,
+          {Map<String, String> encryptionContext,
+          String keySpec,
+          int numberOfBytes,
+          List<String> grantTokens}) async {
+    return GenerateDataKeyWithoutPlaintextResponse.fromJson({});
+  }
 
   /// Returns a random byte string that is cryptographically secure.
   ///
@@ -644,13 +1176,42 @@ class KmsApi {
   /// [AWS Key Management Service Cryptographic
   /// Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf)
   /// whitepaper.
-  Future<void> generateRandom(
-      {int numberOfBytes, String customKeyStoreId}) async {}
+  ///
+  /// [numberOfBytes]: The length of the byte string.
+  ///
+  /// [customKeyStoreId]: Generates the random byte string in the AWS CloudHSM
+  /// cluster that is associated with the specified [custom key
+  /// store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html).
+  /// To find the ID of a custom key store, use the DescribeCustomKeyStores
+  /// operation.
+  Future<GenerateRandomResponse> generateRandom(
+      {int numberOfBytes, String customKeyStoreId}) async {
+    return GenerateRandomResponse.fromJson({});
+  }
 
   /// Gets a key policy attached to the specified customer master key (CMK). You
   /// cannot perform this operation on a CMK in a different AWS account.
-  Future<void> getKeyPolicy(
-      {@required String keyId, @required String policyName}) async {}
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [policyName]: Specifies the name of the key policy. The only valid name is
+  /// `default`. To get the names of key policies, use ListKeyPolicies.
+  Future<GetKeyPolicyResponse> getKeyPolicy(
+      {@required String keyId, @required String policyName}) async {
+    return GetKeyPolicyResponse.fromJson({});
+  }
 
   /// Gets a Boolean value that indicates whether [automatic rotation of the key
   /// material](https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html)
@@ -672,7 +1233,25 @@ class KmsApi {
   ///
   /// To perform this operation on a CMK in a different AWS account, specify the
   /// key ARN in the value of the `KeyId` parameter.
-  Future<void> getKeyRotationStatus(String keyId) async {}
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+  /// specify a CMK in a different AWS account, you must use the key ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  Future<GetKeyRotationStatusResponse> getKeyRotationStatus(
+      String keyId) async {
+    return GetKeyRotationStatusResponse.fromJson({});
+  }
 
   /// Returns the items you need in order to import key material into AWS KMS
   /// from your existing key management infrastructure. For more information
@@ -698,10 +1277,36 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> getParametersForImport(
+  ///
+  /// [keyId]: The identifier of the CMK into which you will import key
+  /// material. The CMK's `Origin` must be `EXTERNAL`.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [wrappingAlgorithm]: The algorithm you will use to encrypt the key
+  /// material before importing it with ImportKeyMaterial. For more information,
+  /// see [Encrypt the Key
+  /// Material](https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys-encrypt-key-material.html)
+  /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [wrappingKeySpec]: The type of wrapping key (public key) to return in the
+  /// response. Only 2048-bit RSA public keys are supported.
+  Future<GetParametersForImportResponse> getParametersForImport(
       {@required String keyId,
       @required String wrappingAlgorithm,
-      @required String wrappingKeySpec}) async {}
+      @required String wrappingKeySpec}) async {
+    return GetParametersForImportResponse.fromJson({});
+  }
 
   /// Imports key material into an existing AWS KMS customer master key (CMK)
   /// that was created without key material. You cannot perform this operation
@@ -748,12 +1353,49 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> importKeyMaterial(
+  ///
+  /// [keyId]: The identifier of the CMK to import the key material into. The
+  /// CMK's `Origin` must be `EXTERNAL`.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [importToken]: The import token that you received in the response to a
+  /// previous GetParametersForImport request. It must be from the same response
+  /// that contained the public key that you used to encrypt the key material.
+  ///
+  /// [encryptedKeyMaterial]: The encrypted key material to import. It must be
+  /// encrypted with the public key that you received in the response to a
+  /// previous GetParametersForImport request, using the wrapping algorithm that
+  /// you specified in that request.
+  ///
+  /// [validTo]: The time at which the imported key material expires. When the
+  /// key material expires, AWS KMS deletes the key material and the CMK becomes
+  /// unusable. You must omit this parameter when the `ExpirationModel`
+  /// parameter is set to `KEY\_MATERIAL\_DOES\_NOT\_EXPIRE`. Otherwise it is
+  /// required.
+  ///
+  /// [expirationModel]: Specifies whether the key material expires. The default
+  /// is `KEY\_MATERIAL\_EXPIRES`, in which case you must include the `ValidTo`
+  /// parameter. When this parameter is set to
+  /// `KEY\_MATERIAL\_DOES\_NOT\_EXPIRE`, you must omit the `ValidTo` parameter.
+  Future<ImportKeyMaterialResponse> importKeyMaterial(
       {@required String keyId,
       @required Uint8List importToken,
       @required Uint8List encryptedKeyMaterial,
       DateTime validTo,
-      String expirationModel}) async {}
+      String expirationModel}) async {
+    return ImportKeyMaterialResponse.fromJson({});
+  }
 
   /// Gets a list of aliases in the caller's AWS account and region. You cannot
   /// list aliases in other accounts. For more information about aliases, see
@@ -774,39 +1416,186 @@ class KmsApi {
   /// associated with a CMK. Aliases that AWS creates in your account, including
   /// predefined aliases, do not count against your [AWS KMS aliases
   /// limit](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#aliases-limit).
-  Future<void> listAliases({String keyId, int limit, String marker}) async {}
+  ///
+  /// [keyId]: Lists only aliases that refer to the specified CMK. The value of
+  /// this parameter can be the ID or Amazon Resource Name (ARN) of a CMK in the
+  /// caller's account and region. You cannot use an alias name or alias ARN in
+  /// this value.
+  ///
+  /// This parameter is optional. If you omit it, `ListAliases` returns all
+  /// aliases in the account and region.
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// This value is optional. If you include a value, it must be between 1 and
+  /// 100, inclusive. If you do not include a value, it defaults to 50.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  Future<ListAliasesResponse> listAliases(
+      {String keyId, int limit, String marker}) async {
+    return ListAliasesResponse.fromJson({});
+  }
 
   /// Gets a list of all grants for the specified customer master key (CMK).
   ///
   /// To perform this operation on a CMK in a different AWS account, specify the
   /// key ARN in the value of the `KeyId` parameter.
-  Future<void> listGrants(String keyId, {int limit, String marker}) async {}
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// This value is optional. If you include a value, it must be between 1 and
+  /// 100, inclusive. If you do not include a value, it defaults to 50.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+  /// specify a CMK in a different AWS account, you must use the key ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  Future<ListGrantsResponse> listGrants(String keyId,
+      {int limit, String marker}) async {
+    return ListGrantsResponse.fromJson({});
+  }
 
   /// Gets the names of the key policies that are attached to a customer master
   /// key (CMK). This operation is designed to get policy names that you can use
   /// in a GetKeyPolicy operation. However, the only valid policy name is
   /// `default`. You cannot perform this operation on a CMK in a different AWS
   /// account.
-  Future<void> listKeyPolicies(String keyId,
-      {int limit, String marker}) async {}
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// This value is optional. If you include a value, it must be between 1 and
+  /// 1000, inclusive. If you do not include a value, it defaults to 100.
+  ///
+  /// Only one policy can be attached to a key.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  Future<ListKeyPoliciesResponse> listKeyPolicies(String keyId,
+      {int limit, String marker}) async {
+    return ListKeyPoliciesResponse.fromJson({});
+  }
 
   /// Gets a list of all customer master keys (CMKs) in the caller's AWS account
   /// and region.
-  Future<void> listKeys({int limit, String marker}) async {}
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// This value is optional. If you include a value, it must be between 1 and
+  /// 1000, inclusive. If you do not include a value, it defaults to 100.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  Future<ListKeysResponse> listKeys({int limit, String marker}) async {
+    return ListKeysResponse.fromJson({});
+  }
 
   /// Returns a list of all tags for the specified customer master key (CMK).
   ///
   /// You cannot perform this operation on a CMK in a different AWS account.
-  Future<void> listResourceTags(String keyId,
-      {int limit, String marker}) async {}
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// This value is optional. If you include a value, it must be between 1 and
+  /// 50, inclusive. If you do not include a value, it defaults to 50.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  ///
+  /// Do not attempt to construct this value. Use only the value of `NextMarker`
+  /// from the truncated response you just received.
+  Future<ListResourceTagsResponse> listResourceTags(String keyId,
+      {int limit, String marker}) async {
+    return ListResourceTagsResponse.fromJson({});
+  }
 
   /// Returns a list of all grants for which the grant's `RetiringPrincipal`
   /// matches the one specified.
   ///
   /// A typical use is to list all grants that you are able to retire. To retire
   /// a grant, use RetireGrant.
-  Future<void> listRetirableGrants(String retiringPrincipal,
-      {int limit, String marker}) async {}
+  ///
+  /// [limit]: Use this parameter to specify the maximum number of items to
+  /// return. When this value is present, AWS KMS does not return more than the
+  /// specified number of items, but it might return fewer.
+  ///
+  /// This value is optional. If you include a value, it must be between 1 and
+  /// 100, inclusive. If you do not include a value, it defaults to 50.
+  ///
+  /// [marker]: Use this parameter in a subsequent request after you receive a
+  /// response with truncated results. Set it to the value of `NextMarker` from
+  /// the truncated response you just received.
+  ///
+  /// [retiringPrincipal]: The retiring principal for which to list grants.
+  ///
+  /// To specify the retiring principal, use the [Amazon Resource Name
+  /// (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// of an AWS principal. Valid AWS principals include AWS accounts (root), IAM
+  /// users, federated users, and assumed role users. For examples of the ARN
+  /// syntax for specifying a principal, see [AWS Identity and Access Management
+  /// (IAM)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam)
+  /// in the Example ARNs section of the _Amazon Web Services General
+  /// Reference_.
+  Future<ListGrantsResponse> listRetirableGrants(String retiringPrincipal,
+      {int limit, String marker}) async {
+    return ListGrantsResponse.fromJson({});
+  }
 
   /// Attaches a key policy to the specified customer master key (CMK). You
   /// cannot perform this operation on a CMK in a different AWS account.
@@ -814,6 +1603,64 @@ class KmsApi {
   /// For more information about key policies, see [Key
   /// Policies](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [policyName]: The name of the key policy. The only valid value is
+  /// `default`.
+  ///
+  /// [policy]: The key policy to attach to the CMK.
+  ///
+  /// The key policy must meet the following criteria:
+  ///
+  /// *   If you don't set `BypassPolicyLockoutSafetyCheck` to true, the key
+  /// policy must allow the principal that is making the `PutKeyPolicy` request
+  /// to make a subsequent `PutKeyPolicy` request on the CMK. This reduces the
+  /// risk that the CMK becomes unmanageable. For more information, refer to the
+  /// scenario in the [Default Key
+  /// Policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam)
+  /// section of the _AWS Key Management Service Developer Guide_.
+  ///
+  /// *   Each statement in the key policy must contain one or more principals.
+  /// The principals in the key policy must exist and be visible to AWS KMS.
+  /// When you create a new AWS principal (for example, an IAM user or role),
+  /// you might need to enforce a delay before including the new principal in a
+  /// key policy because the new principal might not be immediately visible to
+  /// AWS KMS. For more information, see [Changes that I make are not always
+  /// immediately
+  /// visible](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency)
+  /// in the _AWS Identity and Access Management User Guide_.
+  ///
+  ///
+  /// The key policy size limit is 32 kilobytes (32768 bytes).
+  ///
+  /// [bypassPolicyLockoutSafetyCheck]: A flag to indicate whether to bypass the
+  /// key policy lockout safety check.
+  ///
+  ///  Setting this value to true increases the risk that the CMK becomes
+  /// unmanageable. Do not set this value to true indiscriminately.
+  ///
+  /// For more information, refer to the scenario in the [Default Key
+  /// Policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam)
+  /// section in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// Use this parameter only when you intend to prevent the principal that is
+  /// making the request from making a subsequent `PutKeyPolicy` request on the
+  /// CMK.
+  ///
+  /// The default value is false.
   Future<void> putKeyPolicy(
       {@required String keyId,
       @required String policyName,
@@ -842,12 +1689,51 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> reEncrypt(
+  ///
+  /// [ciphertextBlob]: Ciphertext of the data to reencrypt.
+  ///
+  /// [sourceEncryptionContext]: Encryption context used to encrypt and decrypt
+  /// the data specified in the `CiphertextBlob` parameter.
+  ///
+  /// [destinationKeyId]: A unique identifier for the CMK that is used to
+  /// reencrypt the data.
+  ///
+  /// To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name,
+  /// or alias ARN. When using an alias name, prefix it with `"alias/"`. To
+  /// specify a CMK in a different AWS account, you must use the key ARN or
+  /// alias ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Alias name: `alias/ExampleAlias`
+  ///
+  /// *   Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+  /// get the alias name and alias ARN, use ListAliases.
+  ///
+  /// [destinationEncryptionContext]: Encryption context to use when the data is
+  /// reencrypted.
+  ///
+  /// [grantTokens]: A list of grant tokens.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  Future<ReEncryptResponse> reEncrypt(
       {@required Uint8List ciphertextBlob,
       Map<String, String> sourceEncryptionContext,
       @required String destinationKeyId,
       Map<String, String> destinationEncryptionContext,
-      List<String> grantTokens}) async {}
+      List<String> grantTokens}) async {
+    return ReEncryptResponse.fromJson({});
+  }
 
   /// Retires a grant. To clean up, you can retire a grant when you're done
   /// using it. You should revoke a grant when you intend to actively deny
@@ -867,6 +1753,20 @@ class KmsApi {
   /// customer master key (CMK). A grant token is a unique variable-length
   /// base64-encoded string. A grant ID is a 64 character unique identifier of a
   /// grant. The CreateGrant operation returns both.
+  ///
+  /// [grantToken]: Token that identifies the grant to be retired.
+  ///
+  /// [keyId]: The Amazon Resource Name (ARN) of the CMK associated with the
+  /// grant.
+  ///
+  /// For example:
+  /// `arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// [grantId]: Unique identifier of the grant to retire. The grant ID is
+  /// returned in the response to a `CreateGrant` operation.
+  ///
+  /// *   Grant ID Example -
+  /// 0123456789012345678901234567890123456789012345678901234567890123
   Future<void> retireGrant(
       {String grantToken, String keyId, String grantId}) async {}
 
@@ -875,6 +1775,24 @@ class KmsApi {
   ///
   /// To perform this operation on a CMK in a different AWS account, specify the
   /// key ARN in the value of the `KeyId` parameter.
+  ///
+  /// [keyId]: A unique identifier for the customer master key associated with
+  /// the grant.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+  /// specify a CMK in a different AWS account, you must use the key ARN.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [grantId]: Identifier of the grant to be revoked.
   Future<void> revokeGrant(
       {@required String keyId, @required String grantId}) async {}
 
@@ -912,8 +1830,31 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
-  Future<void> scheduleKeyDeletion(String keyId,
-      {int pendingWindowInDays}) async {}
+  ///
+  /// [keyId]: The unique identifier of the customer master key (CMK) to delete.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [pendingWindowInDays]: The waiting period, specified in number of days.
+  /// After the waiting period ends, AWS KMS deletes the customer master key
+  /// (CMK).
+  ///
+  /// This value is optional. If you include a value, it must be between 7 and
+  /// 30, inclusive. If you do not include a value, it defaults to 30.
+  Future<ScheduleKeyDeletionResponse> scheduleKeyDeletion(String keyId,
+      {int pendingWindowInDays}) async {
+    return ScheduleKeyDeletionResponse.fromJson({});
+  }
 
   /// Adds or edits tags for a customer master key (CMK). You cannot perform
   /// this operation on a CMK in a different AWS account.
@@ -933,6 +1874,22 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the CMK you are tagging.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [tags]: One or more tags. Each tag consists of a tag key and a tag value.
   Future<void> tagResource(
       {@required String keyId, @required List<Tag> tags}) async {}
 
@@ -946,6 +1903,23 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the CMK from which you are removing tags.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [tagKeys]: One or more tag keys. Specify only the tag keys, not the tag
+  /// values.
   Future<void> untagResource(
       {@required String keyId, @required List<String> tagKeys}) async {}
 
@@ -973,6 +1947,28 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [aliasName]: Specifies the name of the alias to change. This value must
+  /// begin with `alias/` followed by the alias name, such as
+  /// `alias/ExampleAlias`.
+  ///
+  /// [targetKeyId]: Unique identifier of the customer master key (CMK) to be
+  /// mapped to the alias. When the update operation completes, the alias will
+  /// point to this CMK.
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// To verify that the alias is mapped to the correct CMK, use ListAliases.
   Future<void> updateAlias(
       {@required String aliasName, @required String targetKeyId}) async {}
 
@@ -1016,10 +2012,43 @@ class KmsApi {
   /// feature in AWS KMS, which combines the convenience and extensive
   /// integration of AWS KMS with the isolation and control of a single-tenant
   /// key store.
-  Future<void> updateCustomKeyStore(String customKeyStoreId,
+  ///
+  /// [customKeyStoreId]: Identifies the custom key store that you want to
+  /// update. Enter the ID of the custom key store. To find the ID of a custom
+  /// key store, use the DescribeCustomKeyStores operation.
+  ///
+  /// [newCustomKeyStoreName]: Changes the friendly name of the custom key store
+  /// to the value that you specify. The custom key store name must be unique in
+  /// the AWS account.
+  ///
+  /// [keyStorePassword]: Enter the current password of the `kmsuser` crypto
+  /// user (CU) in the AWS CloudHSM cluster that is associated with the custom
+  /// key store.
+  ///
+  /// This parameter tells AWS KMS the current password of the `kmsuser` crypto
+  /// user (CU). It does not set or change the password of any users in the AWS
+  /// CloudHSM cluster.
+  ///
+  /// [cloudHsmClusterId]: Associates the custom key store with a related AWS
+  /// CloudHSM cluster.
+  ///
+  /// Enter the cluster ID of the cluster that you used to create the custom key
+  /// store or a cluster that shares a backup history and has the same cluster
+  /// certificate as the original cluster. You cannot use this parameter to
+  /// associate a custom key store with an unrelated cluster. In addition, the
+  /// replacement cluster must [fulfill the
+  /// requirements](https://docs.aws.amazon.com/kms/latest/developerguide/create-keystore.html#before-keystore)
+  /// for a cluster associated with a custom key store. To view the cluster
+  /// certificate of a cluster, use the
+  /// [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html)
+  /// operation.
+  Future<UpdateCustomKeyStoreResponse> updateCustomKeyStore(
+      String customKeyStoreId,
       {String newCustomKeyStoreName,
       String keyStorePassword,
-      String cloudHsmClusterId}) async {}
+      String cloudHsmClusterId}) async {
+    return UpdateCustomKeyStoreResponse.fromJson({});
+  }
 
   /// Updates the description of a customer master key (CMK). To see the
   /// description of a CMK, use DescribeKey.
@@ -1030,72 +2059,726 @@ class KmsApi {
   /// details, see [How Key State Affects Use of a Customer Master
   /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
   /// in the _AWS Key Management Service Developer Guide_.
+  ///
+  /// [keyId]: A unique identifier for the customer master key (CMK).
+  ///
+  /// Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+  ///
+  /// For example:
+  ///
+  /// *   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  /// *   Key ARN:
+  /// `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
+  ///
+  ///
+  /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+  ///
+  /// [description]: New description for the CMK.
   Future<void> updateKeyDescription(
       {@required String keyId, @required String description}) async {}
 }
 
-class AliasListEntry {}
+class AliasListEntry {
+  /// String that contains the alias. This value begins with `alias/`.
+  final String aliasName;
 
-class CancelKeyDeletionResponse {}
+  /// String that contains the key ARN.
+  final String aliasArn;
 
-class ConnectCustomKeyStoreResponse {}
+  /// String that contains the key identifier referred to by the alias.
+  final String targetKeyId;
 
-class CreateCustomKeyStoreResponse {}
+  AliasListEntry({
+    this.aliasName,
+    this.aliasArn,
+    this.targetKeyId,
+  });
+  static AliasListEntry fromJson(Map<String, dynamic> json) => AliasListEntry();
+}
 
-class CreateGrantResponse {}
+class CancelKeyDeletionResponse {
+  /// The unique identifier of the master key for which deletion is canceled.
+  final String keyId;
 
-class CreateKeyResponse {}
+  CancelKeyDeletionResponse({
+    this.keyId,
+  });
+  static CancelKeyDeletionResponse fromJson(Map<String, dynamic> json) =>
+      CancelKeyDeletionResponse();
+}
 
-class CustomKeyStoresListEntry {}
+class ConnectCustomKeyStoreResponse {
+  ConnectCustomKeyStoreResponse();
+  static ConnectCustomKeyStoreResponse fromJson(Map<String, dynamic> json) =>
+      ConnectCustomKeyStoreResponse();
+}
 
-class DecryptResponse {}
+class CreateCustomKeyStoreResponse {
+  /// A unique identifier for the new custom key store.
+  final String customKeyStoreId;
 
-class DeleteCustomKeyStoreResponse {}
+  CreateCustomKeyStoreResponse({
+    this.customKeyStoreId,
+  });
+  static CreateCustomKeyStoreResponse fromJson(Map<String, dynamic> json) =>
+      CreateCustomKeyStoreResponse();
+}
 
-class DescribeCustomKeyStoresResponse {}
+class CreateGrantResponse {
+  /// The grant token.
+  ///
+  /// For more information, see [Grant
+  /// Tokens](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token)
+  /// in the _AWS Key Management Service Developer Guide_.
+  final String grantToken;
 
-class DescribeKeyResponse {}
+  /// The unique identifier for the grant.
+  ///
+  /// You can use the `GrantId` in a subsequent RetireGrant or RevokeGrant
+  /// operation.
+  final String grantId;
 
-class DisconnectCustomKeyStoreResponse {}
+  CreateGrantResponse({
+    this.grantToken,
+    this.grantId,
+  });
+  static CreateGrantResponse fromJson(Map<String, dynamic> json) =>
+      CreateGrantResponse();
+}
 
-class EncryptResponse {}
+class CreateKeyResponse {
+  /// Metadata associated with the CMK.
+  final KeyMetadata keyMetadata;
 
-class GenerateDataKeyResponse {}
+  CreateKeyResponse({
+    this.keyMetadata,
+  });
+  static CreateKeyResponse fromJson(Map<String, dynamic> json) =>
+      CreateKeyResponse();
+}
 
-class GenerateDataKeyWithoutPlaintextResponse {}
+class CustomKeyStoresListEntry {
+  /// A unique identifier for the custom key store.
+  final String customKeyStoreId;
 
-class GenerateRandomResponse {}
+  /// The user-specified friendly name for the custom key store.
+  final String customKeyStoreName;
 
-class GetKeyPolicyResponse {}
+  /// A unique identifier for the AWS CloudHSM cluster that is associated with
+  /// the custom key store.
+  final String cloudHsmClusterId;
 
-class GetKeyRotationStatusResponse {}
+  /// The trust anchor certificate of the associated AWS CloudHSM cluster. When
+  /// you [initialize the
+  /// cluster](https://docs.aws.amazon.com/cloudhsm/latest/userguide/initialize-cluster.html#sign-csr),
+  /// you create this certificate and save it in the `customerCA.crt` file.
+  final String trustAnchorCertificate;
 
-class GetParametersForImportResponse {}
+  /// Indicates whether the custom key store is connected to its AWS CloudHSM
+  /// cluster.
+  ///
+  /// You can create and use CMKs in your custom key stores only when its
+  /// connection state is `CONNECTED`.
+  ///
+  /// The value is `DISCONNECTED` if the key store has never been connected or
+  /// you use the DisconnectCustomKeyStore operation to disconnect it. If the
+  /// value is `CONNECTED` but you are having trouble using the custom key
+  /// store, make sure that its associated AWS CloudHSM cluster is active and
+  /// contains at least one active HSM.
+  ///
+  /// A value of `FAILED` indicates that an attempt to connect was unsuccessful.
+  /// For help resolving a connection failure, see [Troubleshooting a Custom Key
+  /// Store](https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html)
+  /// in the _AWS Key Management Service Developer Guide_.
+  final String connectionState;
 
-class GrantConstraints {}
+  /// Describes the connection error. Valid values are:
+  ///
+  /// *    `CLUSTER\_NOT\_FOUND` \- AWS KMS cannot find the AWS CloudHSM cluster
+  /// with the specified cluster ID.
+  ///
+  /// *    `INSUFFICIENT\_CLOUDHSM\_HSMS` \- The associated AWS CloudHSM cluster
+  /// does not contain any active HSMs. To connect a custom key store to its AWS
+  /// CloudHSM cluster, the cluster must contain at least one active HSM.
+  ///
+  /// *    `INTERNAL_ERROR` \- AWS KMS could not complete the request due to an
+  /// internal error. Retry the request. For `ConnectCustomKeyStore` requests,
+  /// disconnect the custom key store before trying to connect again.
+  ///
+  /// *    `INVALID_CREDENTIALS` \- AWS KMS does not have the correct password
+  /// for the `kmsuser` crypto user in the AWS CloudHSM cluster.
+  ///
+  /// *    `NETWORK_ERRORS` \- Network errors are preventing AWS KMS from
+  /// connecting to the custom key store.
+  ///
+  /// *    `USER\_LOCKED\_OUT` \- The `kmsuser` CU account is locked out of the
+  /// associated AWS CloudHSM cluster due to too many failed password attempts.
+  /// Before you can connect your custom key store to its AWS CloudHSM cluster,
+  /// you must change the `kmsuser` account password and update the password
+  /// value for the custom key store.
+  ///
+  ///
+  /// For help with connection failures, see [Troubleshooting Custom Key
+  /// Stores](https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html)
+  /// in the _AWS Key Management Service Developer Guide_.
+  final String connectionErrorCode;
 
-class GrantListEntry {}
+  /// The date and time when the custom key store was created.
+  final DateTime creationDate;
 
-class ImportKeyMaterialResponse {}
+  CustomKeyStoresListEntry({
+    this.customKeyStoreId,
+    this.customKeyStoreName,
+    this.cloudHsmClusterId,
+    this.trustAnchorCertificate,
+    this.connectionState,
+    this.connectionErrorCode,
+    this.creationDate,
+  });
+  static CustomKeyStoresListEntry fromJson(Map<String, dynamic> json) =>
+      CustomKeyStoresListEntry();
+}
 
-class KeyListEntry {}
+class DecryptResponse {
+  /// ARN of the key used to perform the decryption. This value is returned if
+  /// no errors are encountered during the operation.
+  final String keyId;
 
-class KeyMetadata {}
+  /// Decrypted plaintext data. When you use the HTTP API or the AWS CLI, the
+  /// value is Base64-encoded. Otherwise, it is not encoded.
+  final Uint8List plaintext;
 
-class ListAliasesResponse {}
+  DecryptResponse({
+    this.keyId,
+    this.plaintext,
+  });
+  static DecryptResponse fromJson(Map<String, dynamic> json) =>
+      DecryptResponse();
+}
 
-class ListGrantsResponse {}
+class DeleteCustomKeyStoreResponse {
+  DeleteCustomKeyStoreResponse();
+  static DeleteCustomKeyStoreResponse fromJson(Map<String, dynamic> json) =>
+      DeleteCustomKeyStoreResponse();
+}
 
-class ListKeyPoliciesResponse {}
+class DescribeCustomKeyStoresResponse {
+  /// Contains metadata about each custom key store.
+  final List<CustomKeyStoresListEntry> customKeyStores;
 
-class ListKeysResponse {}
+  /// When `Truncated` is true, this element is present and contains the value
+  /// to use for the `Marker` parameter in a subsequent request.
+  final String nextMarker;
 
-class ListResourceTagsResponse {}
+  /// A flag that indicates whether there are more items in the list. When this
+  /// value is true, the list in this response is truncated. To get more items,
+  /// pass the value of the `NextMarker` element in thisresponse to the `Marker`
+  /// parameter in a subsequent request.
+  final bool truncated;
 
-class ReEncryptResponse {}
+  DescribeCustomKeyStoresResponse({
+    this.customKeyStores,
+    this.nextMarker,
+    this.truncated,
+  });
+  static DescribeCustomKeyStoresResponse fromJson(Map<String, dynamic> json) =>
+      DescribeCustomKeyStoresResponse();
+}
 
-class ScheduleKeyDeletionResponse {}
+class DescribeKeyResponse {
+  /// Metadata associated with the key.
+  final KeyMetadata keyMetadata;
 
-class Tag {}
+  DescribeKeyResponse({
+    this.keyMetadata,
+  });
+  static DescribeKeyResponse fromJson(Map<String, dynamic> json) =>
+      DescribeKeyResponse();
+}
 
-class UpdateCustomKeyStoreResponse {}
+class DisconnectCustomKeyStoreResponse {
+  DisconnectCustomKeyStoreResponse();
+  static DisconnectCustomKeyStoreResponse fromJson(Map<String, dynamic> json) =>
+      DisconnectCustomKeyStoreResponse();
+}
+
+class EncryptResponse {
+  /// The encrypted plaintext. When you use the HTTP API or the AWS CLI, the
+  /// value is Base64-encoded. Otherwise, it is not encoded.
+  final Uint8List ciphertextBlob;
+
+  /// The ID of the key used during encryption.
+  final String keyId;
+
+  EncryptResponse({
+    this.ciphertextBlob,
+    this.keyId,
+  });
+  static EncryptResponse fromJson(Map<String, dynamic> json) =>
+      EncryptResponse();
+}
+
+class GenerateDataKeyResponse {
+  /// The encrypted copy of the data key. When you use the HTTP API or the AWS
+  /// CLI, the value is Base64-encoded. Otherwise, it is not encoded.
+  final Uint8List ciphertextBlob;
+
+  /// The plaintext data key. When you use the HTTP API or the AWS CLI, the
+  /// value is Base64-encoded. Otherwise, it is not encoded. Use this data key
+  /// to encrypt your data outside of KMS. Then, remove it from memory as soon
+  /// as possible.
+  final Uint8List plaintext;
+
+  /// The identifier of the CMK that encrypted the data key.
+  final String keyId;
+
+  GenerateDataKeyResponse({
+    this.ciphertextBlob,
+    this.plaintext,
+    this.keyId,
+  });
+  static GenerateDataKeyResponse fromJson(Map<String, dynamic> json) =>
+      GenerateDataKeyResponse();
+}
+
+class GenerateDataKeyWithoutPlaintextResponse {
+  /// The encrypted data key. When you use the HTTP API or the AWS CLI, the
+  /// value is Base64-encoded. Otherwise, it is not encoded.
+  final Uint8List ciphertextBlob;
+
+  /// The identifier of the CMK that encrypted the data key.
+  final String keyId;
+
+  GenerateDataKeyWithoutPlaintextResponse({
+    this.ciphertextBlob,
+    this.keyId,
+  });
+  static GenerateDataKeyWithoutPlaintextResponse fromJson(
+          Map<String, dynamic> json) =>
+      GenerateDataKeyWithoutPlaintextResponse();
+}
+
+class GenerateRandomResponse {
+  /// The random byte string. When you use the HTTP API or the AWS CLI, the
+  /// value is Base64-encoded. Otherwise, it is not encoded.
+  final Uint8List plaintext;
+
+  GenerateRandomResponse({
+    this.plaintext,
+  });
+  static GenerateRandomResponse fromJson(Map<String, dynamic> json) =>
+      GenerateRandomResponse();
+}
+
+class GetKeyPolicyResponse {
+  /// A key policy document in JSON format.
+  final String policy;
+
+  GetKeyPolicyResponse({
+    this.policy,
+  });
+  static GetKeyPolicyResponse fromJson(Map<String, dynamic> json) =>
+      GetKeyPolicyResponse();
+}
+
+class GetKeyRotationStatusResponse {
+  /// A Boolean value that specifies whether key rotation is enabled.
+  final bool keyRotationEnabled;
+
+  GetKeyRotationStatusResponse({
+    this.keyRotationEnabled,
+  });
+  static GetKeyRotationStatusResponse fromJson(Map<String, dynamic> json) =>
+      GetKeyRotationStatusResponse();
+}
+
+class GetParametersForImportResponse {
+  /// The identifier of the CMK to use in a subsequent ImportKeyMaterial
+  /// request. This is the same CMK specified in the `GetParametersForImport`
+  /// request.
+  final String keyId;
+
+  /// The import token to send in a subsequent ImportKeyMaterial request.
+  final Uint8List importToken;
+
+  /// The public key to use to encrypt the key material before importing it with
+  /// ImportKeyMaterial.
+  final Uint8List publicKey;
+
+  /// The time at which the import token and public key are no longer valid.
+  /// After this time, you cannot use them to make an ImportKeyMaterial request
+  /// and you must send another `GetParametersForImport` request to get new
+  /// ones.
+  final DateTime parametersValidTo;
+
+  GetParametersForImportResponse({
+    this.keyId,
+    this.importToken,
+    this.publicKey,
+    this.parametersValidTo,
+  });
+  static GetParametersForImportResponse fromJson(Map<String, dynamic> json) =>
+      GetParametersForImportResponse();
+}
+
+class GrantConstraints {
+  /// A list of key-value pairs that must be included in the encryption context
+  /// of the cryptographic operation request. The grant allows the cryptographic
+  /// operation only when the encryption context in the request includes the
+  /// key-value pairs specified in this constraint, although it can include
+  /// additional key-value pairs.
+  final Map<String, String> encryptionContextSubset;
+
+  /// A list of key-value pairs that must match the encryption context in the
+  /// cryptographic operation request. The grant allows the operation only when
+  /// the encryption context in the request is the same as the encryption
+  /// context specified in this constraint.
+  final Map<String, String> encryptionContextEquals;
+
+  GrantConstraints({
+    this.encryptionContextSubset,
+    this.encryptionContextEquals,
+  });
+  static GrantConstraints fromJson(Map<String, dynamic> json) =>
+      GrantConstraints();
+}
+
+class GrantListEntry {
+  /// The unique identifier for the customer master key (CMK) to which the grant
+  /// applies.
+  final String keyId;
+
+  /// The unique identifier for the grant.
+  final String grantId;
+
+  /// The friendly name that identifies the grant. If a name was provided in the
+  /// CreateGrant request, that name is returned. Otherwise this value is null.
+  final String name;
+
+  /// The date and time when the grant was created.
+  final DateTime creationDate;
+
+  /// The principal that receives the grant's permissions.
+  final String granteePrincipal;
+
+  /// The principal that can retire the grant.
+  final String retiringPrincipal;
+
+  /// The AWS account under which the grant was issued.
+  final String issuingAccount;
+
+  /// The list of operations permitted by the grant.
+  final List<String> operations;
+
+  /// A list of key-value pairs that must be present in the encryption context
+  /// of certain subsequent operations that the grant allows.
+  final GrantConstraints constraints;
+
+  GrantListEntry({
+    this.keyId,
+    this.grantId,
+    this.name,
+    this.creationDate,
+    this.granteePrincipal,
+    this.retiringPrincipal,
+    this.issuingAccount,
+    this.operations,
+    this.constraints,
+  });
+  static GrantListEntry fromJson(Map<String, dynamic> json) => GrantListEntry();
+}
+
+class ImportKeyMaterialResponse {
+  ImportKeyMaterialResponse();
+  static ImportKeyMaterialResponse fromJson(Map<String, dynamic> json) =>
+      ImportKeyMaterialResponse();
+}
+
+class KeyListEntry {
+  /// Unique identifier of the key.
+  final String keyId;
+
+  /// ARN of the key.
+  final String keyArn;
+
+  KeyListEntry({
+    this.keyId,
+    this.keyArn,
+  });
+  static KeyListEntry fromJson(Map<String, dynamic> json) => KeyListEntry();
+}
+
+class KeyMetadata {
+  /// The twelve-digit account ID of the AWS account that owns the CMK.
+  final String awsAccountId;
+
+  /// The globally unique identifier for the CMK.
+  final String keyId;
+
+  /// The Amazon Resource Name (ARN) of the CMK. For examples, see [AWS Key
+  /// Management Service (AWS
+  /// KMS)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms)
+  /// in the Example ARNs section of the _AWS General Reference_.
+  final String arn;
+
+  /// The date and time when the CMK was created.
+  final DateTime creationDate;
+
+  /// Specifies whether the CMK is enabled. When `KeyState` is `Enabled` this
+  /// value is true, otherwise it is false.
+  final bool enabled;
+
+  /// The description of the CMK.
+  final String description;
+
+  /// The cryptographic operations for which you can use the CMK. The only valid
+  /// value is `ENCRYPT_DECRYPT`, which means you can use the CMK to encrypt and
+  /// decrypt data.
+  final String keyUsage;
+
+  /// The state of the CMK.
+  ///
+  /// For more information about how key state affects the use of a CMK, see
+  /// [How Key State Affects the Use of a Customer Master
+  /// Key](https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html)
+  /// in the _AWS Key Management Service Developer Guide_.
+  final String keyState;
+
+  /// The date and time after which AWS KMS deletes the CMK. This value is
+  /// present only when `KeyState` is `PendingDeletion`.
+  final DateTime deletionDate;
+
+  /// The time at which the imported key material expires. When the key material
+  /// expires, AWS KMS deletes the key material and the CMK becomes unusable.
+  /// This value is present only for CMKs whose `Origin` is `EXTERNAL` and whose
+  /// `ExpirationModel` is `KEY\_MATERIAL\_EXPIRES`, otherwise this value is
+  /// omitted.
+  final DateTime validTo;
+
+  /// The source of the CMK's key material. When this value is `AWS_KMS`, AWS
+  /// KMS created the key material. When this value is `EXTERNAL`, the key
+  /// material was imported from your existing key management infrastructure or
+  /// the CMK lacks key material. When this value is `AWS_CLOUDHSM`, the key
+  /// material was created in the AWS CloudHSM cluster associated with a custom
+  /// key store.
+  final String origin;
+
+  /// A unique identifier for the [custom key
+  /// store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
+  /// that contains the CMK. This value is present only when the CMK is created
+  /// in a custom key store.
+  final String customKeyStoreId;
+
+  /// The cluster ID of the AWS CloudHSM cluster that contains the key material
+  /// for the CMK. When you create a CMK in a [custom key
+  /// store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html),
+  /// AWS KMS creates the key material for the CMK in the associated AWS
+  /// CloudHSM cluster. This value is present only when the CMK is created in a
+  /// custom key store.
+  final String cloudHsmClusterId;
+
+  /// Specifies whether the CMK's key material expires. This value is present
+  /// only when `Origin` is `EXTERNAL`, otherwise this value is omitted.
+  final String expirationModel;
+
+  /// The manager of the CMK. CMKs in your AWS account are either customer
+  /// managed or AWS managed. For more information about the difference, see
+  /// [Customer Master
+  /// Keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys)
+  /// in the _AWS Key Management Service Developer Guide_.
+  final String keyManager;
+
+  KeyMetadata({
+    this.awsAccountId,
+    @required this.keyId,
+    this.arn,
+    this.creationDate,
+    this.enabled,
+    this.description,
+    this.keyUsage,
+    this.keyState,
+    this.deletionDate,
+    this.validTo,
+    this.origin,
+    this.customKeyStoreId,
+    this.cloudHsmClusterId,
+    this.expirationModel,
+    this.keyManager,
+  });
+  static KeyMetadata fromJson(Map<String, dynamic> json) => KeyMetadata();
+}
+
+class ListAliasesResponse {
+  /// A list of aliases.
+  final List<AliasListEntry> aliases;
+
+  /// When `Truncated` is true, this element is present and contains the value
+  /// to use for the `Marker` parameter in a subsequent request.
+  final String nextMarker;
+
+  /// A flag that indicates whether there are more items in the list. When this
+  /// value is true, the list in this response is truncated. To get more items,
+  /// pass the value of the `NextMarker` element in thisresponse to the `Marker`
+  /// parameter in a subsequent request.
+  final bool truncated;
+
+  ListAliasesResponse({
+    this.aliases,
+    this.nextMarker,
+    this.truncated,
+  });
+  static ListAliasesResponse fromJson(Map<String, dynamic> json) =>
+      ListAliasesResponse();
+}
+
+class ListGrantsResponse {
+  /// A list of grants.
+  final List<GrantListEntry> grants;
+
+  /// When `Truncated` is true, this element is present and contains the value
+  /// to use for the `Marker` parameter in a subsequent request.
+  final String nextMarker;
+
+  /// A flag that indicates whether there are more items in the list. When this
+  /// value is true, the list in this response is truncated. To get more items,
+  /// pass the value of the `NextMarker` element in thisresponse to the `Marker`
+  /// parameter in a subsequent request.
+  final bool truncated;
+
+  ListGrantsResponse({
+    this.grants,
+    this.nextMarker,
+    this.truncated,
+  });
+  static ListGrantsResponse fromJson(Map<String, dynamic> json) =>
+      ListGrantsResponse();
+}
+
+class ListKeyPoliciesResponse {
+  /// A list of key policy names. The only valid value is `default`.
+  final List<String> policyNames;
+
+  /// When `Truncated` is true, this element is present and contains the value
+  /// to use for the `Marker` parameter in a subsequent request.
+  final String nextMarker;
+
+  /// A flag that indicates whether there are more items in the list. When this
+  /// value is true, the list in this response is truncated. To get more items,
+  /// pass the value of the `NextMarker` element in thisresponse to the `Marker`
+  /// parameter in a subsequent request.
+  final bool truncated;
+
+  ListKeyPoliciesResponse({
+    this.policyNames,
+    this.nextMarker,
+    this.truncated,
+  });
+  static ListKeyPoliciesResponse fromJson(Map<String, dynamic> json) =>
+      ListKeyPoliciesResponse();
+}
+
+class ListKeysResponse {
+  /// A list of customer master keys (CMKs).
+  final List<KeyListEntry> keys;
+
+  /// When `Truncated` is true, this element is present and contains the value
+  /// to use for the `Marker` parameter in a subsequent request.
+  final String nextMarker;
+
+  /// A flag that indicates whether there are more items in the list. When this
+  /// value is true, the list in this response is truncated. To get more items,
+  /// pass the value of the `NextMarker` element in thisresponse to the `Marker`
+  /// parameter in a subsequent request.
+  final bool truncated;
+
+  ListKeysResponse({
+    this.keys,
+    this.nextMarker,
+    this.truncated,
+  });
+  static ListKeysResponse fromJson(Map<String, dynamic> json) =>
+      ListKeysResponse();
+}
+
+class ListResourceTagsResponse {
+  /// A list of tags. Each tag consists of a tag key and a tag value.
+  final List<Tag> tags;
+
+  /// When `Truncated` is true, this element is present and contains the value
+  /// to use for the `Marker` parameter in a subsequent request.
+  ///
+  /// Do not assume or infer any information from this value.
+  final String nextMarker;
+
+  /// A flag that indicates whether there are more items in the list. When this
+  /// value is true, the list in this response is truncated. To get more items,
+  /// pass the value of the `NextMarker` element in thisresponse to the `Marker`
+  /// parameter in a subsequent request.
+  final bool truncated;
+
+  ListResourceTagsResponse({
+    this.tags,
+    this.nextMarker,
+    this.truncated,
+  });
+  static ListResourceTagsResponse fromJson(Map<String, dynamic> json) =>
+      ListResourceTagsResponse();
+}
+
+class ReEncryptResponse {
+  /// The reencrypted data. When you use the HTTP API or the AWS CLI, the value
+  /// is Base64-encoded. Otherwise, it is not encoded.
+  final Uint8List ciphertextBlob;
+
+  /// Unique identifier of the CMK used to originally encrypt the data.
+  final String sourceKeyId;
+
+  /// Unique identifier of the CMK used to reencrypt the data.
+  final String keyId;
+
+  ReEncryptResponse({
+    this.ciphertextBlob,
+    this.sourceKeyId,
+    this.keyId,
+  });
+  static ReEncryptResponse fromJson(Map<String, dynamic> json) =>
+      ReEncryptResponse();
+}
+
+class ScheduleKeyDeletionResponse {
+  /// The unique identifier of the customer master key (CMK) for which deletion
+  /// is scheduled.
+  final String keyId;
+
+  /// The date and time after which AWS KMS deletes the customer master key
+  /// (CMK).
+  final DateTime deletionDate;
+
+  ScheduleKeyDeletionResponse({
+    this.keyId,
+    this.deletionDate,
+  });
+  static ScheduleKeyDeletionResponse fromJson(Map<String, dynamic> json) =>
+      ScheduleKeyDeletionResponse();
+}
+
+class Tag {
+  /// The key of the tag.
+  final String tagKey;
+
+  /// The value of the tag.
+  final String tagValue;
+
+  Tag({
+    @required this.tagKey,
+    @required this.tagValue,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class UpdateCustomKeyStoreResponse {
+  UpdateCustomKeyStoreResponse();
+  static UpdateCustomKeyStoreResponse fromJson(Map<String, dynamic> json) =>
+      UpdateCustomKeyStoreResponse();
+}

@@ -33,11 +33,28 @@ class PricingApi {
   /// available for that service. For example, some of the attribute names
   /// available for EC2 are `volumeType`, `maxIopsVolume`, `operation`,
   /// `locationType`, and `instanceCapacity10xlarge`.
-  Future<void> describeServices(
+  ///
+  /// [serviceCode]: The code for the service whose information you want to
+  /// retrieve, such as `AmazonEC2`. You can use the `ServiceCode` to filter the
+  /// results in a `GetProducts` call. To retrieve a list of all services, leave
+  /// this blank.
+  ///
+  /// [formatVersion]: The format version that you want the response to be in.
+  ///
+  /// Valid values are: `aws_v1`
+  ///
+  /// [nextToken]: The pagination token that indicates the next set of results
+  /// that you want to retrieve.
+  ///
+  /// [maxResults]: The maximum number of results that you want returned in the
+  /// response.
+  Future<DescribeServicesResponse> describeServices(
       {String serviceCode,
       String formatVersion,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return DescribeServicesResponse.fromJson({});
+  }
 
   /// Returns a list of attribute values. Attibutes are similar to the details
   /// in a Price List API offer file. For a list of available attributes, see
@@ -45,29 +62,161 @@ class PricingApi {
   /// Definitions](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/reading-an-offer.html#pps-defs)
   /// in the [AWS Billing and Cost Management User
   /// Guide](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-what-is.html).
-  Future<void> getAttributeValues(
+  ///
+  /// [serviceCode]: The service code for the service whose attributes you want
+  /// to retrieve. For example, if you want the retrieve an EC2 attribute, use
+  /// `AmazonEC2`.
+  ///
+  /// [attributeName]: The name of the attribute that you want to retrieve the
+  /// values for, such as `volumeType`.
+  ///
+  /// [nextToken]: The pagination token that indicates the next set of results
+  /// that you want to retrieve.
+  ///
+  /// [maxResults]: The maximum number of results to return in response.
+  Future<GetAttributeValuesResponse> getAttributeValues(
       {@required String serviceCode,
       @required String attributeName,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return GetAttributeValuesResponse.fromJson({});
+  }
 
   /// Returns a list of all products that match the filter criteria.
-  Future<void> getProducts(
+  ///
+  /// [serviceCode]: The code for the service whose products you want to
+  /// retrieve.
+  ///
+  /// [filters]: The list of filters that limit the returned products. only
+  /// products that match all filters are returned.
+  ///
+  /// [formatVersion]: The format version that you want the response to be in.
+  ///
+  /// Valid values are: `aws_v1`
+  ///
+  /// [nextToken]: The pagination token that indicates the next set of results
+  /// that you want to retrieve.
+  ///
+  /// [maxResults]: The maximum number of results to return in the response.
+  Future<GetProductsResponse> getProducts(
       {String serviceCode,
       List<Filter> filters,
       String formatVersion,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return GetProductsResponse.fromJson({});
+  }
 }
 
-class AttributeValue {}
+class AttributeValue {
+  /// The specific value of an `attributeName`.
+  final String value;
 
-class DescribeServicesResponse {}
+  AttributeValue({
+    this.value,
+  });
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+}
 
-class Filter {}
+class DescribeServicesResponse {
+  /// The service metadata for the service or services in the response.
+  final List<Service> services;
 
-class GetAttributeValuesResponse {}
+  /// The format version of the response. For example, `aws_v1`.
+  final String formatVersion;
 
-class GetProductsResponse {}
+  /// The pagination token for the next set of retreivable results.
+  final String nextToken;
 
-class Service {}
+  DescribeServicesResponse({
+    this.services,
+    this.formatVersion,
+    this.nextToken,
+  });
+  static DescribeServicesResponse fromJson(Map<String, dynamic> json) =>
+      DescribeServicesResponse();
+}
+
+class Filter {
+  /// The type of filter that you want to use.
+  ///
+  /// Valid values are: `TERM_MATCH`. `TERM_MATCH` returns only products that
+  /// match both the given filter field and the given value.
+  final String type;
+
+  /// The product metadata field that you want to filter on. You can filter by
+  /// just the service code to see all products for a specific service, filter
+  /// by just the attribute name to see a specific attribute for multiple
+  /// services, or use both a service code and an attribute name to retrieve
+  /// only products that match both fields.
+  ///
+  /// Valid values include: `ServiceCode`, and all attribute names
+  ///
+  /// For example, you can filter by the `AmazonEC2` service code and the
+  /// `volumeType` attribute name to get the prices for only Amazon EC2 volumes.
+  final String field;
+
+  /// The service code or attribute value that you want to filter by. If you are
+  /// filtering by service code this is the actual service code, such as
+  /// `AmazonEC2`. If you are filtering by attribute name, this is the attribute
+  /// value that you want the returned products to match, such as a `Provisioned
+  /// IOPS` volume.
+  final String value;
+
+  Filter({
+    @required this.type,
+    @required this.field,
+    @required this.value,
+  });
+}
+
+class GetAttributeValuesResponse {
+  /// The list of values for an attribute. For example, `Throughput Optimized
+  /// HDD` and `Provisioned IOPS` are two available values for the `AmazonEC2`
+  /// `volumeType`.
+  final List<AttributeValue> attributeValues;
+
+  /// The pagination token that indicates the next set of results to retrieve.
+  final String nextToken;
+
+  GetAttributeValuesResponse({
+    this.attributeValues,
+    this.nextToken,
+  });
+  static GetAttributeValuesResponse fromJson(Map<String, dynamic> json) =>
+      GetAttributeValuesResponse();
+}
+
+class GetProductsResponse {
+  /// The format version of the response. For example, aws_v1.
+  final String formatVersion;
+
+  /// The list of products that match your filters. The list contains both the
+  /// product metadata and the price information.
+  final List<String> priceList;
+
+  /// The pagination token that indicates the next set of results to retrieve.
+  final String nextToken;
+
+  GetProductsResponse({
+    this.formatVersion,
+    this.priceList,
+    this.nextToken,
+  });
+  static GetProductsResponse fromJson(Map<String, dynamic> json) =>
+      GetProductsResponse();
+}
+
+class Service {
+  /// The code for the AWS service.
+  final String serviceCode;
+
+  /// The attributes that are available for this service.
+  final List<String> attributeNames;
+
+  Service({
+    this.serviceCode,
+    this.attributeNames,
+  });
+  static Service fromJson(Map<String, dynamic> json) => Service();
+}

@@ -31,23 +31,70 @@ class AcmPcaApi {
   /// contain the CRL, and a CNAME alias for the S3 bucket that is included in
   /// certificates issued by the CA. If successful, this action returns the
   /// Amazon Resource Name (ARN) of the CA.
-  Future<void> createCertificateAuthority(
+  ///
+  /// [certificateAuthorityConfiguration]: Name and bit size of the private key
+  /// algorithm, the name of the signing algorithm, and X.500 certificate
+  /// subject information.
+  ///
+  /// [revocationConfiguration]: Contains a Boolean value that you can use to
+  /// enable a certification revocation list (CRL) for the CA, the name of the
+  /// S3 bucket to which ACM Private CA will write the CRL, and an optional
+  /// CNAME alias that you can use to hide the name of your bucket in the **CRL
+  /// Distribution Points** extension of your CA certificate. For more
+  /// information, see the CrlConfiguration structure.
+  ///
+  /// [certificateAuthorityType]: The type of the certificate authority.
+  ///
+  /// [idempotencyToken]: Alphanumeric string that can be used to distinguish
+  /// between calls to **CreateCertificateAuthority**. Idempotency tokens time
+  /// out after five minutes. Therefore, if you call
+  /// **CreateCertificateAuthority** multiple times with the same idempotency
+  /// token within a five minute period, ACM Private CA recognizes that you are
+  /// requesting only one certificate. As a result, ACM Private CA issues only
+  /// one. If you change the idempotency token for each call, however, ACM
+  /// Private CA recognizes that you are requesting multiple certificates.
+  ///
+  /// [tags]: Key-value pairs that will be attached to the new private CA. You
+  /// can associate up to 50 tags with a private CA. For information using tags
+  /// with
+  ///
+  /// IAM to manage permissions, see [Controlling Access Using IAM
+  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  Future<CreateCertificateAuthorityResponse> createCertificateAuthority(
       {@required
           CertificateAuthorityConfiguration certificateAuthorityConfiguration,
       RevocationConfiguration revocationConfiguration,
       @required
           String certificateAuthorityType,
       String idempotencyToken,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateCertificateAuthorityResponse.fromJson({});
+  }
 
   /// Creates an audit report that lists every time that your CA private key is
   /// used. The report is saved in the Amazon S3 bucket that you specify on
   /// input. The IssueCertificate and RevokeCertificate actions use the private
   /// key.
-  Future<void> createCertificateAuthorityAuditReport(
-      {@required String certificateAuthorityArn,
-      @required String s3BucketName,
-      @required String auditReportResponseFormat}) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) of the CA to be
+  /// audited. This is of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  ///
+  /// [s3BucketName]: The name of the S3 bucket that will contain the audit
+  /// report.
+  ///
+  /// [auditReportResponseFormat]: The format in which to create the report.
+  /// This can be either **JSON** or **CSV**.
+  Future<CreateCertificateAuthorityAuditReportResponse>
+      createCertificateAuthorityAuditReport(
+          {@required String certificateAuthorityArn,
+          @required String s3BucketName,
+          @required String auditReportResponseFormat}) async {
+    return CreateCertificateAuthorityAuditReportResponse.fromJson({});
+  }
 
   /// Assigns permissions from a private CA to a designated AWS service.
   /// Services are specified by their service principals and can be given
@@ -60,6 +107,22 @@ class AcmPcaApi {
   /// At this time, you can only assign permissions to ACM
   /// (`acm.amazonaws.com`). Permissions can be revoked with the
   /// DeletePermission action and listed with the ListPermissions action.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) of the CA that
+  /// grants the permissions. You can find the ARN by calling the
+  /// ListCertificateAuthorities action. This must have the following form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  ///
+  /// [principal]: The AWS service or identity that receives the permission. At
+  /// this time, the only valid principal is `acm.amazonaws.com`.
+  ///
+  /// [sourceAccount]: The ID of the calling account.
+  ///
+  /// [actions]: The actions that the specified AWS service principal can use.
+  /// These include `IssueCertificate`, `GetCertificate`, and `ListPermissions`.
   Future<void> createPermission(
       {@required String certificateAuthorityArn,
       @required String principal,
@@ -91,12 +154,38 @@ class AcmPcaApi {
   /// DescribeCertificateAuthority action returns the time remaining in the
   /// restoration window of a private CA in the `DELETED` state. To restore an
   /// eligible CA, call the RestoreCertificateAuthority action.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must have the
+  /// following form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  ///
+  /// [permanentDeletionTimeInDays]: The number of days to make a CA restorable
+  /// after it has been deleted. This can be anywhere from 7 to 30 days, with 30
+  /// being the default.
   Future<void> deleteCertificateAuthority(String certificateAuthorityArn,
       {int permanentDeletionTimeInDays}) async {}
 
   /// Revokes permissions that a private CA assigned to a designated AWS
   /// service. Permissions can be created with the CreatePermission action and
   /// listed with the ListPermissions action.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Number (ARN) of the private
+  /// CA that issued the permissions. You can find the CA's ARN by calling the
+  /// ListCertificateAuthorities action. This must have the following form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  ///
+  /// [principal]: The AWS service or identity that will have its CA permissions
+  /// revoked. At this time, the only valid service principal is
+  /// `acm.amazonaws.com`
+  ///
+  /// [sourceAccount]: The AWS account that calls this action.
   Future<void> deletePermission(
       {@required String certificateAuthorityArn,
       @required String principal,
@@ -126,17 +215,40 @@ class AcmPcaApi {
   /// *    `DELETED` \- Your private CA is within the restoration period, after
   /// which it is permanently deleted. The length of time remaining in the CA's
   /// restoration period is also included in this action's output.
-  Future<void> describeCertificateAuthority(
-      String certificateAuthorityArn) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must be of the
+  /// form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  Future<DescribeCertificateAuthorityResponse> describeCertificateAuthority(
+      String certificateAuthorityArn) async {
+    return DescribeCertificateAuthorityResponse.fromJson({});
+  }
 
   /// Lists information about a specific audit report created by calling the
   /// CreateCertificateAuthorityAuditReport action. Audit information is created
   /// every time the certificate authority (CA) private key is used. The private
   /// key is used when you call the IssueCertificate action or the
   /// RevokeCertificate action.
-  Future<void> describeCertificateAuthorityAuditReport(
-      {@required String certificateAuthorityArn,
-      @required String auditReportId}) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) of the private
+  /// CA. This must be of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  ///
+  /// [auditReportId]: The report ID returned by calling the
+  /// CreateCertificateAuthorityAuditReport action.
+  Future<DescribeCertificateAuthorityAuditReportResponse>
+      describeCertificateAuthorityAuditReport(
+          {@required String certificateAuthorityArn,
+          @required String auditReportId}) async {
+    return DescribeCertificateAuthorityAuditReportResponse.fromJson({});
+  }
 
   /// Retrieves a certificate from your private CA. The ARN of the certificate
   /// is returned when you call the IssueCertificate action. You must specify
@@ -146,16 +258,41 @@ class AcmPcaApi {
   /// CreateCertificateAuthorityAuditReport action to create a report that
   /// contains information about all of the certificates issued and revoked by
   /// your private CA.
-  Future<void> getCertificate(
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must be of the
+  /// form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  ///
+  /// [certificateArn]: The ARN of the issued certificate. The ARN contains the
+  /// certificate serial number and must be in the following form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_/certificate/_286535153982981100925020015808220737245_`
+  Future<GetCertificateResponse> getCertificate(
       {@required String certificateAuthorityArn,
-      @required String certificateArn}) async {}
+      @required String certificateArn}) async {
+    return GetCertificateResponse.fromJson({});
+  }
 
   /// Retrieves the certificate and certificate chain for your private
   /// certificate authority (CA). Both the certificate and the chain are base64
   /// PEM-encoded. The chain does not include the CA certificate. Each
   /// certificate in the chain signs the one before it.
-  Future<void> getCertificateAuthorityCertificate(
-      String certificateAuthorityArn) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) of your private
+  /// CA. This is of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  Future<GetCertificateAuthorityCertificateResponse>
+      getCertificateAuthorityCertificate(String certificateAuthorityArn) async {
+    return GetCertificateAuthorityCertificateResponse.fromJson({});
+  }
 
   /// Retrieves the certificate signing request (CSR) for your private
   /// certificate authority (CA). The CSR is created when you call the
@@ -164,8 +301,17 @@ class AcmPcaApi {
   /// certificate back into ACM Private CA by calling the
   /// ImportCertificateAuthorityCertificate action. The CSR is returned as a
   /// base64 PEM-encoded string.
-  Future<void> getCertificateAuthorityCsr(
-      String certificateAuthorityArn) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called the CreateCertificateAuthority action. This must
+  /// be of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  Future<GetCertificateAuthorityCsrResponse> getCertificateAuthorityCsr(
+      String certificateAuthorityArn) async {
+    return GetCertificateAuthorityCsrResponse.fromJson({});
+  }
 
   /// Imports a signed private CA certificate into ACM Private CA. This action
   /// is used when you are using a chain of trust whose root is located outside
@@ -203,6 +349,26 @@ class AcmPcaApi {
   /// your chain is built.
   ///
   /// *   The chain must be PEM-encoded.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must be of the
+  /// form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [certificate]: The PEM-encoded certificate for a private CA. This may be a
+  /// self-signed certificate in the case of a root CA, or it may be signed by
+  /// another CA that you control.
+  ///
+  /// [certificateChain]: A PEM-encoded file that contains all of your
+  /// certificates, other than the certificate you're importing, chaining up to
+  /// your root CA. Your ACM Private CA-hosted or on-premises root certificate
+  /// is the last in the chain, and each certificate in the chain signs the one
+  /// preceding.
+  ///
+  /// This parameter must be supplied when you import a subordinate CA. When you
+  /// import a root CA, there is no chain.
   Future<void> importCertificateAuthorityCertificate(
       {@required String certificateAuthorityArn,
       @required Uint8List certificate,
@@ -217,32 +383,144 @@ class AcmPcaApi {
   ///
   /// You cannot use the ACM **ListCertificateAuthorities** action to retrieve
   /// the ARNs of the certificates that you issue by using ACM Private CA.
-  Future<void> issueCertificate(
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must be of the
+  /// form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [csr]: The certificate signing request (CSR) for the certificate you want
+  /// to issue. You can use the following OpenSSL command to create the CSR and
+  /// a 2048 bit RSA private key.
+  ///
+  ///  `openssl req -new -newkey rsa:2048 -days 365 -keyout
+  /// private/test\_cert\_priv\_key.pem -out csr/test\_cert_.csr`
+  ///
+  /// If you have a configuration file, you can use the following OpenSSL
+  /// command. The `usr_cert` block in the configuration file contains your X509
+  /// version 3 extensions.
+  ///
+  ///  `openssl req -new -config openssl\_rsa.cnf -extensions usr\_cert -newkey
+  /// rsa:2048 -days -365 -keyout private/test\_cert\_priv\_key.pem -out
+  /// csr/test\_cert_.csr`
+  ///
+  /// [signingAlgorithm]: The name of the algorithm that will be used to sign
+  /// the certificate to be issued.
+  ///
+  /// [templateArn]: Specifies a custom configuration template to use when
+  /// issuing a certificate. If this parameter is not provided, ACM Private CA
+  /// defaults to the `EndEntityCertificate/V1` template.
+  ///
+  /// The following service-owned `TemplateArn` values are supported by ACM
+  /// Private CA:
+  ///
+  /// *   arn:aws:acm-pca:::template/EndEntityCertificate/V1
+  ///
+  /// *   arn:aws:acm-pca:::template/SubordinateCACertificate_PathLen0/V1
+  ///
+  /// *   arn:aws:acm-pca:::template/SubordinateCACertificate_PathLen1/V1
+  ///
+  /// *   arn:aws:acm-pca:::template/SubordinateCACertificate_PathLen2/V1
+  ///
+  /// *   arn:aws:acm-pca:::template/SubordinateCACertificate_PathLen3/V1
+  ///
+  /// *   arn:aws:acm-pca:::template/RootCACertificate/V1
+  ///
+  ///
+  /// For more information, see [Using
+  /// Templates](https://docs.aws.amazon.com/acm-pca/latest/userguide/UsingTemplates.html).
+  ///
+  /// [validity]: The type of the validity period.
+  ///
+  /// [idempotencyToken]: Custom string that can be used to distinguish between
+  /// calls to the **IssueCertificate** action. Idempotency tokens time out
+  /// after one hour. Therefore, if you call **IssueCertificate** multiple times
+  /// with the same idempotency token within 5 minutes, ACM Private CA
+  /// recognizes that you are requesting only one certificate and will issue
+  /// only one. If you change the idempotency token for each call, PCA
+  /// recognizes that you are requesting multiple certificates.
+  Future<IssueCertificateResponse> issueCertificate(
       {@required String certificateAuthorityArn,
       @required Uint8List csr,
       @required String signingAlgorithm,
       String templateArn,
       @required Validity validity,
-      String idempotencyToken}) async {}
+      String idempotencyToken}) async {
+    return IssueCertificateResponse.fromJson({});
+  }
 
   /// Lists the private certificate authorities that you created by using the
   /// CreateCertificateAuthority action.
-  Future<void> listCertificateAuthorities(
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: Use this parameter when paginating results in a subsequent
+  /// request after you receive a response with truncated results. Set it to the
+  /// value of the `NextToken` parameter from the response you just received.
+  ///
+  /// [maxResults]: Use this parameter when paginating results to specify the
+  /// maximum number of items to return in the response on each page. If
+  /// additional items exist beyond the number you specify, the `NextToken`
+  /// element is sent in the response. Use this `NextToken` value in a
+  /// subsequent request to retrieve additional items.
+  Future<ListCertificateAuthoritiesResponse> listCertificateAuthorities(
+      {String nextToken, int maxResults}) async {
+    return ListCertificateAuthoritiesResponse.fromJson({});
+  }
 
   /// Lists all the permissions, if any, that have been assigned by a private
   /// CA. Permissions can be granted with the CreatePermission action and
   /// revoked with the DeletePermission action.
-  Future<void> listPermissions(String certificateAuthorityArn,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Number (ARN) of the private
+  /// CA to inspect. You can find the ARN by calling the
+  /// ListCertificateAuthorities action. This must be of the form:
+  /// `arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012`
+  /// You can get a private CA's ARN by running the ListCertificateAuthorities
+  /// action.
+  ///
+  /// [nextToken]: When paginating results, use this parameter in a subsequent
+  /// request after you receive a response with truncated results. Set it to the
+  /// value of **NextToken** from the response you just received.
+  ///
+  /// [maxResults]: When paginating results, use this parameter to specify the
+  /// maximum number of items to return in the response. If additional items
+  /// exist beyond the number you specify, the **NextToken** element is sent in
+  /// the response. Use this **NextToken** value in a subsequent request to
+  /// retrieve additional items.
+  Future<ListPermissionsResponse> listPermissions(
+      String certificateAuthorityArn,
+      {String nextToken,
+      int maxResults}) async {
+    return ListPermissionsResponse.fromJson({});
+  }
 
   /// Lists the tags, if any, that are associated with your private CA. Tags are
   /// labels that you can use to identify and organize your CAs. Each tag
   /// consists of a key and an optional value. Call the TagCertificateAuthority
   /// action to add one or more tags to your CA. Call the
   /// UntagCertificateAuthority action to remove tags.
-  Future<void> listTags(String certificateAuthorityArn,
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called the CreateCertificateAuthority action. This must
+  /// be of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [nextToken]: Use this parameter when paginating results in a subsequent
+  /// request after you receive a response with truncated results. Set it to the
+  /// value of **NextToken** from the response you just received.
+  ///
+  /// [maxResults]: Use this parameter when paginating results to specify the
+  /// maximum number of items to return in the response. If additional items
+  /// exist beyond the number you specify, the **NextToken** element is sent in
+  /// the response. Use this **NextToken** value in a subsequent request to
+  /// retrieve additional items.
+  Future<ListTagsResponse> listTags(String certificateAuthorityArn,
+      {String nextToken, int maxResults}) async {
+    return ListTagsResponse.fromJson({});
+  }
 
   /// Restores a certificate authority (CA) that is in the `DELETED` state. You
   /// can restore a CA during the period that you defined in the
@@ -260,6 +538,13 @@ class AcmPcaApi {
   /// ImportCertificateAuthorityCertificate action to import a certificate
   /// authority into the private CA before it can be activated. You cannot
   /// restore a CA after the restoration period has ended.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called the CreateCertificateAuthority action. This must
+  /// be of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
   Future<void> restoreCertificateAuthority(
       String certificateAuthorityArn) async {}
 
@@ -274,6 +559,28 @@ class AcmPcaApi {
   ///
   ///
   /// You cannot revoke a root CA self-signed certificate.
+  ///
+  /// [certificateAuthorityArn]: Amazon Resource Name (ARN) of the private CA
+  /// that issued the certificate to be revoked. This must be of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [certificateSerial]: Serial number of the certificate to be revoked. This
+  /// must be in hexadecimal format. You can retrieve the serial number by
+  /// calling GetCertificate with the Amazon Resource Name (ARN) of the
+  /// certificate you want and the ARN of your private CA. The
+  /// **GetCertificate** action retrieves the certificate in the PEM format. You
+  /// can use the following OpenSSL command to list the certificate in text
+  /// format and copy the hexadecimal serial number.
+  ///
+  ///  `openssl x509 -in _file_path_ -text -noout`
+  ///
+  /// You can also copy the serial number from the console or use the
+  /// [DescribeCertificate](https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html)
+  /// action in the _AWS Certificate Manager API Reference_.
+  ///
+  /// [revocationReason]: Specifies why you revoked the certificate.
   Future<void> revokeCertificate(
       {@required String certificateAuthorityArn,
       @required String certificateSerial,
@@ -288,6 +595,15 @@ class AcmPcaApi {
   /// private CAs if you want to filter for a common relationship among those
   /// CAs. To remove one or more tags, use the UntagCertificateAuthority action.
   /// Call the ListTags action to see what tags are associated with your CA.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must be of the
+  /// form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [tags]: List of tags to be associated with the CA.
   Future<void> tagCertificateAuthority(
       {@required String certificateAuthorityArn,
       @required List<Tag> tags}) async {}
@@ -299,6 +615,15 @@ class AcmPcaApi {
   /// specified value. To add tags to a private CA, use the
   /// TagCertificateAuthority. Call the ListTags action to see what tags are
   /// associated with your CA.
+  ///
+  /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) that was
+  /// returned when you called CreateCertificateAuthority. This must be of the
+  /// form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [tags]: List of tags to be removed from the CA.
   Future<void> untagCertificateAuthority(
       {@required String certificateAuthorityArn,
       @required List<Tag> tags}) async {}
@@ -307,44 +632,464 @@ class AcmPcaApi {
   /// (CA). Your private CA must be in the `ACTIVE` or `DISABLED` state before
   /// you can update it. You can disable a private CA that is in the `ACTIVE`
   /// state or make a CA that is in the `DISABLED` state active again.
+  ///
+  /// [certificateAuthorityArn]: Amazon Resource Name (ARN) of the private CA
+  /// that issued the certificate to be revoked. This must be of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  ///
+  /// [revocationConfiguration]: Revocation information for your private CA.
+  ///
+  /// [status]: Status of your private CA.
   Future<void> updateCertificateAuthority(String certificateAuthorityArn,
       {RevocationConfiguration revocationConfiguration, String status}) async {}
 }
 
-class Asn1Subject {}
+class Asn1Subject {
+  /// Two-digit code that specifies the country in which the certificate subject
+  /// located.
+  final String country;
 
-class CertificateAuthority {}
+  /// Legal name of the organization with which the certificate subject is
+  /// affiliated.
+  final String organization;
 
-class CertificateAuthorityConfiguration {}
+  /// A subdivision or unit of the organization (such as sales or finance) with
+  /// which the certificate subject is affiliated.
+  final String organizationalUnit;
 
-class CreateCertificateAuthorityAuditReportResponse {}
+  /// Disambiguating information for the certificate subject.
+  final String distinguishedNameQualifier;
 
-class CreateCertificateAuthorityResponse {}
+  /// State in which the subject of the certificate is located.
+  final String state;
 
-class CrlConfiguration {}
+  /// Fully qualified domain name (FQDN) associated with the certificate
+  /// subject.
+  final String commonName;
 
-class DescribeCertificateAuthorityAuditReportResponse {}
+  /// The certificate serial number.
+  final String serialNumber;
 
-class DescribeCertificateAuthorityResponse {}
+  /// The locality (such as a city or town) in which the certificate subject is
+  /// located.
+  final String locality;
 
-class GetCertificateAuthorityCertificateResponse {}
+  /// A title such as Mr. or Ms., which is pre-pended to the name to refer
+  /// formally to the certificate subject.
+  final String title;
 
-class GetCertificateAuthorityCsrResponse {}
+  /// Family name. In the US and the UK, for example, the surname of an
+  /// individual is ordered last. In Asian cultures the surname is typically
+  /// ordered first.
+  final String surname;
 
-class GetCertificateResponse {}
+  /// First name.
+  final String givenName;
 
-class IssueCertificateResponse {}
+  /// Concatenation that typically contains the first letter of the
+  /// **GivenName**, the first letter of the middle name if one exists, and the
+  /// first letter of the **SurName**.
+  final String initials;
 
-class ListCertificateAuthoritiesResponse {}
+  /// Typically a shortened version of a longer **GivenName**. For example,
+  /// Jonathan is often shortened to John. Elizabeth is often shortened to Beth,
+  /// Liz, or Eliza.
+  final String pseudonym;
 
-class ListPermissionsResponse {}
+  /// Typically a qualifier appended to the name of an individual. Examples
+  /// include Jr. for junior, Sr. for senior, and III for third.
+  final String generationQualifier;
 
-class ListTagsResponse {}
+  Asn1Subject({
+    this.country,
+    this.organization,
+    this.organizationalUnit,
+    this.distinguishedNameQualifier,
+    this.state,
+    this.commonName,
+    this.serialNumber,
+    this.locality,
+    this.title,
+    this.surname,
+    this.givenName,
+    this.initials,
+    this.pseudonym,
+    this.generationQualifier,
+  });
+  static Asn1Subject fromJson(Map<String, dynamic> json) => Asn1Subject();
+}
 
-class Permission {}
+class CertificateAuthority {
+  /// Amazon Resource Name (ARN) for your private certificate authority (CA).
+  /// The format is  `_12345678-1234-1234-1234-123456789012_` .
+  final String arn;
 
-class RevocationConfiguration {}
+  /// Date and time at which your private CA was created.
+  final DateTime createdAt;
 
-class Tag {}
+  /// Date and time at which your private CA was last updated.
+  final DateTime lastStateChangeAt;
 
-class Validity {}
+  /// Type of your private CA.
+  final String type;
+
+  /// Serial number of your private CA.
+  final String serial;
+
+  /// Status of your private CA.
+  final String status;
+
+  /// Date and time before which your private CA certificate is not valid.
+  final DateTime notBefore;
+
+  /// Date and time after which your private CA certificate is not valid.
+  final DateTime notAfter;
+
+  /// Reason the request to create your private CA failed.
+  final String failureReason;
+
+  /// Your private CA configuration.
+  final CertificateAuthorityConfiguration certificateAuthorityConfiguration;
+
+  /// Information about the certificate revocation list (CRL) created and
+  /// maintained by your private CA.
+  final RevocationConfiguration revocationConfiguration;
+
+  /// The period during which a deleted CA can be restored. For more
+  /// information, see the `PermanentDeletionTimeInDays` parameter of the
+  /// DeleteCertificateAuthorityRequest action.
+  final DateTime restorableUntil;
+
+  CertificateAuthority({
+    this.arn,
+    this.createdAt,
+    this.lastStateChangeAt,
+    this.type,
+    this.serial,
+    this.status,
+    this.notBefore,
+    this.notAfter,
+    this.failureReason,
+    this.certificateAuthorityConfiguration,
+    this.revocationConfiguration,
+    this.restorableUntil,
+  });
+  static CertificateAuthority fromJson(Map<String, dynamic> json) =>
+      CertificateAuthority();
+}
+
+class CertificateAuthorityConfiguration {
+  /// Type of the public key algorithm and size, in bits, of the key pair that
+  /// your CA creates when it issues a certificate. When you create a
+  /// subordinate CA, you must use a key algorithm supported by the parent CA.
+  final String keyAlgorithm;
+
+  /// Name of the algorithm your private CA uses to sign certificate requests.
+  final String signingAlgorithm;
+
+  /// Structure that contains X.500 distinguished name information for your
+  /// private CA.
+  final Asn1Subject subject;
+
+  CertificateAuthorityConfiguration({
+    @required this.keyAlgorithm,
+    @required this.signingAlgorithm,
+    @required this.subject,
+  });
+  static CertificateAuthorityConfiguration fromJson(
+          Map<String, dynamic> json) =>
+      CertificateAuthorityConfiguration();
+}
+
+class CreateCertificateAuthorityAuditReportResponse {
+  /// An alphanumeric string that contains a report identifier.
+  final String auditReportId;
+
+  /// The **key** that uniquely identifies the report file in your S3 bucket.
+  final String s3Key;
+
+  CreateCertificateAuthorityAuditReportResponse({
+    this.auditReportId,
+    this.s3Key,
+  });
+  static CreateCertificateAuthorityAuditReportResponse fromJson(
+          Map<String, dynamic> json) =>
+      CreateCertificateAuthorityAuditReportResponse();
+}
+
+class CreateCertificateAuthorityResponse {
+  /// If successful, the Amazon Resource Name (ARN) of the certificate authority
+  /// (CA). This is of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
+  /// .
+  final String certificateAuthorityArn;
+
+  CreateCertificateAuthorityResponse({
+    this.certificateAuthorityArn,
+  });
+  static CreateCertificateAuthorityResponse fromJson(
+          Map<String, dynamic> json) =>
+      CreateCertificateAuthorityResponse();
+}
+
+class CrlConfiguration {
+  /// Boolean value that specifies whether certificate revocation lists (CRLs)
+  /// are enabled. You can use this value to enable certificate revocation for a
+  /// new CA when you call the CreateCertificateAuthority action or for an
+  /// existing CA when you call the UpdateCertificateAuthority action.
+  final bool enabled;
+
+  /// Number of days until a certificate expires.
+  final int expirationInDays;
+
+  /// Name inserted into the certificate **CRL Distribution Points** extension
+  /// that enables the use of an alias for the CRL distribution point. Use this
+  /// value if you don't want the name of your S3 bucket to be public.
+  final String customCname;
+
+  /// Name of the S3 bucket that contains the CRL. If you do not provide a value
+  /// for the **CustomCname** argument, the name of your S3 bucket is placed
+  /// into the **CRL Distribution Points** extension of the issued certificate.
+  /// You can change the name of your bucket by calling the
+  /// UpdateCertificateAuthority action. You must specify a bucket policy that
+  /// allows ACM Private CA to write the CRL to your bucket.
+  final String s3BucketName;
+
+  CrlConfiguration({
+    @required this.enabled,
+    this.expirationInDays,
+    this.customCname,
+    this.s3BucketName,
+  });
+  static CrlConfiguration fromJson(Map<String, dynamic> json) =>
+      CrlConfiguration();
+}
+
+class DescribeCertificateAuthorityAuditReportResponse {
+  /// Specifies whether report creation is in progress, has succeeded, or has
+  /// failed.
+  final String auditReportStatus;
+
+  /// Name of the S3 bucket that contains the report.
+  final String s3BucketName;
+
+  /// S3 **key** that uniquely identifies the report file in your S3 bucket.
+  final String s3Key;
+
+  /// The date and time at which the report was created.
+  final DateTime createdAt;
+
+  DescribeCertificateAuthorityAuditReportResponse({
+    this.auditReportStatus,
+    this.s3BucketName,
+    this.s3Key,
+    this.createdAt,
+  });
+  static DescribeCertificateAuthorityAuditReportResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeCertificateAuthorityAuditReportResponse();
+}
+
+class DescribeCertificateAuthorityResponse {
+  /// A CertificateAuthority structure that contains information about your
+  /// private CA.
+  final CertificateAuthority certificateAuthority;
+
+  DescribeCertificateAuthorityResponse({
+    this.certificateAuthority,
+  });
+  static DescribeCertificateAuthorityResponse fromJson(
+          Map<String, dynamic> json) =>
+      DescribeCertificateAuthorityResponse();
+}
+
+class GetCertificateAuthorityCertificateResponse {
+  /// Base64-encoded certificate authority (CA) certificate.
+  final String certificate;
+
+  /// Base64-encoded certificate chain that includes any intermediate
+  /// certificates and chains up to root on-premises certificate that you used
+  /// to sign your private CA certificate. The chain does not include your
+  /// private CA certificate. If this is a root CA, the value will be null.
+  final String certificateChain;
+
+  GetCertificateAuthorityCertificateResponse({
+    this.certificate,
+    this.certificateChain,
+  });
+  static GetCertificateAuthorityCertificateResponse fromJson(
+          Map<String, dynamic> json) =>
+      GetCertificateAuthorityCertificateResponse();
+}
+
+class GetCertificateAuthorityCsrResponse {
+  /// The base64 PEM-encoded certificate signing request (CSR) for your private
+  /// CA certificate.
+  final String csr;
+
+  GetCertificateAuthorityCsrResponse({
+    this.csr,
+  });
+  static GetCertificateAuthorityCsrResponse fromJson(
+          Map<String, dynamic> json) =>
+      GetCertificateAuthorityCsrResponse();
+}
+
+class GetCertificateResponse {
+  /// The base64 PEM-encoded certificate specified by the `CertificateArn`
+  /// parameter.
+  final String certificate;
+
+  /// The base64 PEM-encoded certificate chain that chains up to the on-premises
+  /// root CA certificate that you used to sign your private CA certificate.
+  final String certificateChain;
+
+  GetCertificateResponse({
+    this.certificate,
+    this.certificateChain,
+  });
+  static GetCertificateResponse fromJson(Map<String, dynamic> json) =>
+      GetCertificateResponse();
+}
+
+class IssueCertificateResponse {
+  /// The Amazon Resource Name (ARN) of the issued certificate and the
+  /// certificate serial number. This is of the form:
+  ///
+  ///
+  /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_/certificate/_286535153982981100925020015808220737245_`
+  final String certificateArn;
+
+  IssueCertificateResponse({
+    this.certificateArn,
+  });
+  static IssueCertificateResponse fromJson(Map<String, dynamic> json) =>
+      IssueCertificateResponse();
+}
+
+class ListCertificateAuthoritiesResponse {
+  /// Summary information about each certificate authority you have created.
+  final List<CertificateAuthority> certificateAuthorities;
+
+  /// When the list is truncated, this value is present and should be used for
+  /// the `NextToken` parameter in a subsequent pagination request.
+  final String nextToken;
+
+  ListCertificateAuthoritiesResponse({
+    this.certificateAuthorities,
+    this.nextToken,
+  });
+  static ListCertificateAuthoritiesResponse fromJson(
+          Map<String, dynamic> json) =>
+      ListCertificateAuthoritiesResponse();
+}
+
+class ListPermissionsResponse {
+  /// Summary information about each permission assigned by the specified
+  /// private CA, including the action enabled, the policy provided, and the
+  /// time of creation.
+  final List<Permission> permissions;
+
+  /// When the list is truncated, this value is present and should be used for
+  /// the **NextToken** parameter in a subsequent pagination request.
+  final String nextToken;
+
+  ListPermissionsResponse({
+    this.permissions,
+    this.nextToken,
+  });
+  static ListPermissionsResponse fromJson(Map<String, dynamic> json) =>
+      ListPermissionsResponse();
+}
+
+class ListTagsResponse {
+  /// The tags associated with your private CA.
+  final List<Tag> tags;
+
+  /// When the list is truncated, this value is present and should be used for
+  /// the **NextToken** parameter in a subsequent pagination request.
+  final String nextToken;
+
+  ListTagsResponse({
+    this.tags,
+    this.nextToken,
+  });
+  static ListTagsResponse fromJson(Map<String, dynamic> json) =>
+      ListTagsResponse();
+}
+
+class Permission {
+  /// The Amazon Resource Number (ARN) of the private CA from which the
+  /// permission was issued.
+  final String certificateAuthorityArn;
+
+  /// The time at which the permission was created.
+  final DateTime createdAt;
+
+  /// The AWS service or entity that holds the permission. At this time, the
+  /// only valid principal is `acm.amazonaws.com`.
+  final String principal;
+
+  /// The ID of the account that assigned the permission.
+  final String sourceAccount;
+
+  /// The private CA actions that can be performed by the designated AWS
+  /// service.
+  final List<String> actions;
+
+  /// The name of the policy that is associated with the permission.
+  final String policy;
+
+  Permission({
+    this.certificateAuthorityArn,
+    this.createdAt,
+    this.principal,
+    this.sourceAccount,
+    this.actions,
+    this.policy,
+  });
+  static Permission fromJson(Map<String, dynamic> json) => Permission();
+}
+
+class RevocationConfiguration {
+  /// Configuration of the certificate revocation list (CRL), if any, maintained
+  /// by your private CA.
+  final CrlConfiguration crlConfiguration;
+
+  RevocationConfiguration({
+    this.crlConfiguration,
+  });
+  static RevocationConfiguration fromJson(Map<String, dynamic> json) =>
+      RevocationConfiguration();
+}
+
+class Tag {
+  /// Key (name) of the tag.
+  final String key;
+
+  /// Value of the tag.
+  final String value;
+
+  Tag({
+    @required this.key,
+    this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class Validity {
+  /// Time period.
+  final BigInt value;
+
+  /// Specifies whether the `Value` parameter represents days, months, or years.
+  final String type;
+
+  Validity({
+    @required this.value,
+    @required this.type,
+  });
+}

@@ -56,19 +56,65 @@ class HealthApi {
   ///
   /// At least one event ARN is required. Results are sorted by the
   /// `lastUpdatedTime` of the entity, starting with the most recent.
-  Future<void> describeAffectedEntities(EntityFilter filter,
-      {String locale, String nextToken, int maxResults}) async {}
+  ///
+  /// [filter]: Values to narrow the results returned. At least one event ARN is
+  /// required.
+  ///
+  /// [locale]: The locale (language) to return information in. English (en) is
+  /// the default and the only supported value at this time.
+  ///
+  /// [nextToken]: If the results of a search are large, only a portion of the
+  /// results are returned, and a `nextToken` pagination token is returned in
+  /// the response. To retrieve the next batch of results, reissue the search
+  /// request and include the returned token. When all results have been
+  /// returned, the response does not contain a pagination token value.
+  ///
+  /// [maxResults]: The maximum number of items to return in one batch, between
+  /// 10 and 100, inclusive.
+  Future<DescribeAffectedEntitiesResponse> describeAffectedEntities(
+      EntityFilter filter,
+      {String locale,
+      String nextToken,
+      int maxResults}) async {
+    return DescribeAffectedEntitiesResponse.fromJson({});
+  }
 
   /// Returns the number of entities that are affected by each of the specified
   /// events. If no events are specified, the counts of all affected entities
   /// are returned.
-  Future<void> describeEntityAggregates({List<String> eventArns}) async {}
+  ///
+  /// [eventArns]: A list of event ARNs (unique identifiers). For example:
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  Future<DescribeEntityAggregatesResponse> describeEntityAggregates(
+      {List<String> eventArns}) async {
+    return DescribeEntityAggregatesResponse.fromJson({});
+  }
 
   /// Returns the number of events of each event type (issue, scheduled change,
   /// and account notification). If no filter is specified, the counts of all
   /// events in each category are returned.
-  Future<void> describeEventAggregates(String aggregateField,
-      {EventFilter filter, int maxResults, String nextToken}) async {}
+  ///
+  /// [filter]: Values to narrow the results returned.
+  ///
+  /// [aggregateField]: The only currently supported value is
+  /// `eventTypeCategory`.
+  ///
+  /// [maxResults]: The maximum number of items to return in one batch, between
+  /// 10 and 100, inclusive.
+  ///
+  /// [nextToken]: If the results of a search are large, only a portion of the
+  /// results are returned, and a `nextToken` pagination token is returned in
+  /// the response. To retrieve the next batch of results, reissue the search
+  /// request and include the returned token. When all results have been
+  /// returned, the response does not contain a pagination token value.
+  Future<DescribeEventAggregatesResponse> describeEventAggregates(
+      String aggregateField,
+      {EventFilter filter,
+      int maxResults,
+      String nextToken}) async {
+    return DescribeEventAggregatesResponse.fromJson({});
+  }
 
   /// Returns detailed information about one or more specified events.
   /// Information includes standard event data (region, service, etc., as
@@ -79,17 +125,43 @@ class HealthApi {
   ///
   /// If a specified event cannot be retrieved, an error message is returned for
   /// that event.
-  Future<void> describeEventDetails(List<String> eventArns,
-      {String locale}) async {}
+  ///
+  /// [eventArns]: A list of event ARNs (unique identifiers). For example:
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  ///
+  /// [locale]: The locale (language) to return information in. English (en) is
+  /// the default and the only supported value at this time.
+  Future<DescribeEventDetailsResponse> describeEventDetails(
+      List<String> eventArns,
+      {String locale}) async {
+    return DescribeEventDetailsResponse.fromJson({});
+  }
 
   /// Returns the event types that meet the specified filter criteria. If no
   /// filter criteria are specified, all event types are returned, in no
   /// particular order.
-  Future<void> describeEventTypes(
+  ///
+  /// [filter]: Values to narrow the results returned.
+  ///
+  /// [locale]: The locale (language) to return information in. English (en) is
+  /// the default and the only supported value at this time.
+  ///
+  /// [nextToken]: If the results of a search are large, only a portion of the
+  /// results are returned, and a `nextToken` pagination token is returned in
+  /// the response. To retrieve the next batch of results, reissue the search
+  /// request and include the returned token. When all results have been
+  /// returned, the response does not contain a pagination token value.
+  ///
+  /// [maxResults]: The maximum number of items to return in one batch, between
+  /// 10 and 100, inclusive.
+  Future<DescribeEventTypesResponse> describeEventTypes(
       {EventTypeFilter filter,
       String locale,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return DescribeEventTypesResponse.fromJson({});
+  }
 
   /// Returns information about events that meet the specified filter criteria.
   /// Events are returned in a summary form and do not include the detailed
@@ -99,45 +171,457 @@ class HealthApi {
   ///
   /// If no filter criteria are specified, all events are returned. Results are
   /// sorted by `lastModifiedTime`, starting with the most recent.
-  Future<void> describeEvents(
+  ///
+  /// [filter]: Values to narrow the results returned.
+  ///
+  /// [nextToken]: If the results of a search are large, only a portion of the
+  /// results are returned, and a `nextToken` pagination token is returned in
+  /// the response. To retrieve the next batch of results, reissue the search
+  /// request and include the returned token. When all results have been
+  /// returned, the response does not contain a pagination token value.
+  ///
+  /// [maxResults]: The maximum number of items to return in one batch, between
+  /// 10 and 100, inclusive.
+  ///
+  /// [locale]: The locale (language) to return information in. English (en) is
+  /// the default and the only supported value at this time.
+  Future<DescribeEventsResponse> describeEvents(
       {EventFilter filter,
       String nextToken,
       int maxResults,
-      String locale}) async {}
+      String locale}) async {
+    return DescribeEventsResponse.fromJson({});
+  }
 }
 
-class AffectedEntity {}
+class AffectedEntity {
+  /// The unique identifier for the entity. Format:
+  /// `arn:aws:health:_entity-region_:_aws-account_:entity/_entity-id_` .
+  /// Example:
+  /// `arn:aws:health:us-east-1:111222333444:entity/AVh5GGT7ul1arKr1sE1K`
+  final String entityArn;
 
-class DateTimeRange {}
+  /// The unique identifier for the event. Format:
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// . Example: `Example:
+  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  final String eventArn;
 
-class DescribeAffectedEntitiesResponse {}
+  /// The ID of the affected entity.
+  final String entityValue;
 
-class DescribeEntityAggregatesResponse {}
+  final String entityUrl;
 
-class DescribeEventAggregatesResponse {}
+  /// The 12-digit AWS account number that contains the affected entity.
+  final String awsAccountId;
 
-class DescribeEventDetailsResponse {}
+  /// The most recent time that the entity was updated.
+  final DateTime lastUpdatedTime;
 
-class DescribeEventTypesResponse {}
+  /// The most recent status of the entity affected by the event. The possible
+  /// values are `IMPAIRED`, `UNIMPAIRED`, and `UNKNOWN`.
+  final String statusCode;
 
-class DescribeEventsResponse {}
+  /// A map of entity tags attached to the affected entity.
+  final Map<String, String> tags;
 
-class EntityAggregate {}
+  AffectedEntity({
+    this.entityArn,
+    this.eventArn,
+    this.entityValue,
+    this.entityUrl,
+    this.awsAccountId,
+    this.lastUpdatedTime,
+    this.statusCode,
+    this.tags,
+  });
+  static AffectedEntity fromJson(Map<String, dynamic> json) => AffectedEntity();
+}
 
-class EntityFilter {}
+class DateTimeRange {
+  /// The starting date and time of a time range.
+  final DateTime from;
 
-class Event {}
+  /// The ending date and time of a time range.
+  final DateTime to;
 
-class EventAggregate {}
+  DateTimeRange({
+    this.from,
+    this.to,
+  });
+}
 
-class EventDescription {}
+class DescribeAffectedEntitiesResponse {
+  /// The entities that match the filter criteria.
+  final List<AffectedEntity> entities;
 
-class EventDetails {}
+  /// If the results of a search are large, only a portion of the results are
+  /// returned, and a `nextToken` pagination token is returned in the response.
+  /// To retrieve the next batch of results, reissue the search request and
+  /// include the returned token. When all results have been returned, the
+  /// response does not contain a pagination token value.
+  final String nextToken;
 
-class EventDetailsErrorItem {}
+  DescribeAffectedEntitiesResponse({
+    this.entities,
+    this.nextToken,
+  });
+  static DescribeAffectedEntitiesResponse fromJson(Map<String, dynamic> json) =>
+      DescribeAffectedEntitiesResponse();
+}
 
-class EventFilter {}
+class DescribeEntityAggregatesResponse {
+  /// The number of entities that are affected by each of the specified events.
+  final List<EntityAggregate> entityAggregates;
 
-class EventType {}
+  DescribeEntityAggregatesResponse({
+    this.entityAggregates,
+  });
+  static DescribeEntityAggregatesResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEntityAggregatesResponse();
+}
 
-class EventTypeFilter {}
+class DescribeEventAggregatesResponse {
+  /// The number of events in each category that meet the optional filter
+  /// criteria.
+  final List<EventAggregate> eventAggregates;
+
+  /// If the results of a search are large, only a portion of the results are
+  /// returned, and a `nextToken` pagination token is returned in the response.
+  /// To retrieve the next batch of results, reissue the search request and
+  /// include the returned token. When all results have been returned, the
+  /// response does not contain a pagination token value.
+  final String nextToken;
+
+  DescribeEventAggregatesResponse({
+    this.eventAggregates,
+    this.nextToken,
+  });
+  static DescribeEventAggregatesResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEventAggregatesResponse();
+}
+
+class DescribeEventDetailsResponse {
+  /// Information about the events that could be retrieved.
+  final List<EventDetails> successfulSet;
+
+  /// Error messages for any events that could not be retrieved.
+  final List<EventDetailsErrorItem> failedSet;
+
+  DescribeEventDetailsResponse({
+    this.successfulSet,
+    this.failedSet,
+  });
+  static DescribeEventDetailsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEventDetailsResponse();
+}
+
+class DescribeEventTypesResponse {
+  /// A list of event types that match the filter criteria. Event types have a
+  /// category (`issue`, `accountNotification`, or `scheduledChange`), a service
+  /// (for example, `EC2`, `RDS`, `DATAPIPELINE`, `BILLING`), and a code (in the
+  /// format `AWS__SERVICE___DESCRIPTION_` ; for example,
+  /// `AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT`).
+  final List<EventType> eventTypes;
+
+  /// If the results of a search are large, only a portion of the results are
+  /// returned, and a `nextToken` pagination token is returned in the response.
+  /// To retrieve the next batch of results, reissue the search request and
+  /// include the returned token. When all results have been returned, the
+  /// response does not contain a pagination token value.
+  final String nextToken;
+
+  DescribeEventTypesResponse({
+    this.eventTypes,
+    this.nextToken,
+  });
+  static DescribeEventTypesResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEventTypesResponse();
+}
+
+class DescribeEventsResponse {
+  /// The events that match the specified filter criteria.
+  final List<Event> events;
+
+  /// If the results of a search are large, only a portion of the results are
+  /// returned, and a `nextToken` pagination token is returned in the response.
+  /// To retrieve the next batch of results, reissue the search request and
+  /// include the returned token. When all results have been returned, the
+  /// response does not contain a pagination token value.
+  final String nextToken;
+
+  DescribeEventsResponse({
+    this.events,
+    this.nextToken,
+  });
+  static DescribeEventsResponse fromJson(Map<String, dynamic> json) =>
+      DescribeEventsResponse();
+}
+
+class EntityAggregate {
+  /// The unique identifier for the event. Format:
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// . Example: `Example:
+  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  final String eventArn;
+
+  /// The number entities that match the criteria for the specified events.
+  final int count;
+
+  EntityAggregate({
+    this.eventArn,
+    this.count,
+  });
+  static EntityAggregate fromJson(Map<String, dynamic> json) =>
+      EntityAggregate();
+}
+
+class EntityFilter {
+  /// A list of event ARNs (unique identifiers). For example:
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  final List<String> eventArns;
+
+  /// A list of entity ARNs (unique identifiers).
+  final List<String> entityArns;
+
+  /// A list of IDs for affected entities.
+  final List<String> entityValues;
+
+  /// A list of the most recent dates and times that the entity was updated.
+  final List<DateTimeRange> lastUpdatedTimes;
+
+  /// A map of entity tags attached to the affected entity.
+  final List<Map<String, String>> tags;
+
+  /// A list of entity status codes (`IMPAIRED`, `UNIMPAIRED`, or `UNKNOWN`).
+  final List<String> statusCodes;
+
+  EntityFilter({
+    @required this.eventArns,
+    this.entityArns,
+    this.entityValues,
+    this.lastUpdatedTimes,
+    this.tags,
+    this.statusCodes,
+  });
+}
+
+class Event {
+  /// The unique identifier for the event. Format:
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// . Example: `Example:
+  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  final String arn;
+
+  /// The AWS service that is affected by the event. For example, `EC2`, `RDS`.
+  final String service;
+
+  /// The unique identifier for the event type. The format is
+  /// `AWS__SERVICE___DESCRIPTION_` ; for example,
+  /// `AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT`.
+  final String eventTypeCode;
+
+  /// The category of the event. Possible values are `issue`, `scheduledChange`,
+  /// and `accountNotification`.
+  final String eventTypeCategory;
+
+  /// The AWS region name of the event.
+  final String region;
+
+  /// The AWS Availability Zone of the event. For example, us-east-1a.
+  final String availabilityZone;
+
+  /// The date and time that the event began.
+  final DateTime startTime;
+
+  /// The date and time that the event ended.
+  final DateTime endTime;
+
+  /// The most recent date and time that the event was updated.
+  final DateTime lastUpdatedTime;
+
+  /// The most recent status of the event. Possible values are `open`, `closed`,
+  /// and `upcoming`.
+  final String statusCode;
+
+  Event({
+    this.arn,
+    this.service,
+    this.eventTypeCode,
+    this.eventTypeCategory,
+    this.region,
+    this.availabilityZone,
+    this.startTime,
+    this.endTime,
+    this.lastUpdatedTime,
+    this.statusCode,
+  });
+  static Event fromJson(Map<String, dynamic> json) => Event();
+}
+
+class EventAggregate {
+  /// The issue type for the associated count.
+  final String aggregateValue;
+
+  /// The number of events of the associated issue type.
+  final int count;
+
+  EventAggregate({
+    this.aggregateValue,
+    this.count,
+  });
+  static EventAggregate fromJson(Map<String, dynamic> json) => EventAggregate();
+}
+
+class EventDescription {
+  /// The most recent description of the event.
+  final String latestDescription;
+
+  EventDescription({
+    this.latestDescription,
+  });
+  static EventDescription fromJson(Map<String, dynamic> json) =>
+      EventDescription();
+}
+
+class EventDetails {
+  /// Summary information about the event.
+  final Event event;
+
+  /// The most recent description of the event.
+  final EventDescription eventDescription;
+
+  /// Additional metadata about the event.
+  final Map<String, String> eventMetadata;
+
+  EventDetails({
+    this.event,
+    this.eventDescription,
+    this.eventMetadata,
+  });
+  static EventDetails fromJson(Map<String, dynamic> json) => EventDetails();
+}
+
+class EventDetailsErrorItem {
+  /// The unique identifier for the event. Format:
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// . Example: `Example:
+  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  final String eventArn;
+
+  /// The name of the error.
+  final String errorName;
+
+  /// A message that describes the error.
+  final String errorMessage;
+
+  EventDetailsErrorItem({
+    this.eventArn,
+    this.errorName,
+    this.errorMessage,
+  });
+  static EventDetailsErrorItem fromJson(Map<String, dynamic> json) =>
+      EventDetailsErrorItem();
+}
+
+class EventFilter {
+  /// A list of event ARNs (unique identifiers). For example:
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  final List<String> eventArns;
+
+  /// A list of unique identifiers for event types. For example,
+  /// `"AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT","AWS\_RDS\_MAINTENANCE_SCHEDULED"`
+  final List<String> eventTypeCodes;
+
+  /// The AWS services associated with the event. For example, `EC2`, `RDS`.
+  final List<String> services;
+
+  /// A list of AWS regions.
+  final List<String> regions;
+
+  /// A list of AWS availability zones.
+  final List<String> availabilityZones;
+
+  /// A list of dates and times that the event began.
+  final List<DateTimeRange> startTimes;
+
+  /// A list of dates and times that the event ended.
+  final List<DateTimeRange> endTimes;
+
+  /// A list of dates and times that the event was last updated.
+  final List<DateTimeRange> lastUpdatedTimes;
+
+  /// A list of entity ARNs (unique identifiers).
+  final List<String> entityArns;
+
+  /// A list of entity identifiers, such as EC2 instance IDs (`i-34ab692e`) or
+  /// EBS volumes (`vol-426ab23e`).
+  final List<String> entityValues;
+
+  /// A list of event type category codes (`issue`, `scheduledChange`, or
+  /// `accountNotification`).
+  final List<String> eventTypeCategories;
+
+  /// A map of entity tags attached to the affected entity.
+  final List<Map<String, String>> tags;
+
+  /// A list of event status codes.
+  final List<String> eventStatusCodes;
+
+  EventFilter({
+    this.eventArns,
+    this.eventTypeCodes,
+    this.services,
+    this.regions,
+    this.availabilityZones,
+    this.startTimes,
+    this.endTimes,
+    this.lastUpdatedTimes,
+    this.entityArns,
+    this.entityValues,
+    this.eventTypeCategories,
+    this.tags,
+    this.eventStatusCodes,
+  });
+}
+
+class EventType {
+  /// The AWS service that is affected by the event. For example, `EC2`, `RDS`.
+  final String service;
+
+  /// The unique identifier for the event type. The format is
+  /// `AWS__SERVICE___DESCRIPTION_` ; for example,
+  /// `AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT`.
+  final String code;
+
+  /// A list of event type category codes (`issue`, `scheduledChange`, or
+  /// `accountNotification`).
+  final String category;
+
+  EventType({
+    this.service,
+    this.code,
+    this.category,
+  });
+  static EventType fromJson(Map<String, dynamic> json) => EventType();
+}
+
+class EventTypeFilter {
+  /// A list of event type codes.
+  final List<String> eventTypeCodes;
+
+  /// The AWS services associated with the event. For example, `EC2`, `RDS`.
+  final List<String> services;
+
+  /// A list of event type category codes (`issue`, `scheduledChange`, or
+  /// `accountNotification`).
+  final List<String> eventTypeCategories;
+
+  EventTypeFilter({
+    this.eventTypeCodes,
+    this.services,
+    this.eventTypeCategories,
+  });
+}

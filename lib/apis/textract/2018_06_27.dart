@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'dart:typed_data';
 
 /// Amazon Textract detects and analyzes text in documents and converts it into
 /// machine-readable text. This is the API reference documentation for Amazon
@@ -36,9 +37,24 @@ class TextractApi {
   ///
   /// For more information, see [Document Text
   /// Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
-  Future<void> analyzeDocument(
+  ///
+  /// [document]: The input document as base64-encoded bytes or an Amazon S3
+  /// object. If you use the AWS CLI to call Amazon Textract operations, you
+  /// can't pass image bytes. The document must be an image in JPG or PNG
+  /// format.
+  ///
+  /// If you are using an AWS SDK to call Amazon Textract, you might not need to
+  /// base64-encode image bytes passed using the `Bytes` field.
+  ///
+  /// [featureTypes]: A list of the types of analysis to perform. Add TABLES to
+  /// the list to return information about the tables detected in the input
+  /// document. Add FORMS to return detected fields and the associated text. To
+  /// perform both types of analysis, add TABLES and FORMS to `FeatureTypes`.
+  Future<AnalyzeDocumentResponse> analyzeDocument(
       {@required Document document,
-      @required List<String> featureTypes}) async {}
+      @required List<String> featureTypes}) async {
+    return AnalyzeDocumentResponse.fromJson({});
+  }
 
   /// Detects text in the input document. Amazon Textract can detect lines of
   /// text and the words that make up a line of text. The input document must be
@@ -56,7 +72,18 @@ class TextractApi {
   ///
   /// For more information, see [Document Text
   /// Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
-  Future<void> detectDocumentText(Document document) async {}
+  ///
+  /// [document]: The input document as base64-encoded bytes or an Amazon S3
+  /// object. If you use the AWS CLI to call Amazon Textract operations, you
+  /// can't pass image bytes. The document must be an image in JPG or PNG
+  /// format.
+  ///
+  /// If you are using an AWS SDK to call Amazon Textract, you might not need to
+  /// base64-encode image bytes passed using the `Bytes` field.
+  Future<DetectDocumentTextResponse> detectDocumentText(
+      Document document) async {
+    return DetectDocumentTextResponse.fromJson({});
+  }
 
   /// Gets the results for an Amazon Textract asynchronous operation that
   /// analyzes text in a document.
@@ -102,8 +129,23 @@ class TextractApi {
   ///
   /// For more information, see [Document Text
   /// Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
-  Future<void> getDocumentAnalysis(String jobId,
-      {int maxResults, String nextToken}) async {}
+  ///
+  /// [jobId]: A unique identifier for the text-detection job. The `JobId` is
+  /// returned from `StartDocumentAnalysis`.
+  ///
+  /// [maxResults]: The maximum number of results to return per paginated call.
+  /// The largest value that you can specify is 1,000. If you specify a value
+  /// greater than 1,000, a maximum of 1,000 results is returned. The default
+  /// value is 1,000.
+  ///
+  /// [nextToken]: If the previous response was incomplete (because there are
+  /// more blocks to retrieve), Amazon Textract returns a pagination token in
+  /// the response. You can use this pagination token to retrieve the next set
+  /// of blocks.
+  Future<GetDocumentAnalysisResponse> getDocumentAnalysis(String jobId,
+      {int maxResults, String nextToken}) async {
+    return GetDocumentAnalysisResponse.fromJson({});
+  }
 
   /// Gets the results for an Amazon Textract asynchronous operation that
   /// detects text in a document. Amazon Textract can detect lines of text and
@@ -138,8 +180,25 @@ class TextractApi {
   ///
   /// For more information, see [Document Text
   /// Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
-  Future<void> getDocumentTextDetection(String jobId,
-      {int maxResults, String nextToken}) async {}
+  ///
+  /// [jobId]: A unique identifier for the text detection job. The `JobId` is
+  /// returned from `StartDocumentTextDetection`.
+  ///
+  /// [maxResults]: The maximum number of results to return per paginated call.
+  /// The largest value you can specify is 1,000. If you specify a value greater
+  /// than 1,000, a maximum of 1,000 results is returned. The default value is
+  /// 1,000.
+  ///
+  /// [nextToken]: If the previous response was incomplete (because there are
+  /// more blocks to retrieve), Amazon Textract returns a pagination token in
+  /// the response. You can use this pagination token to retrieve the next set
+  /// of blocks.
+  Future<GetDocumentTextDetectionResponse> getDocumentTextDetection(
+      String jobId,
+      {int maxResults,
+      String nextToken}) async {
+    return GetDocumentTextDetectionResponse.fromJson({});
+  }
 
   /// Starts asynchronous analysis of an input document for relationships
   /// between detected items such as key and value pairs, tables, and selection
@@ -160,12 +219,37 @@ class TextractApi {
   ///
   /// For more information, see [Document Text
   /// Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
-  Future<void> startDocumentAnalysis(
+  ///
+  /// [documentLocation]: The location of the document to be processed.
+  ///
+  /// [featureTypes]: A list of the types of analysis to perform. Add TABLES to
+  /// the list to return information about the tables that are detected in the
+  /// input document. Add FORMS to return detected fields and the associated
+  /// text. To perform both types of analysis, add TABLES and FORMS to
+  /// `FeatureTypes`. All selectable elements (`SELECTION_ELEMENT`) that are
+  /// detected are returned, whatever the value of `FeatureTypes`.
+  ///
+  /// [clientRequestToken]: The idempotent token that you use to identify the
+  /// start request. If you use the same token with multiple
+  /// `StartDocumentAnalysis` requests, the same `JobId` is returned. Use
+  /// `ClientRequestToken` to prevent the same job from being accidentally
+  /// started more than once.
+  ///
+  /// [jobTag]: An identifier you specify that's included in the completion
+  /// notification that's published to the Amazon SNS topic. For example, you
+  /// can use `JobTag` to identify the type of document, such as a tax form or a
+  /// receipt, that the completion notification corresponds to.
+  ///
+  /// [notificationChannel]: The Amazon SNS topic ARN that you want Amazon
+  /// Textract to publish the completion status of the operation to.
+  Future<StartDocumentAnalysisResponse> startDocumentAnalysis(
       {@required DocumentLocation documentLocation,
       @required List<String> featureTypes,
       String clientRequestToken,
       String jobTag,
-      NotificationChannel notificationChannel}) async {}
+      NotificationChannel notificationChannel}) async {
+    return StartDocumentAnalysisResponse.fromJson({});
+  }
 
   /// Starts the asynchronous detection of text in a document. Amazon Textract
   /// can detect lines of text and the words that make up a line of text.
@@ -186,42 +270,441 @@ class TextractApi {
   ///
   /// For more information, see [Document Text
   /// Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
-  Future<void> startDocumentTextDetection(DocumentLocation documentLocation,
+  ///
+  /// [documentLocation]: The location of the document to be processed.
+  ///
+  /// [clientRequestToken]: The idempotent token that's used to identify the
+  /// start request. If you use the same token with multiple
+  /// `StartDocumentTextDetection` requests, the same `JobId` is returned. Use
+  /// `ClientRequestToken` to prevent the same job from being accidentally
+  /// started more than once.
+  ///
+  /// [jobTag]: An identifier you specify that's included in the completion
+  /// notification that's published to the Amazon SNS topic. For example, you
+  /// can use `JobTag` to identify the type of document, such as a tax form or a
+  /// receipt, that the completion notification corresponds to.
+  ///
+  /// [notificationChannel]: The Amazon SNS topic ARN that you want Amazon
+  /// Textract to publish the completion status of the operation to.
+  Future<StartDocumentTextDetectionResponse> startDocumentTextDetection(
+      DocumentLocation documentLocation,
       {String clientRequestToken,
       String jobTag,
-      NotificationChannel notificationChannel}) async {}
+      NotificationChannel notificationChannel}) async {
+    return StartDocumentTextDetectionResponse.fromJson({});
+  }
 }
 
-class AnalyzeDocumentResponse {}
+class AnalyzeDocumentResponse {
+  /// Metadata about the analyzed document. An example is the number of pages.
+  final DocumentMetadata documentMetadata;
 
-class Block {}
+  /// The text that's detected and analyzed by `AnalyzeDocument`.
+  final List<Block> blocks;
 
-class BoundingBox {}
+  AnalyzeDocumentResponse({
+    this.documentMetadata,
+    this.blocks,
+  });
+  static AnalyzeDocumentResponse fromJson(Map<String, dynamic> json) =>
+      AnalyzeDocumentResponse();
+}
 
-class DetectDocumentTextResponse {}
+class Block {
+  /// The type of text that's recognized in a block. In text-detection
+  /// operations, the following types are returned:
+  ///
+  /// *    _PAGE_ \- Contains a list of the LINE Block objects that are detected
+  /// on a document page.
+  ///
+  /// *    _WORD_ \- A word detected on a document page. A word is one or more
+  /// ISO basic Latin script characters that aren't separated by spaces.
+  ///
+  /// *    _LINE_ \- A string of tab-delimited, contiguous words that's detected
+  /// on a document page.
+  ///
+  ///
+  /// In text analysis operations, the following types are returned:
+  ///
+  /// *    _PAGE_ \- Contains a list of child Block objects that are detected on
+  /// a document page.
+  ///
+  /// *    _KEY\_VALUE\_SET_ \- Stores the KEY and VALUE Block objects for a
+  /// field that's detected on a document page. Use the `EntityType` field to
+  /// determine if a KEY\_VALUE\_SET object is a KEY Block object or a VALUE
+  /// Block object.
+  ///
+  /// *    _WORD_ \- A word detected on a document page. A word is one or more
+  /// ISO basic Latin script characters that aren't separated by spaces that's
+  /// detected on a document page.
+  ///
+  /// *    _LINE_ \- A string of tab-delimited, contiguous words that's detected
+  /// on a document page.
+  ///
+  /// *    _TABLE_ \- A table that's detected on a document page. A table is any
+  /// grid-based information with 2 or more rows or columns with a cell span of
+  /// 1 row and 1 column each.
+  ///
+  /// *    _CELL_ \- A cell within a detected table. The cell is the parent of
+  /// the block that contains the text in the cell.
+  ///
+  /// *    _SELECTION_ELEMENT_ \- A selectable element such as a radio button or
+  /// checkbox that's detected on a document page. Use the value of
+  /// `SelectionStatus` to determine the status of the selection element.
+  final String blockType;
 
-class Document {}
+  /// The confidence that Amazon Textract has in the accuracy of the recognized
+  /// text and the accuracy of the geometry points around the recognized text.
+  final double confidence;
 
-class DocumentLocation {}
+  /// The word or line of text that's recognized by Amazon Textract.
+  final String text;
 
-class DocumentMetadata {}
+  /// The row in which a table cell is located. The first row position is 1.
+  /// `RowIndex` isn't returned by `DetectDocumentText` and
+  /// `GetDocumentTextDetection`.
+  final int rowIndex;
 
-class Geometry {}
+  /// The column in which a table cell appears. The first column position is 1.
+  /// `ColumnIndex` isn't returned by `DetectDocumentText` and
+  /// `GetDocumentTextDetection`.
+  final int columnIndex;
 
-class GetDocumentAnalysisResponse {}
+  /// The number of rows that a table spans. `RowSpan` isn't returned by
+  /// `DetectDocumentText` and `GetDocumentTextDetection`.
+  final int rowSpan;
 
-class GetDocumentTextDetectionResponse {}
+  /// The number of columns that a table cell spans. `ColumnSpan` isn't returned
+  /// by `DetectDocumentText` and `GetDocumentTextDetection`.
+  final int columnSpan;
 
-class NotificationChannel {}
+  /// The location of the recognized text on the image. It includes an
+  /// axis-aligned, coarse bounding box that surrounds the text, and a
+  /// finer-grain polygon for more accurate spatial information.
+  final Geometry geometry;
 
-class Point {}
+  /// The identifier for the recognized text. The identifier is only unique for
+  /// a single operation.
+  final String id;
 
-class Relationship {}
+  /// A list of child blocks of the current block. For example a LINE object has
+  /// child blocks for each WORD block that's part of the line of text. There
+  /// aren't Relationship objects in the list for relationships that don't
+  /// exist, such as when the current block has no child blocks. The list size
+  /// can be the following:
+  ///
+  /// *   0 - The block has no child blocks.
+  ///
+  /// *   1 - The block has child blocks.
+  final List<Relationship> relationships;
 
-class S3Object {}
+  /// The type of entity. The following can be returned:
+  ///
+  /// *    _KEY_ \- An identifier for a field on the document.
+  ///
+  /// *    _VALUE_ \- The field text.
+  ///
+  ///
+  ///  `EntityTypes` isn't returned by `DetectDocumentText` and
+  /// `GetDocumentTextDetection`.
+  final List<String> entityTypes;
 
-class StartDocumentAnalysisResponse {}
+  /// The selection status of a selectable element such as a radio button or
+  /// checkbox.
+  final String selectionStatus;
 
-class StartDocumentTextDetectionResponse {}
+  /// The page in which a block was detected. `Page` is returned by asynchronous
+  /// operations. Page values greater than 1 are only returned for multi-page
+  /// documents that are in PDF format. A scanned image (JPG/PNG), even if it
+  /// contains multiple document pages, is always considered to be a single-page
+  /// document and the value of `Page` is always 1. Synchronous operations don't
+  /// return `Page` as every input document is considered to be a single-page
+  /// document.
+  final int page;
 
-class Warning {}
+  Block({
+    this.blockType,
+    this.confidence,
+    this.text,
+    this.rowIndex,
+    this.columnIndex,
+    this.rowSpan,
+    this.columnSpan,
+    this.geometry,
+    this.id,
+    this.relationships,
+    this.entityTypes,
+    this.selectionStatus,
+    this.page,
+  });
+  static Block fromJson(Map<String, dynamic> json) => Block();
+}
+
+class BoundingBox {
+  /// The width of the bounding box as a ratio of the overall document page
+  /// width.
+  final double width;
+
+  /// The height of the bounding box as a ratio of the overall document page
+  /// height.
+  final double height;
+
+  /// The left coordinate of the bounding box as a ratio of overall document
+  /// page width.
+  final double left;
+
+  /// The top coordinate of the bounding box as a ratio of overall document page
+  /// height.
+  final double top;
+
+  BoundingBox({
+    this.width,
+    this.height,
+    this.left,
+    this.top,
+  });
+  static BoundingBox fromJson(Map<String, dynamic> json) => BoundingBox();
+}
+
+class DetectDocumentTextResponse {
+  /// Metadata about the document. Contains the number of pages that are
+  /// detected in the document.
+  final DocumentMetadata documentMetadata;
+
+  /// An array of Block objects containing the text detected in the document.
+  final List<Block> blocks;
+
+  DetectDocumentTextResponse({
+    this.documentMetadata,
+    this.blocks,
+  });
+  static DetectDocumentTextResponse fromJson(Map<String, dynamic> json) =>
+      DetectDocumentTextResponse();
+}
+
+class Document {
+  /// A blob of base-64 encoded documents bytes. The maximum size of a document
+  /// that's provided in a blob of bytes is 5 MB. The document bytes must be in
+  /// PNG or JPG format.
+  ///
+  /// If you are using an AWS SDK to call Amazon Textract, you might not need to
+  /// base64-encode image bytes passed using the `Bytes` field.
+  final Uint8List bytes;
+
+  /// Identifies an S3 object as the document source. The maximum size of a
+  /// document stored in an S3 bucket is 5 MB.
+  final S3Object s3Object;
+
+  Document({
+    this.bytes,
+    this.s3Object,
+  });
+}
+
+class DocumentLocation {
+  /// The Amazon S3 bucket that contains the input document.
+  final S3Object s3Object;
+
+  DocumentLocation({
+    this.s3Object,
+  });
+}
+
+class DocumentMetadata {
+  /// The number of pages detected in the document.
+  final int pages;
+
+  DocumentMetadata({
+    this.pages,
+  });
+  static DocumentMetadata fromJson(Map<String, dynamic> json) =>
+      DocumentMetadata();
+}
+
+class Geometry {
+  /// An axis-aligned coarse representation of the location of the recognized
+  /// text on the document page.
+  final BoundingBox boundingBox;
+
+  /// Within the bounding box, a fine-grained polygon around the recognized
+  /// text.
+  final List<Point> polygon;
+
+  Geometry({
+    this.boundingBox,
+    this.polygon,
+  });
+  static Geometry fromJson(Map<String, dynamic> json) => Geometry();
+}
+
+class GetDocumentAnalysisResponse {
+  /// Information about a document that Amazon Textract processed.
+  /// `DocumentMetadata` is returned in every page of paginated responses from
+  /// an Amazon Textract video operation.
+  final DocumentMetadata documentMetadata;
+
+  /// The current status of the text detection job.
+  final String jobStatus;
+
+  /// If the response is truncated, Amazon Textract returns this token. You can
+  /// use this token in the subsequent request to retrieve the next set of text
+  /// detection results.
+  final String nextToken;
+
+  /// The results of the text analysis operation.
+  final List<Block> blocks;
+
+  /// A list of warnings that occurred during the document analysis operation.
+  final List<Warning> warnings;
+
+  /// The current status of an asynchronous document analysis operation.
+  final String statusMessage;
+
+  GetDocumentAnalysisResponse({
+    this.documentMetadata,
+    this.jobStatus,
+    this.nextToken,
+    this.blocks,
+    this.warnings,
+    this.statusMessage,
+  });
+  static GetDocumentAnalysisResponse fromJson(Map<String, dynamic> json) =>
+      GetDocumentAnalysisResponse();
+}
+
+class GetDocumentTextDetectionResponse {
+  /// Information about a document that Amazon Textract processed.
+  /// `DocumentMetadata` is returned in every page of paginated responses from
+  /// an Amazon Textract video operation.
+  final DocumentMetadata documentMetadata;
+
+  /// The current status of the text detection job.
+  final String jobStatus;
+
+  /// If the response is truncated, Amazon Textract returns this token. You can
+  /// use this token in the subsequent request to retrieve the next set of
+  /// text-detection results.
+  final String nextToken;
+
+  /// The results of the text-detection operation.
+  final List<Block> blocks;
+
+  /// A list of warnings that occurred during the document text-detection
+  /// operation.
+  final List<Warning> warnings;
+
+  /// The current status of an asynchronous document text-detection operation.
+  final String statusMessage;
+
+  GetDocumentTextDetectionResponse({
+    this.documentMetadata,
+    this.jobStatus,
+    this.nextToken,
+    this.blocks,
+    this.warnings,
+    this.statusMessage,
+  });
+  static GetDocumentTextDetectionResponse fromJson(Map<String, dynamic> json) =>
+      GetDocumentTextDetectionResponse();
+}
+
+class NotificationChannel {
+  /// The Amazon SNS topic that Amazon Textract posts the completion status to.
+  final String snsTopicArn;
+
+  /// The Amazon Resource Name (ARN) of an IAM role that gives Amazon Textract
+  /// publishing permissions to the Amazon SNS topic.
+  final String roleArn;
+
+  NotificationChannel({
+    @required this.snsTopicArn,
+    @required this.roleArn,
+  });
+}
+
+class Point {
+  /// The value of the X coordinate for a point on a `Polygon`.
+  final double x;
+
+  /// The value of the Y coordinate for a point on a `Polygon`.
+  final double y;
+
+  Point({
+    this.x,
+    this.y,
+  });
+  static Point fromJson(Map<String, dynamic> json) => Point();
+}
+
+class Relationship {
+  /// The type of relationship that the blocks in the IDs array have with the
+  /// current block. The relationship can be `VALUE` or `CHILD`.
+  final String type;
+
+  /// An array of IDs for related blocks. You can get the type of the
+  /// relationship from the `Type` element.
+  final List<String> ids;
+
+  Relationship({
+    this.type,
+    this.ids,
+  });
+  static Relationship fromJson(Map<String, dynamic> json) => Relationship();
+}
+
+class S3Object {
+  /// The name of the S3 bucket.
+  final String bucket;
+
+  /// The file name of the input document. It must be an image file (.JPG or
+  /// .PNG format). Asynchronous operations also support PDF files.
+  final String name;
+
+  /// If the bucket has versioning enabled, you can specify the object version.
+  final String version;
+
+  S3Object({
+    this.bucket,
+    this.name,
+    this.version,
+  });
+}
+
+class StartDocumentAnalysisResponse {
+  /// The identifier for the document text detection job. Use `JobId` to
+  /// identify the job in a subsequent call to `GetDocumentAnalysis`.
+  final String jobId;
+
+  StartDocumentAnalysisResponse({
+    this.jobId,
+  });
+  static StartDocumentAnalysisResponse fromJson(Map<String, dynamic> json) =>
+      StartDocumentAnalysisResponse();
+}
+
+class StartDocumentTextDetectionResponse {
+  /// The identifier for the document text-detection job. Use `JobId` to
+  /// identify the job in a subsequent call to `GetDocumentTextDetection`.
+  final String jobId;
+
+  StartDocumentTextDetectionResponse({
+    this.jobId,
+  });
+  static StartDocumentTextDetectionResponse fromJson(
+          Map<String, dynamic> json) =>
+      StartDocumentTextDetectionResponse();
+}
+
+class Warning {
+  /// The error code for the warning.
+  final String errorCode;
+
+  /// A list of the pages that the warning applies to.
+  final List<int> pages;
+
+  Warning({
+    this.errorCode,
+    this.pages,
+  });
+  static Warning fromJson(Map<String, dynamic> json) => Warning();
+}

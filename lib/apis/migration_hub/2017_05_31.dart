@@ -17,27 +17,58 @@ class MigrationHubApi {
   ///
   /// *   Examples of the AWS resource behind the created artifact are, AMI's,
   /// EC2 instance, or DMS endpoint, etc.
-  Future<void> associateCreatedArtifact(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: Unique identifier that references the migration task.
+  ///
+  /// [createdArtifact]: An ARN of the AWS resource related to the migration
+  /// (e.g., AMI, EC2 instance, RDS instance, etc.)
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<AssociateCreatedArtifactResult> associateCreatedArtifact(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       @required CreatedArtifact createdArtifact,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return AssociateCreatedArtifactResult.fromJson({});
+  }
 
   /// Associates a discovered resource ID from Application Discovery Service
   /// (ADS) with a migration task.
-  Future<void> associateDiscoveredResource(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: The identifier given to the MigrationTask.
+  ///
+  /// [discoveredResource]: Object representing a Resource.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<AssociateDiscoveredResourceResult> associateDiscoveredResource(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       @required DiscoveredResource discoveredResource,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return AssociateDiscoveredResourceResult.fromJson({});
+  }
 
   /// Creates a progress update stream which is an AWS resource used for access
   /// control as well as a namespace for migration task names that is implicitly
   /// linked to your AWS account. It must uniquely identify the migration tool
   /// as it is used for all updates made by the tool; however, it does not need
   /// to be unique for each AWS account because it is scoped to the AWS account.
-  Future<void> createProgressUpdateStream(String progressUpdateStreamName,
-      {bool dryRun}) async {}
+  ///
+  /// [progressUpdateStreamName]: The name of the ProgressUpdateStream.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<CreateProgressUpdateStreamResult> createProgressUpdateStream(
+      String progressUpdateStreamName,
+      {bool dryRun}) async {
+    return CreateProgressUpdateStreamResult.fromJson({});
+  }
 
   /// Deletes a progress update stream, including all of its tasks, which was
   /// previously created as an AWS resource used for access control. This API
@@ -62,17 +93,37 @@ class MigrationHubApi {
   /// `CreateProgressUpdateStream` for a stream of the same name will succeed,
   /// and that stream will be an entirely new logical resource (without any
   /// resources associated with the old stream).
-  Future<void> deleteProgressUpdateStream(String progressUpdateStreamName,
-      {bool dryRun}) async {}
+  ///
+  /// [progressUpdateStreamName]: The name of the ProgressUpdateStream.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<DeleteProgressUpdateStreamResult> deleteProgressUpdateStream(
+      String progressUpdateStreamName,
+      {bool dryRun}) async {
+    return DeleteProgressUpdateStreamResult.fromJson({});
+  }
 
   /// Gets the migration status of an application.
-  Future<void> describeApplicationState(String applicationId) async {}
+  ///
+  /// [applicationId]: The configurationId in ADS that uniquely identifies the
+  /// grouped application.
+  Future<DescribeApplicationStateResult> describeApplicationState(
+      String applicationId) async {
+    return DescribeApplicationStateResult.fromJson({});
+  }
 
   /// Retrieves a list of all attributes associated with a specific migration
   /// task.
-  Future<void> describeMigrationTask(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: The identifier given to the MigrationTask.
+  Future<DescribeMigrationTaskResult> describeMigrationTask(
       {@required String progressUpdateStream,
-      @required String migrationTaskName}) async {}
+      @required String migrationTaskName}) async {
+    return DescribeMigrationTaskResult.fromJson({});
+  }
 
   /// Disassociates a created artifact of an AWS resource with a migration task
   /// performed by a migration tool that was previously associated. This API has
@@ -87,19 +138,44 @@ class MigrationHubApi {
   ///
   /// *   Examples of the AWS resource behind the created artifact are, AMI's,
   /// EC2 instance, or RDS instance, etc.
-  Future<void> disassociateCreatedArtifact(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: Unique identifier that references the migration task
+  /// to be disassociated with the artifact.
+  ///
+  /// [createdArtifactName]: An ARN of the AWS resource related to the migration
+  /// (e.g., AMI, EC2 instance, RDS instance, etc.)
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<DisassociateCreatedArtifactResult> disassociateCreatedArtifact(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       @required String createdArtifactName,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return DisassociateCreatedArtifactResult.fromJson({});
+  }
 
   /// Disassociate an Application Discovery Service (ADS) discovered resource
   /// from a migration task.
-  Future<void> disassociateDiscoveredResource(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: The identifier given to the MigrationTask.
+  ///
+  /// [configurationId]: ConfigurationId of the ADS resource to be
+  /// disassociated.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<DisassociateDiscoveredResourceResult> disassociateDiscoveredResource(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       @required String configurationId,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return DisassociateDiscoveredResourceResult.fromJson({});
+  }
 
   /// Registers a new migration task which represents a server, database, etc.,
   /// being migrated to AWS by a migration tool.
@@ -107,10 +183,19 @@ class MigrationHubApi {
   /// This API is a prerequisite to calling the `NotifyMigrationTaskState` API
   /// as the migration tool must first register the migration task with
   /// Migration Hub.
-  Future<void> importMigrationTask(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: Unique identifier that references the migration task.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<ImportMigrationTaskResult> importMigrationTask(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return ImportMigrationTaskResult.fromJson({});
+  }
 
   /// Lists the created artifacts attached to a given migration task in an
   /// update stream. This API has the following traits:
@@ -122,18 +207,42 @@ class MigrationHubApi {
   /// by the `AssociateCreatedArtifact` API.
   ///
   /// *   Lists created artifacts in a paginated interface.
-  Future<void> listCreatedArtifacts(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: Unique identifier that references the migration task.
+  ///
+  /// [nextToken]: If a `NextToken` was returned by a previous call, there are
+  /// more results available. To retrieve the next page of results, make the
+  /// call again using the returned token in `NextToken`.
+  ///
+  /// [maxResults]: Maximum number of results to be returned per page.
+  Future<ListCreatedArtifactsResult> listCreatedArtifacts(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListCreatedArtifactsResult.fromJson({});
+  }
 
   /// Lists discovered resources associated with the given `MigrationTask`.
-  Future<void> listDiscoveredResources(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: The name of the MigrationTask.
+  ///
+  /// [nextToken]: If a `NextToken` was returned by a previous call, there are
+  /// more results available. To retrieve the next page of results, make the
+  /// call again using the returned token in `NextToken`.
+  ///
+  /// [maxResults]: The maximum number of results returned per page.
+  Future<ListDiscoveredResourcesResult> listDiscoveredResources(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       String nextToken,
-      int maxResults}) async {}
+      int maxResults}) async {
+    return ListDiscoveredResourcesResult.fromJson({});
+  }
 
   /// Lists all, or filtered by resource name, migration tasks associated with
   /// the user account making this call. This API has the following traits:
@@ -144,22 +253,51 @@ class MigrationHubApi {
   /// discovered resource.
   ///
   /// *   Lists migration tasks in a paginated interface.
-  Future<void> listMigrationTasks(
-      {String nextToken, int maxResults, String resourceName}) async {}
+  ///
+  /// [nextToken]: If a `NextToken` was returned by a previous call, there are
+  /// more results available. To retrieve the next page of results, make the
+  /// call again using the returned token in `NextToken`.
+  ///
+  /// [maxResults]: Value to specify how many results are returned per page.
+  ///
+  /// [resourceName]: Filter migration tasks by discovered resource name.
+  Future<ListMigrationTasksResult> listMigrationTasks(
+      {String nextToken, int maxResults, String resourceName}) async {
+    return ListMigrationTasksResult.fromJson({});
+  }
 
   /// Lists progress update streams associated with the user account making this
   /// call.
-  Future<void> listProgressUpdateStreams(
-      {String nextToken, int maxResults}) async {}
+  ///
+  /// [nextToken]: If a `NextToken` was returned by a previous call, there are
+  /// more results available. To retrieve the next page of results, make the
+  /// call again using the returned token in `NextToken`.
+  ///
+  /// [maxResults]: Filter to limit the maximum number of results to list per
+  /// page.
+  Future<ListProgressUpdateStreamsResult> listProgressUpdateStreams(
+      {String nextToken, int maxResults}) async {
+    return ListProgressUpdateStreamsResult.fromJson({});
+  }
 
   /// Sets the migration state of an application. For a given application
   /// identified by the value passed to `ApplicationId`, its status is set or
   /// updated by passing one of three values to `Status`: `NOT\_STARTED |
   /// IN\_PROGRESS | COMPLETED`.
-  Future<void> notifyApplicationState(
+  ///
+  /// [applicationId]: The configurationId in ADS that uniquely identifies the
+  /// grouped application.
+  ///
+  /// [status]: Status of the application - Not Started, In-Progress, Complete.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<NotifyApplicationStateResult> notifyApplicationState(
       {@required String applicationId,
       @required String status,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return NotifyApplicationStateResult.fromJson({});
+  }
 
   /// Notifies Migration Hub of the current status, progress, or other detail
   /// regarding a migration task. This API has the following traits:
@@ -172,13 +310,31 @@ class MigrationHubApi {
   ///
   /// *    `ProgressUpdateStream` is used for access control and to provide a
   /// namespace for each migration tool.
-  Future<void> notifyMigrationTaskState(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: Unique identifier that references the migration task.
+  ///
+  /// [task]: Information about the task's progress and status.
+  ///
+  /// [updateDateTime]: The timestamp when the task was gathered.
+  ///
+  /// [nextUpdateSeconds]: Number of seconds after the UpdateDateTime within
+  /// which the Migration Hub can expect an update. If Migration Hub does not
+  /// receive an update within the specified interval, then the migration task
+  /// will be considered stale.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<NotifyMigrationTaskStateResult> notifyMigrationTaskState(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       @required Task task,
       @required DateTime updateDateTime,
       @required int nextUpdateSeconds,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return NotifyMigrationTaskStateResult.fromJson({});
+  }
 
   /// Provides identifying details of the resource being migrated so that it can
   /// be associated in the Application Discovery Service (ADS)'s repository.
@@ -198,55 +354,335 @@ class MigrationHubApi {
   /// Because this is an asynchronous call, it will always return 200, whether
   /// an association occurs or not. To confirm if an association was found based
   /// on the provided details, call `ListDiscoveredResources`.
-  Future<void> putResourceAttributes(
+  ///
+  /// [progressUpdateStream]: The name of the ProgressUpdateStream.
+  ///
+  /// [migrationTaskName]: Unique identifier that references the migration task.
+  ///
+  /// [resourceAttributeList]: Information about the resource that is being
+  /// migrated. This data will be used to map the task to a resource in the
+  /// Application Discovery Service (ADS)'s repository.
+  ///
+  ///  Takes the object array of `ResourceAttribute` where the `Type` field is
+  /// reserved for the following values: `IPV4\_ADDRESS | IPV6\_ADDRESS |
+  /// MAC\_ADDRESS | FQDN | VM\_MANAGER\_ID | VM\_MANAGED\_OBJECT\_REFERENCE |
+  /// VM\_NAME | VM\_PATH | BIOS\_ID | MOTHERBOARD\_SERIAL_NUMBER` where the
+  /// identifying value can be a string up to 256 characters.
+  ///
+  /// *   If any "VM" related value is set for a `ResourceAttribute` object, it
+  /// is required that `VM\_MANAGER\_ID`, as a minimum, is always set. If
+  /// `VM\_MANAGER\_ID` is not set, then all "VM" fields will be discarded and
+  /// "VM" fields will not be used for matching the migration task to a server
+  /// in Application Discovery Service (ADS)'s repository. See the
+  /// [Example](https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples)
+  /// section below for a use case of specifying "VM" related values.
+  ///
+  /// *    If a server you are trying to match has multiple IP or MAC addresses,
+  /// you should provide as many as you know in separate type/value pairs passed
+  /// to the `ResourceAttributeList` parameter to maximize the chances of
+  /// matching.
+  ///
+  /// [dryRun]: Optional boolean flag to indicate whether any effect should take
+  /// place. Used to test if the caller has permission to make the call.
+  Future<PutResourceAttributesResult> putResourceAttributes(
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       @required List<ResourceAttribute> resourceAttributeList,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    return PutResourceAttributesResult.fromJson({});
+  }
 }
 
-class AssociateCreatedArtifactResult {}
+class AssociateCreatedArtifactResult {
+  AssociateCreatedArtifactResult();
+  static AssociateCreatedArtifactResult fromJson(Map<String, dynamic> json) =>
+      AssociateCreatedArtifactResult();
+}
 
-class AssociateDiscoveredResourceResult {}
+class AssociateDiscoveredResourceResult {
+  AssociateDiscoveredResourceResult();
+  static AssociateDiscoveredResourceResult fromJson(
+          Map<String, dynamic> json) =>
+      AssociateDiscoveredResourceResult();
+}
 
-class CreateProgressUpdateStreamResult {}
+class CreateProgressUpdateStreamResult {
+  CreateProgressUpdateStreamResult();
+  static CreateProgressUpdateStreamResult fromJson(Map<String, dynamic> json) =>
+      CreateProgressUpdateStreamResult();
+}
 
-class CreatedArtifact {}
+class CreatedArtifact {
+  /// An ARN that uniquely identifies the result of a migration task.
+  final String name;
 
-class DeleteProgressUpdateStreamResult {}
+  /// A description that can be free-form text to record additional detail about
+  /// the artifact for clarity or for later reference.
+  final String description;
 
-class DescribeApplicationStateResult {}
+  CreatedArtifact({
+    @required this.name,
+    this.description,
+  });
+  static CreatedArtifact fromJson(Map<String, dynamic> json) =>
+      CreatedArtifact();
+}
 
-class DescribeMigrationTaskResult {}
+class DeleteProgressUpdateStreamResult {
+  DeleteProgressUpdateStreamResult();
+  static DeleteProgressUpdateStreamResult fromJson(Map<String, dynamic> json) =>
+      DeleteProgressUpdateStreamResult();
+}
 
-class DisassociateCreatedArtifactResult {}
+class DescribeApplicationStateResult {
+  /// Status of the application - Not Started, In-Progress, Complete.
+  final String applicationStatus;
 
-class DisassociateDiscoveredResourceResult {}
+  /// The timestamp when the application status was last updated.
+  final DateTime lastUpdatedTime;
 
-class DiscoveredResource {}
+  DescribeApplicationStateResult({
+    this.applicationStatus,
+    this.lastUpdatedTime,
+  });
+  static DescribeApplicationStateResult fromJson(Map<String, dynamic> json) =>
+      DescribeApplicationStateResult();
+}
 
-class ImportMigrationTaskResult {}
+class DescribeMigrationTaskResult {
+  /// Object encapsulating information about the migration task.
+  final MigrationTask migrationTask;
 
-class ListCreatedArtifactsResult {}
+  DescribeMigrationTaskResult({
+    this.migrationTask,
+  });
+  static DescribeMigrationTaskResult fromJson(Map<String, dynamic> json) =>
+      DescribeMigrationTaskResult();
+}
 
-class ListDiscoveredResourcesResult {}
+class DisassociateCreatedArtifactResult {
+  DisassociateCreatedArtifactResult();
+  static DisassociateCreatedArtifactResult fromJson(
+          Map<String, dynamic> json) =>
+      DisassociateCreatedArtifactResult();
+}
 
-class ListMigrationTasksResult {}
+class DisassociateDiscoveredResourceResult {
+  DisassociateDiscoveredResourceResult();
+  static DisassociateDiscoveredResourceResult fromJson(
+          Map<String, dynamic> json) =>
+      DisassociateDiscoveredResourceResult();
+}
 
-class ListProgressUpdateStreamsResult {}
+class DiscoveredResource {
+  /// The configurationId in ADS that uniquely identifies the on-premise
+  /// resource.
+  final String configurationId;
 
-class MigrationTask {}
+  /// A description that can be free-form text to record additional detail about
+  /// the discovered resource for clarity or later reference.
+  final String description;
 
-class MigrationTaskSummary {}
+  DiscoveredResource({
+    @required this.configurationId,
+    this.description,
+  });
+  static DiscoveredResource fromJson(Map<String, dynamic> json) =>
+      DiscoveredResource();
+}
 
-class NotifyApplicationStateResult {}
+class ImportMigrationTaskResult {
+  ImportMigrationTaskResult();
+  static ImportMigrationTaskResult fromJson(Map<String, dynamic> json) =>
+      ImportMigrationTaskResult();
+}
 
-class NotifyMigrationTaskStateResult {}
+class ListCreatedArtifactsResult {
+  /// If there are more created artifacts than the max result, return the next
+  /// token to be passed to the next call as a bookmark of where to start from.
+  final String nextToken;
 
-class ProgressUpdateStreamSummary {}
+  /// List of created artifacts up to the maximum number of results specified in
+  /// the request.
+  final List<CreatedArtifact> createdArtifactList;
 
-class PutResourceAttributesResult {}
+  ListCreatedArtifactsResult({
+    this.nextToken,
+    this.createdArtifactList,
+  });
+  static ListCreatedArtifactsResult fromJson(Map<String, dynamic> json) =>
+      ListCreatedArtifactsResult();
+}
 
-class ResourceAttribute {}
+class ListDiscoveredResourcesResult {
+  /// If there are more discovered resources than the max result, return the
+  /// next token to be passed to the next call as a bookmark of where to start
+  /// from.
+  final String nextToken;
 
-class Task {}
+  /// Returned list of discovered resources associated with the given
+  /// MigrationTask.
+  final List<DiscoveredResource> discoveredResourceList;
+
+  ListDiscoveredResourcesResult({
+    this.nextToken,
+    this.discoveredResourceList,
+  });
+  static ListDiscoveredResourcesResult fromJson(Map<String, dynamic> json) =>
+      ListDiscoveredResourcesResult();
+}
+
+class ListMigrationTasksResult {
+  /// If there are more migration tasks than the max result, return the next
+  /// token to be passed to the next call as a bookmark of where to start from.
+  final String nextToken;
+
+  /// Lists the migration task's summary which includes: `MigrationTaskName`,
+  /// `ProgressPercent`, `ProgressUpdateStream`, `Status`, and the
+  /// `UpdateDateTime` for each task.
+  final List<MigrationTaskSummary> migrationTaskSummaryList;
+
+  ListMigrationTasksResult({
+    this.nextToken,
+    this.migrationTaskSummaryList,
+  });
+  static ListMigrationTasksResult fromJson(Map<String, dynamic> json) =>
+      ListMigrationTasksResult();
+}
+
+class ListProgressUpdateStreamsResult {
+  /// List of progress update streams up to the max number of results passed in
+  /// the input.
+  final List<ProgressUpdateStreamSummary> progressUpdateStreamSummaryList;
+
+  /// If there are more streams created than the max result, return the next
+  /// token to be passed to the next call as a bookmark of where to start from.
+  final String nextToken;
+
+  ListProgressUpdateStreamsResult({
+    this.progressUpdateStreamSummaryList,
+    this.nextToken,
+  });
+  static ListProgressUpdateStreamsResult fromJson(Map<String, dynamic> json) =>
+      ListProgressUpdateStreamsResult();
+}
+
+class MigrationTask {
+  /// A name that identifies the vendor of the migration tool being used.
+  final String progressUpdateStream;
+
+  /// Unique identifier that references the migration task.
+  final String migrationTaskName;
+
+  /// Task object encapsulating task information.
+  final Task task;
+
+  /// The timestamp when the task was gathered.
+  final DateTime updateDateTime;
+
+  final List<ResourceAttribute> resourceAttributeList;
+
+  MigrationTask({
+    this.progressUpdateStream,
+    this.migrationTaskName,
+    this.task,
+    this.updateDateTime,
+    this.resourceAttributeList,
+  });
+  static MigrationTask fromJson(Map<String, dynamic> json) => MigrationTask();
+}
+
+class MigrationTaskSummary {
+  /// An AWS resource used for access control. It should uniquely identify the
+  /// migration tool as it is used for all updates made by the tool.
+  final String progressUpdateStream;
+
+  /// Unique identifier that references the migration task.
+  final String migrationTaskName;
+
+  /// Status of the task.
+  final String status;
+
+  final int progressPercent;
+
+  /// Detail information of what is being done within the overall status state.
+  final String statusDetail;
+
+  /// The timestamp when the task was gathered.
+  final DateTime updateDateTime;
+
+  MigrationTaskSummary({
+    this.progressUpdateStream,
+    this.migrationTaskName,
+    this.status,
+    this.progressPercent,
+    this.statusDetail,
+    this.updateDateTime,
+  });
+  static MigrationTaskSummary fromJson(Map<String, dynamic> json) =>
+      MigrationTaskSummary();
+}
+
+class NotifyApplicationStateResult {
+  NotifyApplicationStateResult();
+  static NotifyApplicationStateResult fromJson(Map<String, dynamic> json) =>
+      NotifyApplicationStateResult();
+}
+
+class NotifyMigrationTaskStateResult {
+  NotifyMigrationTaskStateResult();
+  static NotifyMigrationTaskStateResult fromJson(Map<String, dynamic> json) =>
+      NotifyMigrationTaskStateResult();
+}
+
+class ProgressUpdateStreamSummary {
+  /// The name of the ProgressUpdateStream.
+  final String progressUpdateStreamName;
+
+  ProgressUpdateStreamSummary({
+    this.progressUpdateStreamName,
+  });
+  static ProgressUpdateStreamSummary fromJson(Map<String, dynamic> json) =>
+      ProgressUpdateStreamSummary();
+}
+
+class PutResourceAttributesResult {
+  PutResourceAttributesResult();
+  static PutResourceAttributesResult fromJson(Map<String, dynamic> json) =>
+      PutResourceAttributesResult();
+}
+
+class ResourceAttribute {
+  /// Type of resource.
+  final String type;
+
+  /// Value of the resource type.
+  final String value;
+
+  ResourceAttribute({
+    @required this.type,
+    @required this.value,
+  });
+  static ResourceAttribute fromJson(Map<String, dynamic> json) =>
+      ResourceAttribute();
+}
+
+class Task {
+  /// Status of the task - Not Started, In-Progress, Complete.
+  final String status;
+
+  /// Details of task status as notified by a migration tool. A tool might use
+  /// this field to provide clarifying information about the status that is
+  /// unique to that tool or that explains an error state.
+  final String statusDetail;
+
+  /// Indication of the percentage completion of the task.
+  final int progressPercent;
+
+  Task({
+    @required this.status,
+    this.statusDetail,
+    this.progressPercent,
+  });
+  static Task fromJson(Map<String, dynamic> json) => Task();
+}

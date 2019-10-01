@@ -76,7 +76,67 @@ class StorageGatewayApi {
   ///
   ///
   /// You must turn on the gateway VM before you can activate your gateway.
-  Future<void> activateGateway(
+  ///
+  /// [activationKey]: Your gateway activation key. You can obtain the
+  /// activation key by sending an HTTP GET request with redirects enabled to
+  /// the gateway IP address (port 80). The redirect URL returned in the
+  /// response provides you the activation key for your gateway in the query
+  /// string parameter `activationKey`. It may also include other
+  /// activation-related parameters, however, these are merely defaults -- the
+  /// arguments you pass to the `ActivateGateway` API call determine the actual
+  /// configuration of your gateway.
+  ///
+  /// For more information, see
+  /// https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html
+  /// in the Storage Gateway User Guide.
+  ///
+  /// [gatewayName]: The name you configured for your gateway.
+  ///
+  /// [gatewayTimezone]: A value that indicates the time zone you want to set
+  /// for the gateway. The time zone is of the format "GMT-hr:mm" or
+  /// "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind
+  /// GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT. The time zone is
+  /// used, for example, for scheduling snapshots and your gateway's maintenance
+  /// schedule.
+  ///
+  /// [gatewayRegion]: A value that indicates the AWS Region where you want to
+  /// store your data. The gateway AWS Region specified must be the same AWS
+  /// Region as the AWS Region in your `Host` header in the request. For more
+  /// information about available AWS Regions and endpoints for AWS Storage
+  /// Gateway, see [Regions and
+  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
+  /// in the _Amazon Web Services Glossary_.
+  ///
+  ///  Valid Values: See [AWS Storage Gateway Regions and
+  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
+  /// in the AWS General Reference.
+  ///
+  /// [gatewayType]: A value that defines the type of gateway to activate. The
+  /// type specified is critical to all later functions of the gateway and
+  /// cannot be changed after activation. The default value is `CACHED`.
+  ///
+  ///  Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+  ///
+  /// [tapeDriveType]: The value that indicates the type of tape drive to use
+  /// for tape gateway. This field is optional.
+  ///
+  ///  Valid Values: "IBM-ULT3580-TD5"
+  ///
+  /// [mediumChangerType]: The value that indicates the type of medium changer
+  /// to use for tape gateway. This field is optional.
+  ///
+  ///  Valid Values: "STK-L700", "AWS-Gateway-VTL"
+  ///
+  /// [tags]: A list of up to 50 tags that you can assign to the gateway. Each
+  /// tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers that
+  /// can be represented in UTF-8 format, and the following special characters:
+  /// + - = . _ : / @. The maximum length of a tag's key is 128 characters, and
+  /// the maximum length for a tag's value is 256 characters.
+  Future<ActivateGatewayOutput> activateGateway(
       {@required String activationKey,
       @required String gatewayName,
       @required String gatewayTimezone,
@@ -84,7 +144,9 @@ class StorageGatewayApi {
       String gatewayType,
       String tapeDriveType,
       String mediumChangerType,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return ActivateGatewayOutput.fromJson({});
+  }
 
   /// Configures one or more gateway local disks as cache for a gateway. This
   /// operation is only supported in the cached volume, tape and file gateway
@@ -94,8 +156,15 @@ class StorageGatewayApi {
   /// In the request, you specify the gateway Amazon Resource Name (ARN) to
   /// which you want to add cache, and one or more disk IDs that you want to
   /// configure as cache.
-  Future<void> addCache(
-      {@required String gatewayArn, @required List<String> diskIds}) async {}
+  ///
+  /// [diskIds]: An array of strings that identify disks that are to be
+  /// configured as working storage. Each string have a minimum length of 1 and
+  /// maximum length of 300. You can get the disk IDs from the ListLocalDisks
+  /// API.
+  Future<AddCacheOutput> addCache(
+      {@required String gatewayArn, @required List<String> diskIds}) async {
+    return AddCacheOutput.fromJson({});
+  }
 
   /// Adds one or more tags to the specified resource. You use tags to add
   /// metadata to resources, which you can use to categorize these resources.
@@ -114,8 +183,23 @@ class StorageGatewayApi {
   ///
   /// You can create a maximum of 50 tags for each resource. Virtual tapes and
   /// storage volumes that are recovered to a new gateway maintain their tags.
-  Future<void> addTagsToResource(
-      {@required String resourceArn, @required List<Tag> tags}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) of the resource you want to
+  /// add tags to.
+  ///
+  /// [tags]: The key-value pair that represents the tag you want to add to the
+  /// resource. The value can be an empty string.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<AddTagsToResourceOutput> addTagsToResource(
+      {@required String resourceArn, @required List<Tag> tags}) async {
+    return AddTagsToResourceOutput.fromJson({});
+  }
 
   /// Configures one or more gateway local disks as upload buffer for a
   /// specified gateway. This operation is supported for the stored volume,
@@ -124,8 +208,15 @@ class StorageGatewayApi {
   /// In the request, you specify the gateway Amazon Resource Name (ARN) to
   /// which you want to add upload buffer, and one or more disk IDs that you
   /// want to configure as upload buffer.
-  Future<void> addUploadBuffer(
-      {@required String gatewayArn, @required List<String> diskIds}) async {}
+  ///
+  /// [diskIds]: An array of strings that identify disks that are to be
+  /// configured as working storage. Each string have a minimum length of 1 and
+  /// maximum length of 300. You can get the disk IDs from the ListLocalDisks
+  /// API.
+  Future<AddUploadBufferOutput> addUploadBuffer(
+      {@required String gatewayArn, @required List<String> diskIds}) async {
+    return AddUploadBufferOutput.fromJson({});
+  }
 
   /// Configures one or more gateway local disks as working storage for a
   /// gateway. This operation is only supported in the stored volume gateway
@@ -139,8 +230,15 @@ class StorageGatewayApi {
   /// In the request, you specify the gateway Amazon Resource Name (ARN) to
   /// which you want to add working storage, and one or more disk IDs that you
   /// want to configure as working storage.
-  Future<void> addWorkingStorage(
-      {@required String gatewayArn, @required List<String> diskIds}) async {}
+  ///
+  /// [diskIds]: An array of strings that identify disks that are to be
+  /// configured as working storage. Each string have a minimum length of 1 and
+  /// maximum length of 300. You can get the disk IDs from the ListLocalDisks
+  /// API.
+  Future<AddWorkingStorageOutput> addWorkingStorage(
+      {@required String gatewayArn, @required List<String> diskIds}) async {
+    return AddWorkingStorageOutput.fromJson({});
+  }
 
   /// Assigns a tape to a tape pool for archiving. The tape assigned to a pool
   /// is archived in the S3 storage class that is associated with the pool. When
@@ -149,33 +247,84 @@ class StorageGatewayApi {
   /// corresponds to the pool.
   ///
   /// Valid values: "GLACIER", "DEEP_ARCHIVE"
-  Future<void> assignTapePool(
-      {@required String tapeArn, @required String poolId}) async {}
+  ///
+  /// [tapeArn]: The unique Amazon Resource Name (ARN) of the virtual tape that
+  /// you want to add to the tape pool.
+  ///
+  /// [poolId]: The ID of the pool that you want to add your tape to for
+  /// archiving. The tape in this pool is archived in the S3 storage class that
+  /// is associated with the pool. When you use your backup application to eject
+  /// the tape, the tape is archived directly into the storage class (Glacier or
+  /// Deep Archive) that corresponds to the pool.
+  ///
+  /// Valid values: "GLACIER", "DEEP_ARCHIVE"
+  Future<AssignTapePoolOutput> assignTapePool(
+      {@required String tapeArn, @required String poolId}) async {
+    return AssignTapePoolOutput.fromJson({});
+  }
 
   /// Connects a volume to an iSCSI connection and then attaches the volume to
   /// the specified gateway. Detaching and attaching a volume enables you to
   /// recover your data from one gateway to a different gateway without creating
   /// a snapshot. It also makes it easier to move your volumes from an
   /// on-premises gateway to a gateway hosted on an Amazon EC2 instance.
-  Future<void> attachVolume(
+  ///
+  /// [gatewayArn]: The Amazon Resource Name (ARN) of the gateway that you want
+  /// to attach the volume to.
+  ///
+  /// [targetName]: The name of the iSCSI target used by an initiator to connect
+  /// to a volume and used as a suffix for the target ARN. For example,
+  /// specifying `TargetName` as _myvolume_ results in the target ARN of
+  /// `arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume`.
+  /// The target name must be unique across all volumes on a gateway.
+  ///
+  /// If you don't specify a value, Storage Gateway uses the value that was
+  /// previously used for this volume as the new target name.
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume to attach to the
+  /// specified gateway.
+  ///
+  /// [networkInterfaceId]: The network interface of the gateway on which to
+  /// expose the iSCSI target. Only IPv4 addresses are accepted. Use
+  /// DescribeGatewayInformation to get a list of the network interfaces
+  /// available on a gateway.
+  ///
+  ///  Valid Values: A valid IP address.
+  ///
+  /// [diskId]: The unique device ID or other distinguishing data that
+  /// identifies the local disk used to create the volume. This value is only
+  /// required when you are attaching a stored volume.
+  Future<AttachVolumeOutput> attachVolume(
       {@required String gatewayArn,
       String targetName,
       @required String volumeArn,
       @required String networkInterfaceId,
-      String diskId}) async {}
+      String diskId}) async {
+    return AttachVolumeOutput.fromJson({});
+  }
 
   /// Cancels archiving of a virtual tape to the virtual tape shelf (VTS) after
   /// the archiving process is initiated. This operation is only supported in
   /// the tape gateway type.
-  Future<void> cancelArchival(
-      {@required String gatewayArn, @required String tapeArn}) async {}
+  ///
+  /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape you want to
+  /// cancel archiving for.
+  Future<CancelArchivalOutput> cancelArchival(
+      {@required String gatewayArn, @required String tapeArn}) async {
+    return CancelArchivalOutput.fromJson({});
+  }
 
   /// Cancels retrieval of a virtual tape from the virtual tape shelf (VTS) to a
   /// gateway after the retrieval process is initiated. The virtual tape is
   /// returned to the VTS. This operation is only supported in the tape gateway
   /// type.
-  Future<void> cancelRetrieval(
-      {@required String gatewayArn, @required String tapeArn}) async {}
+  ///
+  /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape you want to
+  /// cancel retrieval for.
+  Future<CancelRetrievalOutput> cancelRetrieval(
+      {@required String gatewayArn, @required String tapeArn}) async {
+    return CancelRetrievalOutput.fromJson({});
+  }
 
   /// Creates a cached volume on a specified cached volume gateway. This
   /// operation is only supported in the cached volume gateway type.
@@ -195,7 +344,58 @@ class StorageGatewayApi {
   /// `SourceVolumeARN` for this cached volume, which creates an exact copy of
   /// the existing volume’s latest recovery point. The `VolumeSizeInBytes` value
   /// must be equal to or larger than the size of the copied volume, in bytes.
-  Future<void> createCachediScsiVolume(
+  ///
+  /// [volumeSizeInBytes]: The size of the volume in bytes.
+  ///
+  /// [snapshotId]: The snapshot ID (e.g. "snap-1122aabb") of the snapshot to
+  /// restore as the new cached volume. Specify this field if you want to create
+  /// the iSCSI storage volume from a snapshot otherwise do not include this
+  /// field. To list snapshots for your account use
+  /// [DescribeSnapshots](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-DescribeSnapshots.html)
+  /// in the _Amazon Elastic Compute Cloud API Reference_.
+  ///
+  /// [targetName]: The name of the iSCSI target used by an initiator to connect
+  /// to a volume and used as a suffix for the target ARN. For example,
+  /// specifying `TargetName` as _myvolume_ results in the target ARN of
+  /// `arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume`.
+  /// The target name must be unique across all volumes on a gateway.
+  ///
+  /// If you don't specify a value, Storage Gateway uses the value that was
+  /// previously used for this volume as the new target name.
+  ///
+  /// [sourceVolumeArn]: The ARN for an existing volume. Specifying this ARN
+  /// makes the new volume into an exact copy of the specified existing volume's
+  /// latest recovery point. The `VolumeSizeInBytes` value for this new volume
+  /// must be equal to or larger than the size of the existing volume, in bytes.
+  ///
+  /// [networkInterfaceId]: The network interface of the gateway on which to
+  /// expose the iSCSI target. Only IPv4 addresses are accepted. Use
+  /// DescribeGatewayInformation to get a list of the network interfaces
+  /// available on a gateway.
+  ///
+  ///  Valid Values: A valid IP address.
+  ///
+  /// [clientToken]: A unique identifier that you use to retry a request. If you
+  /// retry a request, use the same `ClientToken` you specified in the initial
+  /// request.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the AWS KMS key used for
+  /// Amazon S3 server side encryption. This value can only be set when
+  /// KMSEncrypted is true. Optional.
+  ///
+  /// [tags]: A list of up to 50 tags that you can assign to a cached volume.
+  /// Each tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers that
+  /// you can represent in UTF-8 format, and the following special characters: +
+  /// - = . _ : / @. The maximum length of a tag's key is 128 characters, and
+  /// the maximum length for a tag's value is 256 characters.
+  Future<CreateCachediScsiVolumeOutput> createCachediScsiVolume(
       {@required String gatewayArn,
       @required BigInt volumeSizeInBytes,
       String snapshotId,
@@ -205,7 +405,9 @@ class StorageGatewayApi {
       @required String clientToken,
       bool kmsEncrypted,
       String kmsKey,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateCachediScsiVolumeOutput.fromJson({});
+  }
 
   /// Creates a Network File System (NFS) file share on an existing file
   /// gateway. In Storage Gateway, a file share is a file system mount point
@@ -223,7 +425,77 @@ class StorageGatewayApi {
   ///
   /// File gateway does not support creating hard or symbolic links on a file
   /// share.
-  Future<void> createNfsFileShare(
+  ///
+  /// [clientToken]: A unique string value that you supply that is used by file
+  /// gateway to ensure idempotent file share creation.
+  ///
+  /// [nfsFileShareDefaults]: File share default values. Optional.
+  ///
+  /// [gatewayArn]: The Amazon Resource Name (ARN) of the file gateway on which
+  /// you want to create a file share.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) AWS KMS key used for Amazon S3
+  /// server side encryption. This value can only be set when KMSEncrypted is
+  /// true. Optional.
+  ///
+  /// [role]: The ARN of the AWS Identity and Access Management (IAM) role that
+  /// a file gateway assumes when it accesses the underlying storage.
+  ///
+  /// [locationArn]: The ARN of the backed storage used for storing file data.
+  ///
+  /// [defaultStorageClass]: The default storage class for objects put into an
+  /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
+  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
+  /// the default value `S3_STANDARD` is used. Optional.
+  ///
+  /// [objectAcl]: A value that sets the access control list permission for
+  /// objects in the S3 bucket that a file gateway puts objects into. The
+  /// default value is "private".
+  ///
+  /// [clientList]: The list of clients that are allowed to access the file
+  /// gateway. The list must contain either valid IP addresses or valid CIDR
+  /// blocks.
+  ///
+  /// [squash]: A value that maps a user to anonymous user. Valid options are
+  /// the following:
+  ///
+  /// *    `RootSquash` \- Only root is mapped to anonymous user.
+  ///
+  /// *    `NoSquash` \- No one is mapped to anonymous user
+  ///
+  /// *    `AllSquash` \- Everyone is mapped to anonymous user.
+  ///
+  /// [readOnly]: A value that sets the write status of a file share. This value
+  /// is true if the write status is read-only, and otherwise false.
+  ///
+  /// [guessMimeTypeEnabled]: A value that enables guessing of the MIME type for
+  /// uploaded objects based on file extensions. Set this value to true to
+  /// enable MIME type guessing, and otherwise to false. The default value is
+  /// true.
+  ///
+  /// [requesterPays]: A value that sets who pays the cost of the request and
+  /// the cost associated with data download from the S3 bucket. If this value
+  /// is set to true, the requester pays the costs. Otherwise the S3 bucket
+  /// owner pays. However, the S3 bucket owner always pays the cost of storing
+  /// data.
+  ///
+  ///   `RequesterPays` is a configuration for the S3 bucket that backs the file
+  /// share, so make sure that the configuration on the file share is the same
+  /// as the S3 bucket configuration.
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to the NFS file
+  /// share. Each tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateNfsFileShareOutput> createNfsFileShare(
       {@required String clientToken,
       NfsFileShareDefaults nfsFileShareDefaults,
       @required String gatewayArn,
@@ -238,7 +510,9 @@ class StorageGatewayApi {
       bool readOnly,
       bool guessMimeTypeEnabled,
       bool requesterPays,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateNfsFileShareOutput.fromJson({});
+  }
 
   /// Creates a Server Message Block (SMB) file share on an existing file
   /// gateway. In Storage Gateway, a file share is a file system mount point
@@ -257,7 +531,95 @@ class StorageGatewayApi {
   ///
   /// File gateways don't support creating hard or symbolic links on a file
   /// share.
-  Future<void> createSmbFileShare(
+  ///
+  /// [clientToken]: A unique string value that you supply that is used by file
+  /// gateway to ensure idempotent file share creation.
+  ///
+  /// [gatewayArn]: The Amazon Resource Name (ARN) of the file gateway on which
+  /// you want to create a file share.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the AWS KMS key used for
+  /// Amazon S3 server side encryption. This value can only be set when
+  /// KMSEncrypted is true. Optional.
+  ///
+  /// [role]: The ARN of the AWS Identity and Access Management (IAM) role that
+  /// a file gateway assumes when it accesses the underlying storage.
+  ///
+  /// [locationArn]: The ARN of the backed storage used for storing file data.
+  ///
+  /// [defaultStorageClass]: The default storage class for objects put into an
+  /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
+  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
+  /// the default value `S3_STANDARD` is used. Optional.
+  ///
+  /// [objectAcl]: A value that sets the access control list permission for
+  /// objects in the S3 bucket that a file gateway puts objects into. The
+  /// default value is "private".
+  ///
+  /// [readOnly]: A value that sets the write status of a file share. This value
+  /// is true if the write status is read-only, and otherwise false.
+  ///
+  /// [guessMimeTypeEnabled]: A value that enables guessing of the MIME type for
+  /// uploaded objects based on file extensions. Set this value to true to
+  /// enable MIME type guessing, and otherwise to false. The default value is
+  /// true.
+  ///
+  /// [requesterPays]: A value that sets who pays the cost of the request and
+  /// the cost associated with data download from the S3 bucket. If this value
+  /// is set to true, the requester pays the costs. Otherwise the S3 bucket
+  /// owner pays. However, the S3 bucket owner always pays the cost of storing
+  /// data.
+  ///
+  ///   `RequesterPays` is a configuration for the S3 bucket that backs the file
+  /// share, so make sure that the configuration on the file share is the same
+  /// as the S3 bucket configuration.
+  ///
+  /// [smbaclEnabled]: Set this value to "true to enable ACL (access control
+  /// list) on the SMB file share. Set it to "false" to map file and directory
+  /// permissions to the POSIX permissions.
+  ///
+  /// For more information, see
+  /// https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html
+  /// in the Storage Gateway User Guide.
+  ///
+  /// [adminUserList]: A list of users in the Active Directory that will be
+  /// granted administrator privileges on the file share. These users can do all
+  /// file operations as the super-user.
+  ///
+  ///
+  ///
+  /// Use this option very carefully, because any user in this list can do
+  /// anything they like on the file share, regardless of file permissions.
+  ///
+  /// [validUserList]: A list of users or groups in the Active Directory that
+  /// are allowed to access the file share. A group must be prefixed with the @
+  /// character. For example `@group1`. Can only be set if Authentication is set
+  /// to `ActiveDirectory`.
+  ///
+  /// [invalidUserList]: A list of users or groups in the Active Directory that
+  /// are not allowed to access the file share. A group must be prefixed with
+  /// the @ character. For example `@group1`. Can only be set if Authentication
+  /// is set to `ActiveDirectory`.
+  ///
+  /// [authentication]: The authentication method that users use to access the
+  /// file share.
+  ///
+  /// Valid values are `ActiveDirectory` or `GuestAccess`. The default is
+  /// `ActiveDirectory`.
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to the NFS file
+  /// share. Each tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateSmbFileShareOutput> createSmbFileShare(
       {@required String clientToken,
       @required String gatewayArn,
       bool kmsEncrypted,
@@ -274,7 +636,9 @@ class StorageGatewayApi {
       List<String> validUserList,
       List<String> invalidUserList,
       String authentication,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateSmbFileShareOutput.fromJson({});
+  }
 
   /// Initiates a snapshot of a volume.
   ///
@@ -304,10 +668,30 @@ class StorageGatewayApi {
   /// more information, see the important note on the
   /// [Welcome](https://docs.aws.amazon.com/storagegateway/latest/APIReference/Welcome.html)
   /// page.
-  Future<void> createSnapshot(
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume. Use the
+  /// ListVolumes operation to return a list of gateway volumes.
+  ///
+  /// [snapshotDescription]: Textual description of the snapshot that appears in
+  /// the Amazon EC2 console, Elastic Block Store snapshots panel in the
+  /// **Description** field, and in the AWS Storage Gateway snapshot **Details**
+  /// pane, **Description** field
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to a snapshot. Each
+  /// tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateSnapshotOutput> createSnapshot(
       {@required String volumeArn,
       @required String snapshotDescription,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateSnapshotOutput.fromJson({});
+  }
 
   /// Initiates a snapshot of a gateway from a volume recovery point. This
   /// operation is only supported in the cached volume gateway type.
@@ -329,10 +713,32 @@ class StorageGatewayApi {
   ///
   /// To list or delete a snapshot, you must use the Amazon EC2 API. For more
   /// information, in _Amazon Elastic Compute Cloud API Reference_.
-  Future<void> createSnapshotFromVolumeRecoveryPoint(
-      {@required String volumeArn,
-      @required String snapshotDescription,
-      List<Tag> tags}) async {}
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the iSCSI volume target.
+  /// Use the DescribeStorediSCSIVolumes operation to return to retrieve the
+  /// TargetARN for specified VolumeARN.
+  ///
+  /// [snapshotDescription]: Textual description of the snapshot that appears in
+  /// the Amazon EC2 console, Elastic Block Store snapshots panel in the
+  /// **Description** field, and in the AWS Storage Gateway snapshot **Details**
+  /// pane, **Description** field
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to a snapshot. Each
+  /// tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateSnapshotFromVolumeRecoveryPointOutput>
+      createSnapshotFromVolumeRecoveryPoint(
+          {@required String volumeArn,
+          @required String snapshotDescription,
+          List<Tag> tags}) async {
+    return CreateSnapshotFromVolumeRecoveryPointOutput.fromJson({});
+  }
 
   /// Creates a volume on a specified gateway. This operation is only supported
   /// in the stored volume gateway type.
@@ -347,7 +753,58 @@ class StorageGatewayApi {
   /// volume and returns volume information such as the volume Amazon Resource
   /// Name (ARN), its size, and the iSCSI target ARN that initiators can use to
   /// connect to the volume target.
-  Future<void> createStorediScsiVolume(
+  ///
+  /// [diskId]: The unique identifier for the gateway local disk that is
+  /// configured as a stored volume. Use
+  /// [ListLocalDisks](https://docs.aws.amazon.com/storagegateway/latest/userguide/API_ListLocalDisks.html)
+  /// to list disk IDs for a gateway.
+  ///
+  /// [snapshotId]: The snapshot ID (e.g. "snap-1122aabb") of the snapshot to
+  /// restore as the new stored volume. Specify this field if you want to create
+  /// the iSCSI storage volume from a snapshot otherwise do not include this
+  /// field. To list snapshots for your account use
+  /// [DescribeSnapshots](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-DescribeSnapshots.html)
+  /// in the _Amazon Elastic Compute Cloud API Reference_.
+  ///
+  /// [preserveExistingData]: Specify this field as true if you want to preserve
+  /// the data on the local disk. Otherwise, specifying this field as false
+  /// creates an empty volume.
+  ///
+  ///  Valid Values: true, false
+  ///
+  /// [targetName]: The name of the iSCSI target used by an initiator to connect
+  /// to a volume and used as a suffix for the target ARN. For example,
+  /// specifying `TargetName` as _myvolume_ results in the target ARN of
+  /// `arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume`.
+  /// The target name must be unique across all volumes on a gateway.
+  ///
+  /// If you don't specify a value, Storage Gateway uses the value that was
+  /// previously used for this volume as the new target name.
+  ///
+  /// [networkInterfaceId]: The network interface of the gateway on which to
+  /// expose the iSCSI target. Only IPv4 addresses are accepted. Use
+  /// DescribeGatewayInformation to get a list of the network interfaces
+  /// available on a gateway.
+  ///
+  ///  Valid Values: A valid IP address.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the KMS key used for Amazon S3
+  /// server side encryption. This value can only be set when KMSEncrypted is
+  /// true. Optional.
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to a stored volume.
+  /// Each tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateStorediScsiVolumeOutput> createStorediScsiVolume(
       {@required String gatewayArn,
       @required String diskId,
       String snapshotId,
@@ -356,7 +813,9 @@ class StorageGatewayApi {
       @required String networkInterfaceId,
       bool kmsEncrypted,
       String kmsKey,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateStorediScsiVolumeOutput.fromJson({});
+  }
 
   /// Creates a virtual tape by using your own barcode. You write data to the
   /// virtual tape and then archive the tape. A barcode is unique and can not be
@@ -369,14 +828,59 @@ class StorageGatewayApi {
   /// Cache storage must be allocated to the gateway before you can create a
   /// virtual tape. Use the AddCache operation to add cache storage to a
   /// gateway.
-  Future<void> createTapeWithBarcode(
+  ///
+  /// [gatewayArn]: The unique Amazon Resource Name (ARN) that represents the
+  /// gateway to associate the virtual tape with. Use the ListGateways operation
+  /// to return a list of gateways for your account and AWS Region.
+  ///
+  /// [tapeSizeInBytes]: The size, in bytes, of the virtual tape that you want
+  /// to create.
+  ///
+  ///
+  ///
+  /// The size must be aligned by gigabyte (1024\*1024\*1024 byte).
+  ///
+  /// [tapeBarcode]: The barcode that you want to assign to the tape.
+  ///
+  ///
+  ///
+  /// Barcodes cannot be reused. This includes barcodes used for tapes that have
+  /// been deleted.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the AWS KMS Key used for
+  /// Amazon S3 server side encryption. This value can only be set when
+  /// KMSEncrypted is true. Optional.
+  ///
+  /// [poolId]: The ID of the pool that you want to add your tape to for
+  /// archiving. The tape in this pool is archived in the S3 storage class that
+  /// is associated with the pool. When you use your backup application to eject
+  /// the tape, the tape is archived directly into the storage class (Glacier or
+  /// Deep Archive) that corresponds to the pool.
+  ///
+  /// Valid values: "GLACIER", "DEEP_ARCHIVE"
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to a virtual tape
+  /// that has a barcode. Each tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateTapeWithBarcodeOutput> createTapeWithBarcode(
       {@required String gatewayArn,
       @required BigInt tapeSizeInBytes,
       @required String tapeBarcode,
       bool kmsEncrypted,
       String kmsKey,
       String poolId,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateTapeWithBarcodeOutput.fromJson({});
+  }
 
   /// Creates one or more virtual tapes. You write data to the virtual tapes and
   /// then archive the tapes. This operation is only supported in the tape
@@ -387,7 +891,61 @@ class StorageGatewayApi {
   /// Cache storage must be allocated to the gateway before you can create
   /// virtual tapes. Use the AddCache operation to add cache storage to a
   /// gateway.
-  Future<void> createTapes(
+  ///
+  /// [gatewayArn]: The unique Amazon Resource Name (ARN) that represents the
+  /// gateway to associate the virtual tapes with. Use the ListGateways
+  /// operation to return a list of gateways for your account and AWS Region.
+  ///
+  /// [tapeSizeInBytes]: The size, in bytes, of the virtual tapes that you want
+  /// to create.
+  ///
+  ///
+  ///
+  /// The size must be aligned by gigabyte (1024\*1024\*1024 byte).
+  ///
+  /// [clientToken]: A unique identifier that you use to retry a request. If you
+  /// retry a request, use the same `ClientToken` you specified in the initial
+  /// request.
+  ///
+  ///
+  ///
+  /// Using the same `ClientToken` prevents creating the tape multiple times.
+  ///
+  /// [numTapesToCreate]: The number of virtual tapes that you want to create.
+  ///
+  /// [tapeBarcodePrefix]: A prefix that you append to the barcode of the
+  /// virtual tape you are creating. This prefix makes the barcode unique.
+  ///
+  ///
+  ///
+  /// The prefix must be 1 to 4 characters in length and must be one of the
+  /// uppercase letters from A to Z.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the AWS KMS key used for
+  /// Amazon S3 server side encryption. This value can only be set when
+  /// KMSEncrypted is true. Optional.
+  ///
+  /// [poolId]: The ID of the pool that you want to add your tape to for
+  /// archiving. The tape in this pool is archived in the S3 storage class that
+  /// is associated with the pool. When you use your backup application to eject
+  /// the tape, the tape is archived directly into the storage class (Glacier or
+  /// Deep Archive) that corresponds to the pool.
+  ///
+  /// Valid values: "GLACIER", "DEEP_ARCHIVE"
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to a virtual tape.
+  /// Each tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<CreateTapesOutput> createTapes(
       {@required String gatewayArn,
       @required BigInt tapeSizeInBytes,
       @required String clientToken,
@@ -396,24 +954,53 @@ class StorageGatewayApi {
       bool kmsEncrypted,
       String kmsKey,
       String poolId,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return CreateTapesOutput.fromJson({});
+  }
 
   /// Deletes the bandwidth rate limits of a gateway. You can delete either the
   /// upload and download bandwidth rate limit, or you can delete both. If you
   /// delete only one of the limits, the other limit remains unchanged. To
   /// specify which gateway to work with, use the Amazon Resource Name (ARN) of
   /// the gateway in your request.
-  Future<void> deleteBandwidthRateLimit(
-      {@required String gatewayArn, @required String bandwidthType}) async {}
+  ///
+  /// [bandwidthType]: One of the BandwidthType values that indicates the
+  /// gateway bandwidth rate limit to delete.
+  ///
+  /// Valid Values: `Upload`, `Download`, `All`.
+  Future<DeleteBandwidthRateLimitOutput> deleteBandwidthRateLimit(
+      {@required String gatewayArn, @required String bandwidthType}) async {
+    return DeleteBandwidthRateLimitOutput.fromJson({});
+  }
 
   /// Deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for
   /// a specified iSCSI target and initiator pair.
-  Future<void> deleteChapCredentials(
-      {@required String targetArn, @required String initiatorName}) async {}
+  ///
+  /// [targetArn]: The Amazon Resource Name (ARN) of the iSCSI volume target.
+  /// Use the DescribeStorediSCSIVolumes operation to return to retrieve the
+  /// TargetARN for specified VolumeARN.
+  ///
+  /// [initiatorName]: The iSCSI initiator that connects to the target.
+  Future<DeleteChapCredentialsOutput> deleteChapCredentials(
+      {@required String targetArn, @required String initiatorName}) async {
+    return DeleteChapCredentialsOutput.fromJson({});
+  }
 
   /// Deletes a file share from a file gateway. This operation is only supported
   /// for file gateways.
-  Future<void> deleteFileShare(String fileShareArn, {bool forceDelete}) async {}
+  ///
+  /// [fileShareArn]: The Amazon Resource Name (ARN) of the file share to be
+  /// deleted.
+  ///
+  /// [forceDelete]: If this value is set to true, the operation deletes a file
+  /// share immediately and aborts all data uploads to AWS. Otherwise, the file
+  /// share is not deleted until all data is uploaded to AWS. This process
+  /// aborts the data upload process, and the file share enters the
+  /// FORCE_DELETING status.
+  Future<DeleteFileShareOutput> deleteFileShare(String fileShareArn,
+      {bool forceDelete}) async {
+    return DeleteFileShareOutput.fromJson({});
+  }
 
   /// Deletes a gateway. To specify which gateway to delete, use the Amazon
   /// Resource Name (ARN) of the gateway in your request. The operation deletes
@@ -434,7 +1021,9 @@ class StorageGatewayApi {
   /// not to cancel your Amazon EC2 subscription, you can delete your snapshots
   /// using the Amazon EC2 console. For more information, see the  [AWS Storage
   /// Gateway Detail Page](http://aws.amazon.com/storagegateway).
-  Future<void> deleteGateway(String gatewayArn) async {}
+  Future<DeleteGatewayOutput> deleteGateway(String gatewayArn) async {
+    return DeleteGatewayOutput.fromJson({});
+  }
 
   /// Deletes a snapshot of a volume.
   ///
@@ -450,16 +1039,34 @@ class StorageGatewayApi {
   ///
   /// To list or delete a snapshot, you must use the Amazon EC2 API. in _Amazon
   /// Elastic Compute Cloud API Reference_.
-  Future<void> deleteSnapshotSchedule(String volumeArn) async {}
+  ///
+  /// [volumeArn]: The volume which snapshot schedule to delete.
+  Future<DeleteSnapshotScheduleOutput> deleteSnapshotSchedule(
+      String volumeArn) async {
+    return DeleteSnapshotScheduleOutput.fromJson({});
+  }
 
   /// Deletes the specified virtual tape. This operation is only supported in
   /// the tape gateway type.
-  Future<void> deleteTape(
-      {@required String gatewayArn, @required String tapeArn}) async {}
+  ///
+  /// [gatewayArn]: The unique Amazon Resource Name (ARN) of the gateway that
+  /// the virtual tape to delete is associated with. Use the ListGateways
+  /// operation to return a list of gateways for your account and AWS Region.
+  ///
+  /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape to delete.
+  Future<DeleteTapeOutput> deleteTape(
+      {@required String gatewayArn, @required String tapeArn}) async {
+    return DeleteTapeOutput.fromJson({});
+  }
 
   /// Deletes the specified virtual tape from the virtual tape shelf (VTS). This
   /// operation is only supported in the tape gateway type.
-  Future<void> deleteTapeArchive(String tapeArn) async {}
+  ///
+  /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape to delete
+  /// from the virtual tape shelf (VTS).
+  Future<DeleteTapeArchiveOutput> deleteTapeArchive(String tapeArn) async {
+    return DeleteTapeArchiveOutput.fromJson({});
+  }
 
   /// Deletes the specified storage volume that you previously created using the
   /// CreateCachediSCSIVolume or CreateStorediSCSIVolume API. This operation is
@@ -478,7 +1085,12 @@ class StorageGatewayApi {
   ///
   /// In the request, you must provide the Amazon Resource Name (ARN) of the
   /// storage volume you want to delete.
-  Future<void> deleteVolume(String volumeArn) async {}
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume. Use the
+  /// ListVolumes operation to return a list of gateway volumes.
+  Future<DeleteVolumeOutput> deleteVolume(String volumeArn) async {
+    return DeleteVolumeOutput.fromJson({});
+  }
 
   /// Returns the bandwidth rate limits of a gateway. By default, these limits
   /// are not set, which means no bandwidth rate limiting is in effect.
@@ -488,14 +1100,19 @@ class StorageGatewayApi {
   /// returns only the gateway ARN in the response body. To specify which
   /// gateway to describe, use the Amazon Resource Name (ARN) of the gateway in
   /// your request.
-  Future<void> describeBandwidthRateLimit(String gatewayArn) async {}
+  Future<DescribeBandwidthRateLimitOutput> describeBandwidthRateLimit(
+      String gatewayArn) async {
+    return DescribeBandwidthRateLimitOutput.fromJson({});
+  }
 
   /// Returns information about the cache of a gateway. This operation is only
   /// supported in the cached volume, tape and file gateway types.
   ///
   /// The response includes disk IDs that are configured as cache, and it
   /// includes the amount of cache allocated and used.
-  Future<void> describeCache(String gatewayArn) async {}
+  Future<DescribeCacheOutput> describeCache(String gatewayArn) async {
+    return DescribeCacheOutput.fromJson({});
+  }
 
   /// Returns a description of the gateway volumes specified in the request.
   /// This operation is only supported in the cached volume gateway types.
@@ -503,48 +1120,98 @@ class StorageGatewayApi {
   /// The list of gateway volumes in the request must be from one gateway. In
   /// the response Amazon Storage Gateway returns volume information sorted by
   /// volume Amazon Resource Name (ARN).
-  Future<void> describeCachediScsiVolumes(List<String> volumeARNs) async {}
+  ///
+  /// [volumeARNs]: An array of strings where each string represents the Amazon
+  /// Resource Name (ARN) of a cached volume. All of the specified cached
+  /// volumes must from the same gateway. Use ListVolumes to get volume ARNs for
+  /// a gateway.
+  Future<DescribeCachediScsiVolumesOutput> describeCachediScsiVolumes(
+      List<String> volumeARNs) async {
+    return DescribeCachediScsiVolumesOutput.fromJson({});
+  }
 
   /// Returns an array of Challenge-Handshake Authentication Protocol (CHAP)
   /// credentials information for a specified iSCSI target, one for each
   /// target-initiator pair.
-  Future<void> describeChapCredentials(String targetArn) async {}
+  ///
+  /// [targetArn]: The Amazon Resource Name (ARN) of the iSCSI volume target.
+  /// Use the DescribeStorediSCSIVolumes operation to return to retrieve the
+  /// TargetARN for specified VolumeARN.
+  Future<DescribeChapCredentialsOutput> describeChapCredentials(
+      String targetArn) async {
+    return DescribeChapCredentialsOutput.fromJson({});
+  }
 
   /// Returns metadata about a gateway such as its name, network interfaces,
   /// configured time zone, and the state (whether the gateway is running or
   /// not). To specify which gateway to describe, use the Amazon Resource Name
   /// (ARN) of the gateway in your request.
-  Future<void> describeGatewayInformation(String gatewayArn) async {}
+  Future<DescribeGatewayInformationOutput> describeGatewayInformation(
+      String gatewayArn) async {
+    return DescribeGatewayInformationOutput.fromJson({});
+  }
 
   /// Returns your gateway's weekly maintenance start time including the day and
   /// time of the week. Note that values are in terms of the gateway's time
   /// zone.
-  Future<void> describeMaintenanceStartTime(String gatewayArn) async {}
+  Future<DescribeMaintenanceStartTimeOutput> describeMaintenanceStartTime(
+      String gatewayArn) async {
+    return DescribeMaintenanceStartTimeOutput.fromJson({});
+  }
 
   /// Gets a description for one or more Network File System (NFS) file shares
   /// from a file gateway. This operation is only supported for file gateways.
-  Future<void> describeNfsFileShares(List<String> fileShareArnList) async {}
+  ///
+  /// [fileShareArnList]: An array containing the Amazon Resource Name (ARN) of
+  /// each file share to be described.
+  Future<DescribeNfsFileSharesOutput> describeNfsFileShares(
+      List<String> fileShareArnList) async {
+    return DescribeNfsFileSharesOutput.fromJson({});
+  }
 
   /// Gets a description for one or more Server Message Block (SMB) file shares
   /// from a file gateway. This operation is only supported for file gateways.
-  Future<void> describeSmbFileShares(List<String> fileShareArnList) async {}
+  ///
+  /// [fileShareArnList]: An array containing the Amazon Resource Name (ARN) of
+  /// each file share to be described.
+  Future<DescribeSmbFileSharesOutput> describeSmbFileShares(
+      List<String> fileShareArnList) async {
+    return DescribeSmbFileSharesOutput.fromJson({});
+  }
 
   /// Gets a description of a Server Message Block (SMB) file share settings
   /// from a file gateway. This operation is only supported for file gateways.
-  Future<void> describeSmbSettings(String gatewayArn) async {}
+  Future<DescribeSmbSettingsOutput> describeSmbSettings(
+      String gatewayArn) async {
+    return DescribeSmbSettingsOutput.fromJson({});
+  }
 
   /// Describes the snapshot schedule for the specified gateway volume. The
   /// snapshot schedule information includes intervals at which snapshots are
   /// automatically initiated on the volume. This operation is only supported in
   /// the cached volume and stored volume types.
-  Future<void> describeSnapshotSchedule(String volumeArn) async {}
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume. Use the
+  /// ListVolumes operation to return a list of gateway volumes.
+  Future<DescribeSnapshotScheduleOutput> describeSnapshotSchedule(
+      String volumeArn) async {
+    return DescribeSnapshotScheduleOutput.fromJson({});
+  }
 
   /// Returns the description of the gateway volumes specified in the request.
   /// The list of gateway volumes in the request must be from one gateway. In
   /// the response Amazon Storage Gateway returns volume information sorted by
   /// volume ARNs. This operation is only supported in stored volume gateway
   /// type.
-  Future<void> describeStorediScsiVolumes(List<String> volumeARNs) async {}
+  ///
+  /// [volumeARNs]: An array of strings where each string represents the Amazon
+  /// Resource Name (ARN) of a stored volume. All of the specified stored
+  /// volumes must from the same gateway. Use ListVolumes to get volume ARNs for
+  /// a gateway.
+  Future<DescribeStorediScsiVolumesOutput> describeStorediScsiVolumes(
+      List<String> volumeARNs) async {
+    return DescribeStorediScsiVolumesOutput.fromJson({});
+  }
 
   /// Returns a description of specified virtual tapes in the virtual tape shelf
   /// (VTS). This operation is only supported in the tape gateway type.
@@ -552,8 +1219,19 @@ class StorageGatewayApi {
   /// If a specific `TapeARN` is not specified, AWS Storage Gateway returns a
   /// description of all virtual tapes found in the VTS associated with your
   /// account.
-  Future<void> describeTapeArchives(
-      {List<String> tapeARNs, String marker, int limit}) async {}
+  ///
+  /// [tapeARNs]: Specifies one or more unique Amazon Resource Names (ARNs) that
+  /// represent the virtual tapes you want to describe.
+  ///
+  /// [marker]: An opaque string that indicates the position at which to begin
+  /// describing virtual tapes.
+  ///
+  /// [limit]: Specifies that the number of virtual tapes descried be limited to
+  /// the specified number.
+  Future<DescribeTapeArchivesOutput> describeTapeArchives(
+      {List<String> tapeARNs, String marker, int limit}) async {
+    return DescribeTapeArchivesOutput.fromJson({});
+  }
 
   /// Returns a list of virtual tape recovery points that are available for the
   /// specified tape gateway.
@@ -562,30 +1240,79 @@ class StorageGatewayApi {
   /// the data on the virtual tape is consistent. If your gateway crashes,
   /// virtual tapes that have recovery points can be recovered to a new gateway.
   /// This operation is only supported in the tape gateway type.
-  Future<void> describeTapeRecoveryPoints(String gatewayArn,
-      {String marker, int limit}) async {}
+  ///
+  /// [marker]: An opaque string that indicates the position at which to begin
+  /// describing the virtual tape recovery points.
+  ///
+  /// [limit]: Specifies that the number of virtual tape recovery points that
+  /// are described be limited to the specified number.
+  Future<DescribeTapeRecoveryPointsOutput> describeTapeRecoveryPoints(
+      String gatewayArn,
+      {String marker,
+      int limit}) async {
+    return DescribeTapeRecoveryPointsOutput.fromJson({});
+  }
 
   /// Returns a description of the specified Amazon Resource Name (ARN) of
   /// virtual tapes. If a `TapeARN` is not specified, returns a description of
   /// all virtual tapes associated with the specified gateway. This operation is
   /// only supported in the tape gateway type.
-  Future<void> describeTapes(String gatewayArn,
-      {List<String> tapeARNs, String marker, int limit}) async {}
+  ///
+  /// [tapeARNs]: Specifies one or more unique Amazon Resource Names (ARNs) that
+  /// represent the virtual tapes you want to describe. If this parameter is not
+  /// specified, Tape gateway returns a description of all virtual tapes
+  /// associated with the specified gateway.
+  ///
+  /// [marker]: A marker value, obtained in a previous call to `DescribeTapes`.
+  /// This marker indicates which page of results to retrieve.
+  ///
+  /// If not specified, the first page of results is retrieved.
+  ///
+  /// [limit]: Specifies that the number of virtual tapes described be limited
+  /// to the specified number.
+  ///
+  ///
+  ///
+  /// Amazon Web Services may impose its own limit, if this field is not set.
+  Future<DescribeTapesOutput> describeTapes(String gatewayArn,
+      {List<String> tapeARNs, String marker, int limit}) async {
+    return DescribeTapesOutput.fromJson({});
+  }
 
   /// Returns information about the upload buffer of a gateway. This operation
   /// is supported for the stored volume, cached volume and tape gateway types.
   ///
   /// The response includes disk IDs that are configured as upload buffer space,
   /// and it includes the amount of upload buffer space allocated and used.
-  Future<void> describeUploadBuffer(String gatewayArn) async {}
+  Future<DescribeUploadBufferOutput> describeUploadBuffer(
+      String gatewayArn) async {
+    return DescribeUploadBufferOutput.fromJson({});
+  }
 
   /// Returns a description of virtual tape library (VTL) devices for the
   /// specified tape gateway. In the response, AWS Storage Gateway returns VTL
   /// device information.
   ///
   /// This operation is only supported in the tape gateway type.
-  Future<void> describeVtlDevices(String gatewayArn,
-      {List<String> vtlDeviceARNs, String marker, int limit}) async {}
+  ///
+  /// [vtlDeviceARNs]: An array of strings, where each string represents the
+  /// Amazon Resource Name (ARN) of a VTL device.
+  ///
+  ///
+  ///
+  /// All of the specified VTL devices must be from the same gateway. If no VTL
+  /// devices are specified, the result will contain all devices on the
+  /// specified gateway.
+  ///
+  /// [marker]: An opaque string that indicates the position at which to begin
+  /// describing the VTL devices.
+  ///
+  /// [limit]: Specifies that the number of VTL devices described be limited to
+  /// the specified number.
+  Future<DescribeVtlDevicesOutput> describeVtlDevices(String gatewayArn,
+      {List<String> vtlDeviceARNs, String marker, int limit}) async {
+    return DescribeVtlDevicesOutput.fromJson({});
+  }
 
   /// Returns information about the working storage of a gateway. This operation
   /// is only supported in the stored volumes gateway type. This operation is
@@ -598,14 +1325,28 @@ class StorageGatewayApi {
   ///
   /// The response includes disk IDs that are configured as working storage, and
   /// it includes the amount of working storage allocated and used.
-  Future<void> describeWorkingStorage(String gatewayArn) async {}
+  Future<DescribeWorkingStorageOutput> describeWorkingStorage(
+      String gatewayArn) async {
+    return DescribeWorkingStorageOutput.fromJson({});
+  }
 
   /// Disconnects a volume from an iSCSI connection and then detaches the volume
   /// from the specified gateway. Detaching and attaching a volume enables you
   /// to recover your data from one gateway to a different gateway without
   /// creating a snapshot. It also makes it easier to move your volumes from an
   /// on-premises gateway to a gateway hosted on an Amazon EC2 instance.
-  Future<void> detachVolume(String volumeArn, {bool forceDetach}) async {}
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume to detach from
+  /// the gateway.
+  ///
+  /// [forceDetach]: Set to `true` to forcibly remove the iSCSI connection of
+  /// the target volume and detach the volume. The default is `false`. If this
+  /// value is set to `false`, you must manually disconnect the iSCSI connection
+  /// from the target volume.
+  Future<DetachVolumeOutput> detachVolume(String volumeArn,
+      {bool forceDetach}) async {
+    return DetachVolumeOutput.fromJson({});
+  }
 
   /// Disables a tape gateway when the gateway is no longer functioning. For
   /// example, if your gateway VM is damaged, you can disable the gateway so you
@@ -617,23 +1358,61 @@ class StorageGatewayApi {
   ///
   ///
   /// Once a gateway is disabled it cannot be enabled.
-  Future<void> disableGateway(String gatewayArn) async {}
+  Future<DisableGatewayOutput> disableGateway(String gatewayArn) async {
+    return DisableGatewayOutput.fromJson({});
+  }
 
   /// Adds a file gateway to an Active Directory domain. This operation is only
   /// supported for file gateways that support the SMB file protocol.
-  Future<void> joinDomain(
+  ///
+  /// [gatewayArn]: The Amazon Resource Name (ARN) of the gateway. Use the
+  /// `ListGateways` operation to return a list of gateways for your account and
+  /// AWS Region.
+  ///
+  /// [domainName]: The name of the domain that you want the gateway to join.
+  ///
+  /// [organizationalUnit]: The organizational unit (OU) is a container in an
+  /// Active Directory that can hold users, groups, computers, and other OUs and
+  /// this parameter specifies the OU that the gateway will join within the AD
+  /// domain.
+  ///
+  /// [domainControllers]: List of IPv4 addresses, NetBIOS names, or host names
+  /// of your domain server. If you need to specify the port number include it
+  /// after the colon (“:”). For example, `mydc.mydomain.com:389`.
+  ///
+  /// [userName]: Sets the user name of user who has permission to add the
+  /// gateway to the Active Directory domain.
+  ///
+  /// [password]: Sets the password of the user who has permission to add the
+  /// gateway to the Active Directory domain.
+  Future<JoinDomainOutput> joinDomain(
       {@required String gatewayArn,
       @required String domainName,
       String organizationalUnit,
       List<String> domainControllers,
       @required String userName,
-      @required String password}) async {}
+      @required String password}) async {
+    return JoinDomainOutput.fromJson({});
+  }
 
   /// Gets a list of the file shares for a specific file gateway, or the list of
   /// file shares that belong to the calling user account. This operation is
   /// only supported for file gateways.
-  Future<void> listFileShares(
-      {String gatewayArn, int limit, String marker}) async {}
+  ///
+  /// [gatewayArn]: The Amazon resource Name (ARN) of the gateway whose file
+  /// shares you want to list. If this field is not present, all file shares
+  /// under your account are listed.
+  ///
+  /// [limit]: The maximum number of file shares to return in the response. The
+  /// value must be an integer with a value greater than zero. Optional.
+  ///
+  /// [marker]: Opaque pagination token returned from a previous ListFileShares
+  /// operation. If present, `Marker` specifies where to continue the list from
+  /// after a previous call to ListFileShares. Optional.
+  Future<ListFileSharesOutput> listFileShares(
+      {String gatewayArn, int limit, String marker}) async {
+    return ListFileSharesOutput.fromJson({});
+  }
 
   /// Lists gateways owned by an AWS account in an AWS Region specified in the
   /// request. The returned list is ordered by gateway Amazon Resource Name
@@ -647,7 +1426,15 @@ class StorageGatewayApi {
   /// response returns only a truncated list of your gateways), the response
   /// contains a marker that you can specify in your next request to fetch the
   /// next page of gateways.
-  Future<void> listGateways({String marker, int limit}) async {}
+  ///
+  /// [marker]: An opaque string that indicates the position at which to begin
+  /// the returned list of gateways.
+  ///
+  /// [limit]: Specifies that the list of gateways returned be limited to the
+  /// specified number of items.
+  Future<ListGatewaysOutput> listGateways({String marker, int limit}) async {
+    return ListGatewaysOutput.fromJson({});
+  }
 
   /// Returns a list of the gateway's local disks. To specify which gateway to
   /// describe, you use the Amazon Resource Name (ARN) of the gateway in the
@@ -659,13 +1446,26 @@ class StorageGatewayApi {
   /// value of present (the disk is available to use), missing (the disk is no
   /// longer connected to the gateway), or mismatch (the disk node is occupied
   /// by a disk that has incorrect metadata or the disk content is corrupted).
-  Future<void> listLocalDisks(String gatewayArn) async {}
+  Future<ListLocalDisksOutput> listLocalDisks(String gatewayArn) async {
+    return ListLocalDisksOutput.fromJson({});
+  }
 
   /// Lists the tags that have been added to the specified resource. This
   /// operation is only supported in the cached volume, stored volume and tape
   /// gateway type.
-  Future<void> listTagsForResource(String resourceArn,
-      {String marker, int limit}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) of the resource for which
+  /// you want to list tags.
+  ///
+  /// [marker]: An opaque string that indicates the position at which to begin
+  /// returning the list of tags.
+  ///
+  /// [limit]: Specifies that the list of tags returned be limited to the
+  /// specified number of items.
+  Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
+      {String marker, int limit}) async {
+    return ListTagsForResourceOutput.fromJson({});
+  }
 
   /// Lists virtual tapes in your virtual tape library (VTL) and your virtual
   /// tape shelf (VTS). You specify the tapes to list by specifying one or more
@@ -679,14 +1479,28 @@ class StorageGatewayApi {
   /// includes a `Marker` element that you can use in your subsequent request to
   /// retrieve the next set of tapes. This operation is only supported in the
   /// tape gateway type.
-  Future<void> listTapes(
-      {List<String> tapeARNs, String marker, int limit}) async {}
+  ///
+  /// [marker]: A string that indicates the position at which to begin the
+  /// returned list of tapes.
+  ///
+  /// [limit]: An optional number limit for the tapes in the list returned by
+  /// this call.
+  Future<ListTapesOutput> listTapes(
+      {List<String> tapeARNs, String marker, int limit}) async {
+    return ListTapesOutput.fromJson({});
+  }
 
   /// Lists iSCSI initiators that are connected to a volume. You can use this
   /// operation to determine whether a volume is being used or not. This
   /// operation is only supported in the cached volume and stored volume gateway
   /// types.
-  Future<void> listVolumeInitiators(String volumeArn) async {}
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume. Use the
+  /// ListVolumes operation to return a list of gateway volumes for the gateway.
+  Future<ListVolumeInitiatorsOutput> listVolumeInitiators(
+      String volumeArn) async {
+    return ListVolumeInitiatorsOutput.fromJson({});
+  }
 
   /// Lists the recovery points for a specified gateway. This operation is only
   /// supported in the cached volume gateway type.
@@ -696,7 +1510,10 @@ class StorageGatewayApi {
   /// you can create a snapshot or clone a new cached volume from a source
   /// volume. To create a snapshot from a volume recovery point use the
   /// CreateSnapshotFromVolumeRecoveryPoint operation.
-  Future<void> listVolumeRecoveryPoints(String gatewayArn) async {}
+  Future<ListVolumeRecoveryPointsOutput> listVolumeRecoveryPoints(
+      String gatewayArn) async {
+    return ListVolumeRecoveryPointsOutput.fromJson({});
+  }
 
   /// Lists the iSCSI stored volumes of a gateway. Results are sorted by volume
   /// ARN. The response includes only the volume ARNs. If you want additional
@@ -710,8 +1527,17 @@ class StorageGatewayApi {
   /// Marker field. You can use this Marker value in your subsequent request to
   /// retrieve the next set of volumes. This operation is only supported in the
   /// cached volume and stored volume gateway types.
-  Future<void> listVolumes(
-      {String gatewayArn, String marker, int limit}) async {}
+  ///
+  /// [marker]: A string that indicates the position at which to begin the
+  /// returned list of volumes. Obtain the marker from the response of a
+  /// previous List iSCSI Volumes request.
+  ///
+  /// [limit]: Specifies that the list of volumes returned be limited to the
+  /// specified number of items.
+  Future<ListVolumesOutput> listVolumes(
+      {String gatewayArn, String marker, int limit}) async {
+    return ListVolumesOutput.fromJson({});
+  }
 
   /// Sends you notification through CloudWatch Events when all files written to
   /// your file share have been uploaded to Amazon S3.
@@ -728,7 +1554,10 @@ class StorageGatewayApi {
   /// For more information, see Getting File Upload Notification in the Storage
   /// Gateway User Guide
   /// (https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-upload-notification).
-  Future<void> notifyWhenUploaded(String fileShareArn) async {}
+  Future<NotifyWhenUploadedOutput> notifyWhenUploaded(
+      String fileShareArn) async {
+    return NotifyWhenUploadedOutput.fromJson({});
+  }
 
   /// Refreshes the cache for the specified file share. This operation finds
   /// objects in the Amazon S3 bucket that were added, removed or replaced since
@@ -746,13 +1575,40 @@ class StorageGatewayApi {
   /// check for new files on the gateway file share. You can subscribe to be
   /// notified through an CloudWatch event when your `RefreshCache` operation
   /// completes.
-  Future<void> refreshCache(String fileShareArn,
-      {List<String> folderList, bool recursive}) async {}
+  ///
+  /// [fileShareArn]: The Amazon Resource Name (ARN) of the file share you want
+  /// to refresh.
+  ///
+  /// [folderList]: A comma-separated list of the paths of folders to refresh in
+  /// the cache. The default is \[`"/"`\]. The default refreshes objects and
+  /// folders at the root of the Amazon S3 bucket. If `Recursive` is set to
+  /// "true", the entire S3 bucket that the file share has access to is
+  /// refreshed.
+  ///
+  /// [recursive]: A value that specifies whether to recursively refresh folders
+  /// in the cache. The refresh includes folders that were in the cache the last
+  /// time the gateway listed the folder's contents. If this value set to
+  /// "true", each folder that is listed in `FolderList` is recursively updated.
+  /// Otherwise, subfolders listed in `FolderList` are not refreshed. Only
+  /// objects that are in folders listed directly under `FolderList` are found
+  /// and used for the update. The default is "true".
+  Future<RefreshCacheOutput> refreshCache(String fileShareArn,
+      {List<String> folderList, bool recursive}) async {
+    return RefreshCacheOutput.fromJson({});
+  }
 
   /// Removes one or more tags from the specified resource. This operation is
   /// only supported in the cached volume, stored volume and tape gateway types.
-  Future<void> removeTagsFromResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+  ///
+  /// [resourceArn]: The Amazon Resource Name (ARN) of the resource you want to
+  /// remove the tags from.
+  ///
+  /// [tagKeys]: The keys of the tags you want to remove from the specified
+  /// resource. A tag is composed of a key/value pair.
+  Future<RemoveTagsFromResourceOutput> removeTagsFromResource(
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    return RemoveTagsFromResourceOutput.fromJson({});
+  }
 
   /// Resets all cache disks that have encountered a error and makes the disks
   /// available for reconfiguration as cache storage. If your cache disk
@@ -770,7 +1626,9 @@ class StorageGatewayApi {
   /// disks, there will be no configured cache disks left in the gateway, so you
   /// must configure at least one new cache disk for your gateway to function
   /// properly.
-  Future<void> resetCache(String gatewayArn) async {}
+  Future<ResetCacheOutput> resetCache(String gatewayArn) async {
+    return ResetCacheOutput.fromJson({});
+  }
 
   /// Retrieves an archived virtual tape from the virtual tape shelf (VTS) to a
   /// tape gateway. Virtual tapes archived in the VTS are not associated with
@@ -782,8 +1640,20 @@ class StorageGatewayApi {
   /// again to another gateway. You must archive the tape again before you can
   /// retrieve it to another gateway. This operation is only supported in the
   /// tape gateway type.
-  Future<void> retrieveTapeArchive(
-      {@required String tapeArn, @required String gatewayArn}) async {}
+  ///
+  /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape you want to
+  /// retrieve from the virtual tape shelf (VTS).
+  ///
+  /// [gatewayArn]: The Amazon Resource Name (ARN) of the gateway you want to
+  /// retrieve the virtual tape to. Use the ListGateways operation to return a
+  /// list of gateways for your account and AWS Region.
+  ///
+  /// You retrieve archived virtual tapes to only one gateway and the gateway
+  /// must be a tape gateway.
+  Future<RetrieveTapeArchiveOutput> retrieveTapeArchive(
+      {@required String tapeArn, @required String gatewayArn}) async {
+    return RetrieveTapeArchiveOutput.fromJson({});
+  }
 
   /// Retrieves the recovery point for the specified virtual tape. This
   /// operation is only supported in the tape gateway type.
@@ -797,22 +1667,39 @@ class StorageGatewayApi {
   /// The virtual tape can be retrieved to only one gateway. The retrieved tape
   /// is read-only. The virtual tape can be retrieved to only a tape gateway.
   /// There is no charge for retrieving recovery points.
-  Future<void> retrieveTapeRecoveryPoint(
-      {@required String tapeArn, @required String gatewayArn}) async {}
+  ///
+  /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape for which
+  /// you want to retrieve the recovery point.
+  Future<RetrieveTapeRecoveryPointOutput> retrieveTapeRecoveryPoint(
+      {@required String tapeArn, @required String gatewayArn}) async {
+    return RetrieveTapeRecoveryPointOutput.fromJson({});
+  }
 
   /// Sets the password for your VM local console. When you log in to the local
   /// console for the first time, you log in to the VM with the default
   /// credentials. We recommend that you set a new password. You don't need to
   /// know the default password to set a new password.
-  Future<void> setLocalConsolePassword(
+  ///
+  /// [localConsolePassword]: The password you want to set for your VM local
+  /// console.
+  Future<SetLocalConsolePasswordOutput> setLocalConsolePassword(
       {@required String gatewayArn,
-      @required String localConsolePassword}) async {}
+      @required String localConsolePassword}) async {
+    return SetLocalConsolePasswordOutput.fromJson({});
+  }
 
   /// Sets the password for the guest user `smbguest`. The `smbguest` user is
   /// the user when the authentication method for the file share is set to
   /// `GuestAccess`.
-  Future<void> setSmbGuestPassword(
-      {@required String gatewayArn, @required String password}) async {}
+  ///
+  /// [gatewayArn]: The Amazon Resource Name (ARN) of the file gateway the SMB
+  /// file share is associated with.
+  ///
+  /// [password]: The password that you want to set for your SMB Server.
+  Future<SetSmbGuestPasswordOutput> setSmbGuestPassword(
+      {@required String gatewayArn, @required String password}) async {
+    return SetSmbGuestPasswordOutput.fromJson({});
+  }
 
   /// Shuts down a gateway. To specify which gateway to shut down, use the
   /// Amazon Resource Name (ARN) of the gateway in the body of your request.
@@ -836,7 +1723,9 @@ class StorageGatewayApi {
   /// If do not intend to use the gateway again, you must delete the gateway
   /// (using DeleteGateway) to no longer pay software charges associated with
   /// the gateway.
-  Future<void> shutdownGateway(String gatewayArn) async {}
+  Future<ShutdownGatewayOutput> shutdownGateway(String gatewayArn) async {
+    return ShutdownGatewayOutput.fromJson({});
+  }
 
   /// Starts a gateway that you previously shut down (see ShutdownGateway).
   /// After the gateway starts, you can then make other API calls, your
@@ -851,7 +1740,9 @@ class StorageGatewayApi {
   ///
   /// To specify which gateway to start, use the Amazon Resource Name (ARN) of
   /// the gateway in your request.
-  Future<void> startGateway(String gatewayArn) async {}
+  Future<StartGatewayOutput> startGateway(String gatewayArn) async {
+    return StartGatewayOutput.fromJson({});
+  }
 
   /// Updates the bandwidth rate limits of a gateway. You can update both the
   /// upload and download bandwidth rate limit or specify only one of the two.
@@ -863,9 +1754,18 @@ class StorageGatewayApi {
   ///
   /// To specify which gateway to update, use the Amazon Resource Name (ARN) of
   /// the gateway in your request.
-  Future<void> updateBandwidthRateLimit(String gatewayArn,
+  ///
+  /// [averageUploadRateLimitInBitsPerSec]: The average upload bandwidth rate
+  /// limit in bits per second.
+  ///
+  /// [averageDownloadRateLimitInBitsPerSec]: The average download bandwidth
+  /// rate limit in bits per second.
+  Future<UpdateBandwidthRateLimitOutput> updateBandwidthRateLimit(
+      String gatewayArn,
       {BigInt averageUploadRateLimitInBitsPerSec,
-      BigInt averageDownloadRateLimitInBitsPerSec}) async {}
+      BigInt averageDownloadRateLimitInBitsPerSec}) async {
+    return UpdateBandwidthRateLimitOutput.fromJson({});
+  }
 
   /// Updates the Challenge-Handshake Authentication Protocol (CHAP) credentials
   /// for a specified iSCSI target. By default, a gateway does not have CHAP
@@ -875,11 +1775,36 @@ class StorageGatewayApi {
   ///
   /// When you update CHAP credentials, all existing connections on the target
   /// are closed and initiators must reconnect with the new credentials.
-  Future<void> updateChapCredentials(
+  ///
+  /// [targetArn]: The Amazon Resource Name (ARN) of the iSCSI volume target.
+  /// Use the DescribeStorediSCSIVolumes operation to return the TargetARN for
+  /// specified VolumeARN.
+  ///
+  /// [secretToAuthenticateInitiator]: The secret key that the initiator (for
+  /// example, the Windows client) must provide to participate in mutual CHAP
+  /// with the target.
+  ///
+  ///
+  ///
+  /// The secret key must be between 12 and 16 bytes when encoded in UTF-8.
+  ///
+  /// [initiatorName]: The iSCSI initiator that connects to the target.
+  ///
+  /// [secretToAuthenticateTarget]: The secret key that the target must provide
+  /// to participate in mutual CHAP with the initiator (e.g. Windows client).
+  ///
+  /// Byte constraints: Minimum bytes of 12. Maximum bytes of 16.
+  ///
+  ///
+  ///
+  /// The secret key must be between 12 and 16 bytes when encoded in UTF-8.
+  Future<UpdateChapCredentialsOutput> updateChapCredentials(
       {@required String targetArn,
       @required String secretToAuthenticateInitiator,
       @required String initiatorName,
-      String secretToAuthenticateTarget}) async {}
+      String secretToAuthenticateTarget}) async {
+    return UpdateChapCredentialsOutput.fromJson({});
+  }
 
   /// Updates a gateway's metadata, which includes the gateway's name and time
   /// zone. To specify which gateway to update, use the Amazon Resource Name
@@ -890,10 +1815,22 @@ class StorageGatewayApi {
   /// For Gateways activated after September 2, 2015, the gateway's ARN contains
   /// the gateway ID rather than the gateway name. However, changing the name of
   /// the gateway has no effect on the gateway's ARN.
-  Future<void> updateGatewayInformation(String gatewayArn,
+  ///
+  /// [gatewayTimezone]: A value that indicates the time zone of the gateway.
+  ///
+  /// [cloudWatchLogGroupArn]: The Amazon Resource Name (ARN) of the Amazon
+  /// CloudWatch log group that you want to use to monitor and log events in the
+  /// gateway.
+  ///
+  /// For more information, see [What Is Amazon CloudWatch
+  /// Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html).
+  Future<UpdateGatewayInformationOutput> updateGatewayInformation(
+      String gatewayArn,
       {String gatewayName,
       String gatewayTimezone,
-      String cloudWatchLogGroupArn}) async {}
+      String cloudWatchLogGroupArn}) async {
+    return UpdateGatewayInformationOutput.fromJson({});
+  }
 
   /// Updates the gateway virtual machine (VM) software. The request immediately
   /// triggers the software update.
@@ -912,17 +1849,42 @@ class StorageGatewayApi {
   /// and [Customizing Your Linux iSCSI
   /// Settings](https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorRedHatClient.html#CustomizeLinuxiSCSISettings),
   /// respectively.
-  Future<void> updateGatewaySoftwareNow(String gatewayArn) async {}
+  Future<UpdateGatewaySoftwareNowOutput> updateGatewaySoftwareNow(
+      String gatewayArn) async {
+    return UpdateGatewaySoftwareNowOutput.fromJson({});
+  }
 
   /// Updates a gateway's weekly maintenance start time information, including
   /// day and time of the week. The maintenance time is the time in your
   /// gateway's time zone.
-  Future<void> updateMaintenanceStartTime(
+  ///
+  /// [hourOfDay]: The hour component of the maintenance start time represented
+  /// as _hh_, where _hh_ is the hour (00 to 23). The hour of the day is in the
+  /// time zone of the gateway.
+  ///
+  /// [minuteOfHour]: The minute component of the maintenance start time
+  /// represented as _mm_, where _mm_ is the minute (00 to 59). The minute of
+  /// the hour is in the time zone of the gateway.
+  ///
+  /// [dayOfWeek]: The day of the week component of the maintenance start time
+  /// week represented as an ordinal number from 0 to 6, where 0 represents
+  /// Sunday and 6 Saturday.
+  ///
+  /// [dayOfMonth]: The day of the month component of the maintenance start time
+  /// represented as an ordinal number from 1 to 28, where 1 represents the
+  /// first day of the month and 28 represents the last day of the month.
+  ///
+  ///
+  ///
+  /// This value is only available for tape and volume gateways.
+  Future<UpdateMaintenanceStartTimeOutput> updateMaintenanceStartTime(
       {@required String gatewayArn,
       @required int hourOfDay,
       @required int minuteOfHour,
       int dayOfWeek,
-      int dayOfMonth}) async {}
+      int dayOfMonth}) async {
+    return UpdateMaintenanceStartTimeOutput.fromJson({});
+  }
 
   /// Updates a Network File System (NFS) file share. This operation is only
   /// supported in the file gateway type.
@@ -947,7 +1909,59 @@ class StorageGatewayApi {
   ///
   /// To leave a file share field unchanged, set the corresponding input field
   /// to null. This operation is only supported in file gateways.
-  Future<void> updateNfsFileShare(String fileShareArn,
+  ///
+  /// [fileShareArn]: The Amazon Resource Name (ARN) of the file share to be
+  /// updated.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the AWS KMS key used for
+  /// Amazon S3 server side encryption. This value can only be set when
+  /// KMSEncrypted is true. Optional.
+  ///
+  /// [nfsFileShareDefaults]: The default values for the file share. Optional.
+  ///
+  /// [defaultStorageClass]: The default storage class for objects put into an
+  /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
+  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
+  /// the default value `S3_STANDARD` is used. Optional.
+  ///
+  /// [objectAcl]: A value that sets the access control list permission for
+  /// objects in the S3 bucket that a file gateway puts objects into. The
+  /// default value is "private".
+  ///
+  /// [clientList]: The list of clients that are allowed to access the file
+  /// gateway. The list must contain either valid IP addresses or valid CIDR
+  /// blocks.
+  ///
+  /// [squash]: The user mapped to anonymous user. Valid options are the
+  /// following:
+  ///
+  /// *    `RootSquash` \- Only root is mapped to anonymous user.
+  ///
+  /// *    `NoSquash` \- No one is mapped to anonymous user
+  ///
+  /// *    `AllSquash` \- Everyone is mapped to anonymous user.
+  ///
+  /// [readOnly]: A value that sets the write status of a file share. This value
+  /// is true if the write status is read-only, and otherwise false.
+  ///
+  /// [guessMimeTypeEnabled]: A value that enables guessing of the MIME type for
+  /// uploaded objects based on file extensions. Set this value to true to
+  /// enable MIME type guessing, and otherwise to false. The default value is
+  /// true.
+  ///
+  /// [requesterPays]: A value that sets who pays the cost of the request and
+  /// the cost associated with data download from the S3 bucket. If this value
+  /// is set to true, the requester pays the costs. Otherwise the S3 bucket
+  /// owner pays. However, the S3 bucket owner always pays the cost of storing
+  /// data.
+  ///
+  ///   `RequesterPays` is a configuration for the S3 bucket that backs the file
+  /// share, so make sure that the configuration on the file share is the same
+  /// as the S3 bucket configuration.
+  Future<UpdateNfsFileShareOutput> updateNfsFileShare(String fileShareArn,
       {bool kmsEncrypted,
       String kmsKey,
       NfsFileShareDefaults nfsFileShareDefaults,
@@ -957,7 +1971,9 @@ class StorageGatewayApi {
       String squash,
       bool readOnly,
       bool guessMimeTypeEnabled,
-      bool requesterPays}) async {}
+      bool requesterPays}) async {
+    return UpdateNfsFileShareOutput.fromJson({});
+  }
 
   /// Updates a Server Message Block (SMB) file share.
   ///
@@ -974,7 +1990,67 @@ class StorageGatewayApi {
   ///
   /// File gateways don't support creating hard or symbolic links on a file
   /// share.
-  Future<void> updateSmbFileShare(String fileShareArn,
+  ///
+  /// [fileShareArn]: The Amazon Resource Name (ARN) of the SMB file share that
+  /// you want to update.
+  ///
+  /// [kmsEncrypted]: True to use Amazon S3 server side encryption with your own
+  /// AWS KMS key, or false to use a key managed by Amazon S3. Optional.
+  ///
+  /// [kmsKey]: The Amazon Resource Name (ARN) of the AWS KMS key used for
+  /// Amazon S3 server side encryption. This value can only be set when
+  /// KMSEncrypted is true. Optional.
+  ///
+  /// [defaultStorageClass]: The default storage class for objects put into an
+  /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
+  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
+  /// the default value `S3_STANDARD` is used. Optional.
+  ///
+  /// [objectAcl]: A value that sets the access control list permission for
+  /// objects in the S3 bucket that a file gateway puts objects into. The
+  /// default value is "private".
+  ///
+  /// [readOnly]: A value that sets the write status of a file share. This value
+  /// is true if the write status is read-only, and otherwise false.
+  ///
+  /// [guessMimeTypeEnabled]: A value that enables guessing of the MIME type for
+  /// uploaded objects based on file extensions. Set this value to true to
+  /// enable MIME type guessing, and otherwise to false. The default value is
+  /// true.
+  ///
+  /// [requesterPays]: A value that sets who pays the cost of the request and
+  /// the cost associated with data download from the S3 bucket. If this value
+  /// is set to true, the requester pays the costs. Otherwise the S3 bucket
+  /// owner pays. However, the S3 bucket owner always pays the cost of storing
+  /// data.
+  ///
+  ///   `RequesterPays` is a configuration for the S3 bucket that backs the file
+  /// share, so make sure that the configuration on the file share is the same
+  /// as the S3 bucket configuration.
+  ///
+  /// [smbaclEnabled]: Set this value to "true to enable ACL (access control
+  /// list) on the SMB file share. Set it to "false" to map file and directory
+  /// permissions to the POSIX permissions.
+  ///
+  /// For more information, see
+  /// https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.htmlin
+  /// the Storage Gateway User Guide.
+  ///
+  /// [adminUserList]: A list of users in the Active Directory that have
+  /// administrator rights to the file share. A group must be prefixed with the
+  /// @ character. For example `@group1`. Can only be set if Authentication is
+  /// set to `ActiveDirectory`.
+  ///
+  /// [validUserList]: A list of users or groups in the Active Directory that
+  /// are allowed to access the file share. A group must be prefixed with the @
+  /// character. For example `@group1`. Can only be set if Authentication is set
+  /// to `ActiveDirectory`.
+  ///
+  /// [invalidUserList]: A list of users or groups in the Active Directory that
+  /// are not allowed to access the file share. A group must be prefixed with
+  /// the @ character. For example `@group1`. Can only be set if Authentication
+  /// is set to `ActiveDirectory`.
+  Future<UpdateSmbFileShareOutput> updateSmbFileShare(String fileShareArn,
       {bool kmsEncrypted,
       String kmsKey,
       String defaultStorageClass,
@@ -985,7 +2061,9 @@ class StorageGatewayApi {
       bool smbaclEnabled,
       List<String> adminUserList,
       List<String> validUserList,
-      List<String> invalidUserList}) async {}
+      List<String> invalidUserList}) async {
+    return UpdateSmbFileShareOutput.fromJson({});
+  }
 
   /// Updates the SMB security strategy on a file gateway. This action is only
   /// supported in file gateways.
@@ -995,9 +2073,28 @@ class StorageGatewayApi {
   /// This API is called Security level in the User Guide.
   ///
   /// A higher security level can affect performance of the gateway.
-  Future<void> updateSmbSecurityStrategy(
+  ///
+  /// [smbSecurityStrategy]: Specifies the type of security strategy.
+  ///
+  /// ClientSpecified: if you use this option, requests are established based on
+  /// what is negotiated by the client. This option is recommended when you want
+  /// to maximize compatibility across different clients in your environment.
+  ///
+  /// MandatorySigning: if you use this option, file gateway only allows
+  /// connections from SMBv2 or SMBv3 clients that have signing enabled. This
+  /// option works with SMB clients on Microsoft Windows Vista, Windows Server
+  /// 2008 or newer.
+  ///
+  /// MandatoryEncryption: if you use this option, file gateway only allows
+  /// connections from SMBv3 clients that have encryption enabled. This option
+  /// is highly recommended for environments that handle sensitive data. This
+  /// option works with SMB clients on Microsoft Windows 8, Windows Server 2012
+  /// or newer.
+  Future<UpdateSmbSecurityStrategyOutput> updateSmbSecurityStrategy(
       {@required String gatewayArn,
-      @required String smbSecurityStrategy}) async {}
+      @required String smbSecurityStrategy}) async {
+    return UpdateSmbSecurityStrategyOutput.fromJson({});
+  }
 
   /// Updates a snapshot schedule configured for a gateway volume. This
   /// operation is only supported in the cached volume and stored volume gateway
@@ -1011,204 +2108,2205 @@ class StorageGatewayApi {
   /// schedule you want to update, and the schedule information, including when
   /// you want the snapshot to begin on a day and the frequency (in hours) of
   /// snapshots.
-  Future<void> updateSnapshotSchedule(
+  ///
+  /// [volumeArn]: The Amazon Resource Name (ARN) of the volume. Use the
+  /// ListVolumes operation to return a list of gateway volumes.
+  ///
+  /// [startAt]: The hour of the day at which the snapshot schedule begins
+  /// represented as _hh_, where _hh_ is the hour (0 to 23). The hour of the day
+  /// is in the time zone of the gateway.
+  ///
+  /// [recurrenceInHours]: Frequency of snapshots. Specify the number of hours
+  /// between snapshots.
+  ///
+  /// [description]: Optional description of the snapshot that overwrites the
+  /// existing description.
+  ///
+  /// [tags]: A list of up to 50 tags that can be assigned to a snapshot. Each
+  /// tag is a key-value pair.
+  ///
+  ///
+  ///
+  /// Valid characters for key and value are letters, spaces, and numbers
+  /// representable in UTF-8 format, and the following special characters: + - =
+  /// . _ : / @. The maximum length of a tag's key is 128 characters, and the
+  /// maximum length for a tag's value is 256.
+  Future<UpdateSnapshotScheduleOutput> updateSnapshotSchedule(
       {@required String volumeArn,
       @required int startAt,
       @required int recurrenceInHours,
       String description,
-      List<Tag> tags}) async {}
+      List<Tag> tags}) async {
+    return UpdateSnapshotScheduleOutput.fromJson({});
+  }
 
   /// Updates the type of medium changer in a tape gateway. When you activate a
   /// tape gateway, you select a medium changer type for the tape gateway. This
   /// operation enables you to select a different type of medium changer after a
   /// tape gateway is activated. This operation is only supported in the tape
   /// gateway type.
-  Future<void> updateVtlDeviceType(
-      {@required String vtlDeviceArn, @required String deviceType}) async {}
+  ///
+  /// [vtlDeviceArn]: The Amazon Resource Name (ARN) of the medium changer you
+  /// want to select.
+  ///
+  /// [deviceType]: The type of medium changer you want to select.
+  ///
+  ///  Valid Values: "STK-L700", "AWS-Gateway-VTL"
+  Future<UpdateVtlDeviceTypeOutput> updateVtlDeviceType(
+      {@required String vtlDeviceArn, @required String deviceType}) async {
+    return UpdateVtlDeviceTypeOutput.fromJson({});
+  }
 }
 
-class ActivateGatewayOutput {}
-
-class AddCacheOutput {}
-
-class AddTagsToResourceOutput {}
-
-class AddUploadBufferOutput {}
-
-class AddWorkingStorageOutput {}
-
-class AssignTapePoolOutput {}
-
-class AttachVolumeOutput {}
-
-class CachediScsiVolume {}
-
-class CancelArchivalOutput {}
-
-class CancelRetrievalOutput {}
-
-class ChapInfo {}
-
-class CreateCachediScsiVolumeOutput {}
-
-class CreateNfsFileShareOutput {}
-
-class CreateSmbFileShareOutput {}
-
-class CreateSnapshotFromVolumeRecoveryPointOutput {}
-
-class CreateSnapshotOutput {}
-
-class CreateStorediScsiVolumeOutput {}
-
-class CreateTapeWithBarcodeOutput {}
-
-class CreateTapesOutput {}
-
-class DeleteBandwidthRateLimitOutput {}
-
-class DeleteChapCredentialsOutput {}
-
-class DeleteFileShareOutput {}
-
-class DeleteGatewayOutput {}
-
-class DeleteSnapshotScheduleOutput {}
-
-class DeleteTapeArchiveOutput {}
-
-class DeleteTapeOutput {}
-
-class DeleteVolumeOutput {}
-
-class DescribeBandwidthRateLimitOutput {}
-
-class DescribeCacheOutput {}
-
-class DescribeCachediScsiVolumesOutput {}
-
-class DescribeChapCredentialsOutput {}
-
-class DescribeGatewayInformationOutput {}
-
-class DescribeMaintenanceStartTimeOutput {}
-
-class DescribeNfsFileSharesOutput {}
-
-class DescribeSmbFileSharesOutput {}
-
-class DescribeSmbSettingsOutput {}
-
-class DescribeSnapshotScheduleOutput {}
-
-class DescribeStorediScsiVolumesOutput {}
-
-class DescribeTapeArchivesOutput {}
-
-class DescribeTapeRecoveryPointsOutput {}
-
-class DescribeTapesOutput {}
-
-class DescribeUploadBufferOutput {}
-
-class DescribeVtlDevicesOutput {}
-
-class DescribeWorkingStorageOutput {}
-
-class DetachVolumeOutput {}
-
-class DeviceiScsiAttributes {}
-
-class DisableGatewayOutput {}
-
-class Disk {}
-
-class FileShareInfo {}
-
-class GatewayInfo {}
-
-class JoinDomainOutput {}
-
-class ListFileSharesOutput {}
-
-class ListGatewaysOutput {}
-
-class ListLocalDisksOutput {}
-
-class ListTagsForResourceOutput {}
-
-class ListTapesOutput {}
-
-class ListVolumeInitiatorsOutput {}
-
-class ListVolumeRecoveryPointsOutput {}
-
-class ListVolumesOutput {}
-
-class NfsFileShareDefaults {}
-
-class NfsFileShareInfo {}
-
-class NetworkInterface {}
-
-class NotifyWhenUploadedOutput {}
-
-class RefreshCacheOutput {}
-
-class RemoveTagsFromResourceOutput {}
-
-class ResetCacheOutput {}
-
-class RetrieveTapeArchiveOutput {}
-
-class RetrieveTapeRecoveryPointOutput {}
-
-class SmbFileShareInfo {}
-
-class SetLocalConsolePasswordOutput {}
-
-class SetSmbGuestPasswordOutput {}
-
-class ShutdownGatewayOutput {}
-
-class StartGatewayOutput {}
-
-class StorediScsiVolume {}
-
-class Tag {}
-
-class Tape {}
-
-class TapeArchive {}
-
-class TapeInfo {}
-
-class TapeRecoveryPointInfo {}
-
-class UpdateBandwidthRateLimitOutput {}
-
-class UpdateChapCredentialsOutput {}
-
-class UpdateGatewayInformationOutput {}
-
-class UpdateGatewaySoftwareNowOutput {}
-
-class UpdateMaintenanceStartTimeOutput {}
-
-class UpdateNfsFileShareOutput {}
-
-class UpdateSmbFileShareOutput {}
-
-class UpdateSmbSecurityStrategyOutput {}
-
-class UpdateSnapshotScheduleOutput {}
-
-class UpdateVtlDeviceTypeOutput {}
-
-class VtlDevice {}
-
-class VolumeInfo {}
-
-class VolumeRecoveryPointInfo {}
-
-class VolumeiScsiAttributes {}
+class ActivateGatewayOutput {
+  final String gatewayArn;
+
+  ActivateGatewayOutput({
+    this.gatewayArn,
+  });
+  static ActivateGatewayOutput fromJson(Map<String, dynamic> json) =>
+      ActivateGatewayOutput();
+}
+
+class AddCacheOutput {
+  final String gatewayArn;
+
+  AddCacheOutput({
+    this.gatewayArn,
+  });
+  static AddCacheOutput fromJson(Map<String, dynamic> json) => AddCacheOutput();
+}
+
+class AddTagsToResourceOutput {
+  /// The Amazon Resource Name (ARN) of the resource you want to add tags to.
+  final String resourceArn;
+
+  AddTagsToResourceOutput({
+    this.resourceArn,
+  });
+  static AddTagsToResourceOutput fromJson(Map<String, dynamic> json) =>
+      AddTagsToResourceOutput();
+}
+
+class AddUploadBufferOutput {
+  final String gatewayArn;
+
+  AddUploadBufferOutput({
+    this.gatewayArn,
+  });
+  static AddUploadBufferOutput fromJson(Map<String, dynamic> json) =>
+      AddUploadBufferOutput();
+}
+
+class AddWorkingStorageOutput {
+  final String gatewayArn;
+
+  AddWorkingStorageOutput({
+    this.gatewayArn,
+  });
+  static AddWorkingStorageOutput fromJson(Map<String, dynamic> json) =>
+      AddWorkingStorageOutput();
+}
+
+class AssignTapePoolOutput {
+  /// The unique Amazon Resource Names (ARN) of the virtual tape that was added
+  /// to the tape pool.
+  final String tapeArn;
+
+  AssignTapePoolOutput({
+    this.tapeArn,
+  });
+  static AssignTapePoolOutput fromJson(Map<String, dynamic> json) =>
+      AssignTapePoolOutput();
+}
+
+class AttachVolumeOutput {
+  /// The Amazon Resource Name (ARN) of the volume that was attached to the
+  /// gateway.
+  final String volumeArn;
+
+  /// The Amazon Resource Name (ARN) of the volume target, which includes the
+  /// iSCSI name for the initiator that was used to connect to the target.
+  final String targetArn;
+
+  AttachVolumeOutput({
+    this.volumeArn,
+    this.targetArn,
+  });
+  static AttachVolumeOutput fromJson(Map<String, dynamic> json) =>
+      AttachVolumeOutput();
+}
+
+class CachediScsiVolume {
+  /// The Amazon Resource Name (ARN) of the storage volume.
+  final String volumeArn;
+
+  /// The unique identifier of the volume, e.g. vol-AE4B946D.
+  final String volumeId;
+
+  /// One of the VolumeType enumeration values that describes the type of the
+  /// volume.
+  final String volumeType;
+
+  /// One of the VolumeStatus values that indicates the state of the storage
+  /// volume.
+  final String volumeStatus;
+
+  /// A value that indicates whether a storage volume is attached to or detached
+  /// from a gateway. For more information, see [Moving Your Volumes to a
+  /// Different
+  /// Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume).
+  final String volumeAttachmentStatus;
+
+  /// The size, in bytes, of the volume capacity.
+  final BigInt volumeSizeInBytes;
+
+  /// Represents the percentage complete if the volume is restoring or
+  /// bootstrapping that represents the percent of data transferred. This field
+  /// does not appear in the response if the cached volume is not restoring or
+  /// bootstrapping.
+  final double volumeProgress;
+
+  /// If the cached volume was created from a snapshot, this field contains the
+  /// snapshot ID used, e.g. snap-78e22663. Otherwise, this field is not
+  /// included.
+  final String sourceSnapshotId;
+
+  /// An VolumeiSCSIAttributes object that represents a collection of iSCSI
+  /// attributes for one stored volume.
+  final VolumeiScsiAttributes volumeiScsiAttributes;
+
+  /// The date the volume was created. Volumes created prior to March 28, 2017
+  /// don’t have this time stamp.
+  final DateTime createdDate;
+
+  /// The size of the data stored on the volume in bytes. This value is
+  /// calculated based on the number of blocks that are touched, instead of the
+  /// actual amount of data written. This value can be useful for sequential
+  /// write patterns but less accurate for random write patterns.
+  /// `VolumeUsedInBytes` is different from the compressed size of the volume,
+  /// which is the value that is used to calculate your bill.
+  ///
+  ///
+  ///
+  /// This value is not available for volumes created prior to May 13, 2015,
+  /// until you store data on the volume.
+  final BigInt volumeUsedInBytes;
+
+  final String kmsKey;
+
+  /// The name of the iSCSI target used by an initiator to connect to a volume
+  /// and used as a suffix for the target ARN. For example, specifying
+  /// `TargetName` as _myvolume_ results in the target ARN of
+  /// `arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume`.
+  /// The target name must be unique across all volumes on a gateway.
+  ///
+  /// If you don't specify a value, Storage Gateway uses the value that was
+  /// previously used for this volume as the new target name.
+  final String targetName;
+
+  CachediScsiVolume({
+    this.volumeArn,
+    this.volumeId,
+    this.volumeType,
+    this.volumeStatus,
+    this.volumeAttachmentStatus,
+    this.volumeSizeInBytes,
+    this.volumeProgress,
+    this.sourceSnapshotId,
+    this.volumeiScsiAttributes,
+    this.createdDate,
+    this.volumeUsedInBytes,
+    this.kmsKey,
+    this.targetName,
+  });
+  static CachediScsiVolume fromJson(Map<String, dynamic> json) =>
+      CachediScsiVolume();
+}
+
+class CancelArchivalOutput {
+  /// The Amazon Resource Name (ARN) of the virtual tape for which archiving was
+  /// canceled.
+  final String tapeArn;
+
+  CancelArchivalOutput({
+    this.tapeArn,
+  });
+  static CancelArchivalOutput fromJson(Map<String, dynamic> json) =>
+      CancelArchivalOutput();
+}
+
+class CancelRetrievalOutput {
+  /// The Amazon Resource Name (ARN) of the virtual tape for which retrieval was
+  /// canceled.
+  final String tapeArn;
+
+  CancelRetrievalOutput({
+    this.tapeArn,
+  });
+  static CancelRetrievalOutput fromJson(Map<String, dynamic> json) =>
+      CancelRetrievalOutput();
+}
+
+class ChapInfo {
+  /// The Amazon Resource Name (ARN) of the volume.
+  ///
+  ///  Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+  /// hyphens (-).
+  final String targetArn;
+
+  /// The secret key that the initiator (for example, the Windows client) must
+  /// provide to participate in mutual CHAP with the target.
+  final String secretToAuthenticateInitiator;
+
+  /// The iSCSI initiator that connects to the target.
+  final String initiatorName;
+
+  /// The secret key that the target must provide to participate in mutual CHAP
+  /// with the initiator (e.g. Windows client).
+  final String secretToAuthenticateTarget;
+
+  ChapInfo({
+    this.targetArn,
+    this.secretToAuthenticateInitiator,
+    this.initiatorName,
+    this.secretToAuthenticateTarget,
+  });
+  static ChapInfo fromJson(Map<String, dynamic> json) => ChapInfo();
+}
+
+class CreateCachediScsiVolumeOutput {
+  /// The Amazon Resource Name (ARN) of the configured volume.
+  final String volumeArn;
+
+  /// The Amazon Resource Name (ARN) of the volume target, which includes the
+  /// iSCSI name that initiators can use to connect to the target.
+  final String targetArn;
+
+  CreateCachediScsiVolumeOutput({
+    this.volumeArn,
+    this.targetArn,
+  });
+  static CreateCachediScsiVolumeOutput fromJson(Map<String, dynamic> json) =>
+      CreateCachediScsiVolumeOutput();
+}
+
+class CreateNfsFileShareOutput {
+  /// The Amazon Resource Name (ARN) of the newly created file share.
+  final String fileShareArn;
+
+  CreateNfsFileShareOutput({
+    this.fileShareArn,
+  });
+  static CreateNfsFileShareOutput fromJson(Map<String, dynamic> json) =>
+      CreateNfsFileShareOutput();
+}
+
+class CreateSmbFileShareOutput {
+  /// The Amazon Resource Name (ARN) of the newly created file share.
+  final String fileShareArn;
+
+  CreateSmbFileShareOutput({
+    this.fileShareArn,
+  });
+  static CreateSmbFileShareOutput fromJson(Map<String, dynamic> json) =>
+      CreateSmbFileShareOutput();
+}
+
+class CreateSnapshotFromVolumeRecoveryPointOutput {
+  /// The ID of the snapshot.
+  final String snapshotId;
+
+  /// The Amazon Resource Name (ARN) of the iSCSI volume target. Use the
+  /// DescribeStorediSCSIVolumes operation to return to retrieve the TargetARN
+  /// for specified VolumeARN.
+  final String volumeArn;
+
+  /// The time the volume was created from the recovery point.
+  final String volumeRecoveryPointTime;
+
+  CreateSnapshotFromVolumeRecoveryPointOutput({
+    this.snapshotId,
+    this.volumeArn,
+    this.volumeRecoveryPointTime,
+  });
+  static CreateSnapshotFromVolumeRecoveryPointOutput fromJson(
+          Map<String, dynamic> json) =>
+      CreateSnapshotFromVolumeRecoveryPointOutput();
+}
+
+class CreateSnapshotOutput {
+  /// The Amazon Resource Name (ARN) of the volume of which the snapshot was
+  /// taken.
+  final String volumeArn;
+
+  /// The snapshot ID that is used to refer to the snapshot in future operations
+  /// such as describing snapshots (Amazon Elastic Compute Cloud API
+  /// `DescribeSnapshots`) or creating a volume from a snapshot
+  /// (CreateStorediSCSIVolume).
+  final String snapshotId;
+
+  CreateSnapshotOutput({
+    this.volumeArn,
+    this.snapshotId,
+  });
+  static CreateSnapshotOutput fromJson(Map<String, dynamic> json) =>
+      CreateSnapshotOutput();
+}
+
+class CreateStorediScsiVolumeOutput {
+  /// The Amazon Resource Name (ARN) of the configured volume.
+  final String volumeArn;
+
+  /// The size of the volume in bytes.
+  final BigInt volumeSizeInBytes;
+
+  /// The Amazon Resource Name (ARN) of the volume target, which includes the
+  /// iSCSI name that initiators can use to connect to the target.
+  final String targetArn;
+
+  CreateStorediScsiVolumeOutput({
+    this.volumeArn,
+    this.volumeSizeInBytes,
+    this.targetArn,
+  });
+  static CreateStorediScsiVolumeOutput fromJson(Map<String, dynamic> json) =>
+      CreateStorediScsiVolumeOutput();
+}
+
+class CreateTapeWithBarcodeOutput {
+  /// A unique Amazon Resource Name (ARN) that represents the virtual tape that
+  /// was created.
+  final String tapeArn;
+
+  CreateTapeWithBarcodeOutput({
+    this.tapeArn,
+  });
+  static CreateTapeWithBarcodeOutput fromJson(Map<String, dynamic> json) =>
+      CreateTapeWithBarcodeOutput();
+}
+
+class CreateTapesOutput {
+  /// A list of unique Amazon Resource Names (ARNs) that represents the virtual
+  /// tapes that were created.
+  final List<String> tapeARNs;
+
+  CreateTapesOutput({
+    this.tapeARNs,
+  });
+  static CreateTapesOutput fromJson(Map<String, dynamic> json) =>
+      CreateTapesOutput();
+}
+
+class DeleteBandwidthRateLimitOutput {
+  final String gatewayArn;
+
+  DeleteBandwidthRateLimitOutput({
+    this.gatewayArn,
+  });
+  static DeleteBandwidthRateLimitOutput fromJson(Map<String, dynamic> json) =>
+      DeleteBandwidthRateLimitOutput();
+}
+
+class DeleteChapCredentialsOutput {
+  /// The Amazon Resource Name (ARN) of the target.
+  final String targetArn;
+
+  /// The iSCSI initiator that connects to the target.
+  final String initiatorName;
+
+  DeleteChapCredentialsOutput({
+    this.targetArn,
+    this.initiatorName,
+  });
+  static DeleteChapCredentialsOutput fromJson(Map<String, dynamic> json) =>
+      DeleteChapCredentialsOutput();
+}
+
+class DeleteFileShareOutput {
+  /// The Amazon Resource Name (ARN) of the deleted file share.
+  final String fileShareArn;
+
+  DeleteFileShareOutput({
+    this.fileShareArn,
+  });
+  static DeleteFileShareOutput fromJson(Map<String, dynamic> json) =>
+      DeleteFileShareOutput();
+}
+
+class DeleteGatewayOutput {
+  final String gatewayArn;
+
+  DeleteGatewayOutput({
+    this.gatewayArn,
+  });
+  static DeleteGatewayOutput fromJson(Map<String, dynamic> json) =>
+      DeleteGatewayOutput();
+}
+
+class DeleteSnapshotScheduleOutput {
+  /// The volume which snapshot schedule was deleted.
+  final String volumeArn;
+
+  DeleteSnapshotScheduleOutput({
+    this.volumeArn,
+  });
+  static DeleteSnapshotScheduleOutput fromJson(Map<String, dynamic> json) =>
+      DeleteSnapshotScheduleOutput();
+}
+
+class DeleteTapeArchiveOutput {
+  /// The Amazon Resource Name (ARN) of the virtual tape that was deleted from
+  /// the virtual tape shelf (VTS).
+  final String tapeArn;
+
+  DeleteTapeArchiveOutput({
+    this.tapeArn,
+  });
+  static DeleteTapeArchiveOutput fromJson(Map<String, dynamic> json) =>
+      DeleteTapeArchiveOutput();
+}
+
+class DeleteTapeOutput {
+  /// The Amazon Resource Name (ARN) of the deleted virtual tape.
+  final String tapeArn;
+
+  DeleteTapeOutput({
+    this.tapeArn,
+  });
+  static DeleteTapeOutput fromJson(Map<String, dynamic> json) =>
+      DeleteTapeOutput();
+}
+
+class DeleteVolumeOutput {
+  /// The Amazon Resource Name (ARN) of the storage volume that was deleted. It
+  /// is the same ARN you provided in the request.
+  final String volumeArn;
+
+  DeleteVolumeOutput({
+    this.volumeArn,
+  });
+  static DeleteVolumeOutput fromJson(Map<String, dynamic> json) =>
+      DeleteVolumeOutput();
+}
+
+class DescribeBandwidthRateLimitOutput {
+  final String gatewayArn;
+
+  /// The average upload bandwidth rate limit in bits per second. This field
+  /// does not appear in the response if the upload rate limit is not set.
+  final BigInt averageUploadRateLimitInBitsPerSec;
+
+  /// The average download bandwidth rate limit in bits per second. This field
+  /// does not appear in the response if the download rate limit is not set.
+  final BigInt averageDownloadRateLimitInBitsPerSec;
+
+  DescribeBandwidthRateLimitOutput({
+    this.gatewayArn,
+    this.averageUploadRateLimitInBitsPerSec,
+    this.averageDownloadRateLimitInBitsPerSec,
+  });
+  static DescribeBandwidthRateLimitOutput fromJson(Map<String, dynamic> json) =>
+      DescribeBandwidthRateLimitOutput();
+}
+
+class DescribeCacheOutput {
+  final String gatewayArn;
+
+  /// An array of strings that identify disks that are to be configured as
+  /// working storage. Each string have a minimum length of 1 and maximum length
+  /// of 300. You can get the disk IDs from the ListLocalDisks API.
+  final List<String> diskIds;
+
+  /// The amount of cache in bytes allocated to the a gateway.
+  final BigInt cacheAllocatedInBytes;
+
+  /// Percent use of the gateway's cache storage. This metric applies only to
+  /// the gateway-cached volume setup. The sample is taken at the end of the
+  /// reporting period.
+  final double cacheUsedPercentage;
+
+  /// The file share's contribution to the overall percentage of the gateway's
+  /// cache that has not been persisted to AWS. The sample is taken at the end
+  /// of the reporting period.
+  final double cacheDirtyPercentage;
+
+  /// Percent of application read operations from the file shares that are
+  /// served from cache. The sample is taken at the end of the reporting period.
+  final double cacheHitPercentage;
+
+  /// Percent of application read operations from the file shares that are not
+  /// served from cache. The sample is taken at the end of the reporting period.
+  final double cacheMissPercentage;
+
+  DescribeCacheOutput({
+    this.gatewayArn,
+    this.diskIds,
+    this.cacheAllocatedInBytes,
+    this.cacheUsedPercentage,
+    this.cacheDirtyPercentage,
+    this.cacheHitPercentage,
+    this.cacheMissPercentage,
+  });
+  static DescribeCacheOutput fromJson(Map<String, dynamic> json) =>
+      DescribeCacheOutput();
+}
+
+class DescribeCachediScsiVolumesOutput {
+  /// An array of objects where each object contains metadata about one cached
+  /// volume.
+  final List<CachediScsiVolume> cachediScsiVolumes;
+
+  DescribeCachediScsiVolumesOutput({
+    this.cachediScsiVolumes,
+  });
+  static DescribeCachediScsiVolumesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeCachediScsiVolumesOutput();
+}
+
+class DescribeChapCredentialsOutput {
+  /// An array of ChapInfo objects that represent CHAP credentials. Each object
+  /// in the array contains CHAP credential information for one target-initiator
+  /// pair. If no CHAP credentials are set, an empty array is returned. CHAP
+  /// credential information is provided in a JSON object with the following
+  /// fields:
+  ///
+  /// *    **InitiatorName**: The iSCSI initiator that connects to the target.
+  ///
+  /// *    **SecretToAuthenticateInitiator**: The secret key that the initiator
+  /// (for example, the Windows client) must provide to participate in mutual
+  /// CHAP with the target.
+  ///
+  /// *    **SecretToAuthenticateTarget**: The secret key that the target must
+  /// provide to participate in mutual CHAP with the initiator (e.g. Windows
+  /// client).
+  ///
+  /// *    **TargetARN**: The Amazon Resource Name (ARN) of the storage volume.
+  final List<ChapInfo> chapCredentials;
+
+  DescribeChapCredentialsOutput({
+    this.chapCredentials,
+  });
+  static DescribeChapCredentialsOutput fromJson(Map<String, dynamic> json) =>
+      DescribeChapCredentialsOutput();
+}
+
+class DescribeGatewayInformationOutput {
+  final String gatewayArn;
+
+  /// The unique identifier assigned to your gateway during activation. This ID
+  /// becomes part of the gateway Amazon Resource Name (ARN), which you use as
+  /// input for other operations.
+  final String gatewayId;
+
+  /// The name you configured for your gateway.
+  final String gatewayName;
+
+  /// A value that indicates the time zone configured for the gateway.
+  final String gatewayTimezone;
+
+  /// A value that indicates the operating state of the gateway.
+  final String gatewayState;
+
+  /// A NetworkInterface array that contains descriptions of the gateway network
+  /// interfaces.
+  final List<NetworkInterface> gatewayNetworkInterfaces;
+
+  /// The type of the gateway.
+  final String gatewayType;
+
+  /// The date on which an update to the gateway is available. This date is in
+  /// the time zone of the gateway. If the gateway is not available for an
+  /// update this field is not returned in the response.
+  final String nextUpdateAvailabilityDate;
+
+  /// The date on which the last software update was applied to the gateway. If
+  /// the gateway has never been updated, this field does not return a value in
+  /// the response.
+  final String lastSoftwareUpdate;
+
+  /// The ID of the Amazon EC2 instance that was used to launch the gateway.
+  final String ec2InstanceId;
+
+  /// The AWS Region where the Amazon EC2 instance is located.
+  final String ec2InstanceRegion;
+
+  /// A list of up to 50 tags assigned to the gateway, sorted alphabetically by
+  /// key name. Each tag is a key-value pair. For a gateway with more than 10
+  /// tags assigned, you can view all tags using the `ListTagsForResource` API
+  /// operation.
+  final List<Tag> tags;
+
+  /// The configuration settings for the virtual private cloud (VPC) endpoint
+  /// for your gateway.
+  final String vpcEndpoint;
+
+  /// The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that was
+  /// used to monitor and log events in the gateway.
+  final String cloudWatchLogGroupArn;
+
+  DescribeGatewayInformationOutput({
+    this.gatewayArn,
+    this.gatewayId,
+    this.gatewayName,
+    this.gatewayTimezone,
+    this.gatewayState,
+    this.gatewayNetworkInterfaces,
+    this.gatewayType,
+    this.nextUpdateAvailabilityDate,
+    this.lastSoftwareUpdate,
+    this.ec2InstanceId,
+    this.ec2InstanceRegion,
+    this.tags,
+    this.vpcEndpoint,
+    this.cloudWatchLogGroupArn,
+  });
+  static DescribeGatewayInformationOutput fromJson(Map<String, dynamic> json) =>
+      DescribeGatewayInformationOutput();
+}
+
+class DescribeMaintenanceStartTimeOutput {
+  final String gatewayArn;
+
+  /// The hour component of the maintenance start time represented as _hh_,
+  /// where _hh_ is the hour (0 to 23). The hour of the day is in the time zone
+  /// of the gateway.
+  final int hourOfDay;
+
+  /// The minute component of the maintenance start time represented as _mm_,
+  /// where _mm_ is the minute (0 to 59). The minute of the hour is in the time
+  /// zone of the gateway.
+  final int minuteOfHour;
+
+  /// An ordinal number between 0 and 6 that represents the day of the week,
+  /// where 0 represents Sunday and 6 represents Saturday. The day of week is in
+  /// the time zone of the gateway.
+  final int dayOfWeek;
+
+  /// The day of the month component of the maintenance start time represented
+  /// as an ordinal number from 1 to 28, where 1 represents the first day of the
+  /// month and 28 represents the last day of the month.
+  ///
+  ///
+  ///
+  /// This value is only available for tape and volume gateways.
+  final int dayOfMonth;
+
+  /// A value that indicates the time zone that is set for the gateway. The
+  /// start time and day of week specified should be in the time zone of the
+  /// gateway.
+  final String timezone;
+
+  DescribeMaintenanceStartTimeOutput({
+    this.gatewayArn,
+    this.hourOfDay,
+    this.minuteOfHour,
+    this.dayOfWeek,
+    this.dayOfMonth,
+    this.timezone,
+  });
+  static DescribeMaintenanceStartTimeOutput fromJson(
+          Map<String, dynamic> json) =>
+      DescribeMaintenanceStartTimeOutput();
+}
+
+class DescribeNfsFileSharesOutput {
+  /// An array containing a description for each requested file share.
+  final List<NfsFileShareInfo> nfsFileShareInfoList;
+
+  DescribeNfsFileSharesOutput({
+    this.nfsFileShareInfoList,
+  });
+  static DescribeNfsFileSharesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeNfsFileSharesOutput();
+}
+
+class DescribeSmbFileSharesOutput {
+  /// An array containing a description for each requested file share.
+  final List<SmbFileShareInfo> smbFileShareInfoList;
+
+  DescribeSmbFileSharesOutput({
+    this.smbFileShareInfoList,
+  });
+  static DescribeSmbFileSharesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeSmbFileSharesOutput();
+}
+
+class DescribeSmbSettingsOutput {
+  final String gatewayArn;
+
+  /// The name of the domain that the gateway is joined to.
+  final String domainName;
+
+  /// This value is true if a password for the guest user “smbguest” is set, and
+  /// otherwise false.
+  final bool smbGuestPasswordSet;
+
+  /// The type of security strategy that was specified for file gateway.
+  ///
+  /// ClientSpecified: if you use this option, requests are established based on
+  /// what is negotiated by the client. This option is recommended when you want
+  /// to maximize compatibility across different clients in your environment.
+  ///
+  /// MandatorySigning: if you use this option, file gateway only allows
+  /// connections from SMBv2 or SMBv3 clients that have signing enabled. This
+  /// option works with SMB clients on Microsoft Windows Vista, Windows Server
+  /// 2008 or newer.
+  ///
+  /// MandatoryEncryption: if you use this option, file gateway only allows
+  /// connections from SMBv3 clients that have encryption enabled. This option
+  /// is highly recommended for environments that handle sensitive data. This
+  /// option works with SMB clients on Microsoft Windows 8, Windows Server 2012
+  /// or newer.
+  final String smbSecurityStrategy;
+
+  DescribeSmbSettingsOutput({
+    this.gatewayArn,
+    this.domainName,
+    this.smbGuestPasswordSet,
+    this.smbSecurityStrategy,
+  });
+  static DescribeSmbSettingsOutput fromJson(Map<String, dynamic> json) =>
+      DescribeSmbSettingsOutput();
+}
+
+class DescribeSnapshotScheduleOutput {
+  /// The Amazon Resource Name (ARN) of the volume that was specified in the
+  /// request.
+  final String volumeArn;
+
+  /// The hour of the day at which the snapshot schedule begins represented as
+  /// _hh_, where _hh_ is the hour (0 to 23). The hour of the day is in the time
+  /// zone of the gateway.
+  final int startAt;
+
+  /// The number of hours between snapshots.
+  final int recurrenceInHours;
+
+  /// The snapshot description.
+  final String description;
+
+  /// A value that indicates the time zone of the gateway.
+  final String timezone;
+
+  /// A list of up to 50 tags assigned to the snapshot schedule, sorted
+  /// alphabetically by key name. Each tag is a key-value pair. For a gateway
+  /// with more than 10 tags assigned, you can view all tags using the
+  /// `ListTagsForResource` API operation.
+  final List<Tag> tags;
+
+  DescribeSnapshotScheduleOutput({
+    this.volumeArn,
+    this.startAt,
+    this.recurrenceInHours,
+    this.description,
+    this.timezone,
+    this.tags,
+  });
+  static DescribeSnapshotScheduleOutput fromJson(Map<String, dynamic> json) =>
+      DescribeSnapshotScheduleOutput();
+}
+
+class DescribeStorediScsiVolumesOutput {
+  /// Describes a single unit of output from DescribeStorediSCSIVolumes. The
+  /// following fields are returned:
+  ///
+  /// *    **ChapEnabled**: Indicates whether mutual CHAP is enabled for the
+  /// iSCSI target.
+  ///
+  /// *    **LunNumber**: The logical disk number.
+  ///
+  /// *    **NetworkInterfaceId**: The network interface ID of the stored volume
+  /// that initiator use to map the stored volume as an iSCSI target.
+  ///
+  /// *    **NetworkInterfacePort**: The port used to communicate with iSCSI
+  /// targets.
+  ///
+  /// *    **PreservedExistingData**: Indicates if when the stored volume was
+  /// created, existing data on the underlying local disk was preserved.
+  ///
+  /// *    **SourceSnapshotId**: If the stored volume was created from a
+  /// snapshot, this field contains the snapshot ID used, e.g. snap-1122aabb.
+  /// Otherwise, this field is not included.
+  ///
+  /// *    **StorediSCSIVolumes**: An array of StorediSCSIVolume objects where
+  /// each object contains metadata about one stored volume.
+  ///
+  /// *    **TargetARN**: The Amazon Resource Name (ARN) of the volume target.
+  ///
+  /// *    **VolumeARN**: The Amazon Resource Name (ARN) of the stored volume.
+  ///
+  /// *    **VolumeDiskId**: The disk ID of the local disk that was specified in
+  /// the CreateStorediSCSIVolume operation.
+  ///
+  /// *    **VolumeId**: The unique identifier of the storage volume, e.g.
+  /// vol-1122AABB.
+  ///
+  /// *    **VolumeiSCSIAttributes**: An VolumeiSCSIAttributes object that
+  /// represents a collection of iSCSI attributes for one stored volume.
+  ///
+  /// *    **VolumeProgress**: Represents the percentage complete if the volume
+  /// is restoring or bootstrapping that represents the percent of data
+  /// transferred. This field does not appear in the response if the stored
+  /// volume is not restoring or bootstrapping.
+  ///
+  /// *    **VolumeSizeInBytes**: The size of the volume in bytes.
+  ///
+  /// *    **VolumeStatus**: One of the `VolumeStatus` values that indicates the
+  /// state of the volume.
+  ///
+  /// *    **VolumeType**: One of the enumeration values describing the type of
+  /// the volume. Currently, on STORED volumes are supported.
+  final List<StorediScsiVolume> storediScsiVolumes;
+
+  DescribeStorediScsiVolumesOutput({
+    this.storediScsiVolumes,
+  });
+  static DescribeStorediScsiVolumesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeStorediScsiVolumesOutput();
+}
+
+class DescribeTapeArchivesOutput {
+  /// An array of virtual tape objects in the virtual tape shelf (VTS). The
+  /// description includes of the Amazon Resource Name (ARN) of the virtual
+  /// tapes. The information returned includes the Amazon Resource Names (ARNs)
+  /// of the tapes, size of the tapes, status of the tapes, progress of the
+  /// description and tape barcode.
+  final List<TapeArchive> tapeArchives;
+
+  /// An opaque string that indicates the position at which the virtual tapes
+  /// that were fetched for description ended. Use this marker in your next
+  /// request to fetch the next set of virtual tapes in the virtual tape shelf
+  /// (VTS). If there are no more virtual tapes to describe, this field does not
+  /// appear in the response.
+  final String marker;
+
+  DescribeTapeArchivesOutput({
+    this.tapeArchives,
+    this.marker,
+  });
+  static DescribeTapeArchivesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeTapeArchivesOutput();
+}
+
+class DescribeTapeRecoveryPointsOutput {
+  final String gatewayArn;
+
+  /// An array of TapeRecoveryPointInfos that are available for the specified
+  /// gateway.
+  final List<TapeRecoveryPointInfo> tapeRecoveryPointInfos;
+
+  /// An opaque string that indicates the position at which the virtual tape
+  /// recovery points that were listed for description ended.
+  ///
+  /// Use this marker in your next request to list the next set of virtual tape
+  /// recovery points in the list. If there are no more recovery points to
+  /// describe, this field does not appear in the response.
+  final String marker;
+
+  DescribeTapeRecoveryPointsOutput({
+    this.gatewayArn,
+    this.tapeRecoveryPointInfos,
+    this.marker,
+  });
+  static DescribeTapeRecoveryPointsOutput fromJson(Map<String, dynamic> json) =>
+      DescribeTapeRecoveryPointsOutput();
+}
+
+class DescribeTapesOutput {
+  /// An array of virtual tape descriptions.
+  final List<Tape> tapes;
+
+  /// An opaque string which can be used as part of a subsequent DescribeTapes
+  /// call to retrieve the next page of results.
+  ///
+  /// If a response does not contain a marker, then there are no more results to
+  /// be retrieved.
+  final String marker;
+
+  DescribeTapesOutput({
+    this.tapes,
+    this.marker,
+  });
+  static DescribeTapesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeTapesOutput();
+}
+
+class DescribeUploadBufferOutput {
+  final String gatewayArn;
+
+  /// An array of the gateway's local disk IDs that are configured as working
+  /// storage. Each local disk ID is specified as a string (minimum length of 1
+  /// and maximum length of 300). If no local disks are configured as working
+  /// storage, then the DiskIds array is empty.
+  final List<String> diskIds;
+
+  /// The total number of bytes being used in the gateway's upload buffer.
+  final BigInt uploadBufferUsedInBytes;
+
+  /// The total number of bytes allocated in the gateway's as upload buffer.
+  final BigInt uploadBufferAllocatedInBytes;
+
+  DescribeUploadBufferOutput({
+    this.gatewayArn,
+    this.diskIds,
+    this.uploadBufferUsedInBytes,
+    this.uploadBufferAllocatedInBytes,
+  });
+  static DescribeUploadBufferOutput fromJson(Map<String, dynamic> json) =>
+      DescribeUploadBufferOutput();
+}
+
+class DescribeVtlDevicesOutput {
+  final String gatewayArn;
+
+  /// An array of VTL device objects composed of the Amazon Resource Name(ARN)
+  /// of the VTL devices.
+  final List<VtlDevice> vtlDevices;
+
+  /// An opaque string that indicates the position at which the VTL devices that
+  /// were fetched for description ended. Use the marker in your next request to
+  /// fetch the next set of VTL devices in the list. If there are no more VTL
+  /// devices to describe, this field does not appear in the response.
+  final String marker;
+
+  DescribeVtlDevicesOutput({
+    this.gatewayArn,
+    this.vtlDevices,
+    this.marker,
+  });
+  static DescribeVtlDevicesOutput fromJson(Map<String, dynamic> json) =>
+      DescribeVtlDevicesOutput();
+}
+
+class DescribeWorkingStorageOutput {
+  final String gatewayArn;
+
+  /// An array of the gateway's local disk IDs that are configured as working
+  /// storage. Each local disk ID is specified as a string (minimum length of 1
+  /// and maximum length of 300). If no local disks are configured as working
+  /// storage, then the DiskIds array is empty.
+  final List<String> diskIds;
+
+  /// The total working storage in bytes in use by the gateway. If no working
+  /// storage is configured for the gateway, this field returns 0.
+  final BigInt workingStorageUsedInBytes;
+
+  /// The total working storage in bytes allocated for the gateway. If no
+  /// working storage is configured for the gateway, this field returns 0.
+  final BigInt workingStorageAllocatedInBytes;
+
+  DescribeWorkingStorageOutput({
+    this.gatewayArn,
+    this.diskIds,
+    this.workingStorageUsedInBytes,
+    this.workingStorageAllocatedInBytes,
+  });
+  static DescribeWorkingStorageOutput fromJson(Map<String, dynamic> json) =>
+      DescribeWorkingStorageOutput();
+}
+
+class DetachVolumeOutput {
+  /// The Amazon Resource Name (ARN) of the volume that was detached.
+  final String volumeArn;
+
+  DetachVolumeOutput({
+    this.volumeArn,
+  });
+  static DetachVolumeOutput fromJson(Map<String, dynamic> json) =>
+      DetachVolumeOutput();
+}
+
+class DeviceiScsiAttributes {
+  /// Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
+  /// qualified name(iqn) of a tape drive or media changer target.
+  final String targetArn;
+
+  /// The network interface identifier of the VTL device.
+  final String networkInterfaceId;
+
+  /// The port used to communicate with iSCSI VTL device targets.
+  final int networkInterfacePort;
+
+  /// Indicates whether mutual CHAP is enabled for the iSCSI target.
+  final bool chapEnabled;
+
+  DeviceiScsiAttributes({
+    this.targetArn,
+    this.networkInterfaceId,
+    this.networkInterfacePort,
+    this.chapEnabled,
+  });
+  static DeviceiScsiAttributes fromJson(Map<String, dynamic> json) =>
+      DeviceiScsiAttributes();
+}
+
+class DisableGatewayOutput {
+  /// The unique Amazon Resource Name (ARN) of the disabled gateway.
+  final String gatewayArn;
+
+  DisableGatewayOutput({
+    this.gatewayArn,
+  });
+  static DisableGatewayOutput fromJson(Map<String, dynamic> json) =>
+      DisableGatewayOutput();
+}
+
+class Disk {
+  /// The unique device ID or other distinguishing data that identifies a local
+  /// disk.
+  final String diskId;
+
+  /// The path of a local disk in the gateway virtual machine (VM).
+  final String diskPath;
+
+  /// The device node of a local disk as assigned by the virtualization
+  /// environment.
+  final String diskNode;
+
+  /// A value that represents the status of a local disk.
+  final String diskStatus;
+
+  /// The local disk size in bytes.
+  final BigInt diskSizeInBytes;
+
+  final String diskAllocationType;
+
+  /// The iSCSI qualified name (IQN) that is defined for a disk. This field is
+  /// not included in the response if the local disk is not defined as an iSCSI
+  /// target. The format of this field is
+  /// _targetIqn::LUNNumber::region-volumeId_.
+  final String diskAllocationResource;
+
+  final List<String> diskAttributeList;
+
+  Disk({
+    this.diskId,
+    this.diskPath,
+    this.diskNode,
+    this.diskStatus,
+    this.diskSizeInBytes,
+    this.diskAllocationType,
+    this.diskAllocationResource,
+    this.diskAttributeList,
+  });
+  static Disk fromJson(Map<String, dynamic> json) => Disk();
+}
+
+class FileShareInfo {
+  final String fileShareType;
+
+  final String fileShareArn;
+
+  final String fileShareId;
+
+  final String fileShareStatus;
+
+  final String gatewayArn;
+
+  FileShareInfo({
+    this.fileShareType,
+    this.fileShareArn,
+    this.fileShareId,
+    this.fileShareStatus,
+    this.gatewayArn,
+  });
+  static FileShareInfo fromJson(Map<String, dynamic> json) => FileShareInfo();
+}
+
+class GatewayInfo {
+  /// The unique identifier assigned to your gateway during activation. This ID
+  /// becomes part of the gateway Amazon Resource Name (ARN), which you use as
+  /// input for other operations.
+  final String gatewayId;
+
+  /// The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+  /// operation to return a list of gateways for your account and AWS Region.
+  final String gatewayArn;
+
+  /// The type of the gateway.
+  final String gatewayType;
+
+  /// The state of the gateway.
+  ///
+  /// Valid Values: DISABLED or ACTIVE
+  final String gatewayOperationalState;
+
+  /// The name of the gateway.
+  final String gatewayName;
+
+  /// The ID of the Amazon EC2 instance that was used to launch the gateway.
+  final String ec2InstanceId;
+
+  /// The AWS Region where the Amazon EC2 instance is located.
+  final String ec2InstanceRegion;
+
+  GatewayInfo({
+    this.gatewayId,
+    this.gatewayArn,
+    this.gatewayType,
+    this.gatewayOperationalState,
+    this.gatewayName,
+    this.ec2InstanceId,
+    this.ec2InstanceRegion,
+  });
+  static GatewayInfo fromJson(Map<String, dynamic> json) => GatewayInfo();
+}
+
+class JoinDomainOutput {
+  /// The unique Amazon Resource Name (ARN) of the gateway that joined the
+  /// domain.
+  final String gatewayArn;
+
+  JoinDomainOutput({
+    this.gatewayArn,
+  });
+  static JoinDomainOutput fromJson(Map<String, dynamic> json) =>
+      JoinDomainOutput();
+}
+
+class ListFileSharesOutput {
+  /// If the request includes `Marker`, the response returns that value in this
+  /// field.
+  final String marker;
+
+  /// If a value is present, there are more file shares to return. In a
+  /// subsequent request, use `NextMarker` as the value for `Marker` to retrieve
+  /// the next set of file shares.
+  final String nextMarker;
+
+  /// An array of information about the file gateway's file shares.
+  final List<FileShareInfo> fileShareInfoList;
+
+  ListFileSharesOutput({
+    this.marker,
+    this.nextMarker,
+    this.fileShareInfoList,
+  });
+  static ListFileSharesOutput fromJson(Map<String, dynamic> json) =>
+      ListFileSharesOutput();
+}
+
+class ListGatewaysOutput {
+  /// An array of GatewayInfo objects.
+  final List<GatewayInfo> gateways;
+
+  /// Use the marker in your next request to fetch the next set of gateways in
+  /// the list. If there are no more gateways to list, this field does not
+  /// appear in the response.
+  final String marker;
+
+  ListGatewaysOutput({
+    this.gateways,
+    this.marker,
+  });
+  static ListGatewaysOutput fromJson(Map<String, dynamic> json) =>
+      ListGatewaysOutput();
+}
+
+class ListLocalDisksOutput {
+  final String gatewayArn;
+
+  /// A JSON object containing the following fields:
+  ///
+  /// *    ListLocalDisksOutput$Disks
+  final List<Disk> disks;
+
+  ListLocalDisksOutput({
+    this.gatewayArn,
+    this.disks,
+  });
+  static ListLocalDisksOutput fromJson(Map<String, dynamic> json) =>
+      ListLocalDisksOutput();
+}
+
+class ListTagsForResourceOutput {
+  /// he Amazon Resource Name (ARN) of the resource for which you want to list
+  /// tags.
+  final String resourceArn;
+
+  /// An opaque string that indicates the position at which to stop returning
+  /// the list of tags.
+  final String marker;
+
+  /// An array that contains the tags for the specified resource.
+  final List<Tag> tags;
+
+  ListTagsForResourceOutput({
+    this.resourceArn,
+    this.marker,
+    this.tags,
+  });
+  static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
+      ListTagsForResourceOutput();
+}
+
+class ListTapesOutput {
+  final List<TapeInfo> tapeInfos;
+
+  /// A string that indicates the position at which to begin returning the next
+  /// list of tapes. Use the marker in your next request to continue pagination
+  /// of tapes. If there are no more tapes to list, this element does not appear
+  /// in the response body.
+  final String marker;
+
+  ListTapesOutput({
+    this.tapeInfos,
+    this.marker,
+  });
+  static ListTapesOutput fromJson(Map<String, dynamic> json) =>
+      ListTapesOutput();
+}
+
+class ListVolumeInitiatorsOutput {
+  /// The host names and port numbers of all iSCSI initiators that are connected
+  /// to the gateway.
+  final List<String> initiators;
+
+  ListVolumeInitiatorsOutput({
+    this.initiators,
+  });
+  static ListVolumeInitiatorsOutput fromJson(Map<String, dynamic> json) =>
+      ListVolumeInitiatorsOutput();
+}
+
+class ListVolumeRecoveryPointsOutput {
+  final String gatewayArn;
+
+  /// An array of VolumeRecoveryPointInfo objects.
+  final List<VolumeRecoveryPointInfo> volumeRecoveryPointInfos;
+
+  ListVolumeRecoveryPointsOutput({
+    this.gatewayArn,
+    this.volumeRecoveryPointInfos,
+  });
+  static ListVolumeRecoveryPointsOutput fromJson(Map<String, dynamic> json) =>
+      ListVolumeRecoveryPointsOutput();
+}
+
+class ListVolumesOutput {
+  final String gatewayArn;
+
+  /// Use the marker in your next request to continue pagination of iSCSI
+  /// volumes. If there are no more volumes to list, this field does not appear
+  /// in the response body.
+  final String marker;
+
+  /// An array of VolumeInfo objects, where each object describes an iSCSI
+  /// volume. If no volumes are defined for the gateway, then `VolumeInfos` is
+  /// an empty array "\[\]".
+  final List<VolumeInfo> volumeInfos;
+
+  ListVolumesOutput({
+    this.gatewayArn,
+    this.marker,
+    this.volumeInfos,
+  });
+  static ListVolumesOutput fromJson(Map<String, dynamic> json) =>
+      ListVolumesOutput();
+}
+
+class NfsFileShareDefaults {
+  /// The Unix file mode in the form "nnnn". For example, "0666" represents the
+  /// default file mode inside the file share. The default value is 0666.
+  final String fileMode;
+
+  /// The Unix directory mode in the form "nnnn". For example, "0666" represents
+  /// the default access mode for all directories inside the file share. The
+  /// default value is 0777.
+  final String directoryMode;
+
+  /// The default group ID for the file share (unless the files have another
+  /// group ID specified). The default value is nfsnobody.
+  final BigInt groupId;
+
+  /// The default owner ID for files in the file share (unless the files have
+  /// another owner ID specified). The default value is nfsnobody.
+  final BigInt ownerId;
+
+  NfsFileShareDefaults({
+    this.fileMode,
+    this.directoryMode,
+    this.groupId,
+    this.ownerId,
+  });
+  static NfsFileShareDefaults fromJson(Map<String, dynamic> json) =>
+      NfsFileShareDefaults();
+}
+
+class NfsFileShareInfo {
+  final NfsFileShareDefaults nfsFileShareDefaults;
+
+  final String fileShareArn;
+
+  final String fileShareId;
+
+  final String fileShareStatus;
+
+  final String gatewayArn;
+
+  /// True to use Amazon S3 server side encryption with your own AWS KMS key, or
+  /// false to use a key managed by Amazon S3. Optional.
+  final bool kmsEncrypted;
+
+  final String kmsKey;
+
+  final String path;
+
+  final String role;
+
+  final String locationArn;
+
+  /// The default storage class for objects put into an Amazon S3 bucket by the
+  /// file gateway. Possible values are `S3_STANDARD`, `S3\_STANDARD\_IA`, or
+  /// `S3\_ONEZONE\_IA`. If this field is not populated, the default value
+  /// `S3_STANDARD` is used. Optional.
+  final String defaultStorageClass;
+
+  final String objectAcl;
+
+  final List<String> clientList;
+
+  final String squash;
+
+  /// A value that sets the write status of a file share. This value is true if
+  /// the write status is read-only, and otherwise false.
+  final bool readOnly;
+
+  /// A value that enables guessing of the MIME type for uploaded objects based
+  /// on file extensions. Set this value to true to enable MIME type guessing,
+  /// and otherwise to false. The default value is true.
+  final bool guessMimeTypeEnabled;
+
+  /// A value that sets who pays the cost of the request and the cost associated
+  /// with data download from the S3 bucket. If this value is set to true, the
+  /// requester pays the costs. Otherwise the S3 bucket owner pays. However, the
+  /// S3 bucket owner always pays the cost of storing data.
+  ///
+  ///   `RequesterPays` is a configuration for the S3 bucket that backs the file
+  /// share, so make sure that the configuration on the file share is the same
+  /// as the S3 bucket configuration.
+  final bool requesterPays;
+
+  /// A list of up to 50 tags assigned to the NFS file share, sorted
+  /// alphabetically by key name. Each tag is a key-value pair. For a gateway
+  /// with more than 10 tags assigned, you can view all tags using the
+  /// `ListTagsForResource` API operation.
+  final List<Tag> tags;
+
+  NfsFileShareInfo({
+    this.nfsFileShareDefaults,
+    this.fileShareArn,
+    this.fileShareId,
+    this.fileShareStatus,
+    this.gatewayArn,
+    this.kmsEncrypted,
+    this.kmsKey,
+    this.path,
+    this.role,
+    this.locationArn,
+    this.defaultStorageClass,
+    this.objectAcl,
+    this.clientList,
+    this.squash,
+    this.readOnly,
+    this.guessMimeTypeEnabled,
+    this.requesterPays,
+    this.tags,
+  });
+  static NfsFileShareInfo fromJson(Map<String, dynamic> json) =>
+      NfsFileShareInfo();
+}
+
+class NetworkInterface {
+  /// The Internet Protocol version 4 (IPv4) address of the interface.
+  final String ipv4Address;
+
+  /// The Media Access Control (MAC) address of the interface.
+  ///
+  ///
+  ///
+  /// This is currently unsupported and will not be returned in output.
+  final String macAddress;
+
+  /// The Internet Protocol version 6 (IPv6) address of the interface.
+  /// _Currently not supported_.
+  final String ipv6Address;
+
+  NetworkInterface({
+    this.ipv4Address,
+    this.macAddress,
+    this.ipv6Address,
+  });
+  static NetworkInterface fromJson(Map<String, dynamic> json) =>
+      NetworkInterface();
+}
+
+class NotifyWhenUploadedOutput {
+  final String fileShareArn;
+
+  final String notificationId;
+
+  NotifyWhenUploadedOutput({
+    this.fileShareArn,
+    this.notificationId,
+  });
+  static NotifyWhenUploadedOutput fromJson(Map<String, dynamic> json) =>
+      NotifyWhenUploadedOutput();
+}
+
+class RefreshCacheOutput {
+  final String fileShareArn;
+
+  final String notificationId;
+
+  RefreshCacheOutput({
+    this.fileShareArn,
+    this.notificationId,
+  });
+  static RefreshCacheOutput fromJson(Map<String, dynamic> json) =>
+      RefreshCacheOutput();
+}
+
+class RemoveTagsFromResourceOutput {
+  /// The Amazon Resource Name (ARN) of the resource that the tags were removed
+  /// from.
+  final String resourceArn;
+
+  RemoveTagsFromResourceOutput({
+    this.resourceArn,
+  });
+  static RemoveTagsFromResourceOutput fromJson(Map<String, dynamic> json) =>
+      RemoveTagsFromResourceOutput();
+}
+
+class ResetCacheOutput {
+  final String gatewayArn;
+
+  ResetCacheOutput({
+    this.gatewayArn,
+  });
+  static ResetCacheOutput fromJson(Map<String, dynamic> json) =>
+      ResetCacheOutput();
+}
+
+class RetrieveTapeArchiveOutput {
+  /// The Amazon Resource Name (ARN) of the retrieved virtual tape.
+  final String tapeArn;
+
+  RetrieveTapeArchiveOutput({
+    this.tapeArn,
+  });
+  static RetrieveTapeArchiveOutput fromJson(Map<String, dynamic> json) =>
+      RetrieveTapeArchiveOutput();
+}
+
+class RetrieveTapeRecoveryPointOutput {
+  /// The Amazon Resource Name (ARN) of the virtual tape for which the recovery
+  /// point was retrieved.
+  final String tapeArn;
+
+  RetrieveTapeRecoveryPointOutput({
+    this.tapeArn,
+  });
+  static RetrieveTapeRecoveryPointOutput fromJson(Map<String, dynamic> json) =>
+      RetrieveTapeRecoveryPointOutput();
+}
+
+class SmbFileShareInfo {
+  final String fileShareArn;
+
+  final String fileShareId;
+
+  final String fileShareStatus;
+
+  final String gatewayArn;
+
+  /// True to use Amazon S3 server-side encryption with your own AWS KMS key, or
+  /// false to use a key managed by Amazon S3. Optional.
+  final bool kmsEncrypted;
+
+  final String kmsKey;
+
+  /// The file share path used by the SMB client to identify the mount point.
+  final String path;
+
+  final String role;
+
+  final String locationArn;
+
+  /// The default storage class for objects put into an Amazon S3 bucket by the
+  /// file gateway. Possible values are `S3_STANDARD`, `S3\_STANDARD\_IA`, or
+  /// `S3\_ONEZONE\_IA`. If this field is not populated, the default value
+  /// `S3_STANDARD` is used. Optional.
+  final String defaultStorageClass;
+
+  final String objectAcl;
+
+  /// A value that sets the write status of a file share. This value is true if
+  /// the write status is read-only, and otherwise false.
+  final bool readOnly;
+
+  /// A value that enables guessing of the MIME type for uploaded objects based
+  /// on file extensions. Set this value to true to enable MIME type guessing,
+  /// and otherwise to false. The default value is true.
+  final bool guessMimeTypeEnabled;
+
+  /// A value that sets who pays the cost of the request and the cost associated
+  /// with data download from the S3 bucket. If this value is set to true, the
+  /// requester pays the costs. Otherwise the S3 bucket owner pays. However, the
+  /// S3 bucket owner always pays the cost of storing data.
+  ///
+  ///   `RequesterPays` is a configuration for the S3 bucket that backs the file
+  /// share, so make sure that the configuration on the file share is the same
+  /// as the S3 bucket configuration.
+  final bool requesterPays;
+
+  /// If this value is set to "true", indicates that ACL (access control list)
+  /// is enabled on the SMB file share. If it is set to "false", it indicates
+  /// that file and directory permissions are mapped to the POSIX permission.
+  ///
+  /// For more information, see
+  /// https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html
+  /// in the Storage Gateway User Guide.
+  final bool smbaclEnabled;
+
+  /// A list of users or groups in the Active Directory that have administrator
+  /// rights to the file share. A group must be prefixed with the @ character.
+  /// For example `@group1`. Can only be set if Authentication is set to
+  /// `ActiveDirectory`.
+  final List<String> adminUserList;
+
+  /// A list of users or groups in the Active Directory that are allowed to
+  /// access the file share. A group must be prefixed with the @ character. For
+  /// example `@group1`. Can only be set if Authentication is set to
+  /// `ActiveDirectory`.
+  final List<String> validUserList;
+
+  /// A list of users or groups in the Active Directory that are not allowed to
+  /// access the file share. A group must be prefixed with the @ character. For
+  /// example `@group1`. Can only be set if Authentication is set to
+  /// `ActiveDirectory`.
+  final List<String> invalidUserList;
+
+  final String authentication;
+
+  /// A list of up to 50 tags assigned to the SMB file share, sorted
+  /// alphabetically by key name. Each tag is a key-value pair. For a gateway
+  /// with more than 10 tags assigned, you can view all tags using the
+  /// `ListTagsForResource` API operation.
+  final List<Tag> tags;
+
+  SmbFileShareInfo({
+    this.fileShareArn,
+    this.fileShareId,
+    this.fileShareStatus,
+    this.gatewayArn,
+    this.kmsEncrypted,
+    this.kmsKey,
+    this.path,
+    this.role,
+    this.locationArn,
+    this.defaultStorageClass,
+    this.objectAcl,
+    this.readOnly,
+    this.guessMimeTypeEnabled,
+    this.requesterPays,
+    this.smbaclEnabled,
+    this.adminUserList,
+    this.validUserList,
+    this.invalidUserList,
+    this.authentication,
+    this.tags,
+  });
+  static SmbFileShareInfo fromJson(Map<String, dynamic> json) =>
+      SmbFileShareInfo();
+}
+
+class SetLocalConsolePasswordOutput {
+  final String gatewayArn;
+
+  SetLocalConsolePasswordOutput({
+    this.gatewayArn,
+  });
+  static SetLocalConsolePasswordOutput fromJson(Map<String, dynamic> json) =>
+      SetLocalConsolePasswordOutput();
+}
+
+class SetSmbGuestPasswordOutput {
+  final String gatewayArn;
+
+  SetSmbGuestPasswordOutput({
+    this.gatewayArn,
+  });
+  static SetSmbGuestPasswordOutput fromJson(Map<String, dynamic> json) =>
+      SetSmbGuestPasswordOutput();
+}
+
+class ShutdownGatewayOutput {
+  final String gatewayArn;
+
+  ShutdownGatewayOutput({
+    this.gatewayArn,
+  });
+  static ShutdownGatewayOutput fromJson(Map<String, dynamic> json) =>
+      ShutdownGatewayOutput();
+}
+
+class StartGatewayOutput {
+  final String gatewayArn;
+
+  StartGatewayOutput({
+    this.gatewayArn,
+  });
+  static StartGatewayOutput fromJson(Map<String, dynamic> json) =>
+      StartGatewayOutput();
+}
+
+class StorediScsiVolume {
+  /// The Amazon Resource Name (ARN) of the storage volume.
+  final String volumeArn;
+
+  /// The unique identifier of the volume, e.g. vol-AE4B946D.
+  final String volumeId;
+
+  /// One of the VolumeType enumeration values describing the type of the
+  /// volume.
+  final String volumeType;
+
+  /// One of the VolumeStatus values that indicates the state of the storage
+  /// volume.
+  final String volumeStatus;
+
+  /// A value that indicates whether a storage volume is attached to, detached
+  /// from, or is in the process of detaching from a gateway. For more
+  /// information, see [Moving Your Volumes to a Different
+  /// Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume).
+  final String volumeAttachmentStatus;
+
+  /// The size of the volume in bytes.
+  final BigInt volumeSizeInBytes;
+
+  /// Represents the percentage complete if the volume is restoring or
+  /// bootstrapping that represents the percent of data transferred. This field
+  /// does not appear in the response if the stored volume is not restoring or
+  /// bootstrapping.
+  final double volumeProgress;
+
+  /// The ID of the local disk that was specified in the CreateStorediSCSIVolume
+  /// operation.
+  final String volumeDiskId;
+
+  /// If the stored volume was created from a snapshot, this field contains the
+  /// snapshot ID used, e.g. snap-78e22663. Otherwise, this field is not
+  /// included.
+  final String sourceSnapshotId;
+
+  /// Indicates if when the stored volume was created, existing data on the
+  /// underlying local disk was preserved.
+  ///
+  ///  Valid Values: true, false
+  final bool preservedExistingData;
+
+  /// An VolumeiSCSIAttributes object that represents a collection of iSCSI
+  /// attributes for one stored volume.
+  final VolumeiScsiAttributes volumeiScsiAttributes;
+
+  /// The date the volume was created. Volumes created prior to March 28, 2017
+  /// don’t have this time stamp.
+  final DateTime createdDate;
+
+  /// The size of the data stored on the volume in bytes. This value is
+  /// calculated based on the number of blocks that are touched, instead of the
+  /// actual amount of data written. This value can be useful for sequential
+  /// write patterns but less accurate for random write patterns.
+  /// `VolumeUsedInBytes` is different from the compressed size of the volume,
+  /// which is the value that is used to calculate your bill.
+  ///
+  ///
+  ///
+  /// This value is not available for volumes created prior to May 13, 2015,
+  /// until you store data on the volume.
+  final BigInt volumeUsedInBytes;
+
+  final String kmsKey;
+
+  /// The name of the iSCSI target used by an initiator to connect to a volume
+  /// and used as a suffix for the target ARN. For example, specifying
+  /// `TargetName` as _myvolume_ results in the target ARN of
+  /// `arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume`.
+  /// The target name must be unique across all volumes on a gateway.
+  ///
+  /// If you don't specify a value, Storage Gateway uses the value that was
+  /// previously used for this volume as the new target name.
+  final String targetName;
+
+  StorediScsiVolume({
+    this.volumeArn,
+    this.volumeId,
+    this.volumeType,
+    this.volumeStatus,
+    this.volumeAttachmentStatus,
+    this.volumeSizeInBytes,
+    this.volumeProgress,
+    this.volumeDiskId,
+    this.sourceSnapshotId,
+    this.preservedExistingData,
+    this.volumeiScsiAttributes,
+    this.createdDate,
+    this.volumeUsedInBytes,
+    this.kmsKey,
+    this.targetName,
+  });
+  static StorediScsiVolume fromJson(Map<String, dynamic> json) =>
+      StorediScsiVolume();
+}
+
+class Tag {
+  /// Tag key (String). The key can't start with aws:.
+  final String key;
+
+  /// Value of the tag key.
+  final String value;
+
+  Tag({
+    @required this.key,
+    @required this.value,
+  });
+  static Tag fromJson(Map<String, dynamic> json) => Tag();
+}
+
+class Tape {
+  /// The Amazon Resource Name (ARN) of the virtual tape.
+  final String tapeArn;
+
+  /// The barcode that identifies a specific virtual tape.
+  final String tapeBarcode;
+
+  /// The date the virtual tape was created.
+  final DateTime tapeCreatedDate;
+
+  /// The size, in bytes, of the virtual tape capacity.
+  final BigInt tapeSizeInBytes;
+
+  /// The current state of the virtual tape.
+  final String tapeStatus;
+
+  /// The virtual tape library (VTL) device that the virtual tape is associated
+  /// with.
+  final String vtlDevice;
+
+  /// For archiving virtual tapes, indicates how much data remains to be
+  /// uploaded before archiving is complete.
+  ///
+  /// Range: 0 (not started) to 100 (complete).
+  final double progress;
+
+  /// The size, in bytes, of data stored on the virtual tape.
+  ///
+  ///
+  ///
+  /// This value is not available for tapes created prior to May 13, 2015.
+  final BigInt tapeUsedInBytes;
+
+  final String kmsKey;
+
+  /// The ID of the pool that contains tapes that will be archived. The tapes in
+  /// this pool are archived in the S3 storage class that is associated with the
+  /// pool. When you use your backup application to eject the tape, the tape is
+  /// archived directly into the storage class (Glacier or Deep Archive) that
+  /// corresponds to the pool.
+  ///
+  /// Valid values: "GLACIER", "DEEP_ARCHIVE"
+  final String poolId;
+
+  Tape({
+    this.tapeArn,
+    this.tapeBarcode,
+    this.tapeCreatedDate,
+    this.tapeSizeInBytes,
+    this.tapeStatus,
+    this.vtlDevice,
+    this.progress,
+    this.tapeUsedInBytes,
+    this.kmsKey,
+    this.poolId,
+  });
+  static Tape fromJson(Map<String, dynamic> json) => Tape();
+}
+
+class TapeArchive {
+  /// The Amazon Resource Name (ARN) of an archived virtual tape.
+  final String tapeArn;
+
+  /// The barcode that identifies the archived virtual tape.
+  final String tapeBarcode;
+
+  /// The date the virtual tape was created.
+  final DateTime tapeCreatedDate;
+
+  /// The size, in bytes, of the archived virtual tape.
+  final BigInt tapeSizeInBytes;
+
+  /// The time that the archiving of the virtual tape was completed.
+  ///
+  /// The default time stamp format is in the ISO8601 extended
+  /// YYYY-MM-DD'T'HH:MM:SS'Z' format.
+  final DateTime completionTime;
+
+  /// The Amazon Resource Name (ARN) of the tape gateway that the virtual tape
+  /// is being retrieved to.
+  ///
+  /// The virtual tape is retrieved from the virtual tape shelf (VTS).
+  final String retrievedTo;
+
+  /// The current state of the archived virtual tape.
+  final String tapeStatus;
+
+  /// The size, in bytes, of data stored on the virtual tape.
+  ///
+  ///
+  ///
+  /// This value is not available for tapes created prior to May 13, 2015.
+  final BigInt tapeUsedInBytes;
+
+  final String kmsKey;
+
+  /// The ID of the pool that was used to archive the tape. The tapes in this
+  /// pool are archived in the S3 storage class that is associated with the
+  /// pool.
+  ///
+  /// Valid values: "GLACIER", "DEEP_ARCHIVE"
+  final String poolId;
+
+  TapeArchive({
+    this.tapeArn,
+    this.tapeBarcode,
+    this.tapeCreatedDate,
+    this.tapeSizeInBytes,
+    this.completionTime,
+    this.retrievedTo,
+    this.tapeStatus,
+    this.tapeUsedInBytes,
+    this.kmsKey,
+    this.poolId,
+  });
+  static TapeArchive fromJson(Map<String, dynamic> json) => TapeArchive();
+}
+
+class TapeInfo {
+  /// The Amazon Resource Name (ARN) of a virtual tape.
+  final String tapeArn;
+
+  /// The barcode that identifies a specific virtual tape.
+  final String tapeBarcode;
+
+  /// The size, in bytes, of a virtual tape.
+  final BigInt tapeSizeInBytes;
+
+  /// The status of the tape.
+  final String tapeStatus;
+
+  /// The Amazon Resource Name (ARN) of the gateway. Use the ListGateways
+  /// operation to return a list of gateways for your account and AWS Region.
+  final String gatewayArn;
+
+  /// The ID of the pool that you want to add your tape to for archiving. The
+  /// tape in this pool is archived in the S3 storage class that is associated
+  /// with the pool. When you use your backup application to eject the tape, the
+  /// tape is archived directly into the storage class (Glacier or Deep Archive)
+  /// that corresponds to the pool.
+  ///
+  /// Valid values: "GLACIER", "DEEP_ARCHIVE"
+  final String poolId;
+
+  TapeInfo({
+    this.tapeArn,
+    this.tapeBarcode,
+    this.tapeSizeInBytes,
+    this.tapeStatus,
+    this.gatewayArn,
+    this.poolId,
+  });
+  static TapeInfo fromJson(Map<String, dynamic> json) => TapeInfo();
+}
+
+class TapeRecoveryPointInfo {
+  /// The Amazon Resource Name (ARN) of the virtual tape.
+  final String tapeArn;
+
+  /// The time when the point-in-time view of the virtual tape was replicated
+  /// for later recovery.
+  ///
+  /// The default time stamp format of the tape recovery point time is in the
+  /// ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+  final DateTime tapeRecoveryPointTime;
+
+  /// The size, in bytes, of the virtual tapes to recover.
+  final BigInt tapeSizeInBytes;
+
+  /// The status of the virtual tapes.
+  final String tapeStatus;
+
+  TapeRecoveryPointInfo({
+    this.tapeArn,
+    this.tapeRecoveryPointTime,
+    this.tapeSizeInBytes,
+    this.tapeStatus,
+  });
+  static TapeRecoveryPointInfo fromJson(Map<String, dynamic> json) =>
+      TapeRecoveryPointInfo();
+}
+
+class UpdateBandwidthRateLimitOutput {
+  final String gatewayArn;
+
+  UpdateBandwidthRateLimitOutput({
+    this.gatewayArn,
+  });
+  static UpdateBandwidthRateLimitOutput fromJson(Map<String, dynamic> json) =>
+      UpdateBandwidthRateLimitOutput();
+}
+
+class UpdateChapCredentialsOutput {
+  /// The Amazon Resource Name (ARN) of the target. This is the same target
+  /// specified in the request.
+  final String targetArn;
+
+  /// The iSCSI initiator that connects to the target. This is the same
+  /// initiator name specified in the request.
+  final String initiatorName;
+
+  UpdateChapCredentialsOutput({
+    this.targetArn,
+    this.initiatorName,
+  });
+  static UpdateChapCredentialsOutput fromJson(Map<String, dynamic> json) =>
+      UpdateChapCredentialsOutput();
+}
+
+class UpdateGatewayInformationOutput {
+  final String gatewayArn;
+
+  /// The name you configured for your gateway.
+  final String gatewayName;
+
+  UpdateGatewayInformationOutput({
+    this.gatewayArn,
+    this.gatewayName,
+  });
+  static UpdateGatewayInformationOutput fromJson(Map<String, dynamic> json) =>
+      UpdateGatewayInformationOutput();
+}
+
+class UpdateGatewaySoftwareNowOutput {
+  final String gatewayArn;
+
+  UpdateGatewaySoftwareNowOutput({
+    this.gatewayArn,
+  });
+  static UpdateGatewaySoftwareNowOutput fromJson(Map<String, dynamic> json) =>
+      UpdateGatewaySoftwareNowOutput();
+}
+
+class UpdateMaintenanceStartTimeOutput {
+  final String gatewayArn;
+
+  UpdateMaintenanceStartTimeOutput({
+    this.gatewayArn,
+  });
+  static UpdateMaintenanceStartTimeOutput fromJson(Map<String, dynamic> json) =>
+      UpdateMaintenanceStartTimeOutput();
+}
+
+class UpdateNfsFileShareOutput {
+  /// The Amazon Resource Name (ARN) of the updated file share.
+  final String fileShareArn;
+
+  UpdateNfsFileShareOutput({
+    this.fileShareArn,
+  });
+  static UpdateNfsFileShareOutput fromJson(Map<String, dynamic> json) =>
+      UpdateNfsFileShareOutput();
+}
+
+class UpdateSmbFileShareOutput {
+  /// The Amazon Resource Name (ARN) of the updated SMB file share.
+  final String fileShareArn;
+
+  UpdateSmbFileShareOutput({
+    this.fileShareArn,
+  });
+  static UpdateSmbFileShareOutput fromJson(Map<String, dynamic> json) =>
+      UpdateSmbFileShareOutput();
+}
+
+class UpdateSmbSecurityStrategyOutput {
+  final String gatewayArn;
+
+  UpdateSmbSecurityStrategyOutput({
+    this.gatewayArn,
+  });
+  static UpdateSmbSecurityStrategyOutput fromJson(Map<String, dynamic> json) =>
+      UpdateSmbSecurityStrategyOutput();
+}
+
+class UpdateSnapshotScheduleOutput {
+  /// The Amazon Resource Name (ARN) of the volume. Use the ListVolumes
+  /// operation to return a list of gateway volumes.
+  final String volumeArn;
+
+  UpdateSnapshotScheduleOutput({
+    this.volumeArn,
+  });
+  static UpdateSnapshotScheduleOutput fromJson(Map<String, dynamic> json) =>
+      UpdateSnapshotScheduleOutput();
+}
+
+class UpdateVtlDeviceTypeOutput {
+  /// The Amazon Resource Name (ARN) of the medium changer you have selected.
+  final String vtlDeviceArn;
+
+  UpdateVtlDeviceTypeOutput({
+    this.vtlDeviceArn,
+  });
+  static UpdateVtlDeviceTypeOutput fromJson(Map<String, dynamic> json) =>
+      UpdateVtlDeviceTypeOutput();
+}
+
+class VtlDevice {
+  /// Specifies the unique Amazon Resource Name (ARN) of the device (tape drive
+  /// or media changer).
+  final String vtlDeviceArn;
+
+  /// Specifies the type of device that the VTL device emulates.
+  final String vtlDeviceType;
+
+  /// Specifies the vendor of the device that the VTL device object emulates.
+  final String vtlDeviceVendor;
+
+  /// Specifies the model number of device that the VTL device emulates.
+  final String vtlDeviceProductIdentifier;
+
+  /// A list of iSCSI information about a VTL device.
+  final DeviceiScsiAttributes deviceiScsiAttributes;
+
+  VtlDevice({
+    this.vtlDeviceArn,
+    this.vtlDeviceType,
+    this.vtlDeviceVendor,
+    this.vtlDeviceProductIdentifier,
+    this.deviceiScsiAttributes,
+  });
+  static VtlDevice fromJson(Map<String, dynamic> json) => VtlDevice();
+}
+
+class VolumeInfo {
+  /// The Amazon Resource Name (ARN) for the storage volume. For example, the
+  /// following is a valid ARN:
+  ///
+  ///
+  /// `arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB`
+  ///
+  ///  Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+  /// hyphens (-).
+  final String volumeArn;
+
+  /// The unique identifier assigned to the volume. This ID becomes part of the
+  /// volume Amazon Resource Name (ARN), which you use as input for other
+  /// operations.
+  ///
+  ///  Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+  /// hyphens (-).
+  final String volumeId;
+
+  final String gatewayArn;
+
+  /// The unique identifier assigned to your gateway during activation. This ID
+  /// becomes part of the gateway Amazon Resource Name (ARN), which you use as
+  /// input for other operations.
+  ///
+  ///  Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+  /// hyphens (-).
+  final String gatewayId;
+
+  /// One of the VolumeType enumeration values describing the type of the
+  /// volume.
+  final String volumeType;
+
+  /// The size of the volume in bytes.
+  ///
+  /// Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and
+  /// hyphens (-).
+  final BigInt volumeSizeInBytes;
+
+  /// One of the VolumeStatus values that indicates the state of the storage
+  /// volume.
+  final String volumeAttachmentStatus;
+
+  VolumeInfo({
+    this.volumeArn,
+    this.volumeId,
+    this.gatewayArn,
+    this.gatewayId,
+    this.volumeType,
+    this.volumeSizeInBytes,
+    this.volumeAttachmentStatus,
+  });
+  static VolumeInfo fromJson(Map<String, dynamic> json) => VolumeInfo();
+}
+
+class VolumeRecoveryPointInfo {
+  /// The Amazon Resource Name (ARN) of the volume target.
+  final String volumeArn;
+
+  /// The size of the volume in bytes.
+  final BigInt volumeSizeInBytes;
+
+  /// The size of the data stored on the volume in bytes.
+  ///
+  ///
+  ///
+  /// This value is not available for volumes created prior to May 13, 2015,
+  /// until you store data on the volume.
+  final BigInt volumeUsageInBytes;
+
+  /// The time the recovery point was taken.
+  final String volumeRecoveryPointTime;
+
+  VolumeRecoveryPointInfo({
+    this.volumeArn,
+    this.volumeSizeInBytes,
+    this.volumeUsageInBytes,
+    this.volumeRecoveryPointTime,
+  });
+  static VolumeRecoveryPointInfo fromJson(Map<String, dynamic> json) =>
+      VolumeRecoveryPointInfo();
+}
+
+class VolumeiScsiAttributes {
+  /// The Amazon Resource Name (ARN) of the volume target.
+  final String targetArn;
+
+  /// The network interface identifier.
+  final String networkInterfaceId;
+
+  /// The port used to communicate with iSCSI targets.
+  final int networkInterfacePort;
+
+  /// The logical disk number.
+  final int lunNumber;
+
+  /// Indicates whether mutual CHAP is enabled for the iSCSI target.
+  final bool chapEnabled;
+
+  VolumeiScsiAttributes({
+    this.targetArn,
+    this.networkInterfaceId,
+    this.networkInterfacePort,
+    this.lunNumber,
+    this.chapEnabled,
+  });
+  static VolumeiScsiAttributes fromJson(Map<String, dynamic> json) =>
+      VolumeiScsiAttributes();
+}
